@@ -1,10 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PocApiCallService } from '../poc-api-call.service';
 import { CpuMaxUsage } from '../../../node_modules/hedwig/dist/hedwig-main.esm';
 import { LoggingService } from '../logging.service';
 import { LogLevels } from '../log-levels.enum';
-import { resolve } from 'url';
-import { reject } from 'q';
 
 @Component({
   selector: 'app-poc-data-call',
