@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LoggingService } from './_services/logging/logging.service';
 import { PortalDataService } from './_services/portal/portal-data.service';
 import { SharedModule } from './_shared/shared.module';
+import { AppStoreModule } from './_store/app-store.module';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -17,7 +18,8 @@ import { SharedModule } from './_shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     BrowserModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    AppStoreModule
   ],
   exports: [],
   providers: [

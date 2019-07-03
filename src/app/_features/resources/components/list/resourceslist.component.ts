@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { ResourcesService } from '../../../../_services/resources/resources.service';
+import { HttpParams } from '@angular/common/http';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs'
+import { HttpParamsOptions } from '@angular/common/http/src/params';
+import { QueryParams } from 'ngrx-data';
 
 @Component({
   selector: 'app-resourceslist',
@@ -25,14 +28,19 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchResources = () => {
-      return this.resourceService.getResources(this.defaultAmount, this.page)
+      const params : QueryParams = {
+        page: this.page.toString(),
+        size: this.defaultAmount.toString()
+      };
+
+      return this.resourceService.getWithQuery(params)
         .pipe(
           takeUntil(this.ngUnsubscribe)
         ).subscribe(data => {
-          this.resources = this.resourceService.resources.content;
-          this.total = this.resourceService.resources.totalElements;
-          // reapply once API logic is confirmed
-          //this.page = this.resourceService.resources.default.number + 1;
+          this.resources = data.content;
+          this.total = data.totalElements;
+          //reapply once API logic is confirmed
+          //this.page = data.number + 1;
           this.searchPlaceholderText = `Search ${this.total} Resources`;
         });
     }

@@ -1,4 +1,87 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { resourcesMock } from '../../_mocks/resources/resources.service.mock'
+import {
+  EntityCollectionDataService,
+  DefaultDataService,
+  HttpUrlGenerator,
+  Logger,
+  QueryParams
+} from 'ngrx-data'
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Resources, Resource } from '../../_models/resource';
+import { LoggingService } from '../../_services/logging/logging.service';
+import { LogLevels } from '../../_enums/log-levels.enum';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
+
+@Injectable()
+export class ResourcesService extends DefaultDataService<Resource> {
+
+  private mockedResources = new resourcesMock();
+  constructor(http: HttpClient, httpUrlGenerator: HttpUrlGenerator, logger: Logger,
+    private logService: LoggingService) {
+    super('Resource', http, httpUrlGenerator);
+    logger.log('Created custom Resource EntityDataService');
+  }
+
+  getAll(): Observable<Resource[]> {
+    return super.getAll();
+  }
+
+  getById(id: string | number): Observable<Resource> {
+    return super.getById(id);
+  }
+
+  getWithQuery(params: string | QueryParams): Observable<any> {
+    if (environment.mock) {
+      let size = parseInt(params['size']);
+      let pageNumber = parseInt(params['page']);
+      pageNumber = --pageNumber;
+      let mocks = Object.assign({}, this.mockedResources.collection);
+      let slicedData = [... mocks.content.slice(pageNumber * size, (pageNumber + 1) * size)];
+      let resources = mocks;
+      resources.content = slicedData
+      return of(resources);
+      /*
+      let pageNumber = --parseInt(params['page']);
+      le=t mocks = Object.assign({}, this.mockedResources.collection);
+      let slicedData = [... mocks.content.slice(pageNumber * size, (pageNumber + 1) * size)];
+      this.resources = mocks;
+      this.resources.content = slicedData
+      return of(this.resources);
+      */
+    }
+    else {
+    return super.getWithQuery(params)
+    .pipe(
+      tap(data => {
+        this.logService.log(`Resource: ${data}`, LogLevels.info);
+      })
+      );
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -75,3 +158,4 @@ export class ResourcesService {
   }
 
 }
+*/
