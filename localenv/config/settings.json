@@ -3,6 +3,10 @@
     "metrics": {
       "api_host": "http://34.73.174.146",
       "api_url": "/intelligence-format-query"
+    },
+    "monitoring": {
+      "api_host": "https://salus-api.dev.monplat.rackspace.net",
+      "api_url":  "/v1.0/tenant"
     }
   },
   "dev": {

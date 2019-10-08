@@ -30,7 +30,6 @@ app.use('/intelligence', function ( req, res, next ) {
 });
 
 let body = {};
-var authInfo = {};
 const port = 3000;
 const env = process.env.NODE_ENV;
 
@@ -76,10 +75,10 @@ if (env === 'dev') {
 else {
 
 // Attempt to login against Rackspace Identity
-Identity({'body': body}).then((response) => {
+Identity.login({'body': body}).then((response) => {
 
-    authInfo.token = response.access.token;
-    authInfo.user = response.access.user;
+    Identity.setToken(response.access.token);
+    Identity.setUser(response.access.user);
 
     let body = {
         "primary-nav": {
@@ -88,12 +87,12 @@ Identity({'body': body}).then((response) => {
     };
 
     // upon login get Pilot navigation
-    return Pilot({'tenantId': authInfo.token.tenant.id, 'body': body, 'token': authInfo.token.id });
+    return Pilot({'tenantId': Identity.info().token.tenant.id, 'body': body, 'token': Identity.info().token.id });
 
 }, breakChain).then(async (pilotResponse) => {
 
     try {
-        Portal.createPortal(authInfo);
+        Portal.createPortal(Identity.info());
         PilotScript.createPilot(pilotResponse);
         return;
     }

@@ -44,7 +44,7 @@ export class ResourcesService {
     return this.http.get(`${environment.api.salus}/resources?size=${size}&page=${page}`, httpOptions)
     .pipe(
       tap(data =>
-        { this.resources = data;
+        { this.resources = data.content;
           this.logService.log(this.resources, LogLevels.info);
         }));
     }
