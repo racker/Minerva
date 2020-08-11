@@ -30,6 +30,130 @@
         },
         "createdTimestamp": "2020-08-07T16:41:03Z",
         "updatedTimestamp": "2020-08-07T16:41:03Z"
+      },
+      {
+        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "name": "network",
+        "measurement": "network",
+        "taskParameters": {
+          "criticalStateDuration": 2,
+          "warningStateDuration": null,
+          "infoStateDuration": null,
+          "stateExpressions": [
+            {
+              "expression": {
+                "type": "comparison",
+                "comparator": "<",
+                "valueName": null,
+                "comparisonValue": 3
+              },
+              "state": "CRITICAL",
+              "message": "critical threshold was hit"
+            }
+          ],
+          "customMetrics": null,
+          "windowLength": null,
+          "windowFields": null,
+          "flappingDetection": false,
+          "labelSelector": {
+            "agent_environment": "localdev"
+          }
+        },
+        "createdTimestamp": "2020-08-07T16:41:03Z",
+        "updatedTimestamp": "2020-08-07T16:41:03Z"
+      },
+      {
+        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "name": "filesystem",
+        "measurement": "filesystem",
+        "taskParameters": {
+          "criticalStateDuration": 2,
+          "warningStateDuration": null,
+          "infoStateDuration": null,
+          "stateExpressions": [
+            {
+              "expression": {
+                "type": "comparison",
+                "comparator": "<",
+                "valueName": null,
+                "comparisonValue": 3
+              },
+              "state": "CRITICAL",
+              "message": "critical threshold was hit"
+            }
+          ],
+          "customMetrics": null,
+          "windowLength": null,
+          "windowFields": null,
+          "flappingDetection": false,
+          "labelSelector": {
+            "agent_environment": "localdev"
+          }
+        },
+        "createdTimestamp": "2020-08-07T16:41:03Z",
+        "updatedTimestamp": "2020-08-07T16:41:03Z"
+      },
+      {
+        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "name": "memory",
+        "measurement": "memory",
+        "taskParameters": {
+          "criticalStateDuration": 2,
+          "warningStateDuration": null,
+          "infoStateDuration": null,
+          "stateExpressions": [
+            {
+              "expression": {
+                "type": "comparison",
+                "comparator": "<",
+                "valueName": null,
+                "comparisonValue": 3
+              },
+              "state": "CRITICAL",
+              "message": "critical threshold was hit"
+            }
+          ],
+          "customMetrics": null,
+          "windowLength": null,
+          "windowFields": null,
+          "flappingDetection": false,
+          "labelSelector": {
+            "agent_environment": "localdev"
+          }
+        },
+        "createdTimestamp": "2020-08-07T16:41:03Z",
+        "updatedTimestamp": "2020-08-07T16:41:03Z"
+      },
+      {
+        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "name": "ping",
+        "measurement": "ping",
+        "taskParameters": {
+          "criticalStateDuration": 2,
+          "warningStateDuration": null,
+          "infoStateDuration": null,
+          "stateExpressions": [
+            {
+              "expression": {
+                "type": "comparison",
+                "comparator": "<",
+                "valueName": null,
+                "comparisonValue": 3
+              },
+              "state": "CRITICAL",
+              "message": "critical threshold was hit"
+            }
+          ],
+          "customMetrics": null,
+          "windowLength": null,
+          "windowFields": null,
+          "flappingDetection": false,
+          "labelSelector": {
+            "agent_environment": "localdev"
+          }
+        },
+        "createdTimestamp": "2020-08-07T16:41:03Z",
+        "updatedTimestamp": "2020-08-07T16:41:03Z"
       }
     ],
     "number": 0,

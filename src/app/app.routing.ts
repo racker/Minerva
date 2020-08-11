@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'events', loadChildren: () => import('./_features/events/events.module').then(m => m.EventsModule),
     data: {
       breadcrumb: 'EVENTS'
-    }, resolve: {schema: SchemaResolver }
+    }
   },
 
   { path: 'visualize', loadChildren: () => import('./_features/visualize/visualize.module').then(m => m.VisualizeModule),
