@@ -47,7 +47,7 @@
     "ajv": "6.12.0",
     "chromedriver": "2.45.0",
     "core-js": "2.5.4",
-    "hedwig-monitoring-library": "https://github.com/racker/Hedwig/archive/v0.2.0.tar.gz",
+    "hedwig-monitoring-library": "https://github.com/racker/Hedwig/archive/v0.1.0.tar.gz",
     "helix-ui": "0.18.0-rc.2",
     "jasmine-data-provider": "^2.2.0",
     "moment": "2.24.0",
