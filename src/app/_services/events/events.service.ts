@@ -52,7 +52,10 @@ export class EventsService {
       return this.http.get<ListEvents>(`${environment.api.salus}/event-tasks?size=${size}`, httpOptions)
       .pipe(
         tap(data =>
-          { this._events = data;
+          { 
+            
+            console.log("data from event tasks api ", data);
+            this._events = data;
             this.logService.log(this.events, LogLevels.info);
           }));
       }
