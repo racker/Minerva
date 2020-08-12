@@ -57,30 +57,4 @@ export class EventsService {
           }));
       }
   }
-
-    /**
-   * Gets a single Event
-   * @param id
-   * @returns Observable<Event>
-   */
-  getResource(id: string): Observable<Event> {
-    if (environment.mock) {
-      this._event = this.mockedEvents.single;
-      return of<Event>(this.mockedEvents.single);
-    }
-    else {
-      return this.http.get<Event>(`${environment.api.salus}/resources/${id}`)
-      .pipe(
-        tap(data =>
-          {
-            this._event = data;
-            this.logService.log(`Resource: ${data}`, LogLevels.info);
-          })
-      );
-    }
-  }
-
-
-
-
 }
