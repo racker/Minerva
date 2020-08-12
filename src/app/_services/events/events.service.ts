@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { eventsMock } from '../../_mocks/events/events.service.mock';
-import { ListEvents, Event } from '../../_models/events';
+import { EventsMock } from '../../_mocks/events/events.service.mock';
+import { Events, Event } from '../../_models/events';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Observable, of } from 'rxjs';
@@ -20,18 +20,18 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class EventsService {
-  private _events: ListEvents;
+  private _events: Events;
   private _event:Event;
 
-  private mockedEvents = new eventsMock();
+  private mockedEvents = new EventsMock();
 
   constructor(private http:HttpClient, private logService:LoggingService) { }
 
-  get events(): ListEvents {
+  get events(): Events {
     return this._events;
   }
 
-  set events(value: ListEvents) {
+  set events(value: Events) {
     this._events = value;
   }
 
@@ -41,15 +41,15 @@ export class EventsService {
    * @param size
    * @returns Observable<ListEvents>
    */
-  getEvents(size?: number): Observable<ListEvents> {
+  getEvents(size?: number): Observable<Events> {
     if (environment.mock) {
       let mocks = Object.assign({}, this.mockedEvents.eventList);
       //let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.events = mocks;
       //this.events.content = slicedData;
-      return of<ListEvents>(this.events);
+      return of<Events>(this.events);
     } else {
-      return this.http.get<ListEvents>(`${environment.api.salus}/event-tasks?size=${size}`, httpOptions)
+      return this.http.get<Events>(`${environment.api.salus}/event-tasks?size=${size}`, httpOptions)
       .pipe(
         tap(data =>
           { 

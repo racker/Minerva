@@ -2,7 +2,7 @@ import {  Pagination } from "../_models/common";
 
 interface TaskParameters {
     criticalStateDuration:number;
-        stateExpressions:stateExpressions[];
+        stateExpressions:StateExpressions[];
         flappingDetection:boolean;
         labelSelector:{
             agent_environment:string;
@@ -21,7 +21,7 @@ export interface Event {
 
 }
 
-export interface stateExpressions {
+export interface StateExpressions {
     expression: {
         type:string;
         comparator:string;
@@ -46,25 +46,16 @@ export interface CreateEvent {
 			{
 				state: string;
 				message: string;
-				expression: stateExpressions;
+				expression: StateExpressions;
 			}
 		]
 	}
 }
 
 
-export interface ListEventsPaging extends Pagination {
+export interface Events extends Pagination {
     content:Event[];   
 }
 
-export interface ListEvents {
-    content: Event[];
-    number: number;
-    totalPages: number;
-    totalElements: number;
-    last: boolean;
-    first: boolean;
-
-}
 
 
