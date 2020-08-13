@@ -22,5 +22,21 @@ router.post('', (req, res) => {
     res.sendStatus(parseInt(err.response.status)).json(err);
   })
 })
+router.get('/:id', (req, res) => {
+  let id = req.params.id;
+  axios.get(`${config.monitoring.api_host}${config.monitoring.api_url}/${identity.info().token.tenant.id}/event-tasks/${id}`,
+    {
+      headers: {
+        'x-auth-token': identity.info().token.id
+      }
+    }
+  ).
+  then((data) => {
+    res.status(data.status).json(data.data)
+  }).
+  catch((err) => {
+    res.sendStatus(parseInt(err.response.status)).json(err);
+  })
+})
 module.exports = router;
 
