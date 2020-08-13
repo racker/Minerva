@@ -53,8 +53,6 @@ export class EventsService {
       .pipe(
         tap(data =>
           { 
-            
-            console.log("data from event tasks api ", data);
             this._events = data;
             this.logService.log(this.events, LogLevels.info);
           }));
