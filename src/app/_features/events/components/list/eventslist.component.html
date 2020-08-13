@@ -11,36 +11,20 @@
       
     <thead>
       <tr>
+        <th>Id</th>
         <th>Name</th>
-        <th>Event Status</th>
-        <th>Notification Plan</th>
+        <th>Measurement</th>
+        <th>Agent Environment</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><code>dgdfgfd</code></td>
-        <td><code>fdgdfg</code></td>
-        <td>Email Only</td>
-      </tr>
-      <tr>
-        <td><code>dgdfgfd</code></td>
-        <td><code>fdgdfg</code></td>
-        <td>On-Call Support </td>
-      </tr>
-      <tr>
-        <td><code>dgdfgfd</code></td>
-        <td><code>fdgdfg</code></td>
-        <td>Test New Plan</td>
-      </tr>
-      <tr>
-        <td><code>dgdfgfd</code></td>
-        <td><code>fdgdfg</code></td>
-        <td>Technical Contacts</td>
-      </tr>
-      <tr>
-        <td><code>dgdfgfd</code></td>
-        <td><code>fdgdfg</code></td>
-        <td>Test Plan</td>
+      <tr *ngFor="let event of events"> 
+        <td>
+          <a routerLink="">{{event.id}}</a>
+        </td>
+        <td><code>{{event.name}}</code></td>
+        <td><code>{{event.measurement}}</code></td>
+        <td><code>{{event.taskParameters.labelSelector.agent_environment}}</code></td>
       </tr>
     </tbody>
   </table>

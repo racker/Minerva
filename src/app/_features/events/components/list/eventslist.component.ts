@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../../../_services/events/events.service';
+import { Event } from '../../../../_models/events';
 import { Subscription } from 'rxjs';
 
 
@@ -10,7 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class EventslistComponent implements OnInit {
 
-
+  events:Event[];
+  size:number = 1;
   subscriber = new Subscription();
 
   constructor(private eventService:EventsService) { }
@@ -20,10 +22,9 @@ export class EventslistComponent implements OnInit {
   }
 
   getEvents() {
-    let size = 1;
-    this.subscriber=this.eventService.getEvents(size).subscribe(data =>{     
+    this.subscriber=this.eventService.getEvents(this.size).subscribe(data =>{     
       console.log("data from event service ", data);
-      
+      this.events = data.content;
     })
   }
 
