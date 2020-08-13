@@ -7,24 +7,20 @@
     </button>
   </div>
 
-  <table class="hxTable hxTable--condensed">
-      
+<table id="evnttble" class="hxTable">
     <thead>
       <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Measurement</th>
         <th>Agent Environment</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let event of events"> 
-        <td>
-          <a routerLink="">{{event.id}}</a>
-        </td>
-        <td><code>{{event.name}}</code></td>
-        <td><code>{{event.measurement}}</code></td>
-        <td><code>{{event.taskParameters.labelSelector.agent_environment}}</code></td>
+      <tr *ngFor="let event of events">
+        <td [id]="event.id"><a [routerLink]="">{{event.name}}</a></td>
+
+        <td >{{event.measurement}}</td>
+        <td>{{event.taskParameters.labelSelector.agent_environment}}</td>
       </tr>
     </tbody>
   </table>
