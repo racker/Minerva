@@ -21,7 +21,6 @@ const httpOptions = {
 })
 export class EventsService {
   private _events: Events;
-  private _event:Event;
 
   private mockedEvents = new EventsMock();
 
