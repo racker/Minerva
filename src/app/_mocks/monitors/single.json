@@ -3,7 +3,7 @@
     "name": "Chill NetResponse",
     "labelSelectorMethod": "AND",
     "interval": "PT1M6S",
-    "resourceId": "development:2",
+    "resourceId": null,
     "policy": false,
     "excludedResourceIds": ["development:5", "development:6", "development:7"],
     "labelSelector": {
