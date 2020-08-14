@@ -26,4 +26,9 @@ export class EventslistComponent implements OnInit {
       this.events = data.content;
     })
   }
+
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
+  }
+  
 }
