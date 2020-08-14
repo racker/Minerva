@@ -6,13 +6,21 @@
 </div>
 <div class="hxRow hxSpan-9" style="padding-top: 20px">
     <div class="hxCol hxSpan-6">
-        <div class="hxRow" >
+        <div class="hxRow">
             <div class="hxCol hxSpan-6">
-              label
+                Created Date
             </div>
             <div class="hxCol hxSpan-6">
-             values
+                {{event?.createdTimestamp |  date:'MM/dd/yyyy'}}
             </div>
-          </div>
-         </div>
+        </div>
+        <div class="hxRow">
+            <div class="hxCol hxSpan-6">
+                Last Updated
+            </div>
+            <div class="hxCol hxSpan-6">
+                {{event?.updatedTimestamp |  date:'MM/dd/yyyy'}}
+            </div>
+        </div>
+    </div>
 </div>
