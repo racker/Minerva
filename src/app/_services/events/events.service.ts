@@ -18,10 +18,7 @@ const httpOption = {
 })
 export class EventsService {
   private eventMock= new EventsMock();
-
   private event;
-
-
   public get getEvent() {
     return this.event
   }
@@ -32,6 +29,10 @@ export class EventsService {
 
   constructor(private http: HttpClient, private logService: LoggingService) { }
 
+  /**
+   * 
+   * @param id event id
+   */
   getEventById(id): Observable<Event> {
     if (environment.mock) {
       let mock = Object.assign({},this.eventMock.single)
