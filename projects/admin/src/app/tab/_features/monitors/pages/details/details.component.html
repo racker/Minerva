@@ -4,7 +4,7 @@
 <div *ngIf="monitor$ | async as monitor">
     <!-- <div *ngIf="isLoaded"> -->
       <div>
-  
+
       <div class="hxRow monitor-header">
         <div class="hxCol hxSpan-12">
           <app-breadcrumb [routeDetails]="monitor.name || monitorUtil.formatSummaryField(monitor)"></app-breadcrumb>
@@ -26,7 +26,7 @@
                 </hx-text-control>
               </div>
               <div class="hxCol hxSpan-6">
-                <button type="submit" class="hxBtn hxPrimary su" [disabled]="updateMonNameLoading">
+                <button id="btnMonitorName" type="submit" class="hxBtn hxPrimary su" [disabled]="updateMonNameLoading">
                   <hx-busy class="popover-busy" *ngIf="updateMonNameLoading"></hx-busy>
                   Submit
                 </button>
@@ -57,19 +57,19 @@
               <hx-menuitem (click)="modifySettings()">Modify Settings</hx-menuitem>
               <hx-menuitem>Modify Options</hx-menuitem>
               <hx-menuitem>
-                <hx-disclosure #delMonLink aria-controls="delMonModal">Delete Monitor</hx-disclosure>
+                <hx-disclosure id="delMonLink" #delMonLink aria-controls="delMonModal">Delete Monitor</hx-disclosure>
               </hx-menuitem>
             </section>
           </hx-menu>
         </div>
       </div>
-  
+
       <div class="hxRow hxSpan-9">
         <div class="hxCol hxSpan-9">
           <h3>Monitor Details</h3>
         </div>
       </div>
-  
+
       <div class="hxRow hxSpan-9">
         <div class="hxCol hxSpan-6">
           <h4>Monitor Type</h4>
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-  
+
       <hx-popover id="editLabelPopover" position="bottom-right">
         <header>
           Labels
@@ -107,7 +107,7 @@
           aria-controls="metaPopover">Cancel</button>
         </footer>
       </hx-popover>
-  
+
       <div class="hxRow hxSpan-9" style="padding-top: 20px;">
         <div class="hxCol hxSpan-6">
           <h4>Monitor Scope</h4>
@@ -121,7 +121,7 @@
             </hx-icon>
         </div>
       </div>
-  
+
       <div class="hxRow hxSpan-9" style="margin-top:-15px" [@slideUpDown]="additionalSettings">
         <div class="hxCol hxSpan-6 hxOffset-6" *ngIf="!additionalSettingEdit">
           <div class="hxRow hxSpan-12">
@@ -163,7 +163,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="hxRow hxSpan-9" style="padding-top: 20px">
         <div class="hxCol hxSpan-6">
           <h4>{{monDetails.details.plugin.type}} monitor Details <hx-icon id="pencilIcn" (click)="pencilClick()" type="pencil">
@@ -199,7 +199,7 @@
               </ng-template>
               <ng-template #isoBlock>
                 {{monDetails.details.plugin[pluginField] | durationSeconds }}
-              </ng-template>            
+              </ng-template>
               <ng-template #nonIsoBlock>
                 {{monDetails.details.plugin[pluginField]}}
               </ng-template>
@@ -258,30 +258,29 @@
         </footer>
       </hx-modal>
     </div>
-  
+
     <div class="hxRow hxSpan-9">
       <div class="hxCol">
         <h3>Resources</h3>
       </div>
     </div>
-  
+
     <div class="hxRow hxSpan-9 last-item">
       <app-resource-list [monitorId]="monitor.id"></app-resource-list>
     </div>
-  
+
     <div class="hxRow hxSpan-9">
       <div class="hxCol">
         <h3>Events</h3>
       </div>
     </div>
-  
+
     <div class="hxRow hxSpan-9">
       <div class="hxCol">
         <p>These are events related to this measurement on the basis of label</p>
       </div>
     </div>
-  
+
     <div class="hxRow hxSpan-9 last-item">
       <app-eventslist></app-eventslist>
-    </div>  
-    
+    </div>

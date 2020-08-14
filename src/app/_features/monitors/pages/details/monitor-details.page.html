@@ -26,7 +26,7 @@
               </hx-text-control>
             </div>
             <div class="hxCol hxSpan-6">
-              <button type="submit" class="hxBtn hxPrimary su" [disabled]="updateMonNameLoading">
+              <button id="btnMonitorName" type="submit" class="hxBtn hxPrimary" [disabled]="updateMonNameLoading">
                 <hx-busy class="popover-busy" *ngIf="updateMonNameLoading"></hx-busy>
                 Submit
               </button>
@@ -40,7 +40,7 @@
       <div class="hxCol hxSpan-3 cog-menu-div align-right">
         <hx-disclosure class="hxBtn" aria-controls="basicMenuId">
           <hx-icon type="cog"></hx-icon>
-          <span>Actions</span>
+          <span id="btnActions">Actions</span>
           <hx-icon class="hxPrimary" type="angle-down"></hx-icon>
         </hx-disclosure>
         <hx-menu id="basicMenuId">
@@ -199,7 +199,7 @@
             </ng-template>
             <ng-template #isoBlock>
               {{monDetails.details.plugin[pluginField] | durationSeconds }}
-            </ng-template>            
+            </ng-template>
             <ng-template #nonIsoBlock>
               {{monDetails.details.plugin[pluginField]}}
             </ng-template>
@@ -286,4 +286,4 @@
 
 
 
-  
+
