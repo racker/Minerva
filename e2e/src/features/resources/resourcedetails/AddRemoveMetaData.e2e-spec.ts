@@ -4,7 +4,7 @@ import { resourcesListPage } from "../../../pages/resourcelistpage";
 import { resourcesDetailsPage } from "../../../pages/resourcesdetailspage";
 import { metadataOverlay } from "../../../overlays/metadataOverlay";
 
-describe("To test delete resource functionality  ", () => {
+describe("To test metadata popover functionality  ", () => {
   let page: AppPage;
 
   beforeEach(() => {
@@ -56,8 +56,6 @@ describe("To test delete resource functionality  ", () => {
       
       let metadataOverlayObj=new metadataOverlay();
       metadataOverlayObj.cancelBtnRemovesPopover();
-
-   
-});
+   });
   
 });

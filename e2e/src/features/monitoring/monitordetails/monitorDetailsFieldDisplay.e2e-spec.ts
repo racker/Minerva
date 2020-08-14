@@ -3,14 +3,11 @@ import { navigations } from "../../../commons/navigations";
 import { monitorsListPage } from "../../../pages/monitorlistpage";
 import { monitorsDetailsPage } from "../../../pages/monitordetailspage";
 import { browser } from "protractor";
-import { default as using } from "../../../../../node_modules/jasmine-data-provider";
+import { default as using } from "jasmine-data-provider";
 import { default as obj } from "../../../../../src/app/_mocks/monitors/single.json";
 
-
-
-
-
-describe("Test label field display on Monitor's details page", ()=> {
+   
+describe("To test fields display on Monitor's details page", ()=> {
    let page: AppPage;
    let nav: navigations;
    let page1: monitorsListPage;
@@ -43,7 +40,28 @@ describe("Test label field display on Monitor's details page", ()=> {
          expect(page2.labelsInfoValueDisplay(data.value).isDisplayed()).toBe(true);
          browser.sleep(3000);
       });
-
-
    });
-});
+
+
+      it("Verify that additional settings slide down on clicking it and that the text appears in correct areas",()=>{
+         page2.additionalSettings.click();
+         
+         expect(obj["period(seconds)"]).toEqual(66);
+         
+         expect(obj.excludedResourceIds[0]).toEqual('development:5')
+         expect(obj.excludedResourceIds[1]).toEqual('development:6')
+         expect(obj.excludedResourceIds[2]).toEqual('development:7')
+
+         // expect(obj.resourceId).toEqual('development:2');
+         
+         expect(obj.policy).toBeFalsy;
+
+         expect(obj.labelSelectorMethod).toEqual('AND');
+
+      });
+   });
+
+
+
+   
+

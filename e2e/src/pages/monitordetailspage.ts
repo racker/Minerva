@@ -3,12 +3,16 @@ import { element, by, WebElement } from "protractor"
 
 export class monitorsDetailsPage
 {
-  public labelsInfoKeyDisplay(key:string){
+
+  additionalSettings   =element(by.xpath("//a[@class='addSettings ng-tns-c61-0']"));
+  
+
+  labelsInfoKeyDisplay(key:string){
      return(element(by.xpath("//div[contains(text(),'"+key+"')]")));
      
   }
 
-  public labelsInfoValueDisplay(value:string){
+  labelsInfoValueDisplay(value:string){
     return(element(by.xpath("//div[contains(text(),'"+value+"')]")));
     }
   

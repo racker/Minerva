@@ -27,7 +27,6 @@ describe("Add-fields Component Test in resources", () => {
   it("Should check if click add button should add 2twice row should update", () => {
     element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
     element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
     element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();    
     expect(element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).isPresent()).toBe(true);
   });
