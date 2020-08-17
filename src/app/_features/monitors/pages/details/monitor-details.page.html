@@ -1,8 +1,4 @@
-<!-- <div class="loader" *ngIf="!isLoaded">
-    <hx-busy></hx-busy>
-</div> -->
 <div *ngIf="monitor$ | async as monitor">
-  <!-- <div *ngIf="isLoaded"> -->
     <div>
 
     <div class="hxRow monitor-header">
@@ -75,6 +71,7 @@
         <h4>Monitor Type</h4>
         {{monitor.details.plugin.type}}
       </div>
+
       <div class="hxCol hxSpan-6">
         <h4>Labels<hx-disclosure aria-controls="editLabelPopover" #updateLabelPen id="updateLabelPen" class="editclick">
           <hx-icon type="pencil"></hx-icon></hx-disclosure></h4>
@@ -267,7 +264,7 @@
   </div>
 
   <div class="hxRow hxSpan-9 last-item">
-    <app-resource-list [monitorId]="monitor.id"></app-resource-list>
+    <app-resource-list [monitor]="monDetails"></app-resource-list>
   </div>
 
   <div class="hxRow hxSpan-9">

@@ -68,8 +68,7 @@ describe('ResourcesListComponent', () => {
         ResourcesService,
         SpinnerService,
         // reference the new instance of formBuilder from above
-        { provide: FormBuilder, useValue: formBuilder },
-        //{ provide: ValidateResource, useValue: mockValidateResource}
+        { provide: FormBuilder, useValue: formBuilder }
       ]
     })
     .compileComponents();

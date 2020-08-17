@@ -97,11 +97,9 @@
               </label>
             </hx-checkbox-control>
       </td>
-      <td>   
-        <!-- <a *ngIf="!isAdmin" [routerLink]="['/resources', resource.resourceId]">{{resource.resourceId}}</a> -->
-        <!-- <a *ngIf="isAdmin" [routerLink]="['/admin/resources', resource.resourceId]">{{resource.resourceId}}</a> -->
-        <a  routerLink="{{isAdminRoute(resource.resourceId)}}">{{resource.resourceId}}</a>
-        
+      <td>
+        <a routerLink="{{isAdminRoute(resource.resourceId)}}">{{resource.resourceId}}</a>
+
       </td>
       <td>--</td>
       <td>3</td>

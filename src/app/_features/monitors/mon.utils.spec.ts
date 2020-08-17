@@ -4,6 +4,7 @@ import {
     CreateMonitor
 } from 'src/app/_models/salus.monitor'
 import { Monitor } from 'src/app/_models/monitors';
+import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface'
 
 describe('Monitor Utilities', () => {
 
@@ -161,5 +162,37 @@ describe('Monitor Utilities', () => {
         expect(MonitorUtil.formatSummaryField(monitor)).toEqual("ping-tcp-f2c14");
         monitor.summary = {};
         expect(MonitorUtil.formatSummaryField(monitor)).toEqual("ping-f2c14");
+    });
+
+    it('should create a formatted test monitor', () => {
+        let monitor: Monitor = Object.assign({}, {
+            id: "9af34979-2cc5-41b3-b73b-26bc479f2c14",
+            name: null,
+            labelSelector: null,
+            interval: "PT34S",
+            labelSelectorMethod: "AND",
+            details: {
+                type: "local",
+                plugin: {
+                    type: "cpu",
+                    percpu: true,
+                    totalcpu: true,
+                    collectCpuTime: null,
+                    reportActive: null
+                },
+            },
+            createdTimestamp: "2020-06-17T12:48:45Z",
+            updatedTimestamp: "2020-06-17T12:48:45Z"
+        });
+        expect(MonitorUtil.formatTestMonitor('devUbuntu', monitor)).toEqual({
+            resourceId: 'devUbuntu',
+            details: {
+                type: 'local',
+                plugin: {
+                    type: 'cpu'
+                }
+            }
+        });
+
     })
 });

@@ -2,8 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BoundMonitor } from 'src/app/_models/resources';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Pagination } from 'src/app/_models/common';
+import { isAdmin } from 'src/app/_shared/utils';
+import { MonitorUtil } from 'src/app/_features/monitors/mon.utils'
+import { Router } from '@angular/router';
+import { Monitor, TestMonitor } from 'src/app/_models/monitors';
+import { CreateTestMonitor } from '../../interfaces/testMonitor.interface';
 @Component({
   selector: 'app-resource-list',
   templateUrl: './resource-list.component.html',
@@ -15,11 +19,15 @@ export class ResourceListComponent implements OnInit {
     number:0
   }
   isLoading: boolean = false;
-  //perPage: number = environment.pagination.pageSize;
-  resources:BoundMonitor[]; 
-  @Input() monitorId:string;
+  resources:BoundMonitor[];
+  isAdmin = isAdmin;
+  testMonitorResults: TestMonitor;
+  monitorUtil = MonitorUtil;
+  isTestLoading: boolean = true;
+  Object = window.Object;
+  @Input() monitor: Monitor;
   subscriber = new Subscription();
-  constructor(private mntor : MonitorService) { }
+  constructor(private mntor : MonitorService, private router: Router) { }
 
   /**
    * @description Default (ngOnInit) function called when component loads for the first time.
@@ -35,11 +43,19 @@ export class ResourceListComponent implements OnInit {
   */
 
   getResources(){
-    this.subscriber=this.mntor.getBoundMonitor({monitorId : this.monitorId, size: this.pagination.totalElements, page: this.pagination.number}).subscribe(data =>{     
+    this.subscriber=this.mntor.getBoundMonitor({monitorId : this.monitor.id, size: this.pagination.totalElements, page: this.pagination.number}).subscribe(data =>{
       this.resources = data.content;
       this.pagination.totalPages = data.totalElements;
       this.isLoading = false;
-    })
+    });
+  }
+
+  testMonitor(resourceId) {
+    let monitorData:CreateTestMonitor = MonitorUtil.formatTestMonitor(resourceId, this.monitor);
+    this.mntor.testMonitor(monitorData).subscribe((data) => {
+      this.isTestLoading = false;
+      this.testMonitorResults = data;
+    });
   }
 
     /**
@@ -72,7 +88,7 @@ prevPage(): void {
 }
 
   /**
-   * @description call ngOnDestroy function when to unsubscribe subscriber param which is subscribed to fetch resources. 
+   * @description call ngOnDestroy function when to unsubscribe subscriber param which is subscribed to fetch resources.
    * @field this.subscriber
    */
 

@@ -163,7 +163,6 @@ export class ResourcesService {
         }
       }).pipe(
         tap(data => {
-          let stuff = data;
           this.logService.log(`Search Resources`, LogLevels.info);
         })
       )

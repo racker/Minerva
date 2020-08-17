@@ -160,8 +160,8 @@ export class DetailsComponent implements OnInit {
   }
 
   /**
-   * Check timeduration field 
-   * @param pluginField 
+   * Check timeduration field
+   * @param pluginField
    */
   isTimeduration(pluginField) {
     if (pluginField) {

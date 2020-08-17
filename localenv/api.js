@@ -7,11 +7,13 @@ const Labels = require('./routes/labels');
 const ResourceSearch = require('./routes/resources-search');
 const Schema = require('./routes/schema');
 const MonitorSearch = require('./routes/monitors-search');
-const Zones= require(`./routes/zones`);
-const Event= require('./routes/event-task');
+const Zones = require(`./routes/zones`);
+const Event = require('./routes/event-task');
+const TestMonitor = require('./routes/test-monitor')
 
 //all Monitoring V2 routes
 router.use('/salus', Labels);
+router.use('/salus/test-monitor', TestMonitor);
 router.use('/salus/resources-search', ResourceSearch);
 router.use('/salus/schema', Schema);
 router.use('/salus/monitors-search', MonitorSearch);

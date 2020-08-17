@@ -6,9 +6,10 @@ import { environment } from '../../../environments/environment';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock'
-import { Monitors, Monitor, Schema } from 'src/app/_models/monitors';
+import { Monitors, Monitor, Schema, TestMonitor } from 'src/app/_models/monitors';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { BoundMonitorPaging } from 'src/app/_models/resources';
+import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -195,10 +196,25 @@ export class MonitorService {
         }
       }).pipe(
         tap(data => {
-          let stuff = data;
           this.logService.log(`Search Monitors`, LogLevels.info);
         })
       )
+    }
+  }
+
+  testMonitor(monitorData: CreateTestMonitor): Observable<TestMonitor> {
+    let data = monitorData;
+    if (environment.mock) {
+      return of<TestMonitor>(this.mockedMonitors.testMonitor);
+    }
+    else {
+      return this.http.post<TestMonitor>(`${environment.api.salus}/test-monitor`, data, httpOptions)
+        .pipe(
+          tap(data => {
+            let stuff = data;
+            this.logService.log(`Test Monitor Results: ${data}`, LogLevels.info);
+          })
+        );
     }
   }
 

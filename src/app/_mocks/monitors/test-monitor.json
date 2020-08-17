@@ -1,0 +1,68 @@
+{
+"errors": [],
+"data": {
+    "metrics": [{
+        "name": "cpu",
+        "tags": {
+            "cpu": "cpu0",
+            "host": "mr-anderson"
+        },
+        "ivalues": {},
+        "fvalues": {
+            "usage_guest_nice": 0.0,
+            "usage_idle": 41.66666666515084,
+            "usage_irq": 0.0,
+            "usage_softirq": 2.083333333285964,
+            "usage_system": 16.66666666628771,
+            "usage_user": 39.58333333143855,
+            "usage_guest": 0.0,
+            "usage_iowait": 0.0,
+            "usage_nice": 0.0,
+            "usage_steal": 0.0
+        },
+        "svalues": {}
+    },
+    {
+        "name": "cpu",
+        "tags": {
+            "cpu": "cpu1",
+            "host": "mr-anderson"
+        },
+        "ivalues": {},
+        "fvalues": {
+            "usage_user": 59.18367346981201,
+            "usage_guest_nice": 0.0,
+            "usage_iowait": 0.0,
+            "usage_nice": 0.0,
+            "usage_softirq": 2.040816326537241,
+            "usage_steal": 0.0,
+            "usage_system": 8.163265306334576,
+            "usage_guest": 0.0,
+            "usage_idle": 30.612244898105022,
+            "usage_irq": 0.0
+        },
+        "svalues": {}
+    },
+    {
+        "name": "cpu",
+        "tags": {
+            "cpu": "cpu2",
+            "host": "mr-anderson"
+        },
+        "ivalues": {},
+        "fvalues": {
+            "usage_irq": 0.0,
+            "usage_nice": 0.0,
+            "usage_softirq": 2.000000000027285,
+            "usage_system": 20.000000000363798,
+            "usage_guest": 0.0,
+            "usage_idle": 38.00000000051841,
+            "usage_steal": 0.0,
+            "usage_user": 40.0,
+            "usage_guest_nice": 0.0,
+            "usage_iowait": 0.0
+        },
+        "svalues": {}
+    }]
+    }
+}

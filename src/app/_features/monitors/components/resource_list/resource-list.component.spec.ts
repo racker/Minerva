@@ -6,6 +6,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock';
 import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
+import { Monitor } from 'src/app/_models/monitors';
 
 describe('ResourceListComponent', () => {
   let component: ResourceListComponent;
@@ -13,6 +16,7 @@ describe('ResourceListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ResourceListComponent, PaginationComponent],
       imports: [
         HttpClientModule,
@@ -26,6 +30,8 @@ describe('ResourceListComponent', () => {
   beforeEach(() => {
     fixture   = TestBed.createComponent(ResourceListComponent);
     component = fixture.componentInstance;
+    const newMonitor: Monitor = new monitorsMock().single;
+    component.monitor = newMonitor;
     fixture.detectChanges();
   });
 
@@ -36,7 +42,6 @@ describe('ResourceListComponent', () => {
   it('get bound resources', (done) =>{
     let spy = spyOn(component, 'getResources').and.returnValue(of(new resourcesMock().boundResource));
     component.ngOnInit();
-    fixture.detectChanges();
     fixture.whenStable().then(() =>{
       expect(component.getResources).toHaveBeenCalled()
       expect(component.resources.length).toBeGreaterThanOrEqual(1);

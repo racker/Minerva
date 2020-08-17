@@ -1,6 +1,7 @@
 import { FieldConfig, Validator } from './interfaces/field.interface';
 import { Validators } from '@angular/forms';
 import { Monitor } from 'src/app/_models/monitors';
+import { CreateTestMonitor } from './interfaces/testMonitor.interface';
 
 export enum CntrlAttribute {
     string = "string",
@@ -193,6 +194,21 @@ export class MonitorUtil {
             return `${monitor.details.plugin.type}-${monitor.summary[Object.keys(monitor.summary)[0]]}-${monitor.id.substr(monitor.id.length - 5)}`;
         }else{
             return `${monitor.details.plugin.type}-${monitor.id.substr(monitor.id.length - 5)}`;
+        }
+    }
+
+    static formatTestMonitor(resourceId, monitor: Monitor): CreateTestMonitor {
+        return {
+            resourceId,
+            details: {
+                type: monitor.details.type,
+                ...(monitor.details.type === 'remote' && {
+                    monitoringZones: monitor.details.monitoringZones
+                }),
+                plugin: {
+                    type: monitor.details.plugin.type
+                }
+            }
         }
     }
 }

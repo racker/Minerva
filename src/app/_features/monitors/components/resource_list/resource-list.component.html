@@ -6,16 +6,100 @@
           <th class="header">RESOURCE</th>
           <th class="header">ZONE NAME</th>
           <th class="EnvHeader"> ENVOY ID</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let resource of resources">
-          <td>{{resource.resourceId}}</td> 
+          <td>{{resource.resourceId}}</td>
           <td>{{resource.zoneName}}</td>
           <td>{{resource.envoyId}}</td>
+          <td>
+            <hx-disclosure *ngIf="isAdmin(router)" aria-controls="monitor-modal"
+            (click)="testMonitor(resource.resourceId)" class="hxBtn">
+              Test Monitor
+            </hx-disclosure>
+          </td>
         </tr>
       </tbody>
     </table>
+    <hx-modal id="monitor-modal" class="hxLg">
+      <header>
+        <h2>Test {{monitor.name || monitorUtil.formatSummaryField(monitor)}}</h2>
+      </header>
+      <hx-div scroll="vertical">
+        <hx-busy  class="center" *ngIf="isTestLoading"></hx-busy>
+        <div *ngIf="!isTestLoading">
+        <div *ngFor="let metric of testMonitorResults.data.metrics" class="hxRow hxSpan-12">
+          <div class="hxCol hxSpan-12">
+            <h3>{{metric.name}}</h3>
+          </div>
+          <div class="hxCol hxSpan-6">
+            <h3>Tags:</h3>
+          </div>
+          <div *ngFor="let tag of Object.keys(metric.tags || {})" class="hxCol hxSpan-3">
+              <div class="hxCol hxSpan-6">
+                <h4>{{tag}}</h4>
+              </div>
+              <div class="hxCol hxSpan-6">
+                <span>{{metric.tags[tag]}}</span>
+              </div>
+          </div>
+          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.ivalues).length > 0">
+            <div class="hxCol hxSpan-6">
+              <h3>ivalues:</h3>
+            </div>
+            <div class="hxCol hxSpan-6">
+              <div class="hxRow">
+              <div *ngFor="let value of Object.keys(metric.ivalues)" class="hxCol hxSpan-6">
+              <div class="hxCol hxSpan-3">
+                <h4>{{value}}</h4>
+              </div>
+              <div class="hxCol hxSpan-3">
+                <span>{{metric.ivalues[value]}}</span>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.fvalues).length > 0">
+            <div class="hxCol hxSpan-6">
+              <h3>fvalues:</h3>
+            </div>
+            <div class="hxCol hxSpan-6">
+              <div class="hxRow">
+              <div *ngFor="let value of Object.keys(metric.fvalues)" class="hxCol hxSpan-6">
+              <div class="hxCol hxSpan-3">
+                <h4>{{value}}</h4>
+              </div>
+              <div class="hxCol hxSpan-3">
+                <span>{{metric.fvalues[value]}}</span>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.svalues).length > 0">
+            <div class="hxCol hxSpan-6">
+              <h3>svalues:</h3>
+            </div>
+            <div class="hxCol hxSpan-6">
+              <div class="hxRow">
+              <div *ngFor="let value of Object.keys(metric.svalues)" class="hxCol hxSpan-6">
+              <div class="hxCol hxSpan-3">
+                <h4>{{value}}</h4>
+              </div>
+              <div class="hxCol hxSpan-3">
+                <span>{{metric.svalues[value]}}</span>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          </div>
+          </div>
+      </hx-div>
+    </hx-modal>
     <div class="hxRow resource-paging">
       <div class="hxCol">
         <app-pagination
@@ -32,4 +116,3 @@
 
 
 
-  
