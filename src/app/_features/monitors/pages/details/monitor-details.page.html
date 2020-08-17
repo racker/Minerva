@@ -132,7 +132,7 @@
             <div id="dvEcludedRcrc" class="hxCol hxSpan-6" *ngIf="monitor.excludedResourceIds.length > 0">
               <h4>Excluded Resources</h4>
               <ng-container *ngFor="let item of monitor.excludedResourceIds, let i = index ">
-                <span id="resource{{i}}"></span>{{item}}</span> <br />
+                <span id="resource{{i}}">{{item}}</span> <br />
               </ng-container>
             </div>
             <div class="hxCol hxSpan-6" *ngIf="monitor.resourceId">
