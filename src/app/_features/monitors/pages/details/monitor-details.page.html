@@ -127,12 +127,12 @@
         <div class="hxRow hxSpan-12">
             <div class="hxCol hxSpan-6">
               <h4>Period (seconds)</h4>
-              {{monitor.interval | durationSeconds}}
+              <span id="adnlSttngPrd">{{monitor.interval | durationSeconds}}</span>
             </div>
-            <div class="hxCol hxSpan-6" *ngIf="monitor.excludedResourceIds.length > 0">
+            <div id="dvEcludedRcrc" class="hxCol hxSpan-6" *ngIf="monitor.excludedResourceIds.length > 0">
               <h4>Excluded Resources</h4>
               <ng-container *ngFor="let item of monitor.excludedResourceIds, let i = index ">
-                {{item}} <br />
+                <span id="resource{{i}}">{{item}}</span> <br />
               </ng-container>
             </div>
             <div class="hxCol hxSpan-6" *ngIf="monitor.resourceId">
@@ -141,11 +141,12 @@
             </div>
             <div class="hxCol hxSpan-6">
               <h4>Label Selector Method</h4>
-              {{monitor.labelSelectorMethod}}
+              <sapn id="adtnlLblSlctor">{{monitor.labelSelectorMethod}}</sapn>
+
             </div>
             <div class="hxCol hxSpan-6">
               <h4>Policy</h4>
-              {{monitor.policy}}
+              <span id="excldRcPlcy">{{monitor.policy}}</span>
             </div>
         </div>
       </div>
