@@ -26,7 +26,8 @@ import { RouterModule, Routes } from '@angular/router';
     EventsService
   ],
   exports:[
-    EventslistComponent
+    EventslistComponent,
+    EventDetailsComponent
   ]
 })
 export class EventsModule { }

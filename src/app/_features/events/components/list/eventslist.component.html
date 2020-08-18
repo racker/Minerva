@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let event of events">
-        <td [id]="event.id"><a [routerLink]="">{{event.name}}</a></td>
+        <td [id]="event.id"><a routerLink="/admin/event/details/{{event.id}}">{{event.name}}</a></td>
 
         <td >{{event.measurement}}</td>
         <td>{{event.taskParameters.labelSelector.agent_environment}}</td>

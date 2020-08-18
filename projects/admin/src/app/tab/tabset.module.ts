@@ -9,10 +9,11 @@ import { ResourcesModule } from 'src/app/_features/resources/resources.module';
 import { EventsModule } from 'src/app/_features/events/events.module';  
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { SharedModule } from 'src/app/_shared/shared.module';
+import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
 
 
 @NgModule({
-  declarations: [TabsetComponent, AdminResourceDetailsPage, DetailsComponent],
+  declarations: [TabsetComponent, AdminResourceDetailsPage, DetailsComponent, EventDetailsComponent],
   imports: [
     CommonModule,
     SharedModule,

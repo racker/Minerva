@@ -38,7 +38,10 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   getParams() {
     this.route.params.subscribe((params: any) => {
       this.eventId = params.id;
+      if(this.eventId)
       this.getEvent(this.eventId);
+      else
+      this.spnService.changeLoadingStatus(false);
     })
   }
 

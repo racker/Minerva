@@ -13,14 +13,6 @@ const routes: Routes = [
       breadcrumb: 'MONITORS'
     }, resolve: {schema: SchemaResolver }
   },
-
-  { 
-    path: 'events/:id', loadChildren: () => import('./_features/events/events.module').then(m => m.EventsModule),
-    data: {
-      breadcrumb: 'EVENTS'
-    }
-  },
-
   { path: 'visualize', loadChildren: () => import('./_features/visualize/visualize.module').then(m => m.VisualizeModule),
     data: {
       breadcrumb: 'VISUALIZE'
