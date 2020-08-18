@@ -51,7 +51,7 @@ browser.manage().window().maximize();
          expect(page2.getExcludedResources(1)).toEqual(obj.excludedResourceIds[1]);
          expect(page2.getExcludedResources(2)).toEqual(obj.excludedResourceIds[2]);
       // 2.Checking the display of Period
-           expect(page2.getPeriod()).toEqual(obj["period(seconds)"]);
+           expect(page2.getPeriod()).toEqual(obj.period);
       // 3.Checking the display of labelSelectorMethod
          expect(page2.getlabelSelectorMethod()).toEqual(obj.labelSelectorMethod)
       // 4.Checking the display of Policy
