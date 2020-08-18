@@ -1,13 +1,13 @@
 import { AppPage } from "../../../pages/app.po"
 import { navigations } from "../../../commons/navigations";
-import { monitorsListPage } from "../../../pages/monitorlistpage";
+import { MonitorsListPage } from "../../../pages/monitorlistpage";
 import { browser, element, by} from "protractor";
 
 
 describe("Test pagination functionality on Monitors List page",function(){
     let page:AppPage;
     let nav:navigations;
-    let page1:monitorsListPage;
+    let page1:MonitorsListPage;
 
     beforeAll(()=>{
        page=new AppPage();
@@ -18,7 +18,7 @@ describe("Test pagination functionality on Monitors List page",function(){
     beforeEach(()=>{
        nav=new navigations();
        nav.navigateToMonitor();
-       page1=new monitorsListPage();
+       page1=new MonitorsListPage();
 
     })
 
