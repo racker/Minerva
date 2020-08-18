@@ -15,7 +15,7 @@ const routes: Routes = [
   },
 
   { 
-    path: 'events', loadChildren: () => import('./_features/events/events.module').then(m => m.EventsModule),
+    path: 'events/:id', loadChildren: () => import('./_features/events/events.module').then(m => m.EventsModule),
     data: {
       breadcrumb: 'EVENTS'
     }
