@@ -6,21 +6,11 @@ import { SharedModule } from '../../_shared/shared.module';
 import { EventDetailsComponent } from '../events/components/event-details/event-details.component';
 import { RouterModule, Routes } from '@angular/router';
 
-
- const routes: Routes = [
-  {
-      path: '',
-      component: EventDetailsComponent,
-      data: {
-        breadcrumb: ''
-      }
-  }
-];
 @NgModule({
   declarations: [EventDetailsComponent,EventslistComponent],
   imports: [
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule
   ],
   providers:[
     EventsService
