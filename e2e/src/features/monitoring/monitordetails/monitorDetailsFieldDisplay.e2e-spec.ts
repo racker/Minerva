@@ -1,7 +1,7 @@
 import { AppPage } from "../../../pages/app.po";
 import { navigations } from "../../../commons/navigations";
-import { monitorsListPage } from "../../../pages/monitorlistpage";
-import { monitorsDetailsPage } from "../../../pages/monitordetailspage";
+import { MonitorsListPage } from "../../../pages/monitorlistpage";
+import { MonitorsDetailsPage } from "../../../pages/monitordetailspage";
 import { browser } from "protractor";
 import { default as using } from "jasmine-data-provider";
 import { default as obj } from "../../../../../src/app/_mocks/monitors/single.json";
@@ -10,23 +10,23 @@ import { default as obj } from "../../../../../src/app/_mocks/monitors/single.js
 describe("To test fields display on Monitor's details page", ()=> {
    let page: AppPage;
    let nav: navigations;
-   let page1: monitorsListPage;
-   let page2: monitorsDetailsPage;
+   let page1: MonitorsListPage;
+   let page2: MonitorsDetailsPage;
 
    beforeAll(() => {
       page = new AppPage();
       page.navigateTo();
-
+browser.manage().window().maximize();
    });
 
    beforeEach(() => {
       nav = new navigations();
       nav.navigateToMonitor();
       browser.sleep(5000);
-      page1 = new monitorsListPage();
+      page1 = new MonitorsListPage();
       page1.monitorName().click();
       browser.sleep(5000);
-      page2 = new monitorsDetailsPage();
+      page2 = new MonitorsDetailsPage();
 
    });
 
@@ -44,20 +44,19 @@ describe("To test fields display on Monitor's details page", ()=> {
 
 
       it("Verify that additional settings slide down on clicking it and that the text appears in correct areas",()=>{
-         page2.additionalSettings.click();
-         
-         expect(obj["period(seconds)"]).toEqual(66);
-         
-         expect(obj.excludedResourceIds[0]).toEqual('development:5')
-         expect(obj.excludedResourceIds[1]).toEqual('development:6')
-         expect(obj.excludedResourceIds[2]).toEqual('development:7')
-
-         // expect(obj.resourceId).toEqual('development:2');
-         
-         expect(obj.policy).toBeFalsy;
-
-         expect(obj.labelSelectorMethod).toEqual('AND');
-
+         page2.additionalSettingslink.click();
+         browser.sleep(5000);
+      // 1.Checking the display of excluded resources
+         expect(page2.getExcludedResources(0)).toEqual(obj.excludedResourceIds[0]);
+         expect(page2.getExcludedResources(1)).toEqual(obj.excludedResourceIds[1]);
+         expect(page2.getExcludedResources(2)).toEqual(obj.excludedResourceIds[2]);
+      // 2.Checking the display of Period
+           expect(page2.getPeriod()).toEqual(obj["period(seconds)"]);
+      // 3.Checking the display of labelSelectorMethod
+         expect(page2.getlabelSelectorMethod()).toEqual(obj.labelSelectorMethod)
+      // 4.Checking the display of Policy
+         expect(page2.getPolicy()).toEqual(obj.policy);
+  
       });
    });
 
