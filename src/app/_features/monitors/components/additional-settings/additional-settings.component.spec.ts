@@ -53,7 +53,7 @@ describe('AdditionalSettingsComponent', () => {
       { resource: 'development:7' },
     ]);
     expect(component.updateSettingForm.value.labelSelectorMethod).toEqual('AND');
-    expect(component.updateSettingForm.value.resourceId).toEqual('development:2');
+    expect(component.updateSettingForm.value.resourceId).toEqual('');
   })
 
   it('should return resourceDropdowns formarray', () => {
