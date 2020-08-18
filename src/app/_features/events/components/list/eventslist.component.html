@@ -1,0 +1,26 @@
+<div class="hxButtonSet">
+    <button class="hxBtn hxPrimary">
+      Create Event
+    </button>
+    <button class="hxBtn">
+      Delete
+    </button>
+  </div>
+
+<table id="evnttble" class="hxTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Measurement</th>
+        <th>Agent Environment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td [id]="event.id"><a [routerLink]="">{{event.name}}</a></td>
+
+        <td >{{event.measurement}}</td>
+        <td>{{event.taskParameters.labelSelector.agent_environment}}</td>
+      </tr>
+    </tbody>
+  </table>
