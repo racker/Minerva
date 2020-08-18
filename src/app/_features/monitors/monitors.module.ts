@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, InjectionToken } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../_shared/shared.module';
+import { EventsModule } from '../events/events.module';
 import { LabelService } from '../../_services/labels/label.service';
 import { MonitorService } from '../../_services/monitors/monitor.service';
 import { MonitorslistComponent } from './components/list/monitorslist.component';
@@ -48,6 +49,7 @@ export function createAjvInstance(AjvClass: any, config: Options) {
   ],
   imports: [
     SharedModule,
+    EventsModule,
     RouterModule.forChild(routes)
   ],
   providers: [

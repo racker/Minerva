@@ -20,14 +20,18 @@ describe("Add-fields Component Test in resources", () => {
   it("Should check if Testing if the label has add button", () => {
     element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
     browser.sleep(1000);
-    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click(); 
+    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
     expect(element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).isPresent()).toBe(true);
   });
 
   it("Should check if click add button should add 2twice row should update", () => {
     element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
     element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
+
     element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();    
+
+    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
+
     expect(element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).isPresent()).toBe(true);
   });
 
@@ -53,7 +57,7 @@ describe("Add-fields Component Test in resources", () => {
     browser.sleep(2000);
     var errMsg=element(by.xpath("//span[@class='required']"));
     element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[4]//div[2]//hx-text-control[1]//input[1]")).sendKeys("123");
-    expect(errMsg.getText()).toEqual("'agent_' is a reserved phrase");   
+    expect(errMsg.getText()).toEqual("'agent_' is a reserved phrase");
 });
 
 it("Should check if clicking cancel from within the popover should hide the popover", async () => {
