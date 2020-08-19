@@ -3,19 +3,21 @@ import { CommonModule } from '@angular/common';
 import { EventsService } from '../../_services/events/events.service';
 import { EventslistComponent } from './components/list/eventslist.component';
 import { SharedModule } from '../../_shared/shared.module';
-
+import { EventDetailsComponent } from '../events/components/event-details/event-details.component';
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
-  declarations: [EventslistComponent],
+  declarations: [EventDetailsComponent,EventslistComponent],
   imports: [
     SharedModule,
-    CommonModule
+    RouterModule
   ],
   providers:[
     EventsService
   ],
   exports:[
-    EventslistComponent
+    EventslistComponent,
+    EventDetailsComponent
   ]
 })
 export class EventsModule { }
