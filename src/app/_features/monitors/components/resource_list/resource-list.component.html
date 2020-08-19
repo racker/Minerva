@@ -28,76 +28,90 @@
         <h2>Test {{monitor.name || monitorUtil.formatSummaryField(monitor)}}</h2>
       </header>
       <hx-div scroll="vertical">
-        <hx-busy  class="center" *ngIf="isTestLoading"></hx-busy>
-        <div *ngIf="!isTestLoading">
-        <div *ngFor="let metric of testMonitorResults.data.metrics" class="hxRow hxSpan-12">
-          <div class="hxCol hxSpan-12">
-            <h3>{{metric.name}}</h3>
+        <ng-template *ngIf="isTestLoading; then loadingBlock; else metricsBlock"></ng-template>
+        <ng-template #loadingBlock>
+          <div class="center">
+            <hx-busy></hx-busy>
           </div>
-          <div class="hxCol hxSpan-6">
-            <h3>Tags:</h3>
+        </ng-template>
+        <ng-template #metricsBlock>
+          <div *ngIf="testMonitorResults.errors.length > 0">
+            <div *ngFor="let error of testMonitorResults.errors" class="hxRow hxSpan-12">
+              <div class="hxCol hxSpan-12">
+                {{error}}
+              </div>
+            </div>
           </div>
-          <div *ngFor="let tag of Object.keys(metric.tags || {})" class="hxCol hxSpan-3">
-              <div class="hxCol hxSpan-6">
-                <h4>{{tag}}</h4>
+          <div *ngIf="testMonitorResults.data && testMonitorResults.errors.length === 0">
+            <div *ngFor="let metric of testMonitorResults.data.metrics; index as i" class="hxRow hxSpan-12">
+              <div class="hxCol hxSpan-12">
+                <h3 id="metricName-{{i}}">{{metric.name}}</h3>
               </div>
               <div class="hxCol hxSpan-6">
-                <span>{{metric.tags[tag]}}</span>
+                <h3>Tags:</h3>
               </div>
+              <div *ngFor="let tag of Object.keys(metric.tags || {}); index as innerI" class="hxCol hxSpan-3">
+                <div class="hxCol hxSpan-6">
+                  <h4 id="metricTagname-{{innerI}}">{{tag}}</h4>
+                </div>
+                <div class="hxCol hxSpan-6">
+                  <span id="metricTag-{{innerI}}">{{metric.tags[tag]}}</span>
+                </div>
+              </div>
+              <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.ivalues).length > 0">
+                <div class="hxCol hxSpan-6">
+                  <h3>ivalues:</h3>
+                </div>
+                <div class="hxCol hxSpan-6">
+                  <div class="hxRow">
+                    <div *ngFor="let value of Object.keys(metric.ivalues); index as innerI" class="hxCol hxSpan-6">
+                      <div class="hxCol hxSpan-3">
+                        <h4 id="metricIValueName-{{innerI}}">{{value}}</h4>
+                      </div>
+                      <div class="hxCol hxSpan-3">
+                        <span id="metricIValue-{{innerI}}">{{metric.ivalues[value]}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.fvalues).length > 0">
+                <div class="hxCol hxSpan-6">
+                  <h3>fvalues:</h3>
+                </div>
+                <div class="hxCol hxSpan-6">
+                  <div class="hxRow">
+                    <div *ngFor="let value of Object.keys(metric.fvalues); index as innerI" class="hxCol hxSpan-6">
+                      <div class="hxCol hxSpan-3">
+                        <h4 id="metricFValueName-{{innerI}}">{{value}}</h4>
+                      </div>
+                      <div class="hxCol hxSpan-3">
+                        <span id="metricFValue-{{innerI}}">{{metric.fvalues[value]}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.svalues).length > 0">
+                <div class="hxCol hxSpan-6">
+                  <h3>svalues:</h3>
+                </div>
+                <div class="hxCol hxSpan-6">
+                  <div class="hxRow">
+                    <div *ngFor="let value of Object.keys(metric.svalues); index as innerI" class="hxCol hxSpan-6">
+                      <div class="hxCol hxSpan-3">
+                        <h4 id="metricSValueName-{{innerI}}">{{value}}</h4>
+                      </div>
+                      <div class="hxCol hxSpan-3">
+                        <span id="metricSValue-{{innerI}}">{{metric.svalues[value]}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.ivalues).length > 0">
-            <div class="hxCol hxSpan-6">
-              <h3>ivalues:</h3>
-            </div>
-            <div class="hxCol hxSpan-6">
-              <div class="hxRow">
-              <div *ngFor="let value of Object.keys(metric.ivalues)" class="hxCol hxSpan-6">
-              <div class="hxCol hxSpan-3">
-                <h4>{{value}}</h4>
-              </div>
-              <div class="hxCol hxSpan-3">
-                <span>{{metric.ivalues[value]}}</span>
-              </div>
-            </div>
-            </div>
-            </div>
-          </div>
-          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.fvalues).length > 0">
-            <div class="hxCol hxSpan-6">
-              <h3>fvalues:</h3>
-            </div>
-            <div class="hxCol hxSpan-6">
-              <div class="hxRow">
-              <div *ngFor="let value of Object.keys(metric.fvalues)" class="hxCol hxSpan-6">
-              <div class="hxCol hxSpan-3">
-                <h4>{{value}}</h4>
-              </div>
-              <div class="hxCol hxSpan-3">
-                <span>{{metric.fvalues[value]}}</span>
-              </div>
-            </div>
-            </div>
-            </div>
-          </div>
-          <div class="hxRow hxSpan-12" *ngIf="Object.keys(metric.svalues).length > 0">
-            <div class="hxCol hxSpan-6">
-              <h3>svalues:</h3>
-            </div>
-            <div class="hxCol hxSpan-6">
-              <div class="hxRow">
-              <div *ngFor="let value of Object.keys(metric.svalues)" class="hxCol hxSpan-6">
-              <div class="hxCol hxSpan-3">
-                <h4>{{value}}</h4>
-              </div>
-              <div class="hxCol hxSpan-3">
-                <span>{{metric.svalues[value]}}</span>
-              </div>
-            </div>
-            </div>
-            </div>
-          </div>
-          </div>
-          </div>
+        </ng-template>
       </hx-div>
     </hx-modal>
     <div class="hxRow resource-paging">

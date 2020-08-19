@@ -47,7 +47,7 @@ export interface Schema {
     definitions: any
 }
 
-interface metric {
+interface Metric {
     name: string,
     tags: {
         host: string,
@@ -67,6 +67,6 @@ interface metric {
 export interface TestMonitor {
     errors: any[],
     data: {
-        metrics: metric[]
+        metrics: Metric[]
     }
 }
