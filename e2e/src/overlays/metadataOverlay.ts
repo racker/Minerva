@@ -1,7 +1,7 @@
 import { element, by, browser } from "protractor";
-import { resourcesDetailsPage } from "../pages/resourcesdetailspage";
+import { ResourcesDetailsPage } from "../pages/resourcesdetailspage";
 
-export class metadataOverlay extends resourcesDetailsPage{
+export class MetadataOverlay extends ResourcesDetailsPage{
 
     metadataPopOver          =element(by.xpath("//hx-popover[@id='metaPopover']"));
     metadataHeader           =element(by.xpath("//hx-popover[@id='metaPopover']//header[contains(text(),' Metadata fields ')]"));
@@ -23,16 +23,15 @@ export class metadataOverlay extends resourcesDetailsPage{
 
         this.metadataMinusIcon.get(1).click();
         browser.sleep(3000);
-        expect(element(by.xpath("//hx-popover[@id='metaPopover']//input[@id='txtKey-0']")).isDisplayed()).toBe(true);
-        expect(element(by.xpath("//hx-popover[@id='metaPopover']//input[@id='txtValue-0']")).isDisplayed()).toBe(true);
-
+        var keyvalue= element.all(by.xpath("//hx-popover[@id='metaPopover']//input"));
+        expect(keyvalue.count()).toBe(2);
     }
 
     cancelBtnRemovesPopover(){
 
         this.metadataCancelBtn.click();
         browser.sleep(3000);
-        expect(this.metadatapencil.isPresent()).toBe(true);
+        expect(Boolean(this.metadataPopOver.getAttribute("aria-hidden"))).toBe(true);
     }
 
 }

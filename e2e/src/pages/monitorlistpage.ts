@@ -1,7 +1,7 @@
 import { element, by } from "protractor"
 
 
-export class monitorsListPage
+export class MonitorsListPage
 {
 
 
