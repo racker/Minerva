@@ -20,8 +20,7 @@ describe("To test delete resource functionality  ", () => {
    it("Verify if ‘Delete Resource’ option is present in the Actions dropdown",()=>{
       
       let resourcesdetailspageobj=new ResourcesDetailsPage();
-      
-      resourcesdetailspageobj.clickOnActionsDropdown();
+      resourcesdetailspageobj.actionsDropdown.click();
       browser.sleep(3000);
       resourcesdetailspageobj.checkForDisplayOfDeleteResourceOption();
        
@@ -31,8 +30,8 @@ describe("To test delete resource functionality  ", () => {
    it("Verify the display of Delete Resource overlay",()=>{
       
       let resourcesdetailspageobj=new ResourcesDetailsPage();
-      resourcesdetailspageobj.clickOnActionsDropdown();
-      resourcesdetailspageobj.clickOnDeleteResourceOption();
+      resourcesdetailspageobj.actionsDropdown.click();
+      resourcesdetailspageobj.actionDropdownOptions.get(2).click();
       browser.sleep(3000);
       resourcesdetailspageobj.checkForTheDisplayOfDeleteResourceOverlay();
       
@@ -41,10 +40,11 @@ describe("To test delete resource functionality  ", () => {
    it("Verify that the user is navigated to Resources list page after deleting the resource",()=>{
     
     let resourcesdetailspageobj=new ResourcesDetailsPage();
-    resourcesdetailspageobj.clickOnActionsDropdown();
-    resourcesdetailspageobj.clickOnDeleteResourceOption();
+    resourcesdetailspageobj.actionsDropdown.click();
+    resourcesdetailspageobj.actionDropdownOptions.get(2).click();
     resourcesdetailspageobj.confirmBtnOnDeleteResourceOverlay.click();
     browser.sleep(3000);
+    
     let resourceslistpageobj=new ResourcesListPage();
     resourceslistpageobj.resourcesPageHeader.isDisplayed();
    

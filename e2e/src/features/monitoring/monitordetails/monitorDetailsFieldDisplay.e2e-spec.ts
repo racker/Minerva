@@ -8,15 +8,15 @@ import { default as obj } from "../../../../../src/app/_mocks/monitors/single.js
 
    
 describe("To test fields display on Monitor's details page", ()=> {
-   let page: AppPage;
-   let nav: navigations;
+   let page : AppPage;
+   let nav  : navigations;
    let page1: MonitorsListPage;
    let page2: MonitorsDetailsPage;
 
    beforeAll(() => {
       page = new AppPage();
       page.navigateTo();
-browser.manage().window().maximize();
+      browser.manage().window().maximize();
    });
 
    beforeEach(() => {

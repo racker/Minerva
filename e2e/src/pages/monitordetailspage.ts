@@ -3,12 +3,12 @@ import { element, by, WebElement } from "protractor"
 
 export class MonitorsDetailsPage
 {  
-   additionalSettingslink:WebElement   =element(by.xpath("//a[@class='addSettings ng-tns-c61-0']"));
-   periodValue:WebElement              =element(by.id("adnlSttngPrd"));
-   labelSelectorMethodValue:WebElement =element(by.id("adtnlLblSlctor"));
-   policyValue:WebElement              =element(by.id("excldRcPlcy"));
+   additionalSettingslink   =element(by.xpath("//a[contains(text(),'Additional Settings')]"));
+   periodValue              =element(by.id("adnlSttngPrd"));
+   labelSelectorMethodValue =element(by.id("adtnlLblSlctor"));
+   policyValue              =element(by.id("excldRcPlcy"));
   
-
+  
   labelsInfoKeyDisplay(key:string){
      return(element(by.xpath("//div[contains(text(),'"+key+"')]")));
      
