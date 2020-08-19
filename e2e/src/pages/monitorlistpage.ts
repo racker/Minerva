@@ -1,39 +1,39 @@
 import { element, by } from "protractor"
 
 
-export class monitorsListPage
+export class MonitorsListPage
 {
 
 
-   public paginationLastPageButton(){
+   paginationLastPageButton(){
         return(element(by.xpath("//button[@class='hxBtn lastPage']")));
     }
 
-    public paginationNextPageButton(){
+    paginationNextPageButton(){
         return(element(by.xpath("//button[@class='hxBtn nextPage']")));
     }
 
-    public paginationFirstPageButton(){
+    paginationFirstPageButton(){
         return(element(by.xpath("//button[@class='hxBtn firstPage']")));
     }
 
-    public paginationPreviousPageButton(){
+    paginationPreviousPageButton(){
         return(element(by.xpath("//button[@class='hxBtn prevPage']")));
     }
 
-    public firstPageButton(){
+    firstPageButton(){
         return(element(by.xpath("//button[@class='hxBtn' and contains(text(),'1')]")));
     }
     
-    public SecondPageButton(){
+    SecondPageButton(){
         return(element(by.xpath("//button[@class='hxBtn' and contains(text(),'2')]")));
     }
 
-    public monitorName(){
+    monitorName(){
         return(element(by.xpath("//a[contains(text(),'Bandwidth Monitoring for eth0')]")));
     }
 
-    public spinner() {
+    spinner() {
         return(element(by.xpath("//hx-busy[@class='gbl-spinner-show']")));
         
     }

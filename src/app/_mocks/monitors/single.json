@@ -4,7 +4,8 @@
     "labelSelectorMethod": "AND",
     "interval": "PT1M6S",
     "resourceId": null,
-    "policy": false,
+    "policy": "false",
+    "period":"66",
     "excludedResourceIds": ["development:5", "development:6", "development:7"],
     "labelSelector": {
         "additionalProp1": "EC2Instance",

@@ -1,6 +1,6 @@
 import { AppPage } from "../../pages/app.po"
 import { navigations } from "../../commons/navigations";
-import { monitorsListPage } from "../../pages/monitorlistpage";
+import { MonitorsListPage } from "../../pages/monitorlistpage";
 import { browser, element, by} from "protractor";
 
 
@@ -8,7 +8,7 @@ describe("Test page loading/spinner functionality",()=>{
 
     let page:AppPage;
     let nav:navigations;
-    let page1:monitorsListPage;
+    let page1:MonitorsListPage;
 
     beforeAll(()=>{
        page=new AppPage();

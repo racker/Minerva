@@ -4,6 +4,7 @@ import { MonitorsPage } from './pages/monitors/monitors.page';
 import { MonitorDetailsPage } from './pages/details/monitor-details.page';
 import { MonitorCreatePage } from './pages/create/monitor-create.page';
 
+
 export const routes: Routes = [
     {
         path: '',

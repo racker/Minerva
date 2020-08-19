@@ -22,6 +22,7 @@ import { ResourceListComponent } from './components/resource_list/resource-list.
 import { MonitorSearchComponent } from './components/monitor-search/monitor-search.component';
 import { ZoneService } from 'src/app/_services/zones/zones.service';
 
+
 export const AJV_CLASS = new InjectionToken<Ajv>('The AJV Class Instance');
 export const AJV_CONFIG = new InjectionToken<Ajv>('The AJV Class config');
 
@@ -45,7 +46,7 @@ export function createAjvInstance(AjvClass: any, config: Options) {
     DynamicFormComponent,
     AdditionalSettingsComponent,
     ResourceListComponent,
-    MonitorSearchComponent
+    MonitorSearchComponent,
   ],
   imports: [
     SharedModule,

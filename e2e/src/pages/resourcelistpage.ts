@@ -1,6 +1,6 @@
 import { element, by } from "protractor";
 
-export class resourcesListPage
+export class ResourcesListPage
 {
     resourcesPageHeader=element(by.xpath("//app-resources[@class='page']//h2"));
 
