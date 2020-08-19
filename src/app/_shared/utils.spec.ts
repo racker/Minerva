@@ -1,6 +1,7 @@
 import { async } from '@angular/core/testing';
-import { transformKeyPairs, MarkFormGroupTouched } from './utils'
+import { transformKeyPairs, MarkFormGroupTouched, isAdmin } from './utils'
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 describe('transformKeyPairs', () => {
@@ -48,5 +49,11 @@ describe('transformKeyPairs', () => {
         expect(form.controls['enabled'].dirty).toEqual(true);
     });
 
+    it('should return whether the app is in admin project or not', () => {
+        let urlRoute = {
+            url: '/admin/stuff/whatever/snj787990-0998'
+        }
+        expect(isAdmin(urlRoute)).toEqual(true);
+    })
 
 });

@@ -5,6 +5,7 @@ import { Monitor, Monitors } from '../../../../_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '../../../../_services/spinner/spinner.service';
 import { Router } from '@angular/router';
+import { isAdmin } from 'src/app/_shared/utils';
 
 @Component({
   selector: 'app-monitorslist',
@@ -22,7 +23,7 @@ export class MonitorslistComponent implements OnInit {
   selectedMonitors: any = [];
 
   monitorUtil = MonitorUtil;
-  constructor(private monitorService: MonitorService, 
+  constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
     private router: Router) { this.spnService.changeLoadingStatus(true); }
 
@@ -52,12 +53,12 @@ export class MonitorslistComponent implements OnInit {
   }
 
   isAdminRoute(monId) {
-    return this.router.url === '/admin' ? `/admin/monitors/details/${monId}`  : `/monitors/details/${monId}`
+    return isAdmin(this.router) ? `/admin/monitors/details/${monId}`  : `/monitors/details/${monId}`
   }
 
   /**
    * Check when search is in progress
-   * @param event 
+   * @param event
    */
 
    monitorsSearch(searching:boolean): void {
@@ -71,19 +72,19 @@ export class MonitorslistComponent implements OnInit {
 
    /**
     * Reset search
-    * @param event 
-    * 
+    * @param event
+    *
     */
 
     resetSearch(): void {
         this.monitors = this.monitorService.monitors.content;
-        this.total    = this.monitorService.monitors.totalElements; 
+        this.total    = this.monitorService.monitors.totalElements;
     }
 
     /**
      * Function which accepts event emitted from search
-     * @param event 
-     * 
+     * @param event
+     *
      */
 
     monitorResults(monitors: Monitors): void {

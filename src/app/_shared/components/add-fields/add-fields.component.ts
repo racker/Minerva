@@ -111,7 +111,7 @@ export class AddFieldsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // gets the initial data and watches for changes
-    if (changes['initialData']) {
+    if (changes['initialData']?.currentValue) {
       this.resetLabelForm(changes['initialData'].currentValue);
     }
   }

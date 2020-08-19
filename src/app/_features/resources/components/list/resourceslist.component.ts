@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { mergeUniqueObjectsOfArray } from 'src/app/_shared/utils';
+import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
 
 @Component({
   selector: 'app-resourceslist',
@@ -28,7 +28,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
-  isAdmin: boolean = false;
   selectedResources: any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
@@ -55,7 +54,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   isAdminRoute(recourceId) {
-    return this.router.url === '/admin' ? `/admin/resources/${recourceId}`  : `/resources/${recourceId}`
+    return isAdmin(this.router) ? `/admin/resources/${recourceId}`  : `/resources/${recourceId}`
   }
 
   /**

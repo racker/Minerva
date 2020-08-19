@@ -11,7 +11,7 @@ export interface Monitor {
     resourceId?: string;
     excludedResourceIds?: string[];
     details: {
-        type: string,
+        type: 'local' | 'remote' | string,
         monitoringZones?: string[],
         plugin: {
             type: string,
@@ -45,4 +45,28 @@ export interface Schema {
         [x:string]: any
     },
     definitions: any
+}
+
+interface Metric {
+    name: string,
+    tags: {
+        host: string,
+        [key: string] : any
+    },
+    ivalues: {
+        [key: string] : any
+    },
+    fvalues: {
+        [key: string] : any
+    },
+    svalues: {
+        [key: string] : any
+    }
+}
+
+export interface TestMonitor {
+    errors: any[],
+    data: {
+        metrics: Metric[]
+    }
 }

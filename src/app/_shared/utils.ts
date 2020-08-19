@@ -1,4 +1,5 @@
 import { FormGroup, FormControl } from "@angular/forms";
+import { Router } from "@angular/router";
 
 /**
 * @description Turns the array of key pairs into an object
@@ -36,5 +37,18 @@ const mergeUniqueObjectsOfArray = (original, newdata, selector = 'key') => {
 	return original;
 }
 
+/**
+ * Is the component or element being used in the Admin project?
+ * @param router Router
+ */
+const isAdmin = (router: Router | any): boolean => {
+    return router.url.includes('/admin');
+}
 
-export { transformKeyPairs, MarkFormGroupTouched, mergeUniqueObjectsOfArray }
+
+export {
+    transformKeyPairs,
+    MarkFormGroupTouched,
+    mergeUniqueObjectsOfArray,
+    isAdmin
+ }
