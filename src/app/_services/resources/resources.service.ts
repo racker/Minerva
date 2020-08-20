@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
@@ -53,7 +53,7 @@ export class ResourcesService {
       let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.resources = mocks;
       this.resources.content = slicedData;
-      return of<Resources>(this.resources);
+      return of<Resources>(this.resources).pipe(delay(2000));
     }
     else {
     return this.http.get<Resources>(`${environment.api.salus}/resources?size=${size}&page=${page}`, httpOptions)
@@ -73,7 +73,7 @@ export class ResourcesService {
   getResource(id: string): Observable<Resource> {
     if (environment.mock) {
       this._resource = this.mockedResources.single;
-      return of<Resource>(this.mockedResources.single);
+      return of<Resource>(this.mockedResources.single).pipe(delay(2000));
     }
     else {
       return this.http.get<Resource>(`${environment.api.salus}/resources/${id}`)
