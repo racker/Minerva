@@ -37,7 +37,7 @@ export class ResourceDetailsPage implements OnInit {
   updatedLabelFields: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private resourceService: ResourcesService, private spnService: SpinnerService) { if (!environment.mock) { this.spnService.changeLoadingStatus(true); } }
+    private resourceService: ResourcesService, private spnService: SpinnerService) { this.spnService.changeLoadingStatus(true); }
 
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
