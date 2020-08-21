@@ -4,6 +4,7 @@ import { ResourcesService } from '../../../../../../../../../src/app/_services/r
 import { Observable, Subject, Subscription } from 'rxjs';
 import  { transformKeyPairs } from '../../../../../../../../../src/app/_shared/utils';
 import { Resource } from '../../../../../../../../../src/app/_models/resources';
+import { environment } from '../../../../../../../../../src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { SpinnerService } from '../../../../../../../../../src/app/_services/spinner/spinner.service';
 
@@ -37,11 +38,16 @@ export class AdminResourceDetailsPage implements OnInit {
   updatedLabelFields: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private resourceService: ResourcesService, private spnService: SpinnerService) { this.spnService.changeLoadingStatus(true); }
+    private resourceService: ResourcesService, private spnService: SpinnerService) { }
 
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
+    if(!environment.mock) {
+      setTimeout(() => {
+        this.spnService.changeLoadingStatus(true);
+      }, 0);
+    }
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(

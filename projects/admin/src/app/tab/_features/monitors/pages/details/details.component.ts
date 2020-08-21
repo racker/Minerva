@@ -7,6 +7,7 @@ import { Monitor, Label } from 'src/app/_models/monitors';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { tap } from 'rxjs/operators';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { environment } from '../../../../../../../../../src/environments/environment';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
 import { transformKeyPairs } from 'src/app/_shared/utils';
@@ -82,10 +83,14 @@ export class DetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private readonly schemaService: SchemaService,
     private fb: FormBuilder, private monitorService: MonitorService, private spnService: SpinnerService,
     private pipeSeconds: DurationSecondsPipe, private labelService: LabelService) {
-    this.spnService.changeLoadingStatus(true);
   }
 
   ngOnInit() {
+    if(!environment.mock) {
+      setTimeout(() => {
+        this.spnService.changeLoadingStatus(true);
+      }, 0);
+    }
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']

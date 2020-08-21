@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from "@ang
 import { FieldSet } from "../../interfaces/field.interface";
 import { Observable, Subscription } from "rxjs";
 import { MarkFormGroupTouched } from "src/app/_shared/utils";
+import { environment } from '../../../../../environments/environment';
 import { ZoneService } from "src/app/_services/zones/zones.service";
 import { SpinnerService } from "src/app/_services/spinner/spinner.service";
 import { Zone } from "src/app/_models/zone";
@@ -91,7 +92,14 @@ export class DynamicFormComponent implements OnChanges {
 
   constructor(private fb: FormBuilder, private zoneService: ZoneService,
     private spinService: SpinnerService) {
-      this.spinService.changeLoadingStatus(true);
+    }
+
+    ngOnInit(): void {
+      if(!environment.mock) {
+        setTimeout(() => {
+          this.spinService.changeLoadingStatus(true);
+        }, 0);
+      }
     }
 
   /**

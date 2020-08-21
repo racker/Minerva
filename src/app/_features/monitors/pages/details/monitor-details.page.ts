@@ -84,9 +84,14 @@ export class MonitorDetailsPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,private readonly schemaService: SchemaService,
     private fb: FormBuilder, private monitorService: MonitorService, private spnService: SpinnerService,
     private pipeSeconds: DurationSecondsPipe, private labelService: LabelService) {
-      this.spnService.changeLoadingStatus(true); }
+     }
 
   ngOnInit() {
+    if(!environment.mock) {
+      setTimeout(() => {
+        this.spnService.changeLoadingStatus(true);
+      }, 0);  
+    }
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']
