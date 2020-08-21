@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Animations } from 'src/app/_shared/animations';
 import { Observable, Subject, Subscription, of } from 'rxjs';
 import { MonitorService } from 'src/app/_services/monitors/monitor.service';
+import { environment } from '../../../../../environments/environment';
 import { Monitor, Label } from 'src/app/_models/monitors';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { MonitorUtil, CntrlAttribute } from '../../mon.utils';
@@ -83,7 +84,7 @@ export class MonitorDetailsPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,private readonly schemaService: SchemaService,
     private fb: FormBuilder, private monitorService: MonitorService, private spnService: SpinnerService,
     private pipeSeconds: DurationSecondsPipe, private labelService: LabelService) {
-      this.spnService.changeLoadingStatus(true);
+      if (!environment.mock) { this.spnService.changeLoadingStatus(true); }
   }
 
   ngOnInit() {
