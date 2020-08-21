@@ -82,9 +82,8 @@
     "typescript": "3.8.3"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "npm run test:unit"
-      }
+    "hooks": {
+      "pre-commit": "npm run test:unit"
     }
-  
+  }
 }
