@@ -3,7 +3,8 @@ import { element, by } from "protractor"
 
 export class MonitorsListPage
 {
-
+    pageTitle          =element(by.xpath("//h2[contains(text(),'Monitors')]"));
+    createMonitorBtn   =element(by.xpath("//button[@class='hxBtn hxPrimary' or contains(text(),'Create Monitor')]"));
 
    paginationLastPageButton(){
         return(element(by.xpath("//button[@class='hxBtn lastPage']")));
