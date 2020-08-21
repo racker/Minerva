@@ -1,0 +1,14 @@
+{
+    "monitordetails":{
+
+        "monitorType1":"Net",
+        "monitorName1":"MacPro",
+        "key1"        :"laptop",
+        "value1"      :"linux",
+
+        "monitorType2":"Mem",
+        "monitorName2":"HPProbook",
+        "key2"        :"env",
+        "value2"      :"amd64"
+    }
+}

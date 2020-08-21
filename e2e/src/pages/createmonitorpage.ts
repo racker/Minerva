@@ -27,21 +27,21 @@ selectRemoteMonitorType(monitor:string){
 }
 
 
-enterMonitorName(){
-    this.monitorNameTextBox.sendKeys("MacPro");
+enterMonitorName(monitorName:string){
+    this.monitorNameTextBox.sendKeys(monitorName);
 }
 
-selectKeyFromDropdown(){
+selectKeyFromDropdown(key:string){
     this.keyDropdown.click();
-    this.keyDropdown.sendKeys('laptop');
+    this.keyDropdown.sendKeys(key);
     this.keyDropdown.sendKeys(protractor.Key.TAB);
     browser.sleep(3000);
 
 }
 
-selectValueFromDropdown(){
+selectValueFromDropdown(value:string){
     this.valueDropdown.click(); 
-    this.valueDropdown.sendKeys('linux');
+    this.valueDropdown.sendKeys(value);
     this.valueDropdown.sendKeys(protractor.Key.TAB);
     browser.sleep(3000);
     }

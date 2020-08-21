@@ -11,7 +11,7 @@ exports.config = {
     capabilities: {
     browserName: "chrome",
     chromeOptions: {
-       args: ["no-sandbox","--headless","--disable-gpu","--disable-web-security"],
+       args: ["no-sandbox","--disable-gpu","--disable-web-security"],
 
     },
   },
