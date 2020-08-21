@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from "../../../../_services/events/events.service";
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { environment } from '../../../../../../src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     private eventSerice: EventsService,
     private spnService: SpinnerService,
     private route: ActivatedRoute) {
-    this.spnService.changeLoadingStatus(true);
   }
 
   /**
@@ -29,6 +29,11 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(!environment.mock) {
+      setTimeout(() => {
+        this.spnService.changeLoadingStatus(true);
+      }, 0);
+    }
     this.getParams();
   }
 

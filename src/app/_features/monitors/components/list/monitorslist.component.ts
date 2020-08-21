@@ -25,7 +25,7 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router) { this.spnService.changeLoadingStatus(true); }
+    private router: Router) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -40,6 +40,11 @@ export class MonitorslistComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!environment.mock) {
+      setTimeout(() => {
+        this.spnService.changeLoadingStatus(true);
+      }, 0);
+    }
     this.fetchMonitors = () => {
       return this.monitorService.getMonitors(this.defaultAmount, this.page)
         .subscribe(data => {
