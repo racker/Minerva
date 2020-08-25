@@ -7,7 +7,7 @@ import { default as using } from "jasmine-data-provider";
 import { default as obj } from "../../../../Objects.json";
 
 
-describe("To test Network Monitor creation", () => {
+describe("To test Create Monitor functionality", () => {
     let page: AppPage;
     let nav: navigations;
   
@@ -22,7 +22,7 @@ describe("To test Network Monitor creation", () => {
     
     using([{monitorType:obj.monitordetails.monitorType1 ,monitorName:obj.monitordetails.monitorName1, key:obj.monitordetails.key1,value:obj.monitordetails.value1},{monitorType:obj.monitordetails.monitorType2 ,monitorName:obj.monitordetails.monitorName2,key:obj.monitordetails.key2,value:obj.monitordetails.value2}],(data)=>{
 
-      fit(`Verify that user must be navigated to Monitoring on creating ${data.monitorType} monitor`, () => {
+      it(`Verify that user must be navigated to Monitoring on creating ${data.monitorType} monitor`, () => {
       
         let page=new MonitorsListPage();
         page.createMonitorBtn.click();
