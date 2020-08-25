@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import ajv from 'ajv';
@@ -116,6 +116,7 @@ describe('MonitorDetailComponent', () => {
             }
           }
         },
+        { provide: ComponentFixtureAutoDetect, useValue: true },
         MonitorService,
         SchemaService,
         DurationSecondsPipe,
@@ -149,7 +150,9 @@ describe('MonitorDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should setup defaults', () => {
+  it('should setup defaults', async() => {
+    fixture.detectChanges();
+    await fixture.whenStable();
     expect(component.monitor$).toBeDefined();
     expect(component.Object).toEqual(Object);
     expect(component.deleteLoading).toEqual(false);
@@ -267,12 +270,16 @@ describe('MonitorDetailComponent', () => {
     expect(component.updatedLabelFields).toEqual(formattedKeyPair);
   });
 
-  it('should have timeduration field',done =>{
+  it('should have timeduration field', async(done) =>{
+    fixture.detectChanges();
+    await fixture.whenStable();
     var istimeduration=component.isTimeduration("timeout");
     expect(istimeduration).toBe(true);
     done();
   });
-  it('should not have timeduration field',done =>{
+  it('should not have timeduration field',async(done) =>{
+    fixture.detectChanges();
+    await fixture.whenStable();
     var istimeduration=component.isTimeduration("expect");
     expect(istimeduration).toBe(false);
     done();
@@ -284,7 +291,9 @@ describe('MonitorDetailComponent', () => {
     expect(component.additionalSettingEdit).toEqual(true);
   });
 
-  it('should update label selector', () => {
+  it('should update label selector', async() => {
+    fixture.detectChanges();
+    await fixture.whenStable();
     let spy = spyOn(component, 'monitorUpdate');
     component['labelsSubmit'].next();
     expect(spy).toHaveBeenCalled();
@@ -298,7 +307,10 @@ describe('MonitorDetailComponent', () => {
   });
 
 
-  it('should unsubscribe on ngOnDestroy',done =>{
+  it('should unsubscribe on ngOnDestroy', async(done) =>{
+    fixture.detectChanges();
+    await fixture.whenStable();
+    
     spyOn(component.gc, 'unsubscribe');
     component.ngOnDestroy();
     expect(component.gc.unsubscribe).toHaveBeenCalled();

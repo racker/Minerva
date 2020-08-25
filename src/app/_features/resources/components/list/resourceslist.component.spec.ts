@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed, inject, } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed, inject, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import {ReactiveFormsModule, FormsModule, FormBuilder, Validators} from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -68,7 +68,9 @@ describe('ResourcesListComponent', () => {
         ResourcesService,
         SpinnerService,
         // reference the new instance of formBuilder from above
-        { provide: FormBuilder, useValue: formBuilder }
+        { provide: FormBuilder, useValue: formBuilder },
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+
       ]
     })
     .compileComponents();
@@ -104,13 +106,16 @@ describe('ResourcesListComponent', () => {
         expect(component.addButton).toBeDefined();
     });
 
-    it('ngOnInit should resolve resources', () => {
+    it('ngOnInit should resolve resources', async() => {
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(component.resources).toEqual(new resourcesMock().collection.content
         .slice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize));
     });
 
-    it('should assign total amount of resources', () => {
+    it('should assign total amount of resources', async() => {
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(component.total).toEqual(54);
     });
 
@@ -118,12 +123,17 @@ describe('ResourcesListComponent', () => {
       expect(component.page).toEqual(0);
     });
 
-    it('should create correct placeholder text', () => {
+    it('should create correct placeholder text', async() => {
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(component.searchPlaceholderText).toEqual('Search 54 Resources');
     });
 
 
-  it('should add all resources', () => {
+  it('should add all resources', async() => {
+    fixture.detectChanges();
+      await fixture.whenStable();
+      
     var checked = { target:{checked:true} };
     component.checkColumn(checked);
     component.selectedResources.forEach(e => {
@@ -135,7 +145,10 @@ describe('ResourcesListComponent', () => {
 
   });
 
-  it('should remove all resources', () => {
+  it('should remove all resources', async() => {
+    fixture.detectChanges();
+      await fixture.whenStable();
+      
     var unchecked = { target:{checked:false} };
     component.checkColumn(unchecked);
     expect(component.selectedResources).toEqual([]);
