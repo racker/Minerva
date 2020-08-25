@@ -114,9 +114,9 @@ describe('ResourceDetailsPage', () => {
     expect(component.metaLoading).toEqual(false);
     expect(component.labelsLoading).toEqual(false);
     expect(component.deleteLoading).toEqual(false);
-    //expect(component.metaPopPencil).toBeDefined();
-    //expect(component.labelPopPencil).toBeDefined();
-    //expect(component.delResource).toBeDefined();
+    expect(component.metaPopPencil).toBeDefined();
+    expect(component.labelPopPencil).toBeDefined();
+    expect(component.delResource).toBeDefined();
     expect(component.subManager).toBeDefined();
   });
 

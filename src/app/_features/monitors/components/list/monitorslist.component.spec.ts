@@ -63,46 +63,45 @@ describe('MonitorslistComponent', () => {
   });
 
   describe('setup defaults', () => {
-    /*it('ngOnInit should resolve monitors', () => {
+    it('ngOnInit should resolve monitors', () => {
       fixture.detectChanges();
         expect(component.monitors).toEqual(new monitorsMock().collection.content
         .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
-    });*/
+    });
 
-    /*it('should assign total amount of monitors', () => {
+    it('should assign total amount of monitors', () => {
       expect(component.total).toEqual(30);
-    });*/
+    });
 
     it('should assign current page', () => {
       expect(component.page).toEqual(0);
     });
 
-    /*it('should create correct placeholder text', () => {
+    it('should create correct placeholder text', () => {
       expect(component.monitorSearchPlaceholderText).toEqual('Search 30 monitors');
-    });*/
+    });
 
     it('should add MonUtil to project', () => {
       expect(component.monitorUtil).toEqual(MonitorUtil);
     });
   });
 
-  /*it('should add all monitors', () => {
-    var checked = { target:{checked:true} };
-    component.checkColumn(checked);
-    component.selectedMonitors.forEach(e => {
-      e.checked = true;
-    });
+  it('should add all monitors', () => {
+      var checked = { target:{checked:true} };
+      component.checkColumn(checked);
+      component.selectedMonitors.forEach(e => {
+        e.checked = true;
+      });
+  
+      expect(component.monitors)
+      .toEqual(component.selectedMonitors);
+  });
 
-    expect(component.monitors)
-    .toEqual(component.selectedMonitors);
-
-  });*/
-
-  /*it('should remove all monitors', () => {
-    var unchecked = { target:{checked:false} };
-    component.checkColumn(unchecked);
-    expect(component.selectedMonitors).toEqual([]);
-  });*/
+  it('should remove all monitors', () => {
+      var unchecked = { target:{checked:false} };
+      component.checkColumn(unchecked);
+      expect(component.selectedMonitors).toEqual([]);     
+  });
 
   it('should select a monitor', () => {
     component.selectMonitors(mockMonitor);

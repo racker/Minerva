@@ -37,9 +37,13 @@ describe('EventslistComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  /*it('should set data to events', ()=> {
+  it('should set data to events', ()=> {
+    component.ngOnInit();
+    fixture.detectChanges();
+    fixture.whenStable().then(() =>{
     expect(component.events).toEqual(new EventsMock().eventList.content);
-  });*/
+    })
+  });
 
   it('get all events', (done) =>{
     let spy = spyOn(component, 'getEvents').and.returnValue(of(new EventsMock().single));
