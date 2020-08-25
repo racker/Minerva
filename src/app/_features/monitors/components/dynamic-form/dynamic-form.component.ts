@@ -92,14 +92,10 @@ export class DynamicFormComponent implements OnChanges {
 
   constructor(private fb: FormBuilder, private zoneService: ZoneService,
     private spinService: SpinnerService) {
+      this.spinService.changeLoadingStatus(true);
     }
 
     ngOnInit(): void {
-      if(!environment.mock) {
-        setTimeout(() => {
-          this.spinService.changeLoadingStatus(true);
-        }, 0);
-      }
     }
 
   /**

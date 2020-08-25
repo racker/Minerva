@@ -19,6 +19,7 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     private eventSerice: EventsService,
     private spnService: SpinnerService,
     private route: ActivatedRoute) {
+      this.spnService.changeLoadingStatus(true);
   }
 
   /**
@@ -29,11 +30,6 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(!environment.mock) {
-      setTimeout(() => {
-        this.spnService.changeLoadingStatus(true);
-      }, 0);
-    }
     this.getParams();
   }
 
