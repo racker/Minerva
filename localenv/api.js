@@ -12,15 +12,15 @@ const Event = require('./routes/event-task');
 const TestMonitor = require('./routes/test-monitor')
 
 //all Monitoring V2 routes
-router.use('/salus', Labels);
-router.use('/salus/test-monitor', TestMonitor);
-router.use('/salus/resources-search', ResourceSearch);
-router.use('/salus/schema', Schema);
-router.use('/salus/monitors-search', MonitorSearch);
-router.use('/salus/resources', Resources);
-router.use('/salus/monitors', Monitors);
-router.use('/salus/zones',Zones);
-router.use('/salus/event-tasks',Event);
+router.use('/monitoring', Labels);
+router.use('/monitoring/test-monitor', TestMonitor);
+router.use('/monitoring/resources-search', ResourceSearch);
+router.use('/monitoring/schema', Schema);
+router.use('/monitoring/monitors-search', MonitorSearch);
+router.use('/monitoring/resources', Resources);
+router.use('/monitoring/monitors', Monitors);
+router.use('/monitoring/zones',Zones);
+router.use('/monitoring/event-tasks',Event);
 
 //all Metrics V2 routes
 router.use('/metrics', Metrics);

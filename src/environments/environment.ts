@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   mock: false,
   api: {
-    salus: `${absoluteHost}/api/salus`,
+    salus: `${absoluteHost}/api/monitoring`,
     metrics: `${absoluteHost}/api/metrics`
   },
   pagination: {

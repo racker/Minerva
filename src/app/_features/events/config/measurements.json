@@ -1,0 +1,21 @@
+{
+    "fields": [
+        "apache",
+        "cpu",
+        "disk",
+        "diskio",
+        "dns_query",
+        "http_response",
+        "mem",
+        "mysql",
+        "net",
+        "net_response",
+        "ping",
+        "postgresql",
+        "procstat",
+        "redis",
+        "sqlserver",
+        "syslog",
+        "system"
+    ]
+}
