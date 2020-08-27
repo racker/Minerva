@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { Event, Events } from "../../_models/events";
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 import { LoggingService } from '../logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { EventsMock } from "../../_mocks/events/events.service.mock";
@@ -49,7 +49,7 @@ export class EventsService {
     if (environment.mock) {
       let mocks = Object.assign({}, this.mockedEvents.eventList);
       this.events = mocks;
-      return of<Events>(this.events);
+      return of<Events>(this.events).pipe(delay(500));
     } else {
       return this.http.get<Events>(`${environment.api.salus}/event-tasks?size=${size}`, httpOptions)
         .pipe(
@@ -68,7 +68,7 @@ export class EventsService {
     if (environment.mock) {
       let mock = Object.assign({}, this.mockedEvents.single)
       this.event = mock;
-      return of<Event>(this.event);
+      return of<Event>(this.event).pipe(delay(500));
     }
     return this.http.get<Event>(`${environment.api.salus}/event-tasks/${id}`, httpOptions)
       .pipe(

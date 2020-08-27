@@ -38,16 +38,11 @@ export class AdminResourceDetailsPage implements OnInit {
   updatedLabelFields: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private resourceService: ResourcesService, private spnService: SpinnerService) { }
+    private resourceService: ResourcesService, private spnService: SpinnerService) { this.spnService.changeLoadingStatus(true); }
 
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
-    if(!environment.mock) {
-      setTimeout(() => {
-        this.spnService.changeLoadingStatus(true);
-      }, 0);
-    }
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(

@@ -53,7 +53,7 @@ export class ResourcesService {
       let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.resources = mocks;
       this.resources.content = slicedData;
-      return of<Resources>(this.resources);
+      return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
     return this.http.get<Resources>(`${environment.api.salus}/resources?size=${size}&page=${page}`, httpOptions)
@@ -73,7 +73,7 @@ export class ResourcesService {
   getResource(id: string): Observable<Resource> {
     if (environment.mock) {
       this._resource = this.mockedResources.single;
-      return of<Resource>(this.mockedResources.single);
+      return of<Resource>(this.mockedResources.single).pipe(delay(500));
     }
     else {
       return this.http.get<Resource>(`${environment.api.salus}/resources/${id}`)

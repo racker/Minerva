@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,6 +45,7 @@ describe('MonitorslistComponent', () => {
         HttpClientModule
       ],
       providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true },
         MonitorService
       ]
     })
@@ -63,13 +64,16 @@ describe('MonitorslistComponent', () => {
   });
 
   describe('setup defaults', () => {
-    it('ngOnInit should resolve monitors', () => {
+    it('ngOnInit should resolve monitors', async() => {
       fixture.detectChanges();
+      await fixture.whenStable();
         expect(component.monitors).toEqual(new monitorsMock().collection.content
         .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
     });
 
-    it('should assign total amount of monitors', () => {
+    it('should assign total amount of monitors', async() => {
+      fixture.detectChanges();
+      await fixture.whenStable();
       expect(component.total).toEqual(30);
     });
 
@@ -77,7 +81,10 @@ describe('MonitorslistComponent', () => {
       expect(component.page).toEqual(0);
     });
 
-    it('should create correct placeholder text', () => {
+    it('should create correct placeholder text', async() => {
+      fixture.detectChanges();
+      await fixture.whenStable();
+      
       expect(component.monitorSearchPlaceholderText).toEqual('Search 30 monitors');
     });
 
@@ -86,22 +93,27 @@ describe('MonitorslistComponent', () => {
     });
   });
 
-  it('should add all monitors', () => {
-    var checked = { target:{checked:true} };
-    component.checkColumn(checked);
-    component.selectedMonitors.forEach(e => {
-      e.checked = true;
-    });
-
-    expect(component.monitors)
-    .toEqual(component.selectedMonitors);
-
+  it('should add all monitors', async() => {
+    fixture.detectChanges();
+      await fixture.whenStable();
+      
+      var checked = { target:{checked:true} };
+      component.checkColumn(checked);
+      component.selectedMonitors.forEach(e => {
+        e.checked = true;
+      });
+  
+      expect(component.monitors)
+      .toEqual(component.selectedMonitors);
   });
 
-  it('should remove all monitors', () => {
-    var unchecked = { target:{checked:false} };
-    component.checkColumn(unchecked);
-    expect(component.selectedMonitors).toEqual([]);
+  it('should remove all monitors', async() => {
+    fixture.detectChanges();
+      await fixture.whenStable();
+      
+      var unchecked = { target:{checked:false} };
+      component.checkColumn(unchecked);
+      expect(component.selectedMonitors).toEqual([]);     
   });
 
   it('should select a monitor', () => {

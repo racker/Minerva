@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
@@ -85,6 +85,8 @@ describe('ResourceDetailsPage', () => {
             }
           }
         },
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+
         ResourcesService
       ],
       imports: [
@@ -108,7 +110,9 @@ describe('ResourceDetailsPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should setup defaults', () => {
+  it('should setup defaults', async() => {
+    fixture.detectChanges();
+    await fixture.whenStable();
     expect(component.resource$).toBeDefined();
     expect(component.Object).toEqual(Object);
     expect(component.metaLoading).toEqual(false);

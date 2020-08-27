@@ -67,7 +67,7 @@ export class MonitorService {
       let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.monitors = mocks;
       this.monitors.content = slicedData
-      return of<Monitors>(this.monitors);
+      return of<Monitors>(this.monitors).pipe(delay(500));
     }
     else {
     return this.http.get<Monitors>(`${environment.api.salus}/monitors?size=${size}&page=${page}`, httpOptions)
@@ -87,7 +87,7 @@ export class MonitorService {
   getMonitor(id: string): Observable<Monitor> {
     if (environment.mock) {
       this._monitor = this.mockedMonitors.single;
-      return of<Monitor>(this.mockedMonitors.single);
+      return of<Monitor>(this.mockedMonitors.single).pipe(delay(500));
     }
     else {
       return this.http.get<Monitor>(`${environment.api.salus}/monitors/${id}`, httpOptions)
