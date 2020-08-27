@@ -5,19 +5,30 @@ import { EventslistComponent } from './components/list/eventslist.component';
 import { SharedModule } from '../../_shared/shared.module';
 import { EventDetailsComponent } from '../events/components/event-details/event-details.component';
 import { RouterModule, Routes } from '@angular/router';
+import { EventCreateComponent } from './components/event-create/event-create.component';
+
+const routes: Routes=[
+  { path: 'create', component:EventCreateComponent,
+    data: {
+      breadcrumb: 'CREATE EVENT'
+    }
+  },
+]
 
 @NgModule({
-  declarations: [EventDetailsComponent,EventslistComponent],
+  declarations: [EventDetailsComponent,EventslistComponent, EventCreateComponent],
   imports: [
     SharedModule,
-    RouterModule
+    RouterModule.forChild(routes),
+    //RouterModule
   ],
   providers:[
     EventsService
   ],
   exports:[
     EventslistComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    EventCreateComponent
   ]
 })
 export class EventsModule { }
