@@ -54,6 +54,10 @@ export class MonitorDetailsPage implements OnInit {
   @ViewChild('delMonLink') delMonitor: ElementRef;
   @ViewChild('delMonitorFail') delMonitorFailure: ElementRef;
   @ViewChild('updateLabelPen') labelPopPencil:ElementRef;
+  monId: string;
+  message: string;
+  modalType:string;
+
   monitor$: Observable<Monitor>;
   Object = window.Object;
   additionalSettings: string = 'out';
@@ -88,6 +92,8 @@ export class MonitorDetailsPage implements OnInit {
      }
 
   ngOnInit() {
+    this.message = "Are you sure you'd like to delete this Monitor?";
+    this.modalType = 'delMonModal';
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']
@@ -195,6 +201,32 @@ export class MonitorDetailsPage implements OnInit {
       this.delMonitor.nativeElement.click();
       this.delMonitorFailure.nativeElement.click();
     });
+  }
+
+
+  triggerFuncCn(message) {
+    this.delMonitor.nativeElement.click();
+  }
+
+  triggerFuncCf(id: string):void {
+    console.log("id ", id);
+    this.deleteLoading = true;
+    this.monitorService.deleteMonitor(id).subscribe((resp) => {
+      this.deleteLoading = false;
+
+      if (resp.status === 204) {
+        this.router.navigate(['/monitors']);
+      }
+      else {
+        this.delMonitor.nativeElement.click();
+        this.delMonitorFailure.nativeElement.click();
+      }
+    }, () => {
+      this.deleteLoading = false;
+      this.delMonitor.nativeElement.click();
+      this.delMonitorFailure.nativeElement.click();
+    });
+
   }
 
   /**

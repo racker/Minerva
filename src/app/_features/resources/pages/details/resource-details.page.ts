@@ -21,6 +21,8 @@ export class ResourceDetailsPage implements OnInit {
   @ViewChild('delResLink') delResource:ElementRef;
   @ViewChild('delResourcepop') delResourcePop: ElementRef;
   id: string;
+  message: string;
+  modalType:string;
 
   resource$: Observable<Resource>;
   private metaSubmit: Subject<void> = new Subject<void>();
@@ -42,6 +44,8 @@ export class ResourceDetailsPage implements OnInit {
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
+    this.message = "Are you sure you'd like to delete this Resource?";
+    this.modalType = 'delResModal';
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(
@@ -121,6 +125,22 @@ export class ResourceDetailsPage implements OnInit {
    * @param id string
    */
   deleteResource(id: string):void {
+    this.deleteLoading = true;
+    this.resourceService.deleteResource(id).subscribe(() => {
+        this.deleteLoading = false;
+        this.router.navigate(['/resources']);
+    }, () => {
+      this.deleteLoading = false;
+      this.delResource.nativeElement.click();
+      this.delResourcePop.nativeElement.click();
+    });
+  }
+
+  triggerFuncCn(message) {
+    this.delResource.nativeElement.click();
+  }
+
+  triggerFuncCf(id: string):void {
     this.deleteLoading = true;
     this.resourceService.deleteResource(id).subscribe(() => {
         this.deleteLoading = false;
