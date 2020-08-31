@@ -3,12 +3,15 @@ import { element, by, WebElement } from "protractor"
 
 export class MonitorsDetailsPage
 {  
-   additionalSettingslink   =element(by.xpath("//a[contains(text(),'Additional Settings')]"));
-   periodValue              =element(by.id("adnlSttngPrd"));
-   labelSelectorMethodValue =element(by.id("adtnlLblSlctor"));
-   policyValue              =element(by.id("excldRcPlcy"));
-  
-  
+   additionalSettingslink     =element(by.xpath("//a[contains(text(),'Additional Settings')]"));
+   periodValue                =element(by.id("adnlSttngPrd"));
+   labelSelectorMethodValue   =element(by.id("adtnlLblSlctor"));
+   policyValue                =element(by.id("excldRcPlcy"));
+   updatePluginDataPencilIcon =element(by.xpath("//hx-icon[@id='pencilIcn']"));
+   dynamicPluginDataPopover   =element(by.xpath("//div[@id='updateForm']"));
+   monitorTypeMonitorDetails  =element(by.xpath("//h4[contains(text(),'net_response monitor Details')]"));
+
+
   labelsInfoKeyDisplay(key:string){
      return(element(by.xpath("//div[contains(text(),'"+key+"')]")));
      
