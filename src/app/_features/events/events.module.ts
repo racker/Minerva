@@ -19,8 +19,7 @@ const routes: Routes=[
   declarations: [EventDetailsComponent,EventslistComponent, EventCreateComponent],
   imports: [
     SharedModule,
-    RouterModule.forChild(routes),
-    //RouterModule
+    RouterModule.forChild(routes)
   ],
   providers:[
     EventsService
