@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../../../_services/events/events.service';
 import { Event } from '../../../../_models/events';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,12 +11,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./eventslist.component.scss']
 })
 export class EventslistComponent implements OnInit {
-
+  
   events:Event[];
   size:number = 1;
   subscriber = new Subscription();
 
-  constructor(private eventService:EventsService) { }
+  constructor(private eventService:EventsService, private route : Router) { }
 
   ngOnInit(): void {
     this.getEvents();
@@ -26,7 +27,6 @@ export class EventslistComponent implements OnInit {
       this.events = data.content;
     })
   }
-
   ngOnDestroy() {
     this.subscriber.unsubscribe();
   }

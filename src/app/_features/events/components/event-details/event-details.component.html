@@ -22,8 +22,8 @@
         <div id="lblLabel" class="hxCol hxSpan-6">
           Label
         </div>
-        <div class="hxCol" *ngFor="let label of event?.taskParameters?.labelSelector | keyvalue">
-          <div class="hxRow">
+        <div class="hxCol" >
+          <div class="hxRow" *ngFor="let label of event?.taskParameters?.labelSelector | keyvalue">
             <div id="label.key" class="hxCol hxSpan-6">
               {{label.key}}
             </div>
