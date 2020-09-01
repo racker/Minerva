@@ -121,26 +121,20 @@ export class ResourceDetailsPage implements OnInit {
   }
 
   /**
-   * @description Delete the resource after confirmation
-   * @param id string
+   * cancel function to close popup using reference of helix modal
+   * @param message any
    */
-  deleteResource(id: string):void {
-    this.deleteLoading = true;
-    this.resourceService.deleteResource(id).subscribe(() => {
-        this.deleteLoading = false;
-        this.router.navigate(['/resources']);
-    }, () => {
-      this.deleteLoading = false;
-      this.delResource.nativeElement.click();
-      this.delResourcePop.nativeElement.click();
-    });
-  }
 
-  triggerFuncCn(message) {
+  triggerClose(message) {
     this.delResource.nativeElement.click();
   }
 
-  triggerFuncCf(id: string):void {
+  /**
+   * confirmation function to get consent from user to delete selected resource or not?
+   * @param id string
+   */
+
+  triggerConfirm(id: string):void {
     this.deleteLoading = true;
     this.resourceService.deleteResource(id).subscribe(() => {
         this.deleteLoading = false;

@@ -8,7 +8,7 @@ import { GlobalErrorHandler } from './global-error.handler';
 import {ServerErrorInterceptor } from '../_interceptors/server-error.interceptor';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import { ModalComponent } from './components/_modal/modal.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { MeasurementNamePipe } from './pipes/measurement-name.pipe';
 import { DeviceNamePipe } from './pipes/device-name.pipe';
 import { AddFieldsComponent } from './components/add-fields/add-fields.component';

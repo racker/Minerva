@@ -124,7 +124,7 @@
     </div>
   </div>
 </div>
-<app-modal [modalType]="modalType" [message]="message" [id]="resource.resourceId" (triggerFuncCn)="triggerFuncCn($event)" (triggerFuncCf)="triggerFuncCf(resource.resourceId)"  ></app-modal>
+<app-modal [modalType]="modalType" [message]="message" [id]="resource.resourceId" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(resource.resourceId)"  ></app-modal>
 
 <hx-disclosure aria-controls="delErrorModal" #delResourcepop id="delRespop" class="nodisplaClick"></hx-disclosure>
 <hx-modal class="hxSm"

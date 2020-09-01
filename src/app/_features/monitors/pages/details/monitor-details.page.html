@@ -230,7 +230,7 @@
       </div>
     </div>
     
-    <app-modal [modalType]="modalType" [message]="message" [id]="monitor.name" (triggerFuncCn)="triggerFuncCn($event)" (triggerFuncCf)="triggerFuncCf(monitor.id)" ></app-modal>
+    <app-modal [modalType]="modalType" [message]="message" [id]="monitor.name" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
     
     <hx-modal class="hxSm" id="delMonModal">
       <header>

@@ -166,6 +166,8 @@ describe('MonitorDetailComponent', () => {
     expect(component.labelsLoading).toEqual(false);
     expect(component.formatProp).toEqual([]);
     expect(component.updateBody).toEqual([]);
+    expect(component.message).toEqual("Are you sure you'd like to delete this Monitor?");
+    expect(component.modalType).toEqual("delMonModal");    
     expect(component.listOfKeys).toBeDefined();
     expect(component.listOfValues).toBeDefined();
     expect(component.monitorUtil).toEqual(MonitorUtil);
@@ -190,7 +192,7 @@ describe('MonitorDetailComponent', () => {
 
   it('should delete a monitor', (done) => {
     let spy = spyOn(monitorService, 'deleteMonitor').and.returnValue(of());
-    component.deleteMonitor('monitorID8772');
+    component.triggerConfirm('monitorID8772');
     expect(spy).toHaveBeenCalled();
     done();
   });

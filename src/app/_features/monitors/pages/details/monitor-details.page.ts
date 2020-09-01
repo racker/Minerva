@@ -180,40 +180,24 @@ export class MonitorDetailsPage implements OnInit {
     return false;
   }
 
-  /**
-   * Delete a monitor
-   * @param id string
+   /**
+   * cancel function to close popup using reference of helix modal
+   * @param message any
    */
-  deleteMonitor(id: string): void {
-    this.deleteLoading = true;
-    this.monitorService.deleteMonitor(id).subscribe((resp) => {
-      this.deleteLoading = false;
 
-      if (resp.status === 204) {
-        this.router.navigate(['/monitors']);
-      }
-      else {
-        this.delMonitor.nativeElement.click();
-        this.delMonitorFailure.nativeElement.click();
-      }
-    }, () => {
-      this.deleteLoading = false;
-      this.delMonitor.nativeElement.click();
-      this.delMonitorFailure.nativeElement.click();
-    });
-  }
-
-
-  triggerFuncCn(message) {
+  triggerClose(message:any) {
     this.delMonitor.nativeElement.click();
   }
 
-  triggerFuncCf(id: string):void {
-    console.log("id ", id);
+   /**
+   * confirmation function to get consent from user to delete selected monitor or not?
+   * @param id string
+   */
+
+  triggerConfirm(id: string):void {
     this.deleteLoading = true;
     this.monitorService.deleteMonitor(id).subscribe((resp) => {
       this.deleteLoading = false;
-
       if (resp.status === 204) {
         this.router.navigate(['/monitors']);
       }
