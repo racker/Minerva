@@ -1,0 +1,23 @@
+.state-critical {
+    color: #d32f2f
+}
+
+.state-info {
+    color: #bbdefb
+}
+
+.state-ok {
+    color: #4caf51
+}
+
+.state-warning {
+    color: #ffeb3b
+}
+
+.hxCol > hx-text-control > input {
+    color: #666
+}
+
+hx-textarea-control > textarea:disabled {
+    color: #666 !important;
+}

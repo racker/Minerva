@@ -13,7 +13,7 @@
               "expression": {
                 "type": "comparison",
                 "comparator": "<",
-                "valueName": null,
+                "valueName": "total_cpu",
                 "comparisonValue": 3
               },
               "state": "CRITICAL",
@@ -32,7 +32,7 @@
         "updatedTimestamp": "2020-08-07T16:41:03Z"
       },
       {
-        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "id": "88coz5f5-43c5-42b5-ae3b-870aefd98xz",
         "name": "network",
         "measurement": "network",
         "taskParameters": {
@@ -44,7 +44,7 @@
               "expression": {
                 "type": "comparison",
                 "comparator": "<",
-                "valueName": null,
+                "valueName": "average_usage",
                 "comparisonValue": 3
               },
               "state": "CRITICAL",
@@ -63,7 +63,7 @@
         "updatedTimestamp": "2020-08-07T16:41:03Z"
       },
       {
-        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "id": "1e2434f5-439d-42b5-aa3b-870aev3res98",
         "name": "filesystem",
         "measurement": "filesystem",
         "taskParameters": {
@@ -94,7 +94,7 @@
         "updatedTimestamp": "2020-08-07T16:41:03Z"
       },
       {
-        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "id": "8u2nxf5-439d-42645-aa3b-870aefjn65",
         "name": "memory",
         "measurement": "memory",
         "taskParameters": {
@@ -125,7 +125,7 @@
         "updatedTimestamp": "2020-08-07T16:41:03Z"
       },
       {
-        "id": "1e2434f5-439d-42b5-aa3b-870aefd1b1e1",
+        "id": "2895b8x3-439d-42b5-xx3b-878qp98zx9",
         "name": "ping",
         "measurement": "ping",
         "taskParameters": {

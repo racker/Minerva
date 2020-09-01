@@ -15,7 +15,7 @@ describe('EventDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EventDetailsComponent ],
-      providers:[EventsService, 
+      providers:[EventsService,
         {
           provide: ActivatedRoute,
           useValue: {
@@ -52,12 +52,19 @@ describe('EventDetailsComponent', () => {
     await component.getParams();
     expect('345d678ddopdkdjd67isdjj').toBe(component.eventId);
     done();
-  })
+  });
+
+  it('should assign state class name', () => {
+    expect(component.assignClassName('CRITICAL')).toEqual('state-critical');
+    expect(component.assignClassName('INFO')).toEqual('state-info');
+    expect(component.assignClassName('OK')).toEqual('state-ok');
+    expect(component.assignClassName('WARNING')).toEqual('state-warning');
+  });
+
   it('Should destory all subscription',(done) =>{
     spyOn(component.subsriptions, 'unsubscribe')
     component.ngOnDestroy();
     expect(component.subsriptions.unsubscribe).toHaveBeenCalled();
     done();
-  
-  })
+  });
 });
