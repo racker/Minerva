@@ -40,9 +40,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: any) => {
       this.eventId = params.id;
       if(this.eventId)
-      this.getEvent(this.eventId);
+        this.getEvent(this.eventId);
       else
-      this.spnService.changeLoadingStatus(false);
+        this.spnService.changeLoadingStatus(false);
     })
   }
 
@@ -56,7 +56,22 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
         this.spnService.changeLoadingStatus(false);
       })
     )
-    // adding subscription 
+    // adding subscription
     this.subsriptions.add(this.$evnt);
   }
+
+  /**
+   * Returns class name based on state
+   * @param state string
+   * @returns string
+   */
+  assignClassName(state: string): string {
+    switch(state) {
+      case 'CRITICAL': return 'state-critical';
+      case 'INFO': return 'state-info';
+      case 'OK': return 'state-ok';
+      case 'WARNING': return 'state-warning';
+    }
+  }
+
 }
