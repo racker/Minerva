@@ -308,9 +308,6 @@ describe('MonitorDetailComponent', () => {
 
 
   it('should unsubscribe on ngOnDestroy', async(done) =>{
-    fixture.detectChanges();
-    await fixture.whenStable();
-    
     spyOn(component.gc, 'unsubscribe');
     component.ngOnDestroy();
     expect(component.gc.unsubscribe).toHaveBeenCalled();

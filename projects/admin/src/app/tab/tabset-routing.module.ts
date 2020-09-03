@@ -33,6 +33,11 @@ const routes: Routes = [
       breadcrumb: ''
     }
   },
+   { path: 'event', loadChildren: () => import('../../../../../src/app/_features/events/events.module').then(m => m.EventsModule),
+    data: {
+      breadcrumb: 'Event'
+    }
+  },
 
 
 

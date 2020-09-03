@@ -1,0 +1,25 @@
+<h2>Create an Event!</h2>
+<p>
+    Write your own event criteria to define how alerts will be triggered.
+</p>
+
+<div class="hxRow hxSpan-12" style="padding-top: 4rem">
+    <div class="hxCol hxSpan-6">
+      <div class="hxRow">
+        <div id="lblLabel" class="hxCol hxSpan-6">
+          Label
+        </div>
+        <div class="hxCol hxSpan-6" >
+          <div class="hxRow" *ngFor="let label of monService.monitor?.labelSelector | keyvalue">
+            <div id="label.key" class="hxCol hxSpan-6">
+              {{label.key}}
+            </div>
+            <div id={{label.value}} class="hxCol hxSpan-6">
+              {{label.value}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
