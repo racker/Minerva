@@ -5,7 +5,6 @@ import { MonitorsDetailsPage } from "../../../pages/monitordetailspage";
 import { browser, Key, element, by } from "protractor";
 import { UpdatePluginDataOverlay } from "../../../overlays/updateplugindataOverlay";
 import { protractor } from "protractor/built/ptor";
-import { elementEventFullName } from "@angular/compiler/src/view_compiler/view_compiler";
 
 describe("Test to update dynamic plugin data", ()=> {
     let page : AppPage;
