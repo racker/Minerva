@@ -21,6 +21,8 @@ export class ResourceDetailsPage implements OnInit {
   @ViewChild('delResLink') delResource:ElementRef;
   @ViewChild('delResourcepop') delResourcePop: ElementRef;
   id: string;
+  message: string;
+  modalType:string;
 
   resource$: Observable<Resource>;
   private metaSubmit: Subject<void> = new Subject<void>();
@@ -42,6 +44,8 @@ export class ResourceDetailsPage implements OnInit {
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
+    this.message = "Are you sure you'd like to delete this Resource?";
+    this.modalType = 'delResModal';
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(
@@ -117,10 +121,20 @@ export class ResourceDetailsPage implements OnInit {
   }
 
   /**
-   * @description Delete the resource after confirmation
+   * cancel function to close popup using reference of helix modal
+   * @param message any
+   */
+
+  triggerClose(message) {
+    this.delResource.nativeElement.click();
+  }
+
+  /**
+   * confirmation function to get consent from user to delete selected resource or not?
    * @param id string
    */
-  deleteResource(id: string):void {
+
+  triggerConfirm(id: string):void {
     this.deleteLoading = true;
     this.resourceService.deleteResource(id).subscribe(() => {
         this.deleteLoading = false;

@@ -229,6 +229,9 @@
         {{monitor.createdTimestamp |  date:'MM/dd/yyyy'}}
       </div>
     </div>
+    
+    <app-modal [modalType]="modalType" [message]="message" [id]="monitor.name" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
+    
     <hx-modal class="hxSm" id="delMonModal">
       <header>
         <h2>Delete {{monitor.name || monitor.details.plugin.type}} monitor</h2>
@@ -243,6 +246,8 @@
         <button class="hxBtn" (click)="delMonitor.nativeElement.click()">Cancel</button>
       </footer>
     </hx-modal>
+
+
     <hx-disclosure aria-controls="delErrorModal" #delMonitorFail class="nodisplaClick"></hx-disclosure>
     <hx-modal class="hxSm" id="delErrorModal">
       <header>

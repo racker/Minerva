@@ -124,20 +124,7 @@
     </div>
   </div>
 </div>
-<hx-modal class="hxSm"
-  id="delResModal">
-  <header>
-    <h2>Delete {{resource.resourceId}}</h2>
-  </header>
-  <hx-div>
-    Are you sure you'd like to delete this Resource?
-  </hx-div>
-  <footer>
-    <button class="hxBtn hxPrimary" (click)="deleteResource(resource.resourceId)">
-        <hx-busy class="popover-busy" *ngIf="deleteLoading"></hx-busy>Confirm</button>
-    <button class="hxBtn" (click)="delResource.nativeElement.click()">Cancel</button>
-  </footer>
-</hx-modal>
+<app-modal [modalType]="modalType" [message]="message" [id]="resource.resourceId" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(resource.resourceId)"  ></app-modal>
 
 <hx-disclosure aria-controls="delErrorModal" #delResourcepop id="delRespop" class="nodisplaClick"></hx-disclosure>
 <hx-modal class="hxSm"
