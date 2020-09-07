@@ -188,7 +188,7 @@ export class MonitorDetailsPage implements OnInit {
 
   triggerClose(message:any) {
     if(message === 'error')
-    this.delMonitorFailure.nativeElement.click()
+    this.delMonitorFailure.nativeElement.click();
     else
     this.delMonitor.nativeElement.click();
   }
