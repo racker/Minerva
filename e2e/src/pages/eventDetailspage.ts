@@ -14,9 +14,6 @@ export class EventDetailsPage{
     createdDate           =element(by.xpath("//div[@id='valueCreatedDate']"));
     LastUpdated           =element(by.xpath("//div[@id='valueLast']"));
 
-    // constructor(private datepipe: DatePipe){
-    // }
-
 
     pageTitle(){
         
@@ -27,20 +24,9 @@ export class EventDetailsPage{
         return(element(by.xpath("//h2[contains(text(),'"+event+"')]")));
     }
 
-    dateConversionForCreatedTimestamp(){
+    dateConversion(timestamp:string){
         const datepipe: DatePipe = new DatePipe('en-US');
-        let srcDate=event.content[0].createdTimestamp;
-        let latest_date =datepipe.transform(srcDate, 'MM/dd/yyyy');
-        return latest_date;
-
-    }
-
-    dateConversionForUpdatedTimestamp(){
-        const datepipe: DatePipe = new DatePipe('en-US');
-        let srcDate=event.content[0].updatedTimestamp;
-        let latest_date =datepipe.transform(srcDate, 'MM/dd/yyyy');
-        return latest_date;
-
+        return datepipe.transform(timestamp, 'MM/dd/yyyy');
     }
 
 

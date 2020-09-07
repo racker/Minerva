@@ -5,10 +5,8 @@ import { MonitorsDetailsPage } from "../../pages/monitordetailspage";
 import { browser, Key, element, by } from "protractor";
 import { EventDetailsPage } from "../../pages/eventDetailspage";
 import { default as event } from "../../../../src/app/_mocks/events/getAllEvents.json";
-import { DatePipe } from "@angular/common";
 
-
-describe("Test to update dynamic plugin data", ()=> {
+describe("Test display of event details", ()=> {
     let page : AppPage;
     let nav  : navigations;
     let page1: MonitorsListPage;
@@ -48,8 +46,8 @@ describe("Test to update dynamic plugin data", ()=> {
        expect(page3.eventNameHeader('cpu').getText()).toEqual(event.content[0].name);
        expect(page3.monitorType.getText()).toEqual(event.content[0].name);
        expect(page3.agentEnvironment.getText()).toEqual(event.content[0].taskParameters.labelSelector.agent_environment);
-       expect(page3.createdDate.getText()).toEqual(page3.dateConversionForCreatedTimestamp());
-       expect(page3.LastUpdated.getText()).toEqual(page3.dateConversionForUpdatedTimestamp());
+       expect(page3.createdDate.getText()).toEqual(page3.dateConversion(event.content[0].createdTimestamp));
+       expect(page3.LastUpdated.getText()).toEqual(page3.dateConversion(event.content[0].updatedTimestamp));
     
       });
 });
