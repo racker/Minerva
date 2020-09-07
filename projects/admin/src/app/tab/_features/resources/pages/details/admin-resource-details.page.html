@@ -124,34 +124,13 @@
         </div>
       </div>
     </div>
-    <hx-modal class="hxSm"
-      id="delResModal">
-      <header>
-        <h2>Delete {{resource.resourceId}}</h2>
-      </header>
-      <hx-div>
-        Are you sure you'd like to delete this Resource?
-      </hx-div>
-      <footer>
-        <button class="hxBtn hxPrimary" (click)="deleteResource(resource.resourceId)">
-            <hx-busy class="popover-busy" *ngIf="deleteLoading"></hx-busy>Confirm</button>
-        <button class="hxBtn" (click)="delResource.nativeElement.click()">Cancel</button>
-      </footer>
-    </hx-modal>
+
+    <app-modal modalType="delResModal" header="Delete {{resource.resourceId}}" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(resource.resourceId)" ></app-modal>
     
     <hx-disclosure aria-controls="delErrorModal" #delResourcepop id="delRespop" class="nodisplaClick"></hx-disclosure>
-    <hx-modal class="hxSm"
-      id="delErrorModal">
-      <header>
-        <h2>Delete for {{resource.resourceId}} failed</h2>
-      </header>
-      <hx-div>
-        <h4>Please try again</h4>
-      </hx-div>
-      <footer>
-        <button class="hxBtn hxPrimary" (click)="delResourcePop.nativeElement.click()">Close</button>
-      </footer>
-    </hx-modal>
+    
+    <app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{resource.resourceId}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
+  
     </div>
     <div class="hxRow hxSpan-9">
       <div class="hxCol">

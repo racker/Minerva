@@ -23,7 +23,8 @@ export class ResourceDetailsPage implements OnInit {
   id: string;
   message: string;
   modalType:string;
-
+  header:string;
+  error:string;
   resource$: Observable<Resource>;
   private metaSubmit: Subject<void> = new Subject<void>();
   private labelsSubmit: Subject<void> = new Subject<void>();
@@ -126,6 +127,9 @@ export class ResourceDetailsPage implements OnInit {
    */
 
   triggerClose(message) {
+    if(message === 'error')
+    this.delResourcePop.nativeElement.click();
+    else
     this.delResource.nativeElement.click();
   }
 

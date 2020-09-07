@@ -230,36 +230,12 @@
       </div>
     </div>
     
-    <app-modal [modalType]="modalType" [message]="message" [id]="monitor.name" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
-    
-    <hx-modal class="hxSm" id="delMonModal">
-      <header>
-        <h2>Delete {{monitor.name || monitor.details.plugin.type}} monitor</h2>
-      </header>
-      <hx-div>
-        Are you sure you'd like to delete this Monitor?
-      </hx-div>
-      <footer>
-        <button class="hxBtn hxPrimary" (click)="deleteMonitor(monitor.id)">
-          <hx-busy class="popover-busy" *ngIf="deleteLoading"></hx-busy>Confirm
-        </button>
-        <button class="hxBtn" (click)="delMonitor.nativeElement.click()">Cancel</button>
-      </footer>
-    </hx-modal>
-
-
+    <app-modal modalType="delMonModal" header="Delete {{monitor.name}} monitor" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
+   
     <hx-disclosure aria-controls="delErrorModal" #delMonitorFail class="nodisplaClick"></hx-disclosure>
-    <hx-modal class="hxSm" id="delErrorModal">
-      <header>
-        <h2>Delete for {{monitor.name || monitor.details.plugin.type}} failed</h2>
-      </header>
-      <hx-div>
-        <h4>Please try again</h4>
-      </hx-div>
-      <footer>
-        <button class="hxBtn hxPrimary" (click)="delMonitorFailure.nativeElement.click()">Close</button>
-      </footer>
-    </hx-modal>
+   
+    <app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{monitor.name || monitor.details.plugin.type}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
+
   </div>
 
   <div class="hxRow hxSpan-9">

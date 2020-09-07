@@ -37,6 +37,10 @@ export enum UpdateSection {
 })
 export class DetailsComponent implements OnInit {
   id: string;
+  modalType:string;
+  header:string;
+  message:string;
+  error:string;
   dynamicFormSubmit: Subject<void> = new Subject<void>();
   dynamicFormValid: Subject<boolean> = new Subject<boolean>();
   private labelsSubmit: Subject<void> = new Subject<void>();
@@ -87,6 +91,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.message = "Are you sure you'd like to delete this Monitor?";
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']
@@ -178,7 +183,7 @@ export class DetailsComponent implements OnInit {
    * Delete a monitor
    * @param id string
    */
-  deleteMonitor(id: string): void {
+  triggerConfirm(id: string): void {
     this.deleteLoading = true;
     this.monitorService.deleteMonitor(id).subscribe((resp) => {
       this.deleteLoading = false;
@@ -195,6 +200,18 @@ export class DetailsComponent implements OnInit {
       this.delMonitor.nativeElement.click();
       this.delMonitorFailure.nativeElement.click();
     });
+  }
+
+  /**
+   * cancel function to close popup using reference of helix modal
+   * @param message any
+   */
+
+  triggerClose(message:any) {
+    if(message === 'error')
+    this.delMonitorFailure.nativeElement.click();
+    else
+    this.delMonitor.nativeElement.click();
   }
 
   /**

@@ -57,6 +57,8 @@ export class MonitorDetailsPage implements OnInit {
   monId: string;
   message: string;
   modalType:string;
+  header:string;
+  error:string;
 
   monitor$: Observable<Monitor>;
   Object = window.Object;
@@ -93,7 +95,6 @@ export class MonitorDetailsPage implements OnInit {
 
   ngOnInit() {
     this.message = "Are you sure you'd like to delete this Monitor?";
-    this.modalType = 'delMonModal';
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']
@@ -186,6 +187,9 @@ export class MonitorDetailsPage implements OnInit {
    */
 
   triggerClose(message:any) {
+    if(message === 'error')
+    this.delMonitorFailure.nativeElement.click()
+    else
     this.delMonitor.nativeElement.click();
   }
 

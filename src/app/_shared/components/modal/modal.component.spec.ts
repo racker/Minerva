@@ -42,15 +42,15 @@ describe('ModalComponent', () => {
   });
 
   it('should show id', () => {
-    component.id = "devUbuntu";
+    component.header = "delete devUbuntu";
     fixture.detectChanges();
-    expect(component.id).toBe('devUbuntu');
+    expect(component.header).toBe('delete devUbuntu');
   });
 
   it('should listen for close', () => {
     spyOn(component.triggerClose, 'emit');
     fixture.detectChanges();
-    component.close();
+    component.close('close');
     expect(component.triggerClose.emit).toHaveBeenCalled();  
   });
 
