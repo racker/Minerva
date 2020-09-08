@@ -36,6 +36,11 @@ export class navigations
       expect(element(by.xpath("//a[contains(text(),'Visualize')]")).isPresent()).toBe(true);
      
    }
+
+
+   navigateToAdmin(){
+     element(by.xpath("//a[contains(text(),'Admin')]")).click();
+   }
   
   async loadresources()
   {

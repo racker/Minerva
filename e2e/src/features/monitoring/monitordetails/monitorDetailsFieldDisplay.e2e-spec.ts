@@ -1,7 +1,7 @@
 import { AppPage } from "../../../pages/app.po";
 import { navigations } from "../../../commons/navigations";
-import { MonitorsListPage } from "../../../pages/monitorlistpage";
-import { MonitorsDetailsPage } from "../../../pages/monitordetailspage";
+import { MonitorsListPage } from "../../../pages/monitorListPage";
+import { MonitorsDetailsPage } from "../../../pages/monitorDetailsPage";
 import { browser } from "protractor";
 import { default as using } from "jasmine-data-provider";
 import { default as obj } from "../../../../../src/app/_mocks/monitors/single.json";

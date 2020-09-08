@@ -10,8 +10,8 @@ describe("Resources List", () => {
 
   beforeEach(() => {
     page = new AppPage();
-  
     page.navigateTo();
+    browser.sleep(3000);
   });
 
   it("Check if check box is enabled" , () => {
