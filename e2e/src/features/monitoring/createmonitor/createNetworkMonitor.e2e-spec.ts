@@ -1,6 +1,6 @@
 import { AppPage } from "../../../pages/app.po";
 import { navigations } from "../../../commons/navigations";
-import { MonitorsListPage } from "../../../pages/monitorlistpage";
+import { MonitorsListPage } from "../../../pages/monitorListPage";
 import { CreateMonitorPage } from "../../../pages/createmonitorpage";
 import { browser } from "protractor";
 import { default as using } from "jasmine-data-provider";

@@ -1,7 +1,7 @@
 import { AppPage } from "../../../pages/app.po";
 import { navigations } from "../../../commons/navigations";
-import { MonitorsListPage } from "../../../pages/monitorlistpage";
-import { MonitorsDetailsPage } from "../../../pages/monitordetailspage";
+import { MonitorsListPage } from "../../../pages/monitorListPage";
+import { MonitorsDetailsPage } from "../../../pages/monitorDetailsPage";
 import { browser, Key, element, by } from "protractor";
 import { UpdatePluginDataOverlay } from "../../../overlays/updateplugindataOverlay";
 import { protractor } from "protractor/built/ptor";
