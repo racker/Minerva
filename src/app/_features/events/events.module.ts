@@ -17,7 +17,7 @@ const routes: Routes=[
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  declarations: [EventDetailsComponent,EventslistComponent],
+  declarations: [EventDetailsComponent,EventslistComponent,EventCreateComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)

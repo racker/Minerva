@@ -8,7 +8,7 @@
 
 
   </div>
-  <app-modal [modalType]="modalType" [message]="message" [id]="eventText" (triggerFuncCn)="triggerFuncCn($event)" (triggerFuncCf)="triggerFuncCf()" ></app-modal>
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected event" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
 <table id="evnttble" class="hxTable">
     <thead>

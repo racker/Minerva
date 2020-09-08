@@ -17,17 +17,18 @@ export class EventslistComponent implements OnInit {
   size:number = 1;
   selectedEvents: any = [];
   isDeleted : boolean = true;
+  deleteLoading:boolean = false;
+
   modalType : string;
   eventText :string;
   message   : string;
+  header:string;
   subscriber = new Subscription();
 
   constructor(private eventService:EventsService, private route : Router) { }
 
   ngOnInit(): void {
     this.modalType = 'delEventModal';
-    this.eventText = 'selected event';
-
     this.getEvents();
   }
 
@@ -49,21 +50,23 @@ export class EventslistComponent implements OnInit {
     this.message = "Are you sure you'd like to delete these Events?";
   }
 
-  triggerFuncCn(message) {
+  triggerClose(message) {
     this.delEvent.nativeElement.click();
   }
 
-  triggerFuncCf() {
+  triggerConfirm() {
     this.selectedEvents.map((value) => { 
       this.eventService.deleteEvent(value).subscribe(data => {
           //console.log("data ", data);
+          this.deleteLoading = false;
+          this.delEvent.nativeElement.click();
+          this.getEvents();
+          //this.route.navigate(['/monitors']);
       })
-
-  })
+    })
   }
 
   ngOnDestroy() {
     this.subscriber.unsubscribe();
   }
-  
 }
