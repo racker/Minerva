@@ -118,6 +118,8 @@ describe('ResourceDetailsPage', () => {
     expect(component.metaLoading).toEqual(false);
     expect(component.labelsLoading).toEqual(false);
     expect(component.deleteLoading).toEqual(false);
+    expect(component.message).toEqual("Are you sure you'd like to delete this Resource?");
+    expect(component.modalType).toEqual('delResModal');
     expect(component.metaPopPencil).toBeDefined();
     expect(component.labelPopPencil).toBeDefined();
     expect(component.delResource).toBeDefined();
@@ -167,7 +169,7 @@ describe('ResourceDetailsPage', () => {
 
   it('should delete a resource', (done) => {
     let spy = spyOn(resourceService, 'deleteResource').and.returnValue(of());
-    component.deleteResource('resourceToDelete');
+    component.triggerConfirm('resourceToDelete');
     expect(spy).toHaveBeenCalled();
     done();
   })
