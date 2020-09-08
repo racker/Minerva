@@ -43,7 +43,7 @@ describe("Test display of event details", ()=> {
        expect(page3.labelLastUpdated.isDisplayed()).toBe(true);
        
        //check the display of event values
-       expect(page3.eventNameHeader('cpu').getText()).toEqual(event.content[0].name);
+       expect(page3.eventNameHeader(event.content[0].name).getText()).toEqual(event.content[0].name);
        expect(page3.monitorType.getText()).toEqual(event.content[0].name);
        expect(page3.agentEnvironment.getText()).toEqual(event.content[0].taskParameters.labelSelector.agent_environment);
        expect(page3.createdDate.getText()).toEqual(page3.dateConversion(event.content[0].createdTimestamp));
