@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EventCreateComponent } from './components/event-create/event-create.component';
 
 const routes: Routes=[
-  { path: 'create', component:EventCreateComponent,
+  { path: 'newevent', component:EventCreateComponent,
     data: {
       breadcrumb: 'CREATE EVENT'
     }
