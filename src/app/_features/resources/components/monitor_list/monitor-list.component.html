@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let monitor of monitors">
-        <td [id]="monitor.monitorId"><a [routerLink]="['/monitors/details', monitor.monitorId]">{{monitor.monitorName }}</a></td>
+        <td [id]="monitor.monitorId"><a [routerLink]="['/monitors/details', monitor.monitorId]">{{monitor.monitorName || monitor.monitorType }}</a></td>
 
         <td >{{monitor.monitorType}}</td>
         <td>{{monitor.selectorScope}}</td>
