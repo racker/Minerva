@@ -84,8 +84,6 @@ export class EventsService {
    * @param id string
    */
   deleteEvent(id:string) {
-      console.log("id ", id);
-
       return this.http.delete<Event>(`${environment.api.salus}/event-tasks/${id}`, httpOptions)
       .pipe(
         tap(data => {

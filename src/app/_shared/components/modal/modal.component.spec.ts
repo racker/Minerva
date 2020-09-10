@@ -44,7 +44,8 @@ describe('ModalComponent', () => {
   it('should show id', () => {
     component.header = "delete devUbuntu";
     fixture.detectChanges();
-    expect(component.header).toBe('delete devUbuntu');
+    var headerValue =  fixture.debugElement.query(By.css('h2')).nativeElement.textContent;
+    expect(headerValue).toContain('delete devUbuntu');
   });
 
   it('should listen for close', () => {

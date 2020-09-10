@@ -22,7 +22,7 @@ export class AdminResourceDetailsPage implements OnInit {
   @ViewChild('delResLink') delResource:ElementRef;
   @ViewChild('delResourcepop') delResourcePop: ElementRef;
   id: string;
-  message:string;
+  message:string = "Are you sure you'd like to delete this Resource?";
   header:string;
   modalType:string;
 
@@ -46,8 +46,7 @@ export class AdminResourceDetailsPage implements OnInit {
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
-    this.message = "Are you sure you'd like to delete this Resource?";
-    this.route.params.subscribe(params => {
+      this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(
         tap((data) => {
@@ -142,11 +141,11 @@ export class AdminResourceDetailsPage implements OnInit {
    * @param message any
    */
 
-  triggerClose(message:any) {
-    if(message === 'error')
-    this.delResourcePop.nativeElement.click()
-    else
+  triggerClose(flag:boolean) {
+    if(flag)
     this.delResource.nativeElement.click();
+    else
+    this.delResourcePop.nativeElement.click()
   }
 
   ngOnDestroy() {

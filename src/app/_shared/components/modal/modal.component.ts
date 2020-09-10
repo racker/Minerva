@@ -23,12 +23,11 @@ export class ModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close(message) {
-    if(message === 'error')
-    this.triggerClose.emit('error');
+  close(flag) {
+    if(flag)
+    this.triggerClose.emit(true);
     else
-    this.triggerClose.emit('close');
-    
+    this.triggerClose.emit(false);
   }
 
   confirm() {

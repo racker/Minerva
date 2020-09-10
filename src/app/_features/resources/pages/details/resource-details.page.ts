@@ -126,11 +126,11 @@ export class ResourceDetailsPage implements OnInit {
    * @param message any
    */
 
-  triggerClose(message) {
-    if(message === 'error')
-    this.delResourcePop.nativeElement.click();
+  triggerClose(flag:boolean) {
+    if(flag)
+    this.delResource.nativeElement.click();  
     else
-    this.delResource.nativeElement.click();
+    this.delResourcePop.nativeElement.click();
   }
 
   /**

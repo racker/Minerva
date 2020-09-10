@@ -50,7 +50,8 @@ export class EventslistComponent implements OnInit {
     this.message = "Are you sure you'd like to delete these Events?";
   }
 
-  triggerClose(message) {
+  triggerClose(flag:boolean) {
+    if(flag)
     this.delEvent.nativeElement.click();
   }
 

@@ -39,7 +39,7 @@ export class DetailsComponent implements OnInit {
   id: string;
   modalType:string;
   header:string;
-  message:string;
+  message:string = "Are you sure you'd like to delete this Monitor?";
   error:string;
   dynamicFormSubmit: Subject<void> = new Subject<void>();
   dynamicFormValid: Subject<boolean> = new Subject<boolean>();
@@ -91,7 +91,6 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.message = "Are you sure you'd like to delete this Monitor?";
     // popover form for updating Monitor name
     this.updateMonNameForm = this.fb.group({
       name: ['']
@@ -207,11 +206,11 @@ export class DetailsComponent implements OnInit {
    * @param message any
    */
 
-  triggerClose(message:any) {
-    if(message === 'error')
-    this.delMonitorFailure.nativeElement.click();
-    else
+  triggerClose(flag:boolean) {
+    if(flag)
     this.delMonitor.nativeElement.click();
+    else
+    this.delMonitorFailure.nativeElement.click();
   }
 
   /**
