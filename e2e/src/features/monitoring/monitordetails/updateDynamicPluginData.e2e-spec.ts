@@ -63,7 +63,7 @@ describe("Test to update dynamic plugin data", ()=> {
         
     })
 
-    fit("Verify that host field is required",()=>{
+    it("Verify that host field is required",()=>{
         page2.updatePluginDataPencilIcon.click();
         browser.executeScript('window.scrollTo(0,500);');
         browser.sleep(3000);
@@ -107,7 +107,7 @@ describe("Test to update dynamic plugin data", ()=> {
             expect(overlay.portErrMsg.getText()).toEqual("The minimum value to accept for this input 1");
         })
 
-    fit("Verify that TimeOut field accepts numeric values and can also be blank",()=>{
+    it("Verify that TimeOut field accepts numeric values and can also be blank",()=>{
         //check if TimeOut field accepts null value   
             page2.updatePluginDataPencilIcon.click();
             browser.executeScript('window.scrollTo(0,500);');
@@ -128,7 +128,7 @@ describe("Test to update dynamic plugin data", ()=> {
 
     })
 
-    fit("Verify that ReadTimeOut field accepts numeric values and can also be blank",()=>{
+    it("Verify that ReadTimeOut field accepts numeric values and can also be blank",()=>{
         //check if ReadTimeOut field accepts null value   
             page2.updatePluginDataPencilIcon.click();
             browser.executeScript('window.scrollTo(0,500);');
@@ -149,7 +149,7 @@ describe("Test to update dynamic plugin data", ()=> {
 
     })
 
-    fit("Verify that user able to update the dynamic plugin data of any monitor using the dynamic form component",()=>{
+    it("Verify that user able to update the dynamic plugin data of any monitor using the dynamic form component",()=>{
         page2.updatePluginDataPencilIcon.click();
         browser.executeScript('window.scrollTo(0,500);');
         browser.sleep(3000);
