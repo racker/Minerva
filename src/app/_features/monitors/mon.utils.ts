@@ -1,6 +1,8 @@
 import { FieldConfig, Validator } from './interfaces/field.interface';
 import { Validators } from '@angular/forms';
 import { Monitor } from 'src/app/_models/monitors';
+import { BoundMonitor } from 'src/app/_models/resources';
+
 import { CreateTestMonitor } from './interfaces/testMonitor.interface';
 
 export enum CntrlAttribute {
@@ -195,6 +197,10 @@ export class MonitorUtil {
         }else{
             return `${monitor.details.plugin.type}-${monitor.id.substr(monitor.id.length - 5)}`;
         }
+    }
+
+    static formatTitleField(monitor: BoundMonitor) {
+        return `${monitor.monitorType}-${monitor.monitorId.substr(monitor.monitorId.length - 5)}`;
     }
 
     static formatTestMonitor(resourceId, monitor: Monitor): CreateTestMonitor {
