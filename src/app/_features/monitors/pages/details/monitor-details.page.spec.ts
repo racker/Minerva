@@ -167,7 +167,6 @@ describe('MonitorDetailComponent', () => {
     expect(component.formatProp).toEqual([]);
     expect(component.updateBody).toEqual([]);
     expect(component.message).toEqual("Are you sure you'd like to delete this Monitor?");
-    expect(component.modalType).toEqual("delMonModal");    
     expect(component.listOfKeys).toBeDefined();
     expect(component.listOfValues).toBeDefined();
     expect(component.monitorUtil).toEqual(MonitorUtil);

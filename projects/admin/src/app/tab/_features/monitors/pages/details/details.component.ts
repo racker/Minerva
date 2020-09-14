@@ -37,6 +37,10 @@ export enum UpdateSection {
 })
 export class DetailsComponent implements OnInit {
   id: string;
+  modalType:string;
+  header:string;
+  message:string = "Are you sure you'd like to delete this Monitor?";
+  error:string;
   dynamicFormSubmit: Subject<void> = new Subject<void>();
   dynamicFormValid: Subject<boolean> = new Subject<boolean>();
   private labelsSubmit: Subject<void> = new Subject<void>();
@@ -178,7 +182,7 @@ export class DetailsComponent implements OnInit {
    * Delete a monitor
    * @param id string
    */
-  deleteMonitor(id: string): void {
+  triggerConfirm(id: string): void {
     this.deleteLoading = true;
     this.monitorService.deleteMonitor(id).subscribe((resp) => {
       this.deleteLoading = false;
@@ -195,6 +199,18 @@ export class DetailsComponent implements OnInit {
       this.delMonitor.nativeElement.click();
       this.delMonitorFailure.nativeElement.click();
     });
+  }
+
+  /**
+   * cancel function to close popup using reference of helix modal
+   * @param message any
+   */
+
+  triggerClose(flag:boolean) {
+    if(flag)
+    this.delMonitor.nativeElement.click();
+    else
+    this.delMonitorFailure.nativeElement.click();
   }
 
   /**
