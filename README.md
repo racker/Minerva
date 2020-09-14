@@ -75,7 +75,10 @@ Run `ng generate component <component-name>` to generate a new component. You ca
 
 ## Build
 
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+Run `npm run build`. it will run `makefile build-frontend` to execute makefile file which contains a set of directives used by a make build automation tool to generate specified goal.
+
+`makefile` execute two commands `ng build --project='minerva'` & `ng build --project='admin'` and generates two build folders. The build artifacts will be stored in the `dist/` directory. `--project='minerva'` context actually tell us which project to build as it interacts with angular.json and look for project name specified inside      `projects` object.  
 
 ## Running unit tests
 
