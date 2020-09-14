@@ -311,7 +311,7 @@ describe('DetailComponent', () => {
   it('should set default values to dynamic component', (done) => {
 
     let def = component.setDefaultValue(definitions);
-    expect(def).toBeTruthy(400);
+    expect(def.properties.timeout.default).toBe(400);
     done();
   });
   it('should create plugin data if format type field value get change', (done) => {
