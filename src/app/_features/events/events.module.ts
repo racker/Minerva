@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { EventsService } from '../../_services/events/events.service';
 import { EventslistComponent } from './components/list/eventslist.component';
 import { SharedModule } from '../../_shared/shared.module';
@@ -15,6 +15,7 @@ const routes: Routes=[
 ]
 
 @NgModule({
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   declarations: [EventDetailsComponent,EventslistComponent, EventCreateComponent],
   imports: [
     SharedModule,

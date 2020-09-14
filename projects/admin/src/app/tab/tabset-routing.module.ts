@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TabsetComponent } from './tabset.component';
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
@@ -45,6 +45,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TabRoutingModule { }

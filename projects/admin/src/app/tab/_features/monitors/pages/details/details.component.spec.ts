@@ -34,7 +34,7 @@ import { delay } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-class LabelServiceMock{
+class LabelServiceMock {
 
   public _labels;
 
@@ -45,123 +45,133 @@ class LabelServiceMock{
   set labels(value: any) {
     this._labels = value;
   }
- getResourceLabels(): Observable<LabelResources> {
-  this._labels = new LabelMock().resourceLabels;
-      return of<LabelResources>(new LabelMock().resourceLabels);
-   
+  getResourceLabels(): Observable<LabelResources> {
+    this._labels = new LabelMock().resourceLabels;
+    return of<LabelResources>(new LabelMock().resourceLabels);
+
   }
   getMonitorLabels(): Observable<LabelMonitors> {
-      return of<LabelMonitors>(new LabelMock().monitorLabels);
-   
+    return of<LabelMonitors>(new LabelMock().monitorLabels);
+
   }
 }
 @Injectable({
   providedIn: 'root'
 })
-class ShcemaServiceMock extends SchemaService {
-  
-loadSchema(): Promise < Schema | boolean > {
-  
-  return new Promise((res, rej) => {
-    let _schema = new monitorsMock().schema;
-    _schema['$id'] = _schema.$schema;
-    delete _schema.$schema;
-   
-    res(_schema);
-  });
-}
- }
+class ShcemaServiceMock {
+  private _schema: Schema;
+ 
+  get schema(): Schema {
+    return this._schema;
+  }
 
- @Injectable({
+  set schema(scheme: Schema) {
+    this._schema = scheme;
+  }
+
+  loadSchema(): Promise<Schema | boolean> {
+    return new Promise((res, rej) => {
+      this._schema = new monitorsMock().schema;
+      this._schema['$id'] = this._schema.$schema;
+      delete this._schema.$schema;
+      res(this._schema);
+    });
+  }
+}
+
+@Injectable({
   providedIn: 'root'
 })
- class MonitorServiceMock{
-  
-  deleteMonitor(id:string): Observable<any> {
-  
-      return of<boolean>(true);
-    }
-    getMonitor(id: string): Observable<Monitor> {
-        return of<Monitor>(new monitorsMock().single).pipe(delay(500));
-    }
-  
-   updateMonitor(id: string, details: any[]): Observable<Monitor> {
-       return of<Monitor>(new monitorsMock().single);
-   }
-   }
+class MonitorServiceMock {
 
-fdescribe('DetailComponent', () => {
+  deleteMonitor(id: string): Observable<any> {
+
+    return of<boolean>(true);
+  }
+  getMonitor(id: string): Observable<Monitor> {
+    return of<Monitor>(new monitorsMock().single).pipe(delay(500));
+  }
+
+  updateMonitor(id: string, details: any[]): Observable<Monitor> {
+    return of<Monitor>(new monitorsMock().single);
+  }
+}
+
+describe('DetailComponent', () => {
   let injector: TestBed;
   let component: DetailsComponent;
   let monitorService: MonitorService;
   let lbelServiceMock: LabelService;
   let fixture: ComponentFixture<DetailsComponent>;
   let schemaService: SchemaService;
-  let definitions= {properties:{
-    "type": {
-      "type": "string",
-      "enum": [
-        "net_response"
-      ],
-      "default": "net_response"
-    },
-    "protocol": {
-      "type": "string",
-      "enum": [
-        "udp",
-        "tcp"
-      ]
-    },
-    "host": {
-      "type": "string",
-      "pattern": "^.*\\S+.*$",
-      "minLength": 1
-    },
-    "port": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 65535
-    },
-    "timeout": {
-      "type": "string",
-      "format": "date-time",
-      "default":400,
-    },
-    "readTimeout": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "send": {
-      "type": "string"
-    },
-    "expect": {
-      "type": "string"
+  let definitions = {
+    properties: {
+      "type": {
+        "type": "string",
+        "enum": [
+          "net_response"
+        ],
+        "default": "net_response"
+      },
+      "protocol": {
+        "type": "string",
+        "enum": [
+          "udp",
+          "tcp"
+        ]
+      },
+      "host": {
+        "type": "string",
+        "pattern": "^.*\\S+.*$",
+        "minLength": 1
+      },
+      "port": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 65535
+      },
+      "timeout": {
+        "type": "string",
+        "format": "date-time",
+        "default": 400,
+      },
+      "readTimeout": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "send": {
+        "type": "string"
+      },
+      "expect": {
+        "type": "string"
+      }
     }
-  }};
+  };
 
   const keyPair = {
     keysandvalues: [
-    {
-      key: 'newkey',
-      value: 'newpair'
-    },
-    {
-      key: 'likelykey',
-      value: 'likelypair'
-    },
-    {
-      key: 'somekey',
-      value: 'somepair'
-    },
-    {
-      key: 'fourthkey',
-      value: 'fourthpair'
-    }
-  ]};
+      {
+        key: 'newkey',
+        value: 'newpair'
+      },
+      {
+        key: 'likelykey',
+        value: 'likelypair'
+      },
+      {
+        key: 'somekey',
+        value: 'somepair'
+      },
+      {
+        key: 'fourthkey',
+        value: 'fourthpair'
+      }
+    ]
+  };
 
   // create new instance of FormBuilder
   const formBuilder: FormBuilder = new FormBuilder();
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [
@@ -182,9 +192,9 @@ fdescribe('DetailComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({id: "anUniqueId"}),
+            params: of({ id: "anUniqueId" }),
             root: {
-              routeConfig : routes[0]
+              routeConfig: routes[0]
             }
           }
         },
@@ -201,22 +211,22 @@ fdescribe('DetailComponent', () => {
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
     TestBed.overrideComponent(DetailsComponent,
-      { set: { providers: [
-        { provide: LabelService, useClass: LabelServiceMock },
-        { provide: MonitorService, useClass: MonitorServiceMock },
-        { provide: SchemaService, useClass: ShcemaServiceMock }
-      ] } }
+      {
+        set: {
+          providers: [
+            { provide: LabelService, useClass: LabelServiceMock },
+            { provide: MonitorService, useClass: MonitorServiceMock },
+            { provide: SchemaService, useClass: ShcemaServiceMock }
+          ]
+        }
+      }
     )
-    
-    // monitorService = injector.get(MonitorService);
-    
     fixture = TestBed.createComponent(DetailsComponent);
-    
     component = fixture.componentInstance;
     component.updateMonNameForm = formBuilder.group({
       name: ['']
@@ -225,10 +235,12 @@ fdescribe('DetailComponent', () => {
     lbelServiceMock = fixture.debugElement.injector.get(LabelService);
     schemaService = fixture.debugElement.injector.get(SchemaService);
     schemaService.loadSchema();
-    fixture.detectChanges();
+    
     component.monDetails = new monitorsMock().single;
+    component.definitions = definitions;
+    fixture.detectChanges();
   });
- 
+
   afterEach(() => {
     fixture.destroy();
   });
@@ -238,11 +250,10 @@ fdescribe('DetailComponent', () => {
   });
 
   it('should setup defaults', () => {
+    
     expect(component.monitor$).toBeDefined();
     expect(component.Object).toEqual(Object);
     expect(component.deleteLoading).toEqual(false);
-    // expect(component.delMonitor).toBeDefined();
-    // expect(component.delMonitorFailure).toBeDefined();
     expect(component.additionalSettings).toEqual('out');
     expect(component.isUpdtPnlActive).toEqual(false);
     expect(component.updateMonNameLoading).toEqual(false);
@@ -256,22 +267,22 @@ fdescribe('DetailComponent', () => {
     expect(component.monitorUtil).toEqual(MonitorUtil);
   });
 
-  it('should set mondetails to monitor', (done)=> {
+  it('should set mondetails to monitor', (done) => {
     fixture.whenStable().then(() => {
-      
+
       expect(component.monDetails).toEqual(new monitorsMock().single);
       done();
     });
   });
 
-  // it('should set to a single monitor', (done) => {
-  //   component.monitor$.subscribe((monitor) => {
-  //     expect(monitor).toEqual(new monitorsMock().single);
-  //     done();
-  //   });
-  // });
+  it('should set to a single monitor', (done) => {
+    component.monitor$.subscribe((monitor) => {
+      expect(monitor).toEqual(new monitorsMock().single);
+      done();
+    });
+  });
 
-  it('should add all subscriptions', ()=> {
+  it('should add all subscriptions', () => {
     let spy = spyOn(component.gc, 'add');
     component.ngOnInit();
     expect(spy).toHaveBeenCalledTimes(3);
@@ -287,15 +298,15 @@ fdescribe('DetailComponent', () => {
   it('should declare Object', () => {
     expect(component.Object).toEqual(Object);
   });
-  // it('should initialize the dynamic config object', (done)=>{
-  //   ["cpu","net_response",].forEach(element => {
-  //     component.monDetails.details.plugin.type=element;
-  //     component.creatDynamicConfig();
-  //     expect(component.dynaConfig.monitorType).toEqual('Local');
-  //     expect(component.dynaConfig.fields.length).toBeGreaterThan(1);
-  //     done();
-  //   });
-  // });
+  it('should initialize the dynamic config object', (done) => {
+    ["cpu", "net_response",].forEach(element => {
+      component.monDetails.details.plugin.type = element;
+      component.creatDynamicConfig();
+      expect(component.dynaConfig.monitorType).toEqual('Local');
+      expect(component.dynaConfig.fields.length).toBeGreaterThan(1);
+      done();
+    });
+  });
 
   it('should set default values to dynamic component', (done) => {
 
@@ -342,11 +353,11 @@ fdescribe('DetailComponent', () => {
     expect(spyCompMethod).toHaveBeenCalled();
   });
 
-  // it('should toggle additonal settings panel', () => {
-  //   component.additionalSettings = 'out';
-  //   component.additionlSettingClick();
-  //   expect(component.additionalSettings).toEqual('in');
-  // });
+  it('should toggle additonal settings panel', () => {
+    component.additionalSettings = 'out';
+    component.additionlSettingClick();
+    expect(component.additionalSettings).toEqual('in');
+  });
 
   it('should update labels from add-fields component', () => {
     const formattedKeyPair = {
@@ -359,16 +370,16 @@ fdescribe('DetailComponent', () => {
     expect(component.updatedLabelFields).toEqual(formattedKeyPair);
   });
 
-  // it('should have timeduration field',done =>{
-  //   var istimeduration=component.isTimeduration("timeout");
-  //   expect(istimeduration).toBe(true);
-  //   done();
-  // });
-  // it('should not have timeduration field',done =>{
-  //   var istimeduration=component.isTimeduration("expect");
-  //   expect(istimeduration).toBe(false);
-  //   done();
-  // });
+  it('should have timeduration field', done => {
+    var istimeduration = component.isTimeduration("timeout");
+    expect(istimeduration).toBe(true);
+    done();
+  });
+  it('should not have timeduration field', done => {
+    var istimeduration = component.isTimeduration("expect");
+    expect(istimeduration).toBe(false);
+    done();
+  });
 
   it('should modifySettings()', () => {
     component.modifySettings();
@@ -384,13 +395,13 @@ fdescribe('DetailComponent', () => {
 
   it('should excute Monitor update service', () => {
     let spyService = spyOn(monitorService, 'updateMonitor')
-    .and.returnValue(of(new monitorsMock().single));
+      .and.returnValue(of(new monitorsMock().single));
     component.monitorUpdate([], 'name');
     expect(spyService).toHaveBeenCalled();
   });
 
 
-  it('should unsubscribe on ngOnDestroy',done =>{
+  it('should unsubscribe on ngOnDestroy', done => {
     spyOn(component.gc, 'unsubscribe');
     component.ngOnDestroy();
     expect(component.gc.unsubscribe).toHaveBeenCalled();
