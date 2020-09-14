@@ -76,9 +76,9 @@ Run `ng generate component <component-name>` to generate a new component. You ca
 ## Build
 
 
-Run `npm run build`. it will run `makefile build-frontend` to execute makefile file which contains a set of directives used by a make build automation tool to generate specified goal.
+Run `npm run build`. it will run `makefile build-frontend` to execute `makefile` file. `makefile` is a file containing a set of directives used by a make build automation tool to generate specified goal.
 
-`makefile` execute two commands `ng build --project='minerva'` & `ng build --project='admin'` and generates two build folders. The build artifacts will be stored in the `dist/` directory. `--project='minerva'` context actually tell us which project to build as it interacts with angular.json and look for project name specified inside      `projects` object.  
+`makefile` execute two commands `ng build --project='minerva'` & `ng build --project='admin'` and generates two different builds named `admin` & `minerva`. The build artifacts will be stored in the `dist/` directory. The `--project='minerva'` context actually tells which project we are going to build as it internally interacts with the `angular.json` and look for the project name specified inside `projects` object.  
 
 ## Running unit tests
 
