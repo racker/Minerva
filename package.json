@@ -15,7 +15,7 @@
     "ng": "ng",
     "start": "ng serve --public-host dev.i.rax.io --baseHref=/intelligence -o",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
-    "build": "ng build --watch",
+    "build": "make build-frontend",
     "build:mock": "ng build --watch -c=mock",
     "test:unit": "node ./localenv/helpers/createMocks.js && ng test --project=minerva -c=mock --watch=false",
     "test:unit-ci": "ng test --project=minerva -c=mock --watch=false",
