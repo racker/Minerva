@@ -8,11 +8,14 @@ describe("Add-fields Component Test in resources", () => {
     page = new AppPage();
     browser.ignoreSynchronization = true;
     page.navigateTo();
+    browser.sleep(3000);
     element(by.xpath("//tr[2]//td[2]//a[1]")).click();
+    browser.sleep(3000);
   });
 
   it("Should check if a label is present", () => {
-    element(by.xpath("//h4[contains(text(),'Labels')]")).click();
+   
+    element(by.xpath("//h4[contains(text(),'Labels')]")).isDisplayed();
     element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
     expect(element(by.xpath("//hx-disclosure[@id='labelpop']")).isPresent()).toBe(true);
   });

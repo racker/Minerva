@@ -1,13 +1,26 @@
 <hx-modal class="hxSm"
   id="{{modalType}}">
   <header>
-    <h2>Delete  {{ id }}</h2>
+    <h2>{{ header }}</h2>
   </header>
   <hx-div>
     {{message}}
   </hx-div>
   <footer>
     <button class="hxBtn hxPrimary"(click)="confirm()" >Confirm</button>
-    <button class="hxBtn" data-dismiss="modal" (click)="close()">Cancel</button>
+    <button class="hxBtn" data-dismiss="modal" (click)="close(true)">Cancel</button>
   </footer>
 </hx-modal>
+
+<hx-modal *ngIf="modalType === 'delErrorModal'" class="hxSm"
+      id="{{modalType}}">
+      <header>
+        <h2>{{ header }}</h2>
+      </header>
+      <hx-div>
+        <h4> {{ error }}</h4>
+      </hx-div>
+      <footer>
+        <button class="hxBtn hxPrimary" (click)="close(false)">Close</button>
+      </footer>
+    </hx-modal>

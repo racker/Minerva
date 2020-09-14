@@ -10,15 +10,20 @@ export class MonitorsDetailsPage
    updatePluginDataPencilIcon =element(by.xpath("//hx-icon[@id='pencilIcn']"));
    dynamicPluginDataPopover   =element(by.xpath("//div[@id='updateForm']"));
    monitorTypeMonitorDetails  =element(by.xpath("//h4[contains(text(),'net_response monitor Details')]"));
+  
 
 
+  eventName(event:string){
+    return(element(by.xpath(`//a[contains(text(),'${event}')]`)));
+  }
+  
   labelsInfoKeyDisplay(key:string){
-     return(element(by.xpath("//div[contains(text(),'"+key+"')]")));
+     return(element(by.xpath(`//div[contains(text(),'${key}')]`)));
      
   }
 
   labelsInfoValueDisplay(value:string){
-    return(element(by.xpath("//div[contains(text(),'"+value+"')]")));
+    return(element(by.xpath(`//div[contains(text(),'${value}')]`)));
     }
 
   getPeriod(){
@@ -34,7 +39,7 @@ export class MonitorsDetailsPage
   }
   
   getExcludedResources(num:number){
-    return(element(by.id('resource'+num+'')).getText());
+    return(element(by.id(`resource${num}`)).getText());
   }
 
   

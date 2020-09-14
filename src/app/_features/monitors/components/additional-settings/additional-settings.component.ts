@@ -38,6 +38,10 @@ export class AdditionalSettingsComponent implements OnInit {
   public resourceIdEmit = new EventEmitter<boolean>();
 
   resources: Resource[] = [];
+  page: number = 0;
+
+  defaultAmount: number = environment.pagination.pageSize;
+
   subManager = new Subscription();
 
   updateSettingForm: FormGroup;
@@ -92,7 +96,7 @@ export class AdditionalSettingsComponent implements OnInit {
    * @param 25 list only
    */
   getResoure() {
-    this.resourceService.getResources().subscribe(
+    this.resourceService.getResources(this.defaultAmount, this.page).subscribe(
       (data) => {
         this.resources = this.resources.concat(data.content);
       },

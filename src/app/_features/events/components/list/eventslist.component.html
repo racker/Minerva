@@ -1,15 +1,20 @@
 <div class="hxButtonSet">
-    <button id="btnCrtEnvt" class="hxBtn hxPrimary" [routerLink]="'/admin/event/create'" fragment="event" >
+    <button id="btnCrtEnvt" class="hxBtn hxPrimary" [routerLink]="'/admin/event/newevent'" fragment="event" >
       Create Event
     </button>
-    <button class="hxBtn">
+    <hx-disclosure class="hxBtn" #delEventLink aria-controls="delEventModal" [disabled]="selectedEvents.length === 0">
       Delete
-    </button>
+    </hx-disclosure>
+
+
   </div>
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected event" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
 <table id="evnttble" class="hxTable">
     <thead>
       <tr>
+        <th class="hxControl">
+         </th>   
         <th>Name</th>
         <th>Measurement</th>
         <th>Agent Environment</th>
@@ -17,6 +22,19 @@
     </thead>
     <tbody>
       <tr *ngFor="let event of events">
+        <td class="hxControl">
+          <hx-checkbox-control>
+              <input
+                type="checkbox"
+                id="event-{{event.id}}"
+                (change)="selectEvent($event)"
+                [checked]="event.checked"
+              />
+              <label for="event-{{event.id}}">
+                <hx-checkbox></hx-checkbox>
+              </label>
+            </hx-checkbox-control>
+        </td>
         <td [id]="event.id"><a routerLink="/admin/event/details/{{event.id}}">{{event.name}}</a></td>
 
         <td >{{event.measurement}}</td>
@@ -24,3 +42,5 @@
       </tr>
     </tbody>
   </table>
+ 
+ 
