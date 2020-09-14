@@ -75,7 +75,7 @@ describe("Test to update dynamic plugin data", ()=> {
             overlay.hostTxtBx.sendKeys(protractor.Key.BACK_SPACE);
             browser.sleep(3000);
             expect(overlay.hostRequiredErrMsg.isDisplayed()).toBe(true);
-            overlay.submitBtn.click();
+            overlay.submitBtn.get(1).click();
             
          });
         });
@@ -115,7 +115,7 @@ describe("Test to update dynamic plugin data", ()=> {
 
             let overlay=new UpdatePluginDataOverlay();  
             overlay.TimeOutField.clear();
-            overlay.submitBtn.click();
+            overlay.submitBtn.get(1).click();
         // check if TimeOut field accepts numeric value
             page2.updatePluginDataPencilIcon.click();
             browser.executeScript('window.scrollTo(0,500);');
@@ -124,7 +124,7 @@ describe("Test to update dynamic plugin data", ()=> {
             let overlay1=new UpdatePluginDataOverlay();  
             overlay1.TimeOutField.clear();
             overlay1.TimeOutField.sendKeys("500");
-            overlay1.submitBtn.click();
+            overlay1.submitBtn.get(1).click();
 
     })
 
@@ -136,7 +136,7 @@ describe("Test to update dynamic plugin data", ()=> {
 
             let overlay=new UpdatePluginDataOverlay();  
             overlay.ReadTimeOutField.clear();
-            overlay.submitBtn.click();
+            overlay.submitBtn.get(1).click();
         // check if ReadTimeOut field accepts numeric value
             page2.updatePluginDataPencilIcon.click();
             browser.executeScript('window.scrollTo(0,500);');
@@ -145,7 +145,7 @@ describe("Test to update dynamic plugin data", ()=> {
             let overlay1=new UpdatePluginDataOverlay();  
             overlay1.ReadTimeOutField.clear();
             overlay1.ReadTimeOutField.sendKeys("500");
-            overlay1.submitBtn.click();
+            overlay1.submitBtn.get(1).click();
 
     })
 
@@ -157,7 +157,7 @@ describe("Test to update dynamic plugin data", ()=> {
         let overlay=new UpdatePluginDataOverlay();
         overlay.hostTxtBx.clear();
         overlay.hostTxtBx.sendKeys('Google.com');
-        overlay.submitBtn.click();
+        overlay.submitBtn.get(1).click();
 
         expect(page2.monitorTypeMonitorDetails.getText()).toEqual("net_response monitor Details");
     })

@@ -7,7 +7,7 @@ export class UpdatePluginDataOverlay{
    cancelBtn                =element.all(by.xpath("//button[@class='hxBtn ng-tns-c63-0' or contains(text(),'Cancel')]"));
    hostTxtBx                =element(by.xpath("//input[@placeholder='host']"));  
    hostRequiredErrMsg       =element(by.xpath("//span[contains(text(),'host Required')]"));
-   submitBtn                =element(by.xpath("//div[@class='topMargin ng-tns-c64-0']//button[@type='submit']"));
+   submitBtn                =element.all(by.xpath("//button[@type='submit']"));
    portTxtBx                =element(by.xpath("//input[@placeholder='port']"));
    portErrMsg               =element(by.xpath("//span[@class='required ng-star-inserted']"));
    TimeOutField             =element(by.xpath("//input[@placeholder='timeout']"));
