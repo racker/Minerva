@@ -13,7 +13,6 @@ const providers = [AuthGuardService]
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule
    // SharedModule
   ],
   providers: providers,
