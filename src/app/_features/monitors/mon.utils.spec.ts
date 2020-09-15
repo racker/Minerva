@@ -4,11 +4,13 @@ import {
     CreateMonitor
 } from 'src/app/_models/salus.monitor'
 import { Monitor } from 'src/app/_models/monitors';
+import { BoundMonitor, CreateResource } from 'src/app/_models/resources';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface'
 
 describe('Monitor Utilities', () => {
 
     let newMonitor: CreateMonitor;
+    let newBoundmonitor:CreateResource;
     let schemaMonitor;
     beforeEach(async(() => {
         newMonitor = {
@@ -162,6 +164,24 @@ describe('Monitor Utilities', () => {
         expect(MonitorUtil.formatSummaryField(monitor)).toEqual("ping-tcp-f2c14");
         monitor.summary = {};
         expect(MonitorUtil.formatSummaryField(monitor)).toEqual("ping-f2c14");
+    });
+
+
+    it('should create bound monitor tag', () => {
+        let boundMonitor: BoundMonitor = Object.assign({
+            monitorId: "423b0924-fbe8-4820-8529-c361e5ec9346",
+            monitorType: "ping",
+            monitorName: "",
+            resourceId: "jjb-test",
+            interval: "PT1M6S",
+            selectorScope: "REMOTE",
+            agentType: "TELEGRAF",
+            renderedContent: "",
+            envoyId:"",
+            createdTimestamp: "2020-08-21T16:43:23Z",
+            updatedTimestamp: "2020-08-27T20:12:59Z",
+        }, newBoundmonitor);
+        expect(MonitorUtil.formatTitleField(boundMonitor)).toEqual("ping-c9346");
     });
 
     it('should create a formatted test monitor', () => {
