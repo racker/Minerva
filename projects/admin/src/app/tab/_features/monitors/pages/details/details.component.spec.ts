@@ -290,7 +290,7 @@ describe('DetailComponent', () => {
 
   it('should delete a monitor', (done) => {
     let spy = spyOn(monitorService, 'deleteMonitor').and.returnValue(of());
-    component.deleteMonitor('monitorID8772');
+    component.triggerConfirm('monitorID8772');
     expect(spy).toHaveBeenCalled();
     done();
   });
