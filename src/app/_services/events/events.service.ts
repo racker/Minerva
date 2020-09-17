@@ -83,16 +83,16 @@ export class EventsService {
    * @description
    * @param id string
    */
-  deleteEvent(id:string) {
+  deleteEvent(id:string): Observable<any> {
+    if (environment.mock) {
+      return of<boolean>(true);
+    } else {
       return this.http.delete<Event>(`${environment.api.salus}/event-tasks/${id}`, httpOptions)
       .pipe(
         tap(data => {
           this.logService.log(this.event, LogLevels.info);
         })
       )
-
+    }
   }
-
-
-
 }
