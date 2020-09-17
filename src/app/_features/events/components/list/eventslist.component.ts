@@ -63,10 +63,12 @@ export class EventslistComponent implements OnInit {
           this.delEvent.nativeElement.click();
           this.getEvents();
           //this.route.navigate(['/monitors']);
+      }, () => {
+        this.deleteLoading = false;
+        this.delEvent.nativeElement.click();
       })
     })
   }
-
   ngOnDestroy() {
     this.subscriber.unsubscribe();
   }
