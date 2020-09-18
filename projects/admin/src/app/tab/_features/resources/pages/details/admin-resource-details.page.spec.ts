@@ -99,6 +99,13 @@ describe('AdminResourceDetailsPage', () => {
 
   beforeEach(() => {
     injector = getTestBed();
+    // TestBed.overrideComponent(AdminResourceDetailsPage,{
+    //   set:{
+    //     providers:[{
+          
+    //     }]
+    //   }
+    // })
     fixture = TestBed.createComponent(AdminResourceDetailsPage);
     component = fixture.componentInstance;
     resourceService = injector.get(ResourcesService);
@@ -109,11 +116,67 @@ describe('AdminResourceDetailsPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should setup defaults', () => {
+  it('should setup defaults', async() => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(component.resource$).toBeDefined();
     expect(component.Object).toEqual(Object);
     expect(component.metaLoading).toEqual(false);
     expect(component.labelsLoading).toEqual(false);
     expect(component.deleteLoading).toEqual(false);
+    expect(component.message).toEqual("Are you sure you'd like to delete this Resource?");
+    expect(component.modalType).toEqual('delResModal');
+    expect(component.metaPopPencil).toBeDefined();
+    expect(component.labelPopPencil).toBeDefined();
+    expect(component.delResource).toBeDefined();
     expect(component.subManager).toBeDefined();
   });
+
+  it('should have a route param', () => {
+    expect(component.id).toEqual("uniqueId");
+  });
+
+  it('should update and format meta values', () => {
+    component.metaValueUpdated(keyPair);
+    expect(component.updatedMetaFields).toEqual(formattedKeyPair);
+  });
+
+  it('should finalize update of meta values finalizeMeta()', (done) => {
+
+    let spy = spyOn(resourceService, 'updateResource')
+    .and.returnValue(of(new resourcesMock().single));;
+    resourceService.resource = new resourcesMock().single;
+    component.metaValueUpdated(keyPair);
+    component.finalizeMeta();
+    expect(spy).toHaveBeenCalled();
+    done();
+  });
+
+  it('should update & format label values', () => {
+    component.labelsUpdated(keyPair);
+    expect(component.updatedLabelFields).toEqual(formattedKeyPair);
+  });
+
+  it('should finalize update of label values finalizeLabels()', (done) => {
+    let spy = spyOn(resourceService, 'updateResource').and.returnValue(of(new resourcesMock().single));
+    resourceService.resource = new resourcesMock().single;
+    component.labelsUpdated(keyPair);
+    component.finalizeLabels();
+    expect(spy).toHaveBeenCalled();
+    done();
+  });
+
+  it('should set to a single resource', () => {
+    let mocked = new resourcesMock().single;
+    component.resource$.subscribe((resource) => {
+      expect(resource).toEqual(mocked);
+    });
+  });
+
+  it('should delete a resource', (done) => {
+    let spy = spyOn(resourceService, 'deleteResource').and.returnValue(of());
+    component.triggerConfirm('resourceToDelete');
+    expect(spy).toHaveBeenCalled();
+    done();
+  })
 });
