@@ -50,4 +50,15 @@ describe("Test display of event details", ()=> {
        expect(page3.LastUpdated.getText()).toEqual(page3.dateConversion(event.content[0].updatedTimestamp));
     
       });
+
+      it("To verify expression section of an event is loaded",()=>{
+         page2.eventName('cpu').click();
+         let page3=new EventDetailsPage();
+
+         expect(page3.labelExpressions.isDisplayed()).toBe(true);
+         expect(page3.state.isDisplayed()).toBe(true);
+         expect(page3.message.isDisplayed()).toBe(true);
+         expect(page3.rowExpression.isDisplayed()).toBe(true);
+
+      })
 });
