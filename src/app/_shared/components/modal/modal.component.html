@@ -7,8 +7,8 @@
     {{message}}
   </hx-div>
   <footer>
-    <button class="hxBtn hxPrimary"(click)="confirm()" >Confirm</button>
-    <button class="hxBtn" data-dismiss="modal" (click)="close(true)">Cancel</button>
+    <button id="confrmBtn" class="hxBtn hxPrimary"(click)="confirm()" >Confirm</button>
+    <button id="cancelBtn" class="hxBtn" data-dismiss="modal" (click)="close(true)">Cancel</button>
   </footer>
 </hx-modal>
 
@@ -21,6 +21,6 @@
         <h4> {{ error }}</h4>
       </hx-div>
       <footer>
-        <button class="hxBtn hxPrimary" (click)="close(false)">Close</button>
+        <button id="closeBtn" class="hxBtn hxPrimary" (click)="close(false)">Close</button>
       </footer>
     </hx-modal>
