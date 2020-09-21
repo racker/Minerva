@@ -10,7 +10,9 @@ export class MonitorsDetailsPage
    updatePluginDataPencilIcon =element(by.xpath("//hx-icon[@id='pencilIcn']"));
    dynamicPluginDataPopover   =element(by.xpath("//div[@id='updateForm']"));
    monitorTypeMonitorDetails  =element(by.xpath("//h4[contains(text(),'net_response monitor Details')]"));
-  
+   deleteEventBtn             =element(by.id("deleteBtn"))
+   eventCheckBox              =element.all(by.tagName("hx-checkbox"))
+   
 
 
   eventName(event:string){

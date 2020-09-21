@@ -31,6 +31,7 @@ RUN apt-get update -qqy \
     xfonts-75dpi \
     xfonts-cyrillic \
     xfonts-scalable \
+    libxss1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

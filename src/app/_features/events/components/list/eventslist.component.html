@@ -2,7 +2,7 @@
     <button id="btnCrtEnvt" class="hxBtn hxPrimary" [routerLink]="'/admin/event/newevent'" fragment="event" >
       Create Event
     </button>
-    <hx-disclosure class="hxBtn" #delEventLink aria-controls="delEventModal" [disabled]="selectedEvents.length === 0">
+    <hx-disclosure id="deleteBtn" class="hxBtn" #delEventLink aria-controls="delEventModal" [disabled]="selectedEvents.length === 0">
       Delete
     </hx-disclosure>
 
