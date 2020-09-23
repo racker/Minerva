@@ -210,13 +210,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   triggerConfirm() {
     this.delResource.nativeElement.click();
-    var newArr = [];
+    var resourceErrArr = [];
     this.selectedResources.forEach((element) => {
-      
       var id = this.resourceService.deleteResourcePromise(element.resourceId).catch(err => {
-          newArr.push(element.resourceId);    
+        resourceErrArr.push(element.resourceId);    
       });
-
       this.resourceArr.push(id);
   })
 
@@ -225,24 +223,19 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
           let d = 0;
           for(var i =0; i < data.length; i++) {
             d++;
-            if(newArr.indexOf(this.selectedResources[i].resourceId) != -1) {
+            if(resourceErrArr.indexOf(this.selectedResources[i].resourceId) != -1) 
               this.confirmMessageError += this.selectedResources[i].resourceId + " Failed!" + "\n";          
-            } else {
+            else 
               this.confirmMessageSuccess += this.selectedResources[i].resourceId + " is deleted successfully!" + "\n";
               this.progressVal = (d * 100) / data.length;
-            }
-           } 
+          } 
       })
       .catch(err =>  { 
-            this.confirmMessageError += 'Failed!';          
+          this.confirmMessageError += 'Failed!';          
       });
-    this.confirmResource.nativeElement.setAttribute("open", "true");
+      this.confirmResource.nativeElement.setAttribute("open", "true");
   }
-
-  /*deleteResourcesById(id:string) {
-    return this.resourceService.predict(id);
-  }*/
-
+  
   ngOnDestroy() {
     //unsubcribe once component is done
     this.ngUnsubscribe.next();
