@@ -38,7 +38,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   defaultAmount: number = environment.pagination.pageSize;
   totalPages: number;
   fetchResources: any;
-  addResLoading: boolean = false;  
+  addResLoading: boolean = false;
+  disableOk: boolean = true;  
   selectedResources: any = [];
   resourceArr:any = [];
   addResourceForm: FormGroup;
@@ -197,16 +198,36 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.total =  this.resources.length;
   }
 
+  /**
+   * @description function called when to close confirmation modal as customer don't want to delete selected resources.
+   * @param flag 
+   * 
+   */
+
   triggerClose(flag) {
     if(flag)
     this.delResource.nativeElement.click();
   }
+
+  /**
+   * @description function called when to close progress bar modal by click on OK button.
+   * open and close attributes are used to open and close modal.
+   * 
+   */
 
   triggerOk() {
     this.confirmResource.nativeElement.removeAttribute("open");   
     this.confirmResource.nativeElement.setAttribute("close", "true");
     this.fetchResources();
   }
+
+
+  /**
+   * @description Function called after confirm delete. selectedResources are list of resources selected for deletion.
+   * resourceErrArr for storing ids which are already deleted or not found.
+   * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
+   * 
+   */
 
   triggerConfirm() {
     this.delResource.nativeElement.click();
@@ -228,6 +249,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
             else 
               this.confirmMessageSuccess += this.selectedResources[i].resourceId + " is deleted successfully!" + "\n";
               this.progressVal = (d * 100) / data.length;
+            if(i === data.length - 1)
+              this.disableOk = false  
           } 
       })
       .catch(err =>  { 
@@ -235,7 +258,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       });
       this.confirmResource.nativeElement.setAttribute("open", "true");
   }
-  
+
   ngOnDestroy() {
     //unsubcribe once component is done
     this.ngUnsubscribe.next();

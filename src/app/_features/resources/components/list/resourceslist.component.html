@@ -77,7 +77,7 @@
     {{confirmMessageError}}
   </hx-div>
   <footer>
-    <button class="hxBtn hxPrimary"(click)="triggerOk()" >Ok</button>
+    <button class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
   </footer>
 </hx-modal>
 
