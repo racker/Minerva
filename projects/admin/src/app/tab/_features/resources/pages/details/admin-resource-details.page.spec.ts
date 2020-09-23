@@ -18,7 +18,7 @@ import { By } from '@angular/platform-browser';
 
 
 class ResourcesServiceMock {
-  
+
   private _resources: Resources;
   private _resource: Resource;
 
@@ -95,7 +95,7 @@ class ResourcesServiceMock {
         error: 'Not Found',
         status: 404
       }));
-    
+
   }
 
   searchResources(search:string): Observable<Resources> {
@@ -202,7 +202,7 @@ describe('AdminResourceDetailsPage', () => {
     component = fixture.componentInstance;
     resourceService = fixture.debugElement.injector.get(ResourcesService);
     fixture.detectChanges();
-    
+
   });
 
   it('should create', () => {
@@ -283,15 +283,17 @@ describe('AdminResourceDetailsPage', () => {
 
   it('should delete a resource', (done) => {
     let spy = spyOn(resourceService, 'deleteResource').and.returnValue(of(true));
+    fixture.ngZone.run(() => {
     component.triggerConfirm('resourceToDelete');
     expect(spy).toHaveBeenCalled();
     done();
+    });
   })
   it('when fail to delete a resource', (done) => {
     let spy = spyOn(resourceService, 'deleteResource').and.returnValue(throwError({status: 404}));
     component.delResourcePop=fixture.debugElement.query(By.css('.nodisplaClick'));
     component.delResource= fixture.debugElement.query(By.css('#delResLink'));
-    
+
     component.triggerConfirm('resourceToDelete');
     expect(spy).toHaveBeenCalled();
     done();
