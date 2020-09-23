@@ -94,5 +94,10 @@ describe('ResourcesService', () => {
       });
     });
 
+    it('should delete a multiple Resource', () => {
+      service.deleteResourcePromise('test-1').then((value) => {
+        expect(value).toEqual(true);
+     });
+    });
   });
 });

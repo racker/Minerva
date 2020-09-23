@@ -2,9 +2,12 @@
   <app-resources-search class="hxCol" [placeholder]="searchPlaceholderText" (searchResults)="resourceResults($event)"
   (searching)="resourcesSearch($event)" (resetResults)="resetSearch()" ></app-resources-search>
   <div class="hxCol resource-header hxOffset-1">
-<button class="hxBtn" [disabled]="selectedResources.length === 0">
-  Delete
-</button>
+    <hx-disclosure class="hxBtn" #delResourceLink aria-controls="delResourceModal" [disabled]="selectedResources.length === 0">
+      Delete
+    </hx-disclosure>
+
+
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected resource" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
 <button class="hxBtn" [disabled]="selectedResources.length === 0">
   Create Multiple Monitors
@@ -59,6 +62,26 @@
 </hx-popover>
 </div>
 </div>
+
+<hx-modal class="hxSm" #confirmResource
+  id="confirmResourceModal">
+  <header>
+  </header>
+  <hx-div>
+    <hx-progress value="{{progressVal}}"></hx-progress>
+  </hx-div>
+  <hx-div class="hxDivSuccess">
+    {{confirmMessageSuccess}}
+  </hx-div>
+  <hx-div class="hxDivErr">
+    {{confirmMessageError}}
+  </hx-div>
+  <footer>
+    <button class="hxBtn hxPrimary"(click)="triggerOk()" >Ok</button>
+  </footer>
+</hx-modal>
+
+
 <table class="hxTable">
   <thead>
     <tr>

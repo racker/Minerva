@@ -186,4 +186,21 @@ export class ResourcesService {
       )
     }
   }
+
+  deleteResourcePromise(id:string): Promise<any> {
+
+    return this.http
+      .delete(`${environment.api.salus}/resources/${id}`)
+      .toPromise()
+      .then(
+        (res: Response) => Promise.resolve(res)
+      )
+      .catch(
+        (err) => Promise.reject(err)
+      );
+  } // deleteMultipleResources
+
+
+
+
 }

@@ -11,6 +11,7 @@ import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
+import { IfStmt, ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-resourceslist',
@@ -18,17 +19,28 @@ import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
   styleUrls: ['./resourceslist.component.scss']
 })
 export class ResourcesListComponent implements OnInit, OnDestroy {
+  @ViewChild('delResourceLink') delResource:ElementRef;
+  @ViewChild('confirmResource') confirmResource:ElementRef;
   @ViewChild('addResButton', { static: true }) addButton:ElementRef;
   private ngUnsubscribe = new Subject();
   searchPlaceholderText: string;
+  modalType : string;
+  message   : string;
+  confirmMessageSuccess : string = "";
+  confirmMessageError : string = "";
+  
   resources: Resource[];
   total: number;
   page: number = 0;
+  progressVal: number = 0;
+  defaultVal: number = 20;
+  
   defaultAmount: number = environment.pagination.pageSize;
   totalPages: number;
   fetchResources: any;
-  addResLoading: boolean = false;
+  addResLoading: boolean = false;  
   selectedResources: any = [];
+  resourceArr:any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
     private validateResource: ValidateResource, private fb: FormBuilder,
@@ -37,6 +49,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       }
 
   ngOnInit() {
+    this.modalType = 'delResourceModal';
+    this.message = 'Are you sure you want to delete selected resource?';
     this.fetchResources = () => {
       return this.resourceService.getResources(this.defaultAmount, this.page)
         .pipe(
@@ -182,6 +196,52 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       this.selectedResources, "resourceId");
     this.total =  this.resources.length;
   }
+
+  triggerClose(flag) {
+    if(flag)
+    this.delResource.nativeElement.click();
+  }
+
+  triggerOk() {
+    this.confirmResource.nativeElement.removeAttribute("open");   
+    this.confirmResource.nativeElement.setAttribute("close", "true");
+    this.fetchResources();
+  }
+
+  triggerConfirm() {
+    this.delResource.nativeElement.click();
+    var newArr = [];
+    this.selectedResources.forEach((element) => {
+      
+      var id = this.resourceService.deleteResourcePromise(element.resourceId).catch(err => {
+          newArr.push(element.resourceId);    
+      });
+
+      this.resourceArr.push(id);
+  })
+
+    Promise.all(this.resourceArr)
+      .then(data => {
+          let d = 0;
+          for(var i =0; i < data.length; i++) {
+            d++;
+            if(newArr.indexOf(this.selectedResources[i].resourceId) != -1) {
+              this.confirmMessageError += this.selectedResources[i].resourceId + " Failed!" + "\n";          
+            } else {
+              this.confirmMessageSuccess += this.selectedResources[i].resourceId + " is deleted successfully!" + "\n";
+              this.progressVal = (d * 100) / data.length;
+            }
+           } 
+      })
+      .catch(err =>  { 
+            this.confirmMessageError += 'Failed!';          
+      });
+    this.confirmResource.nativeElement.setAttribute("open", "true");
+  }
+
+  /*deleteResourcesById(id:string) {
+    return this.resourceService.predict(id);
+  }*/
 
   ngOnDestroy() {
     //unsubcribe once component is done
