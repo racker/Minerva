@@ -24,8 +24,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   @ViewChild('addResButton', { static: true }) addButton:ElementRef;
   private ngUnsubscribe = new Subject();
   searchPlaceholderText: string;
-  modalType : string;
-  message   : string;
+  modalType : string = 'delResourceModal';
+  message   : string = 'Are you sure you want to delete selected resource?';
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   
@@ -50,8 +50,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       }
 
   ngOnInit() {
-    this.modalType = 'delResourceModal';
-    this.message = 'Are you sure you want to delete selected resource?';
     this.fetchResources = () => {
       return this.resourceService.getResources(this.defaultAmount, this.page)
         .pipe(

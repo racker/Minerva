@@ -187,8 +187,17 @@ export class ResourcesService {
     }
   }
 
-  deleteResourcePromise(id:string): Promise<any> {
+  /**
+   * @description called function to delete multiple resources using promise.
+   * @param id 
+   */
 
+  deleteResourcePromise(id:string): Promise<any> {
+    if(environment.mock) {
+      return new Promise((resolve, reject) => {
+          resolve(true);
+      })
+    }
     return this.http
       .delete(`${environment.api.salus}/resources/${id}`)
       .toPromise()
@@ -198,7 +207,7 @@ export class ResourcesService {
       .catch(
         (err) => Promise.reject(err)
       );
-  } // deleteMultipleResources
+  }
 
 
 

@@ -240,4 +240,27 @@ it('should destroy subscriptions', (done) => {
     expect(spy2).toHaveBeenCalled();
     done();
   });
+
+  it('should listen for triggerOk', () => {
+    component.triggerOk();
+    expect(component.confirmResource.nativeElement.getAttribute('close')).toBe('true');
+    expect(component.confirmResource.nativeElement.getAttribute('open')).toBeNull;    
+  });
+
+  it('should listen for triggerClose', () => {
+    let spy =  spyOn(component.delResource.nativeElement, "click");
+    component.triggerClose(true);
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should execute delete multiple resources', () => {
+
+    component.selectedResources = [
+      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"},{resourceId: "test-3", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:51Z",updatedTimestamp: "2020-09-24T13:44:51Z"}
+    ];
+    let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(resolve => { resolve(true)}));
+    component.triggerConfirm();
+    expect(spy).toHaveBeenCalledTimes(3);
+  })
+
 });

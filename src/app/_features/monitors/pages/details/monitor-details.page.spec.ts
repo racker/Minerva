@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import ajv from 'ajv';
@@ -300,11 +300,13 @@ describe('MonitorDetailComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should excute Monitor update service', () => {
-    let spyService = spyOn(monitorService, 'updateMonitor')
+  it('should excute Monitor update service', async(done) => {
+    fixture.detectChanges();
+    let spyService = await spyOn(monitorService, 'updateMonitor')
     .and.returnValue(of(new monitorsMock().single));
     component.monitorUpdate([], 'name');
     expect(spyService).toHaveBeenCalled();
+    done();
   });
 
 
