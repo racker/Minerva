@@ -341,6 +341,7 @@
             }
           },
           "options": {
+            "codeCoverage": true,
             "main": "projects/admin/src/test.ts",
             "polyfills": "projects/admin/src/polyfills.ts",
             "tsConfig": "projects/admin/tsconfig.spec.json",
