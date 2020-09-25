@@ -1,10 +1,10 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ResourcesService } from './resources.service';
 import { environment } from '../../../environments/environment';
 import { resourcesMock } from '../../_mocks/resources/resources.service.mock';
 import { Resource, CreateResource } from 'src/app/_models/resources';
-import { map } from 'rxjs/operators';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 describe('ResourcesService', () => {
   let injector: TestBed;
@@ -19,11 +19,14 @@ describe('ResourcesService', () => {
       imports: [
         HttpClientModule
       ],
-      providers: [ResourcesService]
+      providers: [
+        ResourcesService,
+        mockResourcesProvider
+      ]
     });
 
     injector = getTestBed();
-    service = injector.get(ResourcesService);
+    service = TestBed.inject(ResourcesService);
   });
 
   it('should be created', () => {
@@ -44,25 +47,28 @@ describe('ResourcesService', () => {
 
 
   describe('CRUD Operations', () => {
-    it('should return collection', () => {
+    it('should return collection', (done) => {
       service.getResources(environment.pagination.resources.pageSize, 0).subscribe((data) => {
         let mocked = new resourcesMock().collection;
         let slicedArray = new resourcesMock().collection.content
          .slice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize);
         mocked.content = slicedArray;
         expect(data).toEqual(mocked);
+        done();
       });
     });
 
-    it('should return single resource', () => {
+    it('should return single resource', (done) => {
       service.getResource("linuxResource").subscribe((data) => {
         expect(data).toEqual(new resourcesMock().single);
+        done();
       });
     });
 
-    it('should create a resource', () => {
+    it('should create a resource', (done) => {
       service.createResource(createResource).subscribe((data) => {
         expect(data).toEqual(new resourcesMock().single);
+        done();
       })
     });
 
@@ -74,23 +80,26 @@ describe('ResourcesService', () => {
       });
     });
 
-    it('should update a single resource metadata or labels', () => {
+    it('should update a single resource metadata or labels', (done) => {
       let updated = {labels: {'newkey': 'newVal', 'somekey':'someVal'}};
       service.updateResource("linuxResource", updated).subscribe((data:Resource) => {
         expect(data).toEqual(new resourcesMock().single);
+        done();
       });
     });
 
-    it('should search for resources', () => {
+    it('should search for resources', (done) => {
       let q = 'coo'
       service.searchResources(q).subscribe((data) => {
         expect(data.content.length).toBeGreaterThan(2);
+        done();
       });
     });
 
-    it('should delete a Resource', () => {
+    it('should delete a Resource', (done) => {
       service.deleteResource('resourceID').subscribe((data) => {
         expect(data).toEqual(true);
+        done();
       });
     });
 

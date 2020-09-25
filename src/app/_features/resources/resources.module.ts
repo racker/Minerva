@@ -8,6 +8,7 @@ import { ResourceDetailsPage } from './pages/details/resource-details.page';
 import { ValidateResource } from 'src/app/_shared/validators/resourceName.validator';
 import { MonitorListComponent } from './components/monitor_list/monitor-list.component';
 import { SearchComponent } from './components/search/search.component';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
   ],
   providers: [
     ResourcesService,
-    ValidateResource
+    ValidateResource,
+    mockResourcesProvider
   ],
   exports: [
     ResourcesListComponent,

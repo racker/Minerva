@@ -9,7 +9,8 @@ import { ResourcesListComponent } from '../../components/list/resourceslist.comp
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock';
 import { SharedModule } from '../../../../_shared/shared.module';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
-import { of, Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 const routes = [
   {
@@ -83,10 +84,10 @@ describe('ResourceDetailsPage', () => {
             root: {
               routeConfig : routes[0]
             }
-          }
+          },
         },
         { provide: ComponentFixtureAutoDetect, useValue: true },
-
+        mockResourcesProvider,
         ResourcesService
       ],
       imports: [

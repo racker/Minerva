@@ -2,6 +2,7 @@ import { async, TestBed, getTestBed } from '@angular/core/testing';
 import { ValidateResource } from './resourceName.validator'
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { HttpClientModule } from '@angular/common/http';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 describe('invalidResourceName', () => {
     let injector: TestBed;
@@ -12,7 +13,10 @@ describe('invalidResourceName', () => {
             imports: [
                 HttpClientModule
             ],
-            providers: [ResourcesService]
+            providers: [
+                ResourcesService,
+                mockResourcesProvider
+            ]
         });
         injector = getTestBed();
         validateResource = injector.get(ValidateResource);
