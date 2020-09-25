@@ -220,6 +220,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.fetchResources();
     this.resourceArr    = [];
     this.resourceErrArr = [];
+    this.disableOk      = true;
   }
 
 
