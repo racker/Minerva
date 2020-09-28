@@ -160,7 +160,7 @@ describe('MonitorslistComponent', () => {
   });
 
 
-  it('should execute delete multiple resources successfully', () => {
+  it('should execute delete multiple monitor successfully', () => {
     component.selectedMonitors = [
       {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
       {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
@@ -171,7 +171,7 @@ describe('MonitorslistComponent', () => {
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
-  it('should execute delete multiple resources failed', () => {
+  it('should execute delete multiple monitor failed', () => {
     component.selectedMonitors = [
       {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
       {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
