@@ -183,9 +183,8 @@ export class MonitorslistComponent implements OnInit {
     this.confirmMonitor.nativeElement.removeAttribute("open");   
     this.confirmMonitor.nativeElement.setAttribute("close", "true");
     this.fetchMonitors();
+    this.selectedMonitors       = [];
   }  
-
-
 
    /**
    * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
@@ -196,6 +195,7 @@ export class MonitorslistComponent implements OnInit {
 
   triggerConfirm() {
     this.selectedMonForDeletion = [];
+    this.disableOk              = true;
     this.delMonitor.nativeElement.click();
     let d = 0;
     this.selectedMonitors.forEach((element, index) => {
@@ -208,7 +208,7 @@ export class MonitorslistComponent implements OnInit {
     })
     Promise.all(this.monitorArr)
       .then(data => {
-
+        this.disableOk  = false;
       });
       this.confirmMonitor.nativeElement.setAttribute("open", "true");
   }
