@@ -1,10 +1,10 @@
-import { AppPage } from "../../pages/app.po";
-import { navigations } from "../../commons/navigations";
-import { MonitorsListPage } from "../../pages/monitorListPage";
-import { MonitorsDetailsPage } from "../../pages/monitorDetailsPage";
+import { AppPage } from "../../../../../../e2e/src/pages/app.po";
+import { navigations } from "../../../../../../e2e/src/commons/navigations";
+import { MonitorsListPage } from "../../../../../../e2e/src/pages/monitorListPage";
+import { MonitorsDetailsPage } from "../../../../../../e2e/src/pages/monitorDetailsPage";
 import { browser, Key, element, by } from "protractor";
-import { EventDetailsPage } from "../../pages/eventDetailsPage";
-import { default as event } from "../../../../src/app/_mocks/events/getAllEvents.json";
+import { EventDetailsPage } from "../../../../../../e2e/src/pages/eventDetailsPage";
+import { default as event } from "../../../../../../src/app/_mocks/events/getAllEvents.json";
 
 describe("Test display of event details", ()=> {
     let page : AppPage;
