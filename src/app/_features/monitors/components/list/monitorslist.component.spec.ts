@@ -189,7 +189,7 @@ describe('MonitorslistComponent', () => {
     expect(component.selectedMonForDeletion).toEqual([obj]);    
   });
 
-  fit('should execute progress bar for failure', () => {
+  it('should execute progress bar for failure', () => {
     let obj = {id:"afa94898-ace6-42fa-9eb1-d9d17e5261b2", error: false};       
     let count;
     count++;
