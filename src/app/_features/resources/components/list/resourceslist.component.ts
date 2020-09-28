@@ -11,6 +11,7 @@ import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
+import { IfStmt, ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-resourceslist',
@@ -18,17 +19,30 @@ import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
   styleUrls: ['./resourceslist.component.scss']
 })
 export class ResourcesListComponent implements OnInit, OnDestroy {
+  @ViewChild('delResourceLink') delResource:ElementRef;
+  @ViewChild('confirmResource') confirmResource:ElementRef;
   @ViewChild('addResButton', { static: true }) addButton:ElementRef;
   private ngUnsubscribe = new Subject();
   searchPlaceholderText: string;
+  modalType : string = 'delResourceModal';
+  message   : string = 'Are you sure you want to delete selected resource?';
+  confirmMessageSuccess : string = "";
+  confirmMessageError : string = "";
+  
   resources: Resource[];
   total: number;
   page: number = 0;
+  progressVal: number = 0;
+  defaultVal: number = 20;
+  
   defaultAmount: number = environment.pagination.pageSize;
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
+  disableOk: boolean = true;  
   selectedResources: any = [];
+  selectedResForDeletion:any = [];
+  resourceArr:any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
     private validateResource: ValidateResource, private fb: FormBuilder,
@@ -181,6 +195,66 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.resources = mergeUniqueObjectsOfArray(resources.content,
       this.selectedResources, "resourceId");
     this.total =  this.resources.length;
+  }
+
+  /**
+   * @description function called when to close confirmation modal as customer don't want to delete selected resources.
+   * @param flag 
+   * 
+   */
+
+  triggerClose(flag) {
+    if(flag)
+    this.delResource.nativeElement.click();
+  }
+
+  /**
+   * @description function called when to close progress bar modal by click on OK button.
+   * open and close attributes are used to open and close modal.
+   * 
+   */
+
+  triggerOk() {
+    this.confirmResource.nativeElement.removeAttribute("open");   
+    this.confirmResource.nativeElement.setAttribute("close", "true");
+    this.fetchResources();
+    this.selectedResources = [];
+  }
+
+
+  /**
+   * @description Function called after confirm delete. selectedResources are list of resources selected for deletion.
+   * resourceErrArr for storing ids which are already deleted or not found.
+   * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
+   * 
+   */
+
+  triggerConfirm() {
+    this.selectedResForDeletion = [];
+    this.disableOk              = true;
+    this.delResource.nativeElement.click();
+    let d = 0;
+    this.selectedResources.forEach((element) => {
+      var id = this.resourceService.deleteResourcePromise(element.resourceId).then((resp) => {  
+        this.progressBar(d++, {id:element.resourceId, error: false});
+      })
+      .catch(err => {
+        this.progressBar(d++, {id:element.resourceId, error: true});
+      });
+      this.resourceArr.push(id);
+
+    })
+    Promise.all(this.resourceArr)
+    .then(data => {
+      this.disableOk  = false;
+    });
+    this.confirmResource.nativeElement.setAttribute("open", "true");
+
+  }
+
+  progressBar(d, obj:any) {
+    this.progressVal = (d * 100) / this.selectedResForDeletion.length;
+    this.selectedResForDeletion.push(obj);
   }
 
   ngOnDestroy() {

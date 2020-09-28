@@ -25,3 +25,21 @@
 hx-text-control[required] input {
     border: 2px solid #d32f2f;
 }
+
+.hxDivSuccess {
+    color: #4caf51;
+    font-size: 18px;
+    text-align: center;
+    white-space: pre-line;
+    text-transform: lowercase;
+}
+
+.hxDivErr {
+    color: #d32f2f;
+    font-size: 18px;
+    text-align: center;
+    white-space: pre-line;
+    text-transform: lowercase;
+}
+
+

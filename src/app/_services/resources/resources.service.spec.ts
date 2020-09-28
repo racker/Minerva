@@ -94,5 +94,9 @@ describe('ResourcesService', () => {
       });
     });
 
+    it('should delete a multiple Resource', async() => {
+      let resp = await service.deleteResourcePromise('test-1');
+       expect(resp).toBe(true); 
+    });
   });
 });
