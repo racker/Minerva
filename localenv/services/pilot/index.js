@@ -14,7 +14,7 @@ const config = new Settings();
 function PilotFunction(params) {
     return new Promise((resolve, reject)  => {
         const options = {
-            url: config.pilot + '/' + params.tenantId + '/navigation',
+            url: config.pilot + '/cloud/' + params.tenantId + '/navigation?active=intelligence',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

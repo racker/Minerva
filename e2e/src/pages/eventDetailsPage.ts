@@ -13,7 +13,10 @@ export class EventDetailsPage{
     agentEnvironment      =element(by.xpath("//div[@id='localdev']"));
     createdDate           =element(by.xpath("//div[@id='valueCreatedDate']"));
     LastUpdated           =element(by.xpath("//div[@id='valueLast']"));
-
+    labelExpressions      =element(by.xpath("//h3[contains(text(),'Expressions')]"));
+    state                 =element(by.xpath("//div[contains(text(),'CRITICAL')]"));
+    message               =element(by.id('txtExpressionMsg'));
+    rowExpression         =element(by.xpath("//div[@class='hxRow expression']"));
 
     pageTitle(){
         

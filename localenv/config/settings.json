@@ -10,7 +10,7 @@
     }
   },
   "dev": {
-    "pilot": "https://staging.pilot.api.rackspacecloud.com/v1/cloud",
+    "pilot": "https://izks4vv4j8.execute-api.us-west-2.amazonaws.com/v1",
     "identity": "https://staging.identity.api.rackspacecloud.com/v2.0"
   },
   "staging": {
@@ -18,7 +18,7 @@
     "identity": "https://staging.identity.api.rackspacecloud.com/v2.0"
   },
   "prod": {
-    "pilot": "https://prod.pilot.api.rackspacecloud.com/v1/cloud",
+    "pilot": "https://izks4vv4j8.execute-api.us-west-2.amazonaws.com/v1",
     "identity": "https://identity.api.rackspacecloud.com/v2.0"
   }
 }

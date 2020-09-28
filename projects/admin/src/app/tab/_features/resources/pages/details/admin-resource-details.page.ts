@@ -29,8 +29,8 @@ export class AdminResourceDetailsPage implements OnInit {
   resource$: Observable<Resource>;
   private metaSubmit: Subject<void> = new Subject<void>();
   private labelsSubmit: Subject<void> = new Subject<void>();
-  private metaFormSubmit: Subject<boolean> = new Subject<boolean>();
-  private labelFormSubmit: Subject<boolean> = new Subject<boolean>();
+  public metaFormSubmit: Subject<boolean> = new Subject<boolean>();
+  public labelFormSubmit: Subject<boolean> = new Subject<boolean>();
   subManager = new Subscription();
 
   Object = window.Object;
@@ -131,8 +131,8 @@ export class AdminResourceDetailsPage implements OnInit {
         this.router.navigate(['/resources']);
     }, () => {
       this.deleteLoading = false;
-      this.delResource.nativeElement.click();
-      this.delResourcePop.nativeElement.click();
+      this.delResource?.nativeElement.click();
+      this.delResourcePop?.nativeElement.click();
     });
   }
   
