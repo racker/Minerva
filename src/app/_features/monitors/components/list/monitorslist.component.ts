@@ -31,6 +31,7 @@ export class MonitorslistComponent implements OnInit {
   fetchMonitors: any;
   Object: Object = Object;
   selectedMonitors: any = [];
+  selectedMonForDeletion:any = [];
   monitorArr:any = [];
 
 
@@ -194,34 +195,27 @@ export class MonitorslistComponent implements OnInit {
    */
 
   triggerConfirm() {
+    this.selectedMonForDeletion = [];
     this.delMonitor.nativeElement.click();
-    var monitorErrArr = [];
-
-    this.selectedMonitors.forEach((element) => {
-      var id = this.monitorService.deleteMonitorPromise(element.id).catch(err => {
-        monitorErrArr.push(element.id);    
-      });
-      this.monitorArr.push(id);
-  })
-
+    let d = 0;
+    this.selectedMonitors.forEach((element, index) => {
+        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+            this.progressBar(d++, {id:element.id, error: false});
+        }).catch(err => {
+            this.progressBar(d++, {id:element.id, error: true});
+        });
+        this.monitorArr.push(id);
+    })
     Promise.all(this.monitorArr)
       .then(data => {
-          let d = 0;
-          for(var i =0; i < data.length; i++) {
-            d++;
-            if(monitorErrArr.indexOf(this.selectedMonitors[i].id) != -1) 
-              this.confirmMessageError += this.selectedMonitors[i].name + " Failed!" + "\n";          
-            else 
-              this.confirmMessageSuccess += this.selectedMonitors[i].name + " is deleted successfully!" + "\n";
-              this.progressVal = (d * 100) / data.length;
-            if(i === data.length - 1)
-              this.disableOk = false  
-          } 
-      })
-      .catch(err =>  { 
-          this.confirmMessageError += 'Failed!';          
+
       });
       this.confirmMonitor.nativeElement.setAttribute("open", "true");
+  }
+
+  progressBar(d, obj:any) {
+    this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
+    this.selectedMonForDeletion.push(obj);
   }
 
 }

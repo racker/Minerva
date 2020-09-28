@@ -160,7 +160,7 @@ describe('MonitorslistComponent', () => {
   });
 
 
-  it('should execute delete multiple resources', () => {
+  it('should execute delete multiple resources successfully', () => {
     component.selectedMonitors = [
       {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
       {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
@@ -170,5 +170,36 @@ describe('MonitorslistComponent', () => {
     component.triggerConfirm();
     expect(spy).toHaveBeenCalledTimes(3);
   });
+
+  it('should execute delete multiple resources failed', () => {
+    component.selectedMonitors = [
+      {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
+      {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
+    ];
+    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
+    component.triggerConfirm();
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
+
+  it('should execute progress bar for success', () => {
+    let obj = [{id:"af21671b-2663-4035-810c-8eec9991ca4c", error: true}];       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedMonForDeletion).toEqual([obj]);    
+  });
+
+  fit('should execute progress bar for failure', () => {
+    let obj = {id:"afa94898-ace6-42fa-9eb1-d9d17e5261b2", error: false};       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedMonForDeletion).toEqual([obj]);    
+  });
+
+
+  
+
+
 
 });

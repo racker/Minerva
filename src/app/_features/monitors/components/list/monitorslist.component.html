@@ -25,15 +25,16 @@
   id="confirmMonitorModal">
     <header>
     </header>
+    <div>
       <hx-div>
         <hx-progress value="{{progressVal}}"></hx-progress>
       </hx-div>
-      <hx-div class="hxDivSuccess">
-        {{confirmMessageSuccess}}
+    </div>
+      <div *ngFor="let selectedMonitor of selectedMonForDeletion">
+      <hx-div [ngClass]="selectedMonitor?.error ? 'hxDivErr' : 'hxDivSuccess'">
+        {{selectedMonitor.id}}
       </hx-div>
-      <hx-div class="hxDivErr">
-        {{confirmMessageError}}
-      </hx-div>
+      </div> 
     <footer>
       <button class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
     </footer>
