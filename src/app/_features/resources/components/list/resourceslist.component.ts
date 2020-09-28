@@ -41,8 +41,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   addResLoading: boolean = false;
   disableOk: boolean = true;  
   selectedResources: any = [];
+  selectedResForDeletion:any = [];
   resourceArr:any = [];
-  resourceErrArr:any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
     private validateResource: ValidateResource, private fb: FormBuilder,
@@ -218,9 +218,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.confirmResource.nativeElement.removeAttribute("open");   
     this.confirmResource.nativeElement.setAttribute("close", "true");
     this.fetchResources();
-    this.resourceArr    = [];
-    this.resourceErrArr = [];
-    this.disableOk      = true;
+    this.selectedResources = [];
   }
 
 
@@ -232,46 +230,32 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
    */
 
   triggerConfirm() {
-    this.confirmMessageSuccess = "";
+    this.selectedResForDeletion = [];
+    this.disableOk              = true;
     this.delResource.nativeElement.click();
+    let d = 0;
     this.selectedResources.forEach((element) => {
-      var id = this.resourceService.deleteResourcePromise(element.resourceId).catch(err => {
-        this.resourceErrArr.push(element.resourceId);    
+      var id = this.resourceService.deleteResourcePromise(element.resourceId).then((resp) => {  
+        this.progressBar(d++, {id:element.resourceId, error: false});
+      })
+      .catch(err => {
+        this.progressBar(d++, {id:element.resourceId, error: true});
       });
       this.resourceArr.push(id);
-      this.callPromiseAll(this.resourceArr, this.resourceErrArr);
+
     })
-  }
-
-
-  /**
-   * @description called function to get response of all resource request which is selected for deletion.
-   * @param resourceArr 
-   * @param resourceErrArr 
-   */
-  callPromiseAll(resourceArr, resourceErrArr) {
-    Promise.all(resourceArr)
+    Promise.all(this.resourceArr)
     .then(data => {
-     // empty success and error string before append text to it.
-      this.confirmMessageSuccess  = "";
-      this.confirmMessageError    = "";     
-        for(var i=0; i < data.length; i++) {
-          if(resourceErrArr.indexOf(this.selectedResources[i].resourceId) != -1) 
-            this.confirmMessageError += this.selectedResources[i].resourceId + " Failed!" + "\n";          
-          else 
-            this.confirmMessageSuccess += this.selectedResources[i].resourceId + " is deleted successfully!" + "\n";
-            this.progressVal = ((i + 1) * 100) / data.length;
-          if(i === data.length - 1)
-            this.disableOk  = false;
-        }
-    })
-    .catch(err =>  { 
-        this.confirmMessageError += 'Failed!';          
+      this.disableOk  = false;
     });
     this.confirmResource.nativeElement.setAttribute("open", "true");
+
   }
 
-
+  progressBar(d, obj:any) {
+    this.progressVal = (d * 100) / this.selectedResForDeletion.length;
+    this.selectedResForDeletion.push(obj);
+  }
 
   ngOnDestroy() {
     //unsubcribe once component is done

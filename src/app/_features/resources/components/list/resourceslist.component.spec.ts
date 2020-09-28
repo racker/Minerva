@@ -253,7 +253,7 @@ it('should destroy subscriptions', (done) => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should execute delete multiple resources', () => {
+  it('should execute delete multiple resources succesfully', () => {
 
     component.selectedResources = [
       {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"},{resourceId: "test-3", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:51Z",updatedTimestamp: "2020-09-24T13:44:51Z"}
@@ -261,6 +261,34 @@ it('should destroy subscriptions', (done) => {
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(resolve => { resolve(true)}));
     component.triggerConfirm();
     expect(spy).toHaveBeenCalledTimes(3);
-  })
+  });
+
+  it('should execute delete multiple resources failed', () => {
+    component.selectedResources = [
+      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"}];
+
+    let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
+    component.triggerConfirm();
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
+
+  it('should execute progress bar for success', () => {
+    let obj = [{id:"test-1", error: true}];       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedResForDeletion).toEqual([obj]);    
+  });
+
+  it('should execute progress bar for failure', () => {
+    let obj = {id:"test-2", error: false};       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedResForDeletion).toEqual([obj]);    
+  });
+
+
+
 
 });
