@@ -43,7 +43,7 @@ const routes: Routes = [
   providers: [
     ResourcesService,
     ValidateResource,
-    mockResourcesProvider
+    // mockResourcesProvider
   ],
   exports: [
     ResourcesListComponent,

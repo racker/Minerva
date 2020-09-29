@@ -13,6 +13,7 @@ import { MeasurementNamePipe } from './pipes/measurement-name.pipe';
 import { DeviceNamePipe } from './pipes/device-name.pipe';
 import { AddFieldsComponent } from './components/add-fields/add-fields.component';
 import { DurationSecondsPipe } from './pipes/duration-seconds.pipe';
+import { mockResourcesProvider } from '../_interceptors/mock-resources.interceptor';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -47,7 +48,8 @@ import { DurationSecondsPipe } from './pipes/duration-seconds.pipe';
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    mockResourcesProvider
   ],
 })
 export class SharedModule {
