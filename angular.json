@@ -76,6 +76,7 @@
               ]
             },
             "mock": {
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "anyComponentStyle",
