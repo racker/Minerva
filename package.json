@@ -21,6 +21,7 @@
     "test:unit-ci": "ng test --project=minerva -c=mock --watch=false",
     "test:admin": "ng test --project=admin -c=mock",
     "test:admin-ci": "ng test --project=admin -c=mock --watch=false",
+    "test:admin-e2e":"ng e2e --project=admin -c=mock ",
     "lint": "ng lint",
     "test:e2e": "ng e2e --project=minerva -c=mock",
     "test:e2e-ci": "webdriver-manager update --standalone false --gecko false --versions.chrome 85.0.4183.87 && ng e2e --project=minerva -c=mock",

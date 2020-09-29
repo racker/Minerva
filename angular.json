@@ -373,12 +373,20 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "projects/admin/e2e/protractor.conf.js",
-            "devServerTarget": "admin:serve"
+            "devServerTarget": "minerva:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "admin:serve:production"
+              "devServerTarget": "minerva:serve:production"
+            },
+            "e2e":{
+              "protractorConfig":"e2e/protractor.conf.js",
+              "devServerTarget":"minerva:serve"
+            },
+            "mock": {
+              "devServerTarget": "minerva:serve:mock"
             }
+            
           }
         }
       }

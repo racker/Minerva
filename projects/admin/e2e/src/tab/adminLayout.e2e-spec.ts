@@ -1,7 +1,7 @@
-import { AppPage } from "../../pages/app.po";
-import { navigations } from "../../commons/navigations";
+import { AppPage } from "../../../../../e2e/src/pages/app.po";
+import { navigations } from "../../../../../e2e/src/commons/navigations";
 import { browser } from "protractor";
-import { AdminToolsPage } from "../../pages/adminToolsPage";
+import { AdminToolsPage } from "../../../../../e2e/src/pages/adminToolsPage";
 
 
 
