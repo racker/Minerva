@@ -197,12 +197,11 @@ export class MonitorslistComponent implements OnInit {
     this.selectedMonForDeletion = [];
     this.disableOk              = true;
     this.delMonitor.nativeElement.click();
-    let d = 0;
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(d++, {id:element.id, error: false});
+            this.progressBar(index++, {id:element.id, error: false});
         }).catch(err => {
-            this.progressBar(d++, {id:element.id, error: true});
+            this.progressBar(index++, {id:element.id, error: true});
         });
         this.monitorArr.push(id);
     })

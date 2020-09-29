@@ -1,15 +1,15 @@
 <div class="hxRow">
   <app-monitor-search class="hxCol" [placeholder]="monitorSearchPlaceholderText" (monitorSearchResults)="monitorResults($event)" (searching)="monitorsSearch($event)" (resetResults)="resetSearch()"></app-monitor-search>
   <div class="hxCol monitors-header">
-  <button class="hxBtn hxPrimary" routerLink="/monitors/create">
+  <button id="crtMonitor" class="hxBtn hxPrimary" routerLink="/monitors/create">
     Create Monitor
   </button>
 
-  <button class="hxBtn" [disabled]="selectedMonitors.length === 0">
+  <button id="crtSupp" class="hxBtn" [disabled]="selectedMonitors.length === 0">
     Create Suppression
   </button>
 
-  <button class="hxBtn" [disabled]="selectedMonitors.length === 0">
+  <button id="cpMonitor" class="hxBtn" [disabled]="selectedMonitors.length === 0">
     Copy Monitor
   </button>
 
@@ -36,7 +36,7 @@
       </hx-div>
       </div> 
     <footer>
-      <button class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
+      <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
     </footer>
 </hx-modal>
 
