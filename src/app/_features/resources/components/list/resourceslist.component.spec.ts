@@ -12,9 +12,10 @@ import { Resource } from 'src/app/_models/resources';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { Router } from '@angular/router';
-import { throwError, of, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 var mockResource: Resource = {
   "resourceId": "development:1",
@@ -34,12 +35,6 @@ var mockResource: Resource = {
   "createdTimestamp": new Date(),
   "updatedTimestamp": new Date()
 };
-
-let mockValidateResource = {
-  valid: () => {
-    return throwError({status: 404});
-  }
-}
 
 describe('ResourcesListComponent', () => {
   let injector: TestBed;
@@ -70,7 +65,7 @@ describe('ResourcesListComponent', () => {
         // reference the new instance of formBuilder from above
         { provide: FormBuilder, useValue: formBuilder },
         { provide: ComponentFixtureAutoDetect, useValue: true },
-
+        mockResourcesProvider
       ]
     })
     .compileComponents();
@@ -80,9 +75,9 @@ describe('ResourcesListComponent', () => {
     injector = getTestBed();
     fixture = TestBed.createComponent(ResourcesListComponent);
     component = fixture.componentInstance;
-    resourceService = injector.get(ResourcesService);
-    validateResource = injector.get(ValidateResource);
-    spinnerService = injector.get(SpinnerService);
+    resourceService = TestBed.inject(ResourcesService);
+    validateResource = TestBed.inject(ValidateResource);
+    spinnerService = TestBed.inject(SpinnerService);
     router = injector.get(Router);
     component.addResourceForm = formBuilder.group({
       name: ['', Validators.required],
@@ -133,7 +128,7 @@ describe('ResourcesListComponent', () => {
   it('should add all resources', async() => {
     fixture.detectChanges();
       await fixture.whenStable();
-      
+
     var checked = { target:{checked:true} };
     component.checkColumn(checked);
     component.selectedResources.forEach(e => {
@@ -148,7 +143,7 @@ describe('ResourcesListComponent', () => {
   it('should remove all resources', async() => {
     fixture.detectChanges();
       await fixture.whenStable();
-      
+
     var unchecked = { target:{checked:false} };
     component.checkColumn(unchecked);
     expect(component.selectedResources).toEqual([]);
@@ -181,12 +176,15 @@ describe('ResourcesListComponent', () => {
     expect(component.page).toEqual(2);
   });
 
-  it('should set loading back to false after form submission', () => {
+  it('should set loading back to false after form submission', (done) => {
     expect(component.addResLoading).toBe(false);
     updateForm('newcool-server', false);
     fixture.ngZone.run(() => {
       component.addResource(component.addResourceForm);
-      expect(component.addResLoading).toBe(false);
+      setTimeout(function() {
+        expect(component.addResLoading).toBe(false);
+        done();
+      }, 2000);
     });
   });
 
@@ -197,12 +195,15 @@ describe('ResourcesListComponent', () => {
   });
 
 
-  it('should add Resource and navigate to details page', () => {
+  it('should add Resource and navigate to details page', (done) => {
     const spy = spyOn(router, 'navigate');
     fixture.ngZone.run(() => {
       updateForm('newcool-server', false);
       component.addResource(component.addResourceForm);
-      expect(spy).toHaveBeenCalled();
+      setTimeout(function() {
+        expect(spy).toHaveBeenCalled();
+        done();
+      }, 2000);
     });
   });
 
@@ -211,8 +212,10 @@ describe('ResourcesListComponent', () => {
     fixture.ngZone.run(() => {
       updateForm('newcool-server', false);
       component.addResource(component.addResourceForm);
-      expect(spy).toHaveBeenCalled();
-      done();
+      setTimeout(function() {
+        expect(spy).toHaveBeenCalled();
+        done();
+      }, 2000);
     });
   });
 

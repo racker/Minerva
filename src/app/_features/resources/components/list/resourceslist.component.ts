@@ -46,7 +46,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
     private validateResource: ValidateResource, private fb: FormBuilder,
-    private router: Router, private spnService: SpinnerService, private logService: LoggingService) {     
+    private router: Router, private spnService: SpinnerService, private logService: LoggingService) {
       this.spnService.changeLoadingStatus(true);
       }
 

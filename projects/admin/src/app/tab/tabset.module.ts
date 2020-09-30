@@ -6,7 +6,7 @@ import { TabsetComponent } from './tabset.component';
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
-import { EventsModule } from 'src/app/_features/events/events.module';  
+import { EventsModule } from 'src/app/_features/events/events.module';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
