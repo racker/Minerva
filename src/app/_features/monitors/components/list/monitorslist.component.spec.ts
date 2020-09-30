@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,8 +33,10 @@ var mockMonitor: Monitor = {
 };
 
 describe('MonitorslistComponent', () => {
+  let injector: TestBed;
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;
+  let monitorService: MonitorService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -53,8 +55,10 @@ describe('MonitorslistComponent', () => {
   }));
 
   beforeEach(() => {
+    injector = getTestBed();
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
+    monitorService = injector.get(MonitorService);
     component.ngOnInit();
     fixture.detectChanges();
   });
@@ -142,4 +146,60 @@ describe('MonitorslistComponent', () => {
     component.prevPage();
     expect(component.page).toEqual(1);
   });
+
+  it('should listen for triggerOk', () => {
+    component.triggerOk();
+    expect(component.confirmMonitor.nativeElement.getAttribute('close')).toBe('true');
+    expect(component.confirmMonitor.nativeElement.getAttribute('open')).toBeNull;    
+  });
+
+  it('should listen for triggerClose', () => {
+    let spy =  spyOn(component.delMonitor.nativeElement, "click");
+    component.triggerClose(true);
+    expect(spy).toHaveBeenCalled();
+  });
+
+
+  it('should execute delete multiple monitor successfully', () => {
+    component.selectedMonitors = [
+      {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
+      {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
+      {id: "16b9a9f2-ec4a-4220-a290-508c63d5eef3", name: "lovedeep-3", labelSelector: {env: "amd64"}, labelSelectorMethod: "AND", resourceId: null, summary:{}}  
+    ];
+    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(resolve => { resolve(true)}));
+    component.triggerConfirm();
+    expect(spy).toHaveBeenCalledTimes(3);
+  });
+
+  it('should execute delete multiple monitor failed', () => {
+    component.selectedMonitors = [
+      {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
+      {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
+    ];
+    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
+    component.triggerConfirm();
+    expect(spy).toHaveBeenCalledTimes(2);
+  });
+
+  it('should execute progress bar for success', () => {
+    let obj = [{id:"af21671b-2663-4035-810c-8eec9991ca4c", error: true}];       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedMonForDeletion).toEqual([obj]);    
+  });
+
+  it('should execute progress bar for failure', () => {
+    let obj = {id:"afa94898-ace6-42fa-9eb1-d9d17e5261b2", error: false};       
+    let count;
+    count++;
+    component.progressBar(count, obj);
+    expect(component.selectedMonForDeletion).toEqual([obj]);    
+  });
+
+
+  
+
+
+
 });

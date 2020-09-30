@@ -159,6 +159,31 @@ export class MonitorService {
       );
     }
   }
+
+
+    /**
+   * @description called function to delete multiple monitors using promise.
+   * @param id 
+   */
+
+  deleteMonitorPromise(id:string): Promise<any> {
+    if(environment.mock) {
+      return new Promise((resolve, reject) => {
+          resolve(true);
+      })
+    }
+    return this.http
+      .delete(`${environment.api.salus}/monitors/${id}`)
+      .toPromise()
+      .then(
+        (res: Response) => Promise.resolve(res)
+      )
+      .catch(
+        (err) => Promise.reject(err)
+      );
+  }
+
+
 /**
  * @description Get monitors list associated with a resource.
  * @param resourceId string

@@ -106,5 +106,10 @@ describe('MonitorService', () => {
       });
     });
 
+    it('should delete a multiple Monitors', async() => {
+      let resp = await service.deleteMonitorPromise('test-1');
+       expect(resp).toBe(true); 
+    });
+
   });
 });

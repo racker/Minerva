@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { Monitor, Monitors } from '../../../../_models/monitors';
@@ -13,14 +13,27 @@ import { isAdmin } from 'src/app/_shared/utils';
   styleUrls: ['./monitorslist.component.scss']
 })
 export class MonitorslistComponent implements OnInit {
+
+  @ViewChild('confirmMonitor') confirmMonitor:ElementRef;
+  @ViewChild('delMonitorLink') delMonitor:ElementRef;
+
   monitorSearchPlaceholderText: string;
   monitors: any[];
   total: number;
   page: number = 0;
+  progressVal: number = 0;
+  disableOk: boolean = true;
+  modalType : string = 'delMonitorModal';
+  message   : string = 'Are you sure you want to delete selected monitor?';
+  confirmMessageSuccess : string = "";
+  confirmMessageError : string = "";
   defaultAmount: number = environment.pagination.pageSize;
   fetchMonitors: any;
   Object: Object = Object;
   selectedMonitors: any = [];
+  selectedMonForDeletion:any = [];
+  monitorArr:any = [];
+
 
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
@@ -148,4 +161,60 @@ export class MonitorslistComponent implements OnInit {
       );
     }
   }
+
+    /**
+   * @description function called when to close confirmation modal as customer don't want to delete selected monitor.
+   * @param flag 
+   * 
+   */
+
+  triggerClose(flag) {
+    if(flag)
+      this.delMonitor.nativeElement.click();
+  }
+
+   /**
+   * @description function called when to close progress bar modal by click on OK button.
+   * open and close attributes are used to open and close modal.
+   * 
+   */
+
+  triggerOk() {
+    this.confirmMonitor.nativeElement.removeAttribute("open");   
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");
+    this.fetchMonitors();
+    this.selectedMonitors       = [];
+  }  
+
+   /**
+   * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
+   * monitorErrArr for storing ids which are already deleted or not found.
+   * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
+   * 
+   */
+
+  triggerConfirm() {
+    this.selectedMonForDeletion = [];
+    this.disableOk              = true;
+    this.delMonitor.nativeElement.click();
+    this.selectedMonitors.forEach((element, index) => {
+        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+            this.progressBar(index++, {id:element.id, error: false});
+        }).catch(err => {
+            this.progressBar(index++, {id:element.id, error: true});
+        });
+        this.monitorArr.push(id);
+    })
+    Promise.all(this.monitorArr)
+      .then(data => {
+        this.disableOk  = false;
+      });
+      this.confirmMonitor.nativeElement.setAttribute("open", "true");
+  }
+
+  progressBar(d, obj:any) {
+    this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
+    this.selectedMonForDeletion.push(obj);
+  }
+
 }

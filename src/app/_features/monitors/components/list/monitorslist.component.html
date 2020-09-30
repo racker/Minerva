@@ -1,18 +1,46 @@
 <div class="hxRow">
   <app-monitor-search class="hxCol" [placeholder]="monitorSearchPlaceholderText" (monitorSearchResults)="monitorResults($event)" (searching)="monitorsSearch($event)" (resetResults)="resetSearch()"></app-monitor-search>
-<div class="hxCol monitors-header">
-<button class="hxBtn hxPrimary" routerLink="/monitors/create">
-  Create Monitor
-</button>
+  <div class="hxCol monitors-header">
+  <button id="crtMonitor" class="hxBtn hxPrimary" routerLink="/monitors/create">
+    Create Monitor
+  </button>
 
-<button class="hxBtn" [disabled]="selectedMonitors.length === 0">
-  Create Suppression
-</button>
+  <button id="crtSupp" class="hxBtn" [disabled]="selectedMonitors.length === 0">
+    Create Suppression
+  </button>
 
-<button class="hxBtn" [disabled]="selectedMonitors.length === 0">
-  Copy Monitor
-</button>
-</div>
+  <button id="cpMonitor" class="hxBtn" [disabled]="selectedMonitors.length === 0">
+    Copy Monitor
+  </button>
+
+  <hx-disclosure class="hxBtn" #delMonitorLink aria-controls="delMonitorModal" [disabled]="selectedMonitors.length === 0">
+    Delete
+  </hx-disclosure>
+
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected monitor" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
+
+  </div>
+
+  <hx-modal class="hxSm" #confirmMonitor
+  id="confirmMonitorModal">
+    <header>
+    </header>
+    <div>
+      <hx-div>
+        <hx-progress value="{{progressVal}}"></hx-progress>
+      </hx-div>
+    </div>
+      <div *ngFor="let selectedMonitor of selectedMonForDeletion">
+      <hx-div [ngClass]="selectedMonitor?.error ? 'hxDivErr' : 'hxDivSuccess'">
+        {{selectedMonitor.id}}
+      </hx-div>
+      </div> 
+    <footer>
+      <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
+    </footer>
+</hx-modal>
+
+
 </div>
 <table class="hxTable">
   <thead>
