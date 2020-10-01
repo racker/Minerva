@@ -199,7 +199,7 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(index++, {id:element.id, error: false});
+            this.progressBar(index++, {id:element.name, error: false});
         }).catch(err => {
             this.progressBar(index++, {id:element.id, error: true});
         });
