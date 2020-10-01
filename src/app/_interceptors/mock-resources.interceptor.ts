@@ -10,9 +10,11 @@ import { resourcesMock } from '../_mocks/resources/resources.service.mock';
 export class MockResourcesInterceptor implements HttpInterceptor {
     page:number = 0;
     size:number = 0;
-    resourceService = this.inj.get(ResourcesService);
+    resourceService :any
     mockedResources = new resourcesMock();
-    constructor(private inj: Injector) { }
+    constructor(private inj: Injector) { 
+        this.resourceService = this.inj.get(ResourcesService);
+    }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
