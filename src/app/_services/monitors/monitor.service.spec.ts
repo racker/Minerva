@@ -5,6 +5,8 @@ import { environment } from '../../../environments/environment';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 describe('MonitorService', () => {
   let injector: TestBed;
@@ -51,19 +53,22 @@ describe('MonitorService', () => {
   });
 
   describe('CRUD Operations', () => {
-    it('should return collection', () => {
+    it('should return collection', (done) => {
       service.getMonitors(environment.pagination.pageSize, 0).subscribe((data) => {
         let mocked = new monitorsMock().collection;
         let slicedArray = new monitorsMock().collection.content
          .slice(0 * environment.pagination.pageSize, 1 * environment.pagination.pageSize);
         mocked.content = slicedArray
         expect(data).toEqual(mocked);
+        done();
       });
     });
 
-    it('should return single monitor', () => {
+    it('should return single monitor', (done) => {
+
       service.getMonitor("76kn92Mnnas-87mbVwq").subscribe((data) => {
         expect(data).toEqual(new monitorsMock().single);
+        done();
       });
     });
 
