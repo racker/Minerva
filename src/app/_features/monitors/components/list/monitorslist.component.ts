@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { Monitor, Monitors } from '../../../../_models/monitors';
@@ -28,7 +28,6 @@ export class MonitorslistComponent implements OnInit {
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   defaultAmount: number = environment.pagination.pageSize;
-  fetchMonitors: any;
   Object: Object = Object;
   selectedMonitors: any = [];
   selectedMonForDeletion:any = [];
@@ -38,31 +37,27 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router) { this.spnService.changeLoadingStatus(true); }
+    private router: Router, private changeDetector: ChangeDetectorRef) { this.spnService.changeLoadingStatus(true); }
 
   ngAfterViewInit() {
     setTimeout(() => {
+      this.fetchMonitors();
+    });
+  }
+
+  ngOnInit() {   
+    this.fetchMonitors();
+  }
+
+  fetchMonitors() {
       this.monitorService.getMonitors(this.defaultAmount, this.page)
         .subscribe(data => {
           this.spnService.changeLoadingStatus(false);
           this.monitors = this.monitorService.monitors.content;
-          this.total = this.monitorService.monitors.totalElements;
+          this.total    = this.monitorService.monitors.totalElements;
           this.monitorSearchPlaceholderText = `Search ${this.total} monitors`;
-      });
-    });
-  }
-
-  ngOnInit() {
-    this.fetchMonitors = () => {
-      return this.monitorService.getMonitors(this.defaultAmount, this.page)
-        .subscribe(data => {
-          this.spnService.changeLoadingStatus(false);
-          this.monitors = this.monitorService.monitors.content;
-          this.total = this.monitorService.monitors.totalElements;
-          this.monitorSearchPlaceholderText = `Search ${this.total} monitors`;
-      });
-    }
-    this.fetchMonitors();
+          this.changeDetector.detectChanges();
+        });
   }
 
   isAdminRoute(monId) {
@@ -182,8 +177,9 @@ export class MonitorslistComponent implements OnInit {
   triggerOk() {
     this.confirmMonitor.nativeElement.removeAttribute("open");   
     this.confirmMonitor.nativeElement.setAttribute("close", "true");
+    this.selectedMonitors.map(item =>  this.monitors.splice(item.id, 1));
+    this.selectedMonitors = [];
     this.fetchMonitors();
-    this.selectedMonitors       = [];
   }  
 
    /**
@@ -201,7 +197,7 @@ export class MonitorslistComponent implements OnInit {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
             this.progressBar(index++, {id:element.name, error: false});
         }).catch(err => {
-            this.progressBar(index++, {id:element.id, error: true});
+            this.progressBar(index++, {id:element.name, error: true});
         });
         this.monitorArr.push(id);
     })
