@@ -16,6 +16,7 @@ export class MonitorslistComponent implements OnInit {
 
   @ViewChild('confirmMonitor') confirmMonitor:ElementRef;
   @ViewChild('delMonitorLink') delMonitor:ElementRef;
+  @ViewChild('chkColumn') chkColumn:ElementRef;
 
   monitorSearchPlaceholderText: string;
   monitors: any[];
@@ -176,8 +177,16 @@ export class MonitorslistComponent implements OnInit {
 
   triggerOk() {
     this.confirmMonitor.nativeElement.removeAttribute("open");   
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");
-    this.selectedMonitors.map(item =>  this.monitors.splice(item.id, 1));
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");   
+    this.monitors.forEach(e => {
+      if(e.checked)
+        e["checked"] = false;
+        this.chkColumn.nativeElement.checked = false;
+      //e["checked"] = false;
+    });
+    this.selectedMonitors.map(item => {
+      this.monitors = this.monitors.filter(a => a.id === item.id);
+    });
     this.selectedMonitors = [];
     this.fetchMonitors();
   }  
@@ -195,9 +204,9 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(index++, {id:element.name, error: false});
+            this.progressBar(index++, {id:element.name, error: false, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
         }).catch(err => {
-            this.progressBar(index++, {id:element.name, error: true});
+            this.progressBar(index++, {id:element.name, error: true, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
         });
         this.monitorArr.push(id);
     })
