@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { Monitor, Monitors } from '../../../../_models/monitors';
@@ -16,6 +16,7 @@ export class MonitorslistComponent implements OnInit {
 
   @ViewChild('confirmMonitor') confirmMonitor:ElementRef;
   @ViewChild('delMonitorLink') delMonitor:ElementRef;
+  @ViewChild('chkColumn') chkColumn:ElementRef;
 
   monitorSearchPlaceholderText: string;
   monitors: any[];
@@ -28,7 +29,6 @@ export class MonitorslistComponent implements OnInit {
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   defaultAmount: number = environment.pagination.pageSize;
-  fetchMonitors: any;
   Object: Object = Object;
   selectedMonitors: any = [];
   selectedMonForDeletion:any = [];
@@ -38,31 +38,27 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router) { this.spnService.changeLoadingStatus(true); }
+    private router: Router, private changeDetector: ChangeDetectorRef) { this.spnService.changeLoadingStatus(true); }
 
   ngAfterViewInit() {
     setTimeout(() => {
+      this.fetchMonitors();
+    });
+  }
+
+  ngOnInit() {   
+    this.fetchMonitors();
+  }
+
+  fetchMonitors() {
       this.monitorService.getMonitors(this.defaultAmount, this.page)
         .subscribe(data => {
           this.spnService.changeLoadingStatus(false);
           this.monitors = this.monitorService.monitors.content;
-          this.total = this.monitorService.monitors.totalElements;
+          this.total    = this.monitorService.monitors.totalElements;
           this.monitorSearchPlaceholderText = `Search ${this.total} monitors`;
-      });
-    });
-  }
-
-  ngOnInit() {
-    this.fetchMonitors = () => {
-      return this.monitorService.getMonitors(this.defaultAmount, this.page)
-        .subscribe(data => {
-          this.spnService.changeLoadingStatus(false);
-          this.monitors = this.monitorService.monitors.content;
-          this.total = this.monitorService.monitors.totalElements;
-          this.monitorSearchPlaceholderText = `Search ${this.total} monitors`;
-      });
-    }
-    this.fetchMonitors();
+          this.changeDetector.detectChanges();
+        });
   }
 
   isAdminRoute(monId) {
@@ -181,9 +177,18 @@ export class MonitorslistComponent implements OnInit {
 
   triggerOk() {
     this.confirmMonitor.nativeElement.removeAttribute("open");   
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");   
+    this.monitors.forEach(e => {
+      if(e.checked)
+        e["checked"] = false;
+        this.chkColumn.nativeElement.checked = false;
+      //e["checked"] = false;
+    });
+    this.selectedMonitors.map(item => {
+      this.monitors = this.monitors.filter(a => a.id === item.id);
+    });
+    this.selectedMonitors = [];
     this.fetchMonitors();
-    this.selectedMonitors       = [];
   }  
 
    /**
@@ -199,9 +204,9 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(index++, {id:element.name, error: false});
+            this.progressBar(index++, {id:element.name, error: false, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
         }).catch(err => {
-            this.progressBar(index++, {id:element.id, error: true});
+            this.progressBar(index++, {id:element.name, error: true, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
         });
         this.monitorArr.push(id);
     })
