@@ -25,7 +25,7 @@ export class MonitorslistComponent implements OnInit {
   progressVal: number = 0;
   disableOk: boolean = true;
   modalType : string = 'delMonitorModal';
-  message   : string = 'Are you sure you want to delete selected monitor?';
+  message   : string = 'Are you sure you want to delete the selected monitors?';
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   defaultAmount: number = environment.pagination.pageSize;
@@ -46,7 +46,7 @@ export class MonitorslistComponent implements OnInit {
     });
   }
 
-  ngOnInit() {   
+  ngOnInit() {
     this.fetchMonitors();
   }
 
@@ -160,8 +160,8 @@ export class MonitorslistComponent implements OnInit {
 
     /**
    * @description function called when to close confirmation modal as customer don't want to delete selected monitor.
-   * @param flag 
-   * 
+   * @param flag
+   *
    */
 
   triggerClose(flag) {
@@ -172,12 +172,12 @@ export class MonitorslistComponent implements OnInit {
    /**
    * @description function called when to close progress bar modal by click on OK button.
    * open and close attributes are used to open and close modal.
-   * 
+   *
    */
 
   triggerOk() {
-    this.confirmMonitor.nativeElement.removeAttribute("open");   
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");   
+    this.confirmMonitor.nativeElement.removeAttribute("open");
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");
     this.monitors.forEach(e => {
       if(e.checked)
         e["checked"] = false;
@@ -189,13 +189,13 @@ export class MonitorslistComponent implements OnInit {
     });
     this.selectedMonitors = [];
     this.fetchMonitors();
-  }  
+  }
 
    /**
    * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
    * monitorErrArr for storing ids which are already deleted or not found.
    * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
-   * 
+   *
    */
 
   triggerConfirm() {
@@ -203,7 +203,7 @@ export class MonitorslistComponent implements OnInit {
     this.disableOk              = true;
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
-        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => {
             this.progressBar(index++, {id:element.name, error: false, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
         }).catch(err => {
             this.progressBar(index++, {id:element.name, error: true, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
