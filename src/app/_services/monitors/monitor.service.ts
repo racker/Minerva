@@ -62,21 +62,19 @@ export class MonitorService {
    * @returns Observable<Monitors>
    */
   getMonitors(size: number, page: number): Observable<Monitors> {
-    if (environment.mock) {
-      let mocks = Object.assign({}, this.mockedMonitors.collection);
-      let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
-      this.monitors = mocks;
-      this.monitors.content = slicedData
-      return of<Monitors>(this.monitors).pipe(delay(500));
-    }
-    else {
-    return this.http.get<Monitors>(`${environment.api.salus}/monitors?size=${size}&page=${page}`, httpOptions)
-    .pipe(
-      tap(data =>
-        { this.monitors = data;
+    return this.http.get<Monitors>(`${environment.api.salus}/monitors?size=${size}&page=${page}`, {
+      headers:httpOptions.headers,
+      params: {
+        size: `${size}`,
+        page: `${page}`
+      }
+    })
+      .pipe(
+        tap(data => {
+          this.monitors = data;
           this.logService.log(this.monitors, LogLevels.info);
         }));
-    }
+        
   }
 
 /**
@@ -85,11 +83,6 @@ export class MonitorService {
  * @returns Observable<Monitor>
  */
   getMonitor(id: string): Observable<Monitor> {
-    if (environment.mock) {
-      this._monitor = this.mockedMonitors.single;
-      return of<Monitor>(this.mockedMonitors.single).pipe(delay(500));
-    }
-    else {
       return this.http.get<Monitor>(`${environment.api.salus}/monitors/${id}`, httpOptions)
       .pipe(
         tap(data => {
@@ -97,7 +90,6 @@ export class MonitorService {
           this.logService.log(`Monitor: ${data}`, LogLevels.info);
         })
       );
-    }
   }
 
   /**
@@ -106,11 +98,6 @@ export class MonitorService {
    * @returns Observable<Monitor>
    */
   createMonitor(monitor:CreateMonitor): Observable<Monitor> {
-        if (environment.mock) {
-          this._monitor = this.mockedMonitors.single;
-          return of<Monitor>(this.mockedMonitors.single);
-        }
-        else {
           return this.http.post<Monitor>(`${environment.api.salus}/monitors`, monitor, httpOptions)
           .pipe(
             tap(data => {
@@ -118,7 +105,6 @@ export class MonitorService {
               this.logService.log(`Monitor created: ${data.id}`, LogLevels.info);
             })
           );
-        }
   }
 
 
@@ -227,7 +213,7 @@ export class MonitorService {
     }
   }
 
-  testMonitor(monitorData: CreateTestMonitor): Observable<TestMonitor> {
+  monitorTest(monitorData: CreateTestMonitor): Observable<TestMonitor> {
     let data = monitorData;
     if (environment.mock) {
       return of<TestMonitor>(this.mockedMonitors.testMonitor);
