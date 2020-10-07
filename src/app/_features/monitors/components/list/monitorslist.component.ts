@@ -181,7 +181,7 @@ export class MonitorslistComponent implements OnInit {
     this.confirmMonitor.nativeElement.removeAttribute("open");   
     this.confirmMonitor.nativeElement.setAttribute("close", "true");    
     this.selectedMonitors.map(item => {
-      this.monitors = this.monitors.filter(a => a.id === item.id);
+      this.monitors = this.monitors.filter(a => a.id !== item.id);
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
@@ -212,17 +212,17 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(index++, {id:this.monitors.filter(a => a.id === element.id), error: false});
+            this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: false});
         }).catch(err => {
-            this.progressBar(index++, {id:this.monitors.filter(a => a.id === element.id), error: true});
+            this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
         });
         this.monitorArr.push(id);
     })
     Promise.all(this.monitorArr)
       .then(data => {
         this.disableOk  = false;
+        this.confirmMonitor.nativeElement.setAttribute("open", "true");
       });
-      this.confirmMonitor.nativeElement.setAttribute("open", "true");
   }
 
   progressBar(d, obj:any) {    
