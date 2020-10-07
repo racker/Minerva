@@ -25,7 +25,7 @@ export class MonitorslistComponent implements OnInit {
   progressVal: number = 0;
   disableOk: boolean = true;
   modalType : string = 'delMonitorModal';
-  message   : string = 'Are you sure you want to delete selected monitor?';
+  message   : string = 'Are you sure you want to delete the selected monitors?';
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   defaultAmount: number = environment.pagination.pageSize;
@@ -46,7 +46,7 @@ export class MonitorslistComponent implements OnInit {
     });
   }
 
-  ngOnInit() {   
+  ngOnInit() {
     this.fetchMonitors();
   }
 
@@ -160,8 +160,8 @@ export class MonitorslistComponent implements OnInit {
 
     /**
    * @description function called when to close confirmation modal as customer don't want to delete selected monitor.
-   * @param flag 
-   * 
+   * @param flag
+   *
    */
 
   triggerClose(flag) {
@@ -172,20 +172,31 @@ export class MonitorslistComponent implements OnInit {
    /**
    * @description function called when to close progress bar modal by click on OK button.
    * open and close attributes are used to open and close modal.
-   * 
+   *
    */
 
   triggerOk() {
+<<<<<<< HEAD
     if(this.chkColumn.nativeElement.checked) 
     this.reset();    
     this.confirmMonitor.nativeElement.removeAttribute("open");   
     this.confirmMonitor.nativeElement.setAttribute("close", "true");    
+=======
+    this.confirmMonitor.nativeElement.removeAttribute("open");
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");
+    this.monitors.forEach(e => {
+      if(e.checked)
+        e["checked"] = false;
+        this.chkColumn.nativeElement.checked = false;
+      //e["checked"] = false;
+    });
+>>>>>>> 1e26ec3a4aa0ebc36f57c8680f1e542c6d92ad93
     this.selectedMonitors.map(item => {
       this.monitors = this.monitors.filter(a => a.id === item.id);
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
-  }  
+  }
 
   /**
    * @description call function once delete operation completed
@@ -203,7 +214,7 @@ export class MonitorslistComponent implements OnInit {
    * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
    * monitorErrArr for storing ids which are already deleted or not found.
    * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
-   * 
+   *
    */
 
   triggerConfirm() {

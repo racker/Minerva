@@ -17,7 +17,7 @@
     Delete
   </hx-disclosure>
 
-  <app-modal [modalType]="modalType" [message]="message" header="Delete selected monitor" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected monitor(s)" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
   </div>
 
@@ -34,7 +34,7 @@
       <hx-div [ngClass]="selectedMonitor?.error ? 'hxDivErr' : 'hxDivSuccess'">
         {{selectedMonitor.id[0].name || monitorUtil.formatSummaryField(selectedMonitor.id[0])}}
       </hx-div>
-      </div> 
+      </div>
     <footer>
       <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
     </footer>
