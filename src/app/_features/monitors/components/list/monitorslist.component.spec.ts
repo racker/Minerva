@@ -197,7 +197,7 @@ describe('MonitorslistComponent', () => {
     expect(component.selectedMonForDeletion).toEqual([obj]);    
   });
 
-  fit('should execute reset for checked flag to false', () => {
+  it('should execute reset for checked flag to false', () => {
     let checked = false;
     component.monitors = [
       {id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true},
