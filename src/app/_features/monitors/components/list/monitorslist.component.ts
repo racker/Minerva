@@ -176,20 +176,28 @@ export class MonitorslistComponent implements OnInit {
    */
 
   triggerOk() {
+    if(this.chkColumn.nativeElement.checked) 
+    this.reset();    
     this.confirmMonitor.nativeElement.removeAttribute("open");   
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");   
-    this.monitors.forEach(e => {
-      if(e.checked)
-        e["checked"] = false;
-        this.chkColumn.nativeElement.checked = false;
-      //e["checked"] = false;
-    });
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");    
     this.selectedMonitors.map(item => {
       this.monitors = this.monitors.filter(a => a.id === item.id);
-    });
+    });  
     this.selectedMonitors = [];
     this.fetchMonitors();
   }  
+
+  /**
+   * @description call function once delete operation completed
+   * 
+   */
+  reset() {
+    this.monitors.forEach(e => {
+      if(e.checked)
+        e.checked = false;
+        this.chkColumn.nativeElement.checked = false;
+    });
+  }
 
    /**
    * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
@@ -204,9 +212,9 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
-            this.progressBar(index++, {id:element.name, error: false, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
+            this.progressBar(index++, {id:this.monitors.filter(a => a.id === element.id), error: false});
         }).catch(err => {
-            this.progressBar(index++, {id:element.name, error: true, altName:`${element.details.plugin.type}-${element.id.substr(element.id.length - 5)}`});
+            this.progressBar(index++, {id:this.monitors.filter(a => a.id === element.id), error: true});
         });
         this.monitorArr.push(id);
     })
@@ -217,9 +225,8 @@ export class MonitorslistComponent implements OnInit {
       this.confirmMonitor.nativeElement.setAttribute("open", "true");
   }
 
-  progressBar(d, obj:any) {
+  progressBar(d, obj:any) {    
     this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
     this.selectedMonForDeletion.push(obj);
   }
-
 }
