@@ -208,8 +208,9 @@ export class MonitorslistComponent implements OnInit {
     Promise.all(this.monitorArr)
       .then(data => {
         this.disableOk  = false;
+        this.confirmMonitor.nativeElement.setAttribute("open", "true");
       });
-      this.confirmMonitor.nativeElement.setAttribute("open", "true");
+      
   }
 
   progressBar(d, obj:any) {

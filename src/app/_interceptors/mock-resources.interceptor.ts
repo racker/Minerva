@@ -1,18 +1,15 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { delay, mergeMap, materialize, dematerialize, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResourcesService } from '../_services/resources/resources.service';
 import { resourcesMock } from '../_mocks/resources/resources.service.mock';
-import { Monitor, Monitors, Schema, TestMonitor } from '../_models/monitors';
 import { monitorsMock } from '../_mocks/monitors/monitors.service.mock';
-import { BoundMonitorPaging } from '../_models/resources';
-import { CreateMonitor } from '../_models/salus.monitor';
 import { MonitorService } from '../_services/monitors/monitor.service';
 
 @Injectable()
-export class MockResourcesInterceptor implements HttpInterceptor {
+export class RequestInterceptor implements HttpInterceptor {
     page:number = 0;
     size:number = 0;
     resourceService :any;
@@ -82,7 +79,7 @@ export class MockResourcesInterceptor implements HttpInterceptor {
                 return () => {
                     return of(new HttpResponse({ status: 204, body: true }));
                 };
-            case url.includes('/monitors') :
+            case url.includes('/monitor') :
                 return () => {
                     return of(this.mockMon.handleRoute(url, method, request, next) as any);
                      }
@@ -97,6 +94,6 @@ export class MockResourcesInterceptor implements HttpInterceptor {
 export const mockResourcesProvider = {
     // use fake backend in place of Http service for backend-less development
     provide: HTTP_INTERCEPTORS,
-    useClass: MockResourcesInterceptor,
+    useClass: RequestInterceptor,
     multi: true
 };

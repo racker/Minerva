@@ -11,7 +11,7 @@ import { retry, catchError } from 'rxjs/operators';
 export class ServerErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Catch Error")
+    
     return next.handle(request).pipe(
       // TODO: Determine if a retry should be placed here or elsewhere
       // should a request fail

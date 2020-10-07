@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
-import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock'
-import { Monitors, Monitor, Schema, TestMonitor } from 'src/app/_models/monitors';
+import { Monitors, Monitor, TestMonitor } from 'src/app/_models/monitors';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { BoundMonitorPaging } from 'src/app/_models/resources';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
@@ -25,8 +24,6 @@ export class MonitorService {
   private _monitors: Monitors;
   private _monitor: Monitor;
 
-  private _schema: Schema;
-  private mockedMonitors = new monitorsMock();
   private _boundMonitor: BoundMonitorPaging;
 
   constructor(private http:HttpClient, private logService: LoggingService) { }
@@ -62,7 +59,7 @@ export class MonitorService {
    * @returns Observable<Monitors>
    */
   getMonitors(size: number, page: number): Observable<Monitors> {
-    return this.http.get<Monitors>(`${environment.api.salus}/monitors?size=${size}&page=${page}`, {
+    return this.http.get<Monitors>(`${environment.api.salus}/monitors`, {
       headers:httpOptions.headers,
       params: {
         size: `${size}`,
@@ -115,17 +112,13 @@ export class MonitorService {
    * @returns Observable<Monitor>
    */
   updateMonitor(id: string, details: any[]): Observable<Monitor> {
-    if (environment.mock) {
-      this._monitor = this.mockedMonitors.single;
-      return of<Monitor>(this.mockedMonitors.single);
-    } else {
       return this.http.patch<Monitor>(`${environment.api.salus}/monitors/${id}`, details, httpOptions).pipe(
         tap((data: Monitor) => {
           this._monitor = data;
           this.logService.log(`Monitor: ${data}`, LogLevels.info)
         })
       );
-    }
+    
   }
 
   /**
@@ -133,17 +126,12 @@ export class MonitorService {
    * @param id string
    */
   deleteMonitor(id:string): Observable<any> {
-    if (environment.mock) {
-      return of<boolean>(true);
-    }
-    else {
       return this.http.delete(`${environment.api.salus}/monitors/${id}`, {observe: 'response'})
       .pipe(
         tap(data => {
           this.logService.log(`Monitor deleted: ${id}`, LogLevels.info);
         })
       );
-    }
   }
 
 
@@ -153,11 +141,6 @@ export class MonitorService {
    */
 
   deleteMonitorPromise(id:string): Promise<any> {
-    if(environment.mock) {
-      return new Promise((resolve, reject) => {
-          resolve(true);
-      })
-    }
     return this.http
       .delete(`${environment.api.salus}/monitors/${id}`)
       .toPromise()
@@ -177,10 +160,6 @@ export class MonitorService {
  */
   getBoundMonitor(ids:any):Observable<BoundMonitorPaging>{
     // TODO: Add paging mechanism to this service
-    if (environment.mock) {
-      this._boundMonitor=this.mockedMonitors.boundMonitor;
-      return of<BoundMonitorPaging>(this._boundMonitor);
-      }else {
         let queryParam = Object.keys(ids).map((key) => key + "=" + ids[key]).join('&');
         return this.http.get<BoundMonitorPaging>(`${environment.api.salus}/monitors/bound-monitors?${queryParam}`, httpOptions)
         .pipe(
@@ -189,18 +168,9 @@ export class MonitorService {
             this.logService.log(`Bound Monitor: ${data}`, LogLevels.info);
           })
         );
-      }
   }
 
   searchMonitors(search:string): Observable<Monitors> {
-    if (environment.mock) {
-      let mocks = Object.assign({}, this.mockedMonitors.collection);
-      this.monitors = mocks;
-      let slicedData = [... mocks.content.slice(0 * 10, 1 * 10)];
-      this.monitors.content = slicedData;
-      return of<Monitors>(this.monitors);
-    }
-    else {
       return this.http.get<Monitors>(`${environment.api.salus}/monitors-search/`, {
         params: {
           q: search
@@ -210,15 +180,10 @@ export class MonitorService {
           this.logService.log(`Search Monitors`, LogLevels.info);
         })
       )
-    }
   }
 
   monitorTest(monitorData: CreateTestMonitor): Observable<TestMonitor> {
     let data = monitorData;
-    if (environment.mock) {
-      return of<TestMonitor>(this.mockedMonitors.testMonitor);
-    }
-    else {
       return this.http.post<TestMonitor>(`${environment.api.salus}/test-monitor`, data, httpOptions)
         .pipe(
           tap(data => {
@@ -226,8 +191,5 @@ export class MonitorService {
             this.logService.log(`Test Monitor Results: ${data}`, LogLevels.info);
           })
         );
-    }
-  }
-
-
+        }
 }
