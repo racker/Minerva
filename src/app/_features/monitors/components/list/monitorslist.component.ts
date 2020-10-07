@@ -176,21 +176,10 @@ export class MonitorslistComponent implements OnInit {
    */
 
   triggerOk() {
-<<<<<<< HEAD
     if(this.chkColumn.nativeElement.checked) 
     this.reset();    
     this.confirmMonitor.nativeElement.removeAttribute("open");   
     this.confirmMonitor.nativeElement.setAttribute("close", "true");    
-=======
-    this.confirmMonitor.nativeElement.removeAttribute("open");
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");
-    this.monitors.forEach(e => {
-      if(e.checked)
-        e["checked"] = false;
-        this.chkColumn.nativeElement.checked = false;
-      //e["checked"] = false;
-    });
->>>>>>> 1e26ec3a4aa0ebc36f57c8680f1e542c6d92ad93
     this.selectedMonitors.map(item => {
       this.monitors = this.monitors.filter(a => a.id === item.id);
     });  
