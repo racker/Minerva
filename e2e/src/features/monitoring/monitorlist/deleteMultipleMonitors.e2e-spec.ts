@@ -31,7 +31,7 @@ describe("Delete multiple monitor functionality", ()=> {
         expect(page1.deleteBtn.isEnabled()).toBe(true);
      });
 
-    it("To verify “Delete Selected Monitor” pop over is displayed on clicking on delete button",async()=>{
+    it("To verify “Delete Selected Monitor” pop over is displayed on clicking on delete button",()=>{
          page1.selectFiveMonitors();
          page1.deleteBtn.click();
          browser.sleep(3000);
@@ -41,7 +41,7 @@ describe("Delete multiple monitor functionality", ()=> {
    
     });
 
-    it("To verify if selected list of monitors are displayed on the 'delete monitor pop over' after confirming deletion",async()=>{
+    it("To verify if selected list of monitors are displayed on the 'delete monitor pop over' after confirming deletion",()=>{
         
         var noOfMonitors=page1.selectFiveMonitors();
         page1.deleteBtn.click();
@@ -52,7 +52,7 @@ describe("Delete multiple monitor functionality", ()=> {
         expect(page1.successListOfMonitors.count()).toEqual(noOfMonitors);
       });
 
-    it("To verify if the pop over disappears after clicking on OK button",async()=>{
+    it("To verify if the pop over disappears after clicking on OK button and that the checkboxes are unchecked",()=>{
         
         page1.selectFiveMonitors();
         page1.deleteBtn.click();
@@ -62,6 +62,12 @@ describe("Delete multiple monitor functionality", ()=> {
         overlay.confirmBtn.click();
         overlay.okBtn.click()
         expect(overlay.confirmMonitorModal.getAttribute('aria-hidden')).toEqual('true');
+        browser.sleep(3000);
+        
+        for(var i=1;i<=5;i++){
+          expect(page1.checkBoxes.get(i).isSelected()).toBe(false)
+        }
+        
         
       });
 
