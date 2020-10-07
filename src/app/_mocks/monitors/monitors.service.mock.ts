@@ -45,7 +45,7 @@ export class monitorsMock {
   }
 
   /**
-   * @description Gets a list of monitors
+   * @description Mock Gets a list of monitors
    * @param size number
    * @param page number
    * @returns Observable<Monitors>
@@ -61,8 +61,7 @@ export class monitorsMock {
   }
 
   /**
-   * @description Gets a single monitor
-   * @param id string
+   * @description Mock Gets a single monitor
    * @returns Observable<Monitor>
    */
   getMonitor() {
@@ -70,8 +69,7 @@ export class monitorsMock {
   }
 
   /**
-   * Create a new monitor
-   * @param monitor formatted monitor to be created
+   * Mock Create a new monitor
    * @returns Observable<Monitor>
    */
   createMonitor() {
@@ -80,9 +78,7 @@ export class monitorsMock {
 
 
   /**
-   * Update a monitor using patch method
-   * @param id string
-   * @param details any[]
+   * Mock Update a monitor using patch method
    * @returns Observable<Monitor>
    */
   updateMonitor() {
@@ -90,14 +86,14 @@ export class monitorsMock {
   }
 
   /**
-   * @description Deletes a monitor
+   * @description Mock Deletes a monitor
    * @param id string
    */
   deleteMonitor() {
     return true;
   }
   /**
-   * @description Get monitors list associated with a resource.
+   * @description Mock Get monitors list associated with a resource.
    * @param resourceId string
    * @param monitorId string
    */

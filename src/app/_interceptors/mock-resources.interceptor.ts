@@ -16,7 +16,7 @@ export class RequestInterceptor implements HttpInterceptor {
     monitorService:any;
     mockedResources = new resourcesMock();
     mockMon= new monitorsMock();;
-    constructor(private inj: Injector) { 
+    constructor(private inj: Injector) {
         this.resourceService = this.inj.get(ResourcesService);
         this.monitorService = this.inj.get(MonitorService)
     }
@@ -41,48 +41,15 @@ export class RequestInterceptor implements HttpInterceptor {
 
     handleRoute(url: string, method: string, request: HttpRequest<any>, next: any) {
         switch (true) {
-            case url.includes('/resources') && method === 'GET' && this.size > 0:
+
+            case url.includes('/resources'):
                 return () => {
-                    let mocks = Object.assign({}, this.mockedResources.collection);
-                    let slicedData = [...mocks.content.slice(this.page * this.size, (this.page + 1) * this.size)];
-                    this.resourceService.resources = mocks;
-                    this.resourceService.resources.content = slicedData;
-                    return of(new HttpResponse({ status: 200, body: (this.resourceService.resources as any) }));
-                };
-            case url.match(/\/resources\/[a-zA-Z0-9-_:]+$/) && method === 'GET':
-            case url.match(/\/resources\/[a-zA-Z0-9-_:]+$/) && method === 'PUT':
-                return () => {
-                    this.resourceService.resource = this.mockedResources.single;
-                    return of(new HttpResponse({ status: 200, body: (this.resourceService.resource as any) }));
+                    return of(this.mockedResources.handleRoute(url, method, request, next) as any)
                 }
-            case url.endsWith('/resources') && method === 'POST':
-                return () => {
-                    this.resourceService.resource = this.mockedResources.single;
-                    return of(new HttpResponse({ status: 201, body: (this.resourceService.resource as any) }));
-                };
-            case url.match(/\/resources\/[a-zA-Z0-9-_:]+$/) && method === 'HEAD':
-                return () => {
-                    return throwError(new HttpErrorResponse({
-                        error: 'Not Found',
-                        status: 404
-                    }));
-                };
-            case url.includes('/resources-search') && method === 'GET':
-                return () => {
-                    let mocks = Object.assign({}, this.mockedResources.collection);
-                    let slicedData = [...mocks.content.slice(0 * 10, 1 * 10)];
-                    this.resourceService.resources = mocks;
-                    this.resourceService.resources.content = slicedData;
-                    return of(new HttpResponse({ status: 200, body: (this.resourceService.resources as any) }));
-                };
-            case url.match(/\/resources\/[a-zA-Z0-9-_:]+$/) && method === 'DELETE':
-                return () => {
-                    return of(new HttpResponse({ status: 204, body: true }));
-                };
-            case url.includes('/monitor') :
+            case url.includes('/monitor'):
                 return () => {
                     return of(this.mockMon.handleRoute(url, method, request, next) as any);
-                     }
+                }
             default:
                 // pass through any requests not handled above
                 return () => { return next.handle(request); }
