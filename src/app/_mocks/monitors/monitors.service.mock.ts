@@ -3,18 +3,18 @@ import { default as monitorSingle } from './single.json';
 import { default as schema } from './schema.json';
 import { default as boundMonitor } from "./boundMonitor.json";
 import { default as testMonitor } from './test-monitor.json';
-import { Monitor, Monitors, TestMonitor } from 'src/app/_models/monitors';
+import { Monitor, Monitors, Schema, TestMonitor } from 'src/app/_models/monitors';
 import { BoundMonitorPaging } from 'src/app/_models/resources';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 export class monitorsMock {
-  collection = monitorsCollection;
-  single = monitorSingle;
-  schema = schema;
-  boundMonitor = boundMonitor;
-  testMonitor = testMonitor;
+  collection: Monitors = monitorsCollection;
+  single: Monitor = monitorSingle;
+  schema: Schema = schema;
+  boundMonitor: BoundMonitorPaging = boundMonitor;
+  testMonitor: TestMonitor = testMonitor;
   page: number;
   size: number;
 
