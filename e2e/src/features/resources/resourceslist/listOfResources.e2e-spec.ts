@@ -23,7 +23,7 @@ describe("Resources List", () => {
     
     element.all(by.xpath("//th[@class='hxControl']//hx-checkbox-control//label//hx-checkbox")).click();
     browser.sleep(1000);
-    expect(element(by.xpath("//button[contains(text(),'Delete')]")).isEnabled()).toBe(true);
+    expect(element(by.xpath("//hx-disclosure[contains(text(),'Delete')]")).isEnabled()).toBe(true);
   });
 
   it("check if Create Muiltiple Monitores button is enabled", () => {

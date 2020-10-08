@@ -17,7 +17,7 @@
     Delete
   </hx-disclosure>
 
-  <app-modal [modalType]="modalType" [message]="message" header="Delete selected monitor" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
+  <app-modal [modalType]="modalType" [message]="message" header="Delete selected monitor(s)" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
   </div>
 
@@ -32,9 +32,9 @@
     </div>
       <div *ngFor="let selectedMonitor of selectedMonForDeletion">
       <hx-div [ngClass]="selectedMonitor?.error ? 'hxDivErr' : 'hxDivSuccess'">
-        {{selectedMonitor.id}}
+        {{selectedMonitor.id || selectedMonitor.altName}}
       </hx-div>
-      </div> 
+      </div>
     <footer>
       <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
     </footer>
@@ -47,7 +47,7 @@
     <tr>
       <th class="hxControl">
           <hx-checkbox-control>
-              <input
+              <input #chkColumn
                 type="checkbox"
                 id="chkColumn"
                 (change)="checkColumn($event)"
