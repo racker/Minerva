@@ -5,6 +5,8 @@ import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
 import { Monitors, Monitor } from 'src/app/_models/monitors';
 import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 
@@ -18,7 +20,7 @@ describe('MonitorSearchComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MonitorSearchComponent ],
       providers : [ MonitorService ],
-      imports: [ HttpClientModule],
+      imports: [ HttpClientModule, HttpClientTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
@@ -44,9 +46,11 @@ describe('MonitorSearchComponent', () => {
     expect(component.resetResults).toEqual(new EventEmitter<{}>());
     expect(component.searching).toEqual(new EventEmitter<boolean>());
  });
- it('should make search for monitors text input results', () => {
+ xit('should make search for monitors text input results', (done) => {
+   component.monitorSearchResults.next((new monitorsMock()).collection);
     component.monitorSearchResults.subscribe((monitors: Monitors) => {
       expect(monitors.content.length).toBeGreaterThan(2);
+      done();
     });
   });
 

@@ -1,7 +1,6 @@
 {
     "totalPages": 0,
     "totalElements": 30,
-    "size": 0,
     "content": [
         {
             "id": "889EJ382",
@@ -620,6 +619,5 @@
     ],
     "number": 0,
     "last": true,
-    "numberOfElements": 30,
     "first": true
 }

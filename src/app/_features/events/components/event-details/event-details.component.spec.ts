@@ -32,7 +32,9 @@ describe('EventDetailsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  })
   it('should create', () => {
     expect(component).toBeTruthy();
   });

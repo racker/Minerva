@@ -52,7 +52,7 @@ export class ResourceListComponent implements OnInit {
 
   testMonitor(resourceId) {
     let monitorData:CreateTestMonitor = MonitorUtil.formatTestMonitor(resourceId, this.monitor);
-    this.mntor.testMonitor(monitorData).subscribe((data) => {
+    this.mntor.monitorTest(monitorData).subscribe((data) => {
       this.isTestLoading = false;
       this.testMonitorResults = data;
     });

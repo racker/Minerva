@@ -107,6 +107,9 @@ describe('ResourceDetailsPage', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  })
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -161,10 +164,11 @@ describe('ResourceDetailsPage', () => {
     done();
   });
 
-  it('should set to a single resource', () => {
+  it('should set to a single resource', (done) => {
     let mocked = new resourcesMock().single;
     component.resource$.subscribe((resource) => {
       expect(resource).toEqual(mocked);
+      done();
     });
   });
 
