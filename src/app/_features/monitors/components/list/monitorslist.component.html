@@ -32,7 +32,7 @@
     </div>
       <div *ngFor="let selectedMonitor of selectedMonForDeletion">
       <hx-div [ngClass]="selectedMonitor?.error ? 'hxDivErr' : 'hxDivSuccess'">
-        {{selectedMonitor.id || selectedMonitor.altName}}
+        {{selectedMonitor.monitor.name || monitorUtil.formatSummaryField(selectedMonitor.monitor)}}
       </hx-div>
       </div>
     <footer>

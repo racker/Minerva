@@ -182,19 +182,33 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = [{id:"af21671b-2663-4035-810c-8eec9991ca4c", error: true}];       
-    let count;
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};       
+    let count = 0;
     count++;
     component.progressBar(count, obj);
     expect(component.selectedMonForDeletion).toEqual([obj]);    
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:"afa94898-ace6-42fa-9eb1-d9d17e5261b2", error: false};       
-    let count;
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};       
+    let count = 0;
     count++;
     component.progressBar(count, obj);
     expect(component.selectedMonForDeletion).toEqual([obj]);    
+  });
+
+  it('should execute reset for checked flag to false', () => {
+    let checked = false;
+    component.monitors = [
+      {id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true},
+      {id: "76IM09JM", name: "Check Not Body II", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Staging", additionalProp3: "Website"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z",checked: true},
+      {id: "10YN3Q45", name: null, labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Prod", additionalProp3: "Load Balancer"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true}
+    ];
+    component.reset();
+    component.monitors.forEach(e => {
+      expect(e.checked).toBe(checked);
+    });
+
   });
 
 
