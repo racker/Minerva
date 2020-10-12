@@ -38,7 +38,9 @@ describe('ResourceListComponent', () => {
     component.monitor = newMonitor;
     fixture.detectChanges();
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  })
   it('should create', () => {
     expect(component).toBeTruthy();
   });

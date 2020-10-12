@@ -22,7 +22,9 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
   });
-
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  })
   it('should create the app', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();

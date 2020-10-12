@@ -38,13 +38,14 @@ describe('EventsService', () => {
 
 
 
-  it('should return all events', () => {
+  it('should return all events', (done) => {
     service.getEvents(environment.pagination.pageSize).subscribe((data) => {
       let mocked = new EventsMock().eventList;
       let slicedArray = new EventsMock().eventList.content
         .slice(0 * environment.pagination.pageSize, 1 * environment.pagination.pageSize);
       mocked.content = slicedArray
       expect(data).toEqual(mocked);
+      done();
     });
   });
 });
