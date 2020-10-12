@@ -74,7 +74,7 @@
   </div>
   <div *ngFor="let selectedResource of selectedResForDeletion">
     <hx-div [ngClass]="selectedResource?.error ? 'hxDivErr' : 'hxDivSuccess'">
-      {{selectedResource.id}}
+      {{selectedResource.resource.resourceId}}
     </hx-div>
 
 
@@ -91,7 +91,7 @@
     <tr>
       <th class="hxControl">
           <hx-checkbox-control>
-              <input
+              <input #chkColumnRs
                 type="checkbox"
                 id="chkColumnRs"
                 (change)="checkColumn($event)"

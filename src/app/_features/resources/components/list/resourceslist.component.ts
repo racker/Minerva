@@ -22,6 +22,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   @ViewChild('delResourceLink') delResource:ElementRef;
   @ViewChild('confirmResource') confirmResource:ElementRef;
   @ViewChild('addResButton', { static: true }) addButton:ElementRef;
+  @ViewChild('chkColumnRs') chkColumnRs:ElementRef;
+
   private ngUnsubscribe = new Subject();
   searchPlaceholderText: string;
   modalType : string = 'delResourceModal';
@@ -29,7 +31,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   
-  resources: Resource[];
+  resources: any[];
   total: number;
   page: number = 0;
   progressVal: number = 0;
@@ -215,10 +217,31 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
    */
 
   triggerOk() {
+    if(this.chkColumnRs.nativeElement.checked) 
+    this.reset();    
     this.confirmResource.nativeElement.removeAttribute("open");   
+    this.confirmResource.nativeElement.setAttribute("close", "true");  
+    this.selectedResources.map(item => {
+      this.resources = this.resources.filter(a => a.resourceId !== item.resourceId);
+    });  
+    this.selectedResources = [];
+    this.fetchResources();
+    /*this.confirmResource.nativeElement.removeAttribute("open");   
     this.confirmResource.nativeElement.setAttribute("close", "true");
     this.fetchResources();
-    this.selectedResources = [];
+    this.selectedResources = [];*/
+  }
+
+    /**
+   * @description call function once delete operation completed
+   * 
+   */
+  reset() {
+    this.resources.forEach(e => {
+      if(e.checked)
+        e.checked = false;
+        this.chkColumnRs.nativeElement.checked = false;
+      });
   }
 
 
@@ -233,13 +256,12 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.selectedResForDeletion = [];
     this.disableOk              = true;
     this.delResource.nativeElement.click();
-    let d = 0;
-    this.selectedResources.forEach((element) => {
-      var id = this.resourceService.deleteResourcePromise(element.resourceId).then((resp) => {  
-        this.progressBar(d++, {id:element.resourceId, error: false});
+    this.selectedResources.forEach((element, index) => {
+      var id = this.resourceService.deleteResourcePromise(element.resourceId).then((resp) => {   
+        this.progressBar(index++, {resource:this.resources.filter(a => a.resourceId === element.resourceId)[0], error: false}); 
       })
       .catch(err => {
-        this.progressBar(d++, {id:element.resourceId, error: true});
+        this.progressBar(index++, {resource:this.resources.filter(a => a.resourceId === element.resourceId)[0], error: true});       
       });
       this.resourceArr.push(id);
 
@@ -247,8 +269,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     Promise.all(this.resourceArr)
     .then(data => {
       this.disableOk  = false;
+      this.confirmResource.nativeElement.setAttribute("open", "true");
     });
-    this.confirmResource.nativeElement.setAttribute("open", "true");
 
   }
 
