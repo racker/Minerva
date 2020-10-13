@@ -45,6 +45,9 @@ describe("To test delete event functionality", ()=> {
       })
           let overlay=new DeleteEventOverlay();
           expect(overlay.deleteEventPopOver.isDisplayed()).toBe(true);
+          browser.sleep(3000);
+          browser.executeScript("arguments[0].click();",overlay.cancelBtn);
+          browser.sleep(3000);
     });
 
     it("To verify if user is able to delete event",()=>{
