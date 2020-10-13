@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { GlobalErrorHandler } from './global-error.handler';
-import {ServerErrorInterceptor } from '../_interceptors/server-error.interceptor';
+
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ModalComponent } from './components/modal/modal.component';
@@ -13,7 +13,7 @@ import { MeasurementNamePipe } from './pipes/measurement-name.pipe';
 import { DeviceNamePipe } from './pipes/device-name.pipe';
 import { AddFieldsComponent } from './components/add-fields/add-fields.component';
 import { DurationSecondsPipe } from './pipes/duration-seconds.pipe';
-import { mockResourcesProvider } from '../_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from '../_interceptors/request.interceptor';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -48,7 +48,6 @@ import { mockResourcesProvider } from '../_interceptors/mock-resources.intercept
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    // { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     mockResourcesProvider
   ],
 })

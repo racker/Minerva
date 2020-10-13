@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 
 var mockResource: Resource = {
   "resourceId": "development:1",

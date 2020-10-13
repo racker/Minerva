@@ -9,7 +9,7 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Monitor } from 'src/app/_models/monitors';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ResourceListComponent', () => {

@@ -10,7 +10,7 @@ import { resourcesMock } from '../../../../_mocks/resources/resources.service.mo
 import { SharedModule } from '../../../../_shared/shared.module';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { of } from 'rxjs';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const routes = [

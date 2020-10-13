@@ -2,7 +2,7 @@ import { async, TestBed, getTestBed } from '@angular/core/testing';
 import { ValidateResource } from './resourceName.validator'
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { HttpClientModule } from '@angular/common/http';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('invalidResourceName', () => {

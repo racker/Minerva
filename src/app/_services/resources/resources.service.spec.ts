@@ -4,7 +4,7 @@ import { ResourcesService } from './resources.service';
 import { environment } from '../../../environments/environment';
 import { resourcesMock } from '../../_mocks/resources/resources.service.mock';
 import { Resource, CreateResource } from 'src/app/_models/resources';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 
 describe('ResourcesService', () => {
   let injector: TestBed;

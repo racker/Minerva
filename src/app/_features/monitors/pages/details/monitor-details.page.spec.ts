@@ -20,7 +20,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
 import { MonitorUtil } from '../../mon.utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 
 describe('MonitorDetailComponent', () => {
   let injector: TestBed;

@@ -5,7 +5,7 @@ import { ResourcesService } from 'src/app/_services/resources/resources.service'
 import { HttpClientModule } from '@angular/common/http';
 import { Resources } from 'src/app/_models/resources';
 import { By } from '@angular/platform-browser';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 
 describe('SearchComponent', () => {
   let injector: TestBed;

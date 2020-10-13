@@ -7,7 +7,7 @@ import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MonitorService', () => {

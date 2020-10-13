@@ -10,7 +10,7 @@ import { environment } from '../../../../../environments/environment';
 import { Monitor } from 'src/app/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
-import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 var mockMonitor: Monitor = {
