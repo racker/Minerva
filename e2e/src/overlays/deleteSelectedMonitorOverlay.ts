@@ -6,5 +6,8 @@ export class DeleteSelectedMonitorOverlay{
     confirmBtn                  =element(by.id('confrmBtn'));
     okBtn                       =element(by.id('triggerOk')); 
     confirmMonitorModal         =element(by.id('confirmMonitorModal'));
+    successListOfMonitors       =element.all(by.xpath("//hx-div[@class='hxDivSuccess']"))
+    cancelBtn                   =element(by.id('cancelBtn'));
+
 
 }
