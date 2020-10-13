@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Resource, Resources, CreateResource } from '../../_models/resources';
+import { resourcesMock } from 'src/app/_mocks/resources/resources.service.mock';
 
-const httpOptions = new HttpHeaders({
+const httpOptions = {
+  headers: new HttpHeaders({
     'Content-Type': 'application/json'
-});
+  })
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +22,7 @@ export class ResourcesService {
 
   private _resources: Resources;
   private _resource: Resource;
-
+  private mockedResources = new resourcesMock();
   constructor(private http:HttpClient, private logService: LoggingService) { }
 
   get resources(): Resources {
@@ -37,25 +41,32 @@ export class ResourcesService {
     this._resource = value;
   }
 
-  /**
+    /**
    * Gets a list of Resources
    * @param size
    * @param page
    * @returns Observable<Resources>
    */
   getResources(size?: number, page?: number): Observable<Resources> {
-    return this.http.get<Resources>(`${environment.api.salus}/resources`, {
-      headers: httpOptions,
-      params: {
-        size: `${size}`,
-        page: `${page}`
-      }})
-      .pipe(
-        tap(data => {
-          this._resources = data;
+    if (environment.mock) {
+      let mocks = Object.assign({}, this.mockedResources.collection);
+      let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
+      this.resources = mocks;
+      this.resources.content = slicedData;
+      return of<Resources>(this.resources).pipe(delay(500));
+    }
+    else {
+    return this.http.get<Resources>(`${environment.api.salus}/resources?size=${size}&page=${page}`, httpOptions)
+    .pipe(
+      tap(data =>
+        { this._resources = data;
           this.logService.log(this.resources, LogLevels.info);
         }));
+    }
   }
+
+
+  
 
   /**
    * Gets a single Resource
@@ -79,9 +90,8 @@ export class ResourcesService {
    */
   createResource(resource: CreateResource): Observable<Resource> {
     return this.http.post<Resource>(`${environment.api.salus}/resources`,
-      resource, {
-        headers: httpOptions
-      }).pipe(
+      resource,  httpOptions
+      ).pipe(
         tap(data => {
           this._resource = data;
           this.logService.log(data, LogLevels.info);
@@ -117,11 +127,8 @@ export class ResourcesService {
   }
 
   searchResources(search: string): Observable<Resources> {
-    return this.http.get<Resources>(`${environment.api.salus}/resources-search/`, {
-      params: {
-        q: search
-      }
-    }).pipe(
+    return this.http.get<Resources>(`${environment.api.salus}/resources-search?q=${search}`)
+    .pipe(
       tap(data => {
         this.logService.log(`Search Resources`, LogLevels.info);
       })

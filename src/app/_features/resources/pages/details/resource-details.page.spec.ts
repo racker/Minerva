@@ -11,6 +11,7 @@ import { SharedModule } from '../../../../_shared/shared.module';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { of } from 'rxjs';
 import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const routes = [
   {
@@ -92,20 +93,25 @@ describe('ResourceDetailsPage', () => {
       ],
       imports: [
         SharedModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule
       ]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     injector = getTestBed();
     fixture = TestBed.createComponent(ResourceDetailsPage);
     component = fixture.componentInstance;
     resourceService = injector.get(ResourcesService);
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+  //   injector = getTestBed();
+  //   fixture = TestBed.createComponent(ResourceDetailsPage);
+  //   component = fixture.componentInstance;
+  //   resourceService = injector.get(ResourcesService);
+  //   fixture.detectChanges();
+  // });
 
   afterEach(() => {
     TestBed.resetTestingModule();

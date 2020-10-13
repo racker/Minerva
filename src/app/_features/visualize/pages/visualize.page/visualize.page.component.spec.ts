@@ -25,7 +25,7 @@ const routes = [
   }
 ];
 
-describe('VisualizePage', () => {
+describe('VisualizePage', async() => {
   let component: VisualizePage;
   let fixture: ComponentFixture<VisualizePage>;
   let metricService: MetricsService;
@@ -54,14 +54,18 @@ describe('VisualizePage', () => {
       ]
     })
       .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(VisualizePage);
+      fixture = TestBed.createComponent(VisualizePage);
     component = fixture.componentInstance;
     metricService = TestBed.get(MetricsService);
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(VisualizePage);
+  //   component = fixture.componentInstance;
+  //   metricService = TestBed.get(MetricsService);
+  //   fixture.detectChanges();
+  // });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -71,31 +75,29 @@ describe('VisualizePage', () => {
     expect(component.loading).toEqual(true);
   });
 
-  describe('- <app-visualize-selections> set attributes', () => {
-    it('should set system', () => {
-      expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-        .componentInstance.system).toBe(routes[1].queryParams.system);
-    });
+  it('should set system', () => {
+    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
+      .componentInstance.system).toBe(routes[1].queryParams.system);
+  });
 
-    it('should set measurement', () => {
-      expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-        .componentInstance.measurement).toBe(routes[1].queryParams.measurement);
-    });
+  it('should set measurement', () => {
+    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
+      .componentInstance.measurement).toBe(routes[1].queryParams.measurement);
+  });
 
-    it('should set device', () => {
-      expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-        .componentInstance.device).toBe(routes[1].queryParams.device);
-    });
+  it('should set device', () => {
+    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
+      .componentInstance.device).toBe(routes[1].queryParams.device);
+  });
 
-    it('should set start', () => {
-      expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-        .componentInstance.start).toBe(routes[1].queryParams.start);
-    });
+  it('should set start', () => {
+    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
+      .componentInstance.start).toBe(routes[1].queryParams.start);
+  });
 
-    it('should set end date', () => {
-      expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-        .componentInstance.end).toBe(routes[1].queryParams.end);
-    });
+  it('should set end date', () => {
+    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
+      .componentInstance.end).toBe(routes[1].queryParams.end);
   });
 
   it('should be present', () => {

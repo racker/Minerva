@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { InputComponent } from './input.component';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { FieldConfig } from '../../interfaces/field.interface';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -24,7 +25,7 @@ describe('InputComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ InputComponent ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [{ provide: FormBuilder, useValue: formBuilder }]
     })
     .compileComponents();

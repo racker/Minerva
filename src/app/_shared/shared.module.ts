@@ -48,7 +48,7 @@ import { mockResourcesProvider } from '../_interceptors/mock-resources.intercept
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     mockResourcesProvider
   ],
 })

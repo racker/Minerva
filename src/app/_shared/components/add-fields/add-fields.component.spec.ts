@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AddFieldsComponent } from './add-fields.component';
 import { Subject } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddFieldsComponent', () => {
   let component: AddFieldsComponent;
@@ -19,7 +20,7 @@ describe('AddFieldsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [ ReactiveFormsModule ],
+      imports: [ ReactiveFormsModule, HttpClientTestingModule ],
       declarations: [ AddFieldsComponent ]
     })
     .compileComponents();

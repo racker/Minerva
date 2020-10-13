@@ -35,8 +35,9 @@ export class resourcesMock {
      * @param next any
      */
     handleRoute(url: string, method: string, request: HttpRequest<any>, next: any) {
-        this.page = +request.params.get('page');
-        this.size = +request.params.get('size');
+        const urlParams = new URLSearchParams(new URL(request.urlWithParams).search)
+        this.page = +urlParams.get('page');
+        this.size = +urlParams.get('size');
         switch (true) {
             case url.includes('/resources') && method === 'GET' && this.size > 0:
                 return new HttpResponse({ status: 200, body: (this.getResources(this.size, this.page) as any) });

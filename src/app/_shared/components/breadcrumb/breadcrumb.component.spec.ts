@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResourcesPage } from '../../../_features/resources/pages/resources/resources.page';
 import { ResourceDetailsPage } from '../../../_features/resources/pages/details/resource-details.page';
 import { BreadcrumbComponent } from './breadcrumb.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const routes = [
   { path: 'resources',
@@ -37,7 +38,8 @@ describe('BreadcrumbComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ BreadcrumbComponent ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       providers: [
         {
@@ -51,13 +53,16 @@ describe('BreadcrumbComponent', () => {
       ],
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(BreadcrumbComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(BreadcrumbComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
 
   afterEach(() => {
     TestBed.resetTestingModule();

@@ -176,7 +176,7 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
     expect(spySubManager).toHaveBeenCalledTimes(3);
   });
 
-  xit('should addMonitor() using service', () => {
+  it('should addMonitor() using service', () => {
     component.selectedMonitor = 'Cpu';
     component.dynaConfig = {
       monitorType: 'Local',

@@ -3,6 +3,7 @@ import { ValidateResource } from './resourceName.validator'
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { HttpClientModule } from '@angular/common/http';
 import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('invalidResourceName', () => {
     let injector: TestBed;
@@ -11,7 +12,7 @@ describe('invalidResourceName', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpClientModule
+                HttpClientTestingModule
             ],
             providers: [
                 ResourcesService,
@@ -22,7 +23,9 @@ describe('invalidResourceName', () => {
         validateResource = injector.get(ValidateResource);
         resourceService = injector.get(ResourcesService);
     }));
-
+    afterEach(() => {
+        TestBed.resetTestingModule();
+      })
     it('should create validator', () => {
         expect(validateResource).toBeTruthy();
     });

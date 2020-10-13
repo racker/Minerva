@@ -40,7 +40,7 @@ describe('LoggingService', () => {
     });
   });
 
-  xit('should return subscribe message', () => {
+  it('should return subscribe message', () => {
     service.setLevel(3);
     service.log('silly message', 3);
     service.getAlertMsg().subscribe(mes => {

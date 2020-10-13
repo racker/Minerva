@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PaginationComponent } from './pagination.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
@@ -10,7 +11,8 @@ describe('PaginationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      declarations: [ PaginationComponent ]
+      declarations: [ PaginationComponent ],
+      imports:[HttpClientTestingModule]
     })
     .compileComponents();
   }));

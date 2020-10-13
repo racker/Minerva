@@ -330,7 +330,7 @@ describe('DetailComponent', () => {
     expect(res[0].value).toBe(form.value.readTimeout);
     done();
   })
-  xit('should create plugin data without format type field', (done) => {
+  it('should create plugin data without format type field', (done) => {
     let form = {
       value: {
         host: "rackspace1.com",

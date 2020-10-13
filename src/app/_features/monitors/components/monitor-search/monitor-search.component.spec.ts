@@ -24,16 +24,21 @@ describe('MonitorSearchComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
-
     injector = getTestBed();
     monitorsService = injector.get(MonitorService);
     fixture = TestBed.createComponent(MonitorSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+
+  //   injector = getTestBed();
+  //   monitorsService = injector.get(MonitorService);
+  //   fixture = TestBed.createComponent(MonitorSearchComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -47,11 +52,11 @@ describe('MonitorSearchComponent', () => {
     expect(component.searching).toEqual(new EventEmitter<boolean>());
  });
  xit('should make search for monitors text input results', (done) => {
-   component.monitorSearchResults.next((new monitorsMock()).collection);
     component.monitorSearchResults.subscribe((monitors: Monitors) => {
       expect(monitors.content.length).toBeGreaterThan(2);
       done();
     });
+    component.monitorSearchResults.next((new monitorsMock()).collection);
   });
 
   it('should emit dismiss of search', () => {

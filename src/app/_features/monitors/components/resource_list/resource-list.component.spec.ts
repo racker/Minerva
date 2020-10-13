@@ -10,6 +10,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Monitor } from 'src/app/_models/monitors';
 import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ResourceListComponent', () => {
   let component: ResourceListComponent;
@@ -20,7 +21,7 @@ describe('ResourceListComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ResourceListComponent, PaginationComponent],
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule
       ],
       providers:[

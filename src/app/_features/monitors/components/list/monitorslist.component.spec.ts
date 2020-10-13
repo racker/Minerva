@@ -10,6 +10,8 @@ import { environment } from '../../../../../environments/environment';
 import { Monitor } from 'src/app/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -17,16 +19,16 @@ var mockMonitor: Monitor = {
   "interval": "PT1M30S",
   "labelSelectorMethod": "AND",
   "labelSelector": {
-      "additionalProp1": "EC2Instance",
-      "additionalProp2": "Prod",
-      "additionalProp3": "Node API"
+    "additionalProp1": "EC2Instance",
+    "additionalProp2": "Prod",
+    "additionalProp3": "Node API"
   },
   "details": {
-      "type": "local",
-      "plugin": {
-        "type": "cpu",
-        "message": "162.242.171.102 (IPv4)"
-      }
+    "type": "local",
+    "plugin": {
+      "type": "cpu",
+      "message": "162.242.171.102 (IPv4)"
+    }
   },
   "createdTimestamp": "2019-12-31T19:04:50.630736Z",
   "updatedTimestamp": "2019-12-31T19:04:50.630788Z"
@@ -41,83 +43,91 @@ describe('MonitorslistComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      declarations: [ MonitorslistComponent, MonitorsPage, PaginationComponent ],
+      declarations: [MonitorslistComponent, MonitorsPage, PaginationComponent],
       imports: [
         RouterTestingModule,
-        HttpClientModule
+        HttpClientTestingModule
       ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
-        MonitorService
+        MonitorService,
+        mockResourcesProvider
       ]
     })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    injector = getTestBed();
+      .compileComponents();
+      injector = getTestBed();
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
     monitorService = injector.get(MonitorService);
     component.ngOnInit();
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+  //   injector = getTestBed();
+  //   fixture = TestBed.createComponent(MonitorslistComponent);
+  //   component = fixture.componentInstance;
+  //   monitorService = injector.get(MonitorService);
+  //   component.ngOnInit();
+  //   fixture.detectChanges();
+  // });
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('setup defaults', () => {
-    xit('ngOnInit should resolve monitors', async() => {
-      fixture.detectChanges();
-      await fixture.whenStable();
-        expect(component.monitors).toEqual(new monitorsMock().collection.content
-        .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
-    });
-
-    it('should assign total amount of monitors', async() => {
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(component.total).toEqual(30);
-    });
-
-    it('should assign current page', () => {
-      expect(component.page).toEqual(0);
-    });
-
-    it('should create correct placeholder text', async() => {
-      fixture.detectChanges();
-      await fixture.whenStable();
-      
-      expect(component.monitorSearchPlaceholderText).toEqual('Search 30 monitors');
-    });
-
-    it('should add MonUtil to project', () => {
-      expect(component.monitorUtil).toEqual(MonitorUtil);
-    });
+  it('ngOnInit should resolve monitors', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(component.monitors).toEqual(new monitorsMock().collection.content
+      .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
   });
 
-  it('should add all monitors', async() => {
+  it('should assign total amount of monitors', async () => {
     fixture.detectChanges();
-      await fixture.whenStable();
-      
-      var checked = { target:{checked:true} };
-      component.checkColumn(checked);
-      component.selectedMonitors.forEach(e => {
-        e.checked = true;
-      });
-  
-      expect(component.monitors)
+    await fixture.whenStable();
+    expect(component.total).toEqual(30);
+  });
+
+  it('should assign current page', () => {
+    expect(component.page).toEqual(0);
+  });
+
+  it('should create correct placeholder text', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.monitorSearchPlaceholderText).toEqual('Search 30 monitors');
+  });
+
+  it('should add MonUtil to project', () => {
+    expect(component.monitorUtil).toEqual(MonitorUtil);
+  });
+
+  it('should add all monitors', async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    var checked = { target: { checked: true } };
+    component.checkColumn(checked);
+    component.selectedMonitors.forEach(e => {
+      e.checked = true;
+    });
+
+    expect(component.monitors)
       .toEqual(component.selectedMonitors);
   });
 
-  it('should remove all monitors', async() => {
+  it('should remove all monitors', async () => {
     fixture.detectChanges();
-      await fixture.whenStable();
-      
-      var unchecked = { target:{checked:false} };
-      component.checkColumn(unchecked);
-      expect(component.selectedMonitors).toEqual([]);     
+    await fixture.whenStable();
+
+    var unchecked = { target: { checked: false } };
+    component.checkColumn(unchecked);
+    expect(component.selectedMonitors).toEqual([]);
   });
 
   it('should select a monitor', () => {
@@ -148,58 +158,38 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should listen for triggerOk', () => {
+    component.monitors = new monitorsMock().collection.content;
     component.triggerOk();
     expect(component.confirmMonitor.nativeElement.getAttribute('close')).toBe('true');
-    expect(component.confirmMonitor.nativeElement.getAttribute('open')).toBeNull;    
+    expect(component.confirmMonitor.nativeElement.getAttribute('open')).toBeNull;
   });
 
   it('should listen for triggerClose', () => {
-    let spy =  spyOn(component.delMonitor.nativeElement, "click");
+    let spy = spyOn(component.delMonitor.nativeElement, "click");
     component.triggerClose(true);
     expect(spy).toHaveBeenCalled();
   });
 
 
   it('should execute delete multiple monitor successfully', () => {
-    component.selectedMonitors = [
-      {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
-      {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
-      {id: "16b9a9f2-ec4a-4220-a290-508c63d5eef3", name: "lovedeep-3", labelSelector: {env: "amd64"}, labelSelectorMethod: "AND", resourceId: null, summary:{}}  
-    ];
-    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(resolve => { resolve(true)}));
+    component.selectedMonitors = new monitorsMock().collection.content;
+    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(resolve => { resolve(true) }));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(3);
+    expect(spy).toHaveBeenCalledTimes(component.selectedMonitors.length);
   });
 
   it('should execute delete multiple monitor failed', () => {
-    component.selectedMonitors = [
-      {id: "af21671b-2663-4035-810c-8eec9991ca4c", name: "lovedeep-1", labelSelector: {env: "ahhhh"}, labelSelectorMethod: "AND", resourceId: null, summary: {}},
-      {id: "afa94898-ace6-42fa-9eb1-d9d17e5261b2", name: "lovedeep-2", labelSelector: {env: "stage"}, labelSelectorMethod: "AND", resourceId: null, summary:{}},
-    ];
-    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
+    component.selectedMonitors = new monitorsMock().collection.content;
+    let spy = spyOn(monitorService, 'deleteMonitorPromise').and.returnValue(new Promise(reject => { reject(new Error('Not found')) }));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(component.selectedMonitors.length);
   });
 
-  it('should execute progress bar for success', () => {
-    let obj = [{id:"af21671b-2663-4035-810c-8eec9991ca4c", error: true}];       
-    let count;
-    count++;
+  it('should set values to execute the progress', () => {
+    let obj = { id: "af21671b-2663-4035-810c-8eec9991ca4c", error: true };
+    let count=0;
     component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
+    console.log(component.selectedMonForDeletion);
+    expect(component.selectedMonForDeletion).toEqual([obj]);
   });
-
-  it('should execute progress bar for failure', () => {
-    let obj = {id:"afa94898-ace6-42fa-9eb1-d9d17e5261b2", error: false};       
-    let count;
-    count++;
-    component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
-  });
-
-
-  
-
-
-
 });

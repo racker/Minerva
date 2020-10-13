@@ -57,7 +57,7 @@ describe('Monitor Utilities', () => {
     }));
 
     describe('ParseMonitorTypeEnum', () => {
-        xit('should create utility', () => {
+        it('should create utility', () => {
             expect(MonitorUtil.ParseMonitorTypeEnum).toBeTruthy();
         });
 

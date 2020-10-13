@@ -1,9 +1,13 @@
-import { async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { disallowValidator } from './disallow.validator'
 
 describe('disallowValidator', () => {
     let testKeyString;
     beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports:[HttpClientTestingModule]
+        });
         testKeyString = {
             value: ''
         }

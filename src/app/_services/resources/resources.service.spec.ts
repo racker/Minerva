@@ -73,9 +73,8 @@ describe('ResourcesService', () => {
     });
 
     it('should validate a resource ID', (done) => {
-      service.validateResourceId('newcool-server').subscribe(() => {
-      }, error => {
-        expect(error.status).toEqual(404);
+      service.validateResourceId('newcool-server').subscribe((res) => {
+        expect(res.status).toEqual(201);
         done();
       });
     });

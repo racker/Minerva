@@ -6,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { monitorsMock } from "../../../../_mocks/monitors/monitors.service.mock";
 import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;
@@ -15,10 +17,12 @@ describe('MonitorListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MonitorListComponent, PaginationComponent],
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule,
               ],
-      providers:[{provide:MonitorService}]
+      providers:[{provide:MonitorService,
+      },
+      mockResourcesProvider]
     })
     .compileComponents();
   }));

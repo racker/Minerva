@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/_shared/shared.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import {  EventsMock} from "../../../../_mocks/events/events.service.mock";
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('EventDetailsComponent', () => {
   let component: EventDetailsComponent;
@@ -22,7 +23,7 @@ describe('EventDetailsComponent', () => {
             params: of({id: "345d678ddopdkdjd67isdjj"}),
           }
         }],
-      imports:[SharedModule]
+      imports:[SharedModule, HttpClientTestingModule]
     })
     .compileComponents();
   }));

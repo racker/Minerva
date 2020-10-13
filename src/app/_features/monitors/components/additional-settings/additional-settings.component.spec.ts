@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Subscription } from 'rxjs';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AdditionalSettingsComponent', () => {
   let injector: TestBed;
@@ -18,7 +19,7 @@ describe('AdditionalSettingsComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ AdditionalSettingsComponent ],
-      imports: [ SharedModule ],
+      imports: [ SharedModule, HttpClientTestingModule ],
       providers: [
         DurationSecondsPipe,
         ResourcesService

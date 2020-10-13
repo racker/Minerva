@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SelectComponent } from './select.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FieldConfig } from '../../interfaces/field.interface';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SelectComponent', () => {
   let component: SelectComponent;
@@ -19,13 +20,10 @@ describe('SelectComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ SelectComponent ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [{ provide: FormBuilder, useValue: formBuilder }]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(SelectComponent);
     component = fixture.componentInstance;
     component.config = fieldConfig;
@@ -34,7 +32,18 @@ describe('SelectComponent', () => {
       placeholder: '',
       inputType: ''
     });
-  });
+  }));
+
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(SelectComponent);
+  //   component = fixture.componentInstance;
+  //   component.config = fieldConfig;
+  //   component.group = formBuilder.group({
+  //     [component.config.name]: '',
+  //     placeholder: '',
+  //     inputType: ''
+  //   });
+  // });
 
   it('should create', () => {
     expect(component).toBeTruthy();

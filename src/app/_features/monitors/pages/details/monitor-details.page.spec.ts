@@ -19,6 +19,8 @@ import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from '../../monitors.module'
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
 import { MonitorUtil } from '../../mon.utils';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { mockResourcesProvider } from 'src/app/_interceptors/mock-resources.interceptor';
 
 describe('MonitorDetailComponent', () => {
   let injector: TestBed;
@@ -100,7 +102,7 @@ describe('MonitorDetailComponent', () => {
       ],
       imports: [
         BrowserAnimationsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule,
         SharedModule,
         FormsModule,
@@ -120,6 +122,7 @@ describe('MonitorDetailComponent', () => {
         MonitorService,
         SchemaService,
         DurationSecondsPipe,
+        mockResourcesProvider,
         { provide: AJV_CLASS, useValue: ajv },
         { provide: AJV_CONFIG, useValue: { useDefaults: true } },
         {
@@ -130,9 +133,6 @@ describe('MonitorDetailComponent', () => {
       ]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     injector = getTestBed();
     monitorService = injector.get(MonitorService);
     schemaService = injector.get(SchemaService);
@@ -144,7 +144,21 @@ describe('MonitorDetailComponent', () => {
     });
     fixture.detectChanges();
     component.monDetails = new monitorsMock().single;
-  });
+  }));
+
+  // beforeEach(() => {
+  //   injector = getTestBed();
+  //   monitorService = injector.get(MonitorService);
+  //   schemaService = injector.get(SchemaService);
+  //   fixture = TestBed.createComponent(MonitorDetailsPage);
+  //   schemaService.loadSchema();
+  //   component = fixture.componentInstance;
+  //   component.updateMonNameForm = formBuilder.group({
+  //     name: ['']
+  //   });
+  //   fixture.detectChanges();
+  //   component.monDetails = new monitorsMock().single;
+  // });
 
   afterEach(() => {
     TestBed.resetTestingModule();
@@ -234,7 +248,7 @@ describe('MonitorDetailComponent', () => {
     expect(res[0].value).toBe(form.value.readTimeout);
     done();
   })
-  xit('should create plugin data without format type field', (done) => {
+  it('should create plugin data without format type field', (done) => {
     let form = {
       value: {
         host: "rackspace1.com",

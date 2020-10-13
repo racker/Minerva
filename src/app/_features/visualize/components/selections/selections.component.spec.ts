@@ -6,6 +6,7 @@ import { metricMocks } from '../../../../_mocks/metrics/metrics.service.mock';
 import { SelectionsComponent } from './selections.component';
 import { IMeasurement, IMetricField } from 'src/app/_models/metrics';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SelectionsComponent', () => {
   let component: SelectionsComponent;
@@ -19,19 +20,23 @@ describe('SelectionsComponent', () => {
       declarations: [ SelectionsComponent ],
       providers: [ MetricsService ],
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         SharedModule
       ]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(SelectionsComponent);
     component = fixture.componentInstance;
     metricService = TestBed.get(MetricsService);
     fixture.detectChanges();
-  });
+  }));
+
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(SelectionsComponent);
+  //   component = fixture.componentInstance;
+  //   metricService = TestBed.get(MetricsService);
+  //   fixture.detectChanges();
+  // });
 
   it('should create', () => {
     expect(component).toBeTruthy();
