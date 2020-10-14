@@ -85,22 +85,6 @@ describe('ResourcesListComponent', () => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   injector = getTestBed();
-  //   fixture = TestBed.createComponent(ResourcesListComponent);
-  //   component = fixture.componentInstance;
-  //   resourceService = TestBed.inject(ResourcesService);
-  //   validateResource = TestBed.inject(ValidateResource);
-  //   spinnerService = TestBed.inject(SpinnerService);
-  //   router = injector.get(Router);
-  //   component.addResourceForm = formBuilder.group({
-  //     name: ['', Validators.required],
-  //     enabled: ''
-  //   });
-
-  //   fixture.detectChanges();
-  // });
-
   const updateForm = (resourceId: string, enabledPresence: boolean) => {
     component.addResourceForm.controls['name'].setValue(resourceId);
     component.addResourceForm.controls['enabled'].setValue(enabledPresence);

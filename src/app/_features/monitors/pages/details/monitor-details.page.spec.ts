@@ -146,19 +146,6 @@ describe('MonitorDetailComponent', () => {
     component.monDetails = new monitorsMock().single;
   }));
 
-  // beforeEach(() => {
-  //   injector = getTestBed();
-  //   monitorService = injector.get(MonitorService);
-  //   schemaService = injector.get(SchemaService);
-  //   fixture = TestBed.createComponent(MonitorDetailsPage);
-  //   schemaService.loadSchema();
-  //   component = fixture.componentInstance;
-  //   component.updateMonNameForm = formBuilder.group({
-  //     name: ['']
-  //   });
-  //   fixture.detectChanges();
-  //   component.monDetails = new monitorsMock().single;
-  // });
 
   afterEach(() => {
     TestBed.resetTestingModule();

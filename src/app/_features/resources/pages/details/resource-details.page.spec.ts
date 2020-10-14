@@ -105,13 +105,6 @@ describe('ResourceDetailsPage', () => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   injector = getTestBed();
-  //   fixture = TestBed.createComponent(ResourceDetailsPage);
-  //   component = fixture.componentInstance;
-  //   resourceService = injector.get(ResourcesService);
-  //   fixture.detectChanges();
-  // });
 
   afterEach(() => {
     TestBed.resetTestingModule();

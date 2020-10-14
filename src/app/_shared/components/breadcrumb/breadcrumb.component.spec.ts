@@ -58,12 +58,6 @@ describe('BreadcrumbComponent', () => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(BreadcrumbComponent);
-  //   component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  // });
-
   afterEach(() => {
     TestBed.resetTestingModule();
   })

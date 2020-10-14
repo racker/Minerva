@@ -19,11 +19,6 @@ describe('MonitorsPage', () => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(MonitorsPage);
-  //   component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  // });
   afterEach(() => {
     TestBed.resetTestingModule();
   })

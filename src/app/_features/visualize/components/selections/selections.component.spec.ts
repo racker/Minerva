@@ -31,13 +31,6 @@ describe('SelectionsComponent', () => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(SelectionsComponent);
-  //   component = fixture.componentInstance;
-  //   metricService = TestBed.get(MetricsService);
-  //   fixture.detectChanges();
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

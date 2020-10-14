@@ -60,13 +60,6 @@ describe('VisualizePage', async() => {
     fixture.detectChanges();
   }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(VisualizePage);
-  //   component = fixture.componentInstance;
-  //   metricService = TestBed.get(MetricsService);
-  //   fixture.detectChanges();
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

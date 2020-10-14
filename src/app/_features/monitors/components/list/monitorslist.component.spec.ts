@@ -62,15 +62,6 @@ describe('MonitorslistComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
   }));
-
-  // beforeEach(() => {
-  //   injector = getTestBed();
-  //   fixture = TestBed.createComponent(MonitorslistComponent);
-  //   component = fixture.componentInstance;
-  //   monitorService = injector.get(MonitorService);
-  //   component.ngOnInit();
-  //   fixture.detectChanges();
-  // });
   afterEach(() => {
     TestBed.resetTestingModule();
   })
@@ -190,7 +181,6 @@ describe('MonitorslistComponent', () => {
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    console.log(component.selectedMonForDeletion);
     expect(component.selectedMonForDeletion).toEqual([obj]);
   });
 

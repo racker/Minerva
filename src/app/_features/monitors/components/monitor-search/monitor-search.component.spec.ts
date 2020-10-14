@@ -30,16 +30,6 @@ describe('MonitorSearchComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
-
-  // beforeEach(() => {
-
-  //   injector = getTestBed();
-  //   monitorsService = injector.get(MonitorService);
-  //   fixture = TestBed.createComponent(MonitorSearchComponent);
-  //   component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

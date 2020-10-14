@@ -34,17 +34,6 @@ describe('SelectComponent', () => {
     });
   }));
 
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(SelectComponent);
-  //   component = fixture.componentInstance;
-  //   component.config = fieldConfig;
-  //   component.group = formBuilder.group({
-  //     [component.config.name]: '',
-  //     placeholder: '',
-  //     inputType: ''
-  //   });
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

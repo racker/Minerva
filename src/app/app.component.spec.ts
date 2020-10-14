@@ -21,10 +21,7 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
   }));
-  // beforeEach(() => {
-  //   fixture = TestBed.createComponent(AppComponent);
-  //   component = fixture.componentInstance;
-  // });
+
   afterEach(() => {
     TestBed.resetTestingModule();
   })
