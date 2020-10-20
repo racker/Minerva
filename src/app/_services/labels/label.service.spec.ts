@@ -13,7 +13,7 @@ describe('LabelService', () => {
   });
 
   injector = getTestBed();
-  service = injector.get(LabelService);
+  service = injector.inject(LabelService);
 });
 
   it('should be created', () => {

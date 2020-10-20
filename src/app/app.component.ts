@@ -13,7 +13,9 @@ export class AppComponent implements OnInit  {
   message: string = undefined;
   isLoading: boolean;
   constructor(private lgService:LoggingService,
-     private changeDetector: ChangeDetectorRef, private spnService:SpinnerService){}
+     private changeDetector: ChangeDetectorRef, private spnService:SpinnerService){
+  
+     }
 
   ngOnInit() {
     this.subscribeError();
