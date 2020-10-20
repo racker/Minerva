@@ -6,7 +6,8 @@ import { LogLevels } from 'src/app/_enums/log-levels.enum'
 import { LabelResources, LabelMonitors } from '../../_models/labels';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
 import { of, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';;
+import { tap } from 'rxjs/operators';import { PortalDataService } from '../portal/portal-data.service';
+;
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,7 +31,8 @@ export class LabelService {
   }
 
   private mockedLabels = new LabelMock();
-  constructor(private http:HttpClient, private logService: LoggingService) { }
+  constructor(private http:HttpClient, private portalService: PortalDataService,
+    private logService: LoggingService) { }
 
   /**
    * @description Get all labels attached to all Resources
@@ -42,7 +44,8 @@ export class LabelService {
       return of<LabelResources>(this.mockedLabels.resourceLabels);
     }
     else {
-      return this.http.get<LabelResources>(`${environment.api.salus}/resource-labels`, httpOptions)
+      return this.http.get<LabelResources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /resource-labels`, httpOptions)
       .pipe(
         tap(data => {
           this._labels = data;
@@ -62,7 +65,8 @@ export class LabelService {
       return of<LabelMonitors>(this.mockedLabels.monitorLabels);
     }
     else {
-      return this.http.get<LabelMonitors>(`${environment.api.salus}/resource-labels`, httpOptions)
+      return this.http.get<LabelMonitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /resource-labels`, httpOptions)
       .pipe(
         tap(data => {
           this._labels = data;

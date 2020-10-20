@@ -7,6 +7,7 @@ import { tap, delay } from 'rxjs/operators';
 import { LoggingService } from '../logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { EventsMock } from "../../_mocks/events/events.service.mock";
+import { PortalDataService } from '../portal/portal-data.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,7 +23,8 @@ export class EventsService {
   private event;
   private mockedEvents = new EventsMock();
 
-  constructor(private http: HttpClient, private logService: LoggingService) { }
+  constructor(private http: HttpClient, private portalService: PortalDataService,
+    private logService: LoggingService) { }
 
   get events(): Events {
     return this._events;
@@ -51,7 +53,8 @@ export class EventsService {
       this.events = mocks;
       return of<Events>(this.events).pipe(delay(500));
     } else {
-      return this.http.get<Events>(`${environment.api.salus}/event-tasks?size=${size}`, httpOptions)
+      return this.http.get<Events>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /event-tasks?size=${size}`, httpOptions)
         .pipe(
           tap(data => {
             this._events = data;
@@ -70,7 +73,8 @@ export class EventsService {
       this.event = mock;
       return of<Event>(this.event).pipe(delay(500));
     }
-    return this.http.get<Event>(`${environment.api.salus}/event-tasks/${id}`, httpOptions)
+    return this.http.get<Event>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /event-tasks/${id}`, httpOptions)
       .pipe(
         tap(data => {
           this.setEvent = data;
@@ -79,20 +83,21 @@ export class EventsService {
       )
   }
 
-    /**
-   * @description
-   * @param id string
-   */
-  deleteEvent(id:string): Observable<any> {
+  /**
+ * @description
+ * @param id string
+ */
+  deleteEvent(id: string): Observable<any> {
     if (environment.mock) {
       return of<boolean>(true);
     } else {
-      return this.http.delete<Event>(`${environment.api.salus}/event-tasks/${id}`, httpOptions)
-      .pipe(
-        tap(data => {
-          this.logService.log(this.event, LogLevels.info);
-        })
-      )
+      return this.http.delete<Event>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /event-tasks/${id}`, httpOptions)
+        .pipe(
+          tap(data => {
+            this.logService.log(this.event, LogLevels.info);
+          })
+        )
     }
   }
 }
