@@ -6,6 +6,7 @@ import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Schema } from 'src/app/_models/monitors';
+import { PortalDataService } from '../portal/portal-data.service';
 
 export const AJV_INSTANCE = new InjectionToken<Ajv>('The AJV Class Instance');
 
@@ -35,7 +36,7 @@ export class SchemaService {
     this._schema = scheme;
   }
   constructor(private readonly http: HttpClient, @Inject(AJV_INSTANCE) private readonly ajv: Ajv,
-    private readonly logService: LoggingService) {
+    private readonly logService: LoggingService, private readonly portalService: PortalDataService) {
     const dateTimeRegex = new RegExp(/^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/);
     this.ajv.addFormat('date-time', {
       validate: (dateValue) => dateTimeRegex.test(dateValue)
@@ -58,7 +59,8 @@ export class SchemaService {
         res(this.schema);
       }
       else {
-        this.http.get<Schema>(`${environment.api.salus}/schema/monitors`).subscribe(result => {
+        this.http.get<Schema>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+        /schema/monitors`).subscribe(result => {
           result['$id'] = result.$schema;
           delete result.$schema;
           this._schema = result;

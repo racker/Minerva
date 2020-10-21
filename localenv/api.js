@@ -12,15 +12,15 @@ const Event = require('./routes/event-task');
 const TestMonitor = require('./routes/test-monitor')
 
 //all Monitoring V2 routes
-router.use('/monitoring', Labels);
-router.use('/monitoring/test-monitor', TestMonitor);
-router.use('/monitoring/resources-search', ResourceSearch);
-router.use('/monitoring/schema', Schema);
-router.use('/monitoring/monitors-search', MonitorSearch);
-router.use('/monitoring/resources', Resources);
-router.use('/monitoring/monitors', Monitors);
-router.use('/monitoring/zones',Zones);
-router.use('/monitoring/event-tasks',Event);
+router.use('/monitoring/v1.0/tenant/:tenant', Labels);
+router.use('/monitoring/v1.0/tenant/:tenant/test-monitor', TestMonitor);
+router.use('/monitoring/v1.0/tenant/:tenant/resources-search', ResourceSearch);
+router.use('/monitoring/v1.0/tenant/:tenant/schema', Schema);
+router.use('/monitoring/v1.0/tenant/:tenant/monitors-search', MonitorSearch);
+router.use('/monitoring/v1.0/tenant/:tenant/resources', Resources);
+router.use('/monitoring/v1.0/tenant/:tenant/monitors', Monitors);
+router.use('/monitoring/v1.0/tenant/:tenant/zones',Zones);
+router.use('/monitoring/v1.0/tenant/:tenant/event-tasks',Event);
 
 //all Metrics V2 routes
 router.use('/metrics', Metrics);

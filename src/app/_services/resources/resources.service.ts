@@ -7,6 +7,7 @@ import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Resource, Resources, CreateResource } from '../../_models/resources';
 import { resourcesMock } from 'src/app/_mocks/resources/resources.service.mock';
+import { PortalDataService } from '../portal/portal-data.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +24,8 @@ export class ResourcesService {
   private _resources: Resources;
   private _resource: Resource;
   private mockedResources = new resourcesMock();
-  constructor(private http:HttpClient, private logService: LoggingService) { }
+  constructor(private http:HttpClient, private portalService: PortalDataService,
+    private logService: LoggingService) { }
 
   get resources(): Resources {
     return this._resources;
@@ -56,7 +58,8 @@ export class ResourcesService {
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${environment.api.salus}/resources?size=${size}&page=${page}`, httpOptions)
+    return this.http.get<Resources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /resources?size=${size}&page=${page}`, httpOptions)
     .pipe(
       tap(data =>
         { this._resources = data;
@@ -66,7 +69,7 @@ export class ResourcesService {
   }
 
 
-  
+
 
   /**
    * Gets a single Resource
@@ -74,7 +77,8 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   getResource(id: string): Observable<Resource> {
-    return this.http.get<Resource>(`${environment.api.salus}/resources/${id}`)
+    return this.http.get<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /resources/${id}`)
       .pipe(
         tap(data => {
           this._resource = data;
@@ -89,9 +93,9 @@ export class ResourcesService {
    * @returns Resource
    */
   createResource(resource: CreateResource): Observable<Resource> {
-    return this.http.post<Resource>(`${environment.api.salus}/resources`,
-      resource,  httpOptions
-      ).pipe(
+    return this.http.post<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /resources`, resource,  httpOptions)
+    .pipe(
         tap(data => {
           this._resource = data;
           this.logService.log(data, LogLevels.info);
@@ -105,8 +109,8 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   updateResource(id:string, updatedData: {[key: string]: any}): Observable<Resource> {
-      return this.http.put<Resource>(`${environment.api.salus}/resources/${id}`,
-      updatedData)
+      return this.http.put<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /resources/${id}`, updatedData)
       .pipe(
         tap(data => {
           this._resource = data,
@@ -122,12 +126,13 @@ export class ResourcesService {
    * @returns HttpResponse of empty object OR a boolean when in offline mode
     */
   validateResourceId(id:string): any {
-      return this.http.head(`${environment.api.salus}/resources/${id}`,
-      {observe: 'response'});
+      return this.http.head(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /resources/${id}`, {observe: 'response'});
   }
 
   searchResources(search: string): Observable<Resources> {
-    return this.http.get<Resources>(`${environment.api.salus}/resources-search?q=${search}`)
+    return this.http.get<Resources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /resources-search?q=${search}`)
     .pipe(
       tap(data => {
         this.logService.log(`Search Resources`, LogLevels.info);
@@ -140,7 +145,8 @@ export class ResourcesService {
    * @param id string
    */
   deleteResource(id: string) {
-    return this.http.delete(`${environment.api.salus}/resources/${id}`)
+    return this.http.delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    /resources/${id}`)
       .pipe(
         tap(data => {
           this.logService.log(`Resource deleted: ${id}`, LogLevels.info);
@@ -150,7 +156,7 @@ export class ResourcesService {
 
   /**
    * @description called function to delete multiple resources using promise.
-   * @param id 
+   * @param id
    */
 
   deleteResourcePromise(id:string): Promise<any> {
@@ -160,7 +166,8 @@ export class ResourcesService {
       })
     }
     return this.http
-      .delete(`${environment.api.salus}/resources/${id}`)
+      .delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      /resources/${id}`)
       .toPromise()
       .then(
         (res: Response) => Promise.resolve(res)
