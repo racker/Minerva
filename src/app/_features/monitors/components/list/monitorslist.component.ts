@@ -22,6 +22,7 @@ export class MonitorslistComponent implements OnInit {
   monitors: any[];
   total: number;
   page: number = 0;
+  successCount: number = 0;
   progressVal: number = 0;
   disableOk: boolean = true;
   modalType : string = 'delMonitorModal';
@@ -212,6 +213,7 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+            this.successCount++;
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: false});
         }).catch(err => {
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
