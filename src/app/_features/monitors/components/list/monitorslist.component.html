@@ -30,7 +30,7 @@
         <hx-progress value="{{progressVal}}"></hx-progress>
       </hx-div>
     </div>
-    <hx-alert #hxAlert type="success" persist>  {{ this.successCount }} out of {{ selectedMonForDeletion.length }} were deleted successfully!
+    <hx-alert type="success" persist>  {{ this.successCount }} out of {{ selectedMonForDeletion.length }} were deleted successfully!
     </hx-alert>
     <footer>
       <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>

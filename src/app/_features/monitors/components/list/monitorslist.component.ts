@@ -20,7 +20,6 @@ export class MonitorslistComponent implements OnInit {
   @ViewChild('confirmMonitor') confirmMonitor:ElementRef;
   @ViewChild('delMonitorLink') delMonitor:ElementRef;
   @ViewChild('chkColumn') chkColumn:ElementRef;
-  @ViewChild('hxAlert') hxAlert:ElementRef;
 
   monitorSearchPlaceholderText: string;
   monitors: any[];
