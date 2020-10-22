@@ -3,17 +3,19 @@ import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/test
 import { AdditionalSettingsComponent } from './additional-settings.component';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Subscription } from 'rxjs';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('AdditionalSettingsComponent', () => {
   let injector: TestBed;
   let component: AdditionalSettingsComponent;
   let fixture: ComponentFixture<AdditionalSettingsComponent>;
   let resourceService: ResourcesService;
+  let env: EnvironmentConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,20 +24,26 @@ describe('AdditionalSettingsComponent', () => {
       imports: [ SharedModule, HttpClientTestingModule ],
       providers: [
         DurationSecondsPipe,
-        ResourcesService
+        ResourcesService,
+        EnvironmentConfig,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ]
     })
     .compileComponents();
-  }));
-
-  beforeEach(() => {
     injector = getTestBed();
     fixture = TestBed.createComponent(AdditionalSettingsComponent);
     component = fixture.componentInstance;
     component.initialData = new monitorsMock().single;
-    resourceService = injector.get(ResourcesService);
+    resourceService = injector.inject(ResourcesService);
+    env= injector.inject(EnvironmentConfig);
+    env.loadEnvironment();
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

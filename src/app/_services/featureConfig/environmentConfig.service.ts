@@ -59,7 +59,7 @@ export class EnvironmentConfig {
 	public loadEnvironment()  {
         // merging Environment in local instance
         Object.assign( this, environment );
-        return this.mock;
+        // console.log(this.pagination.pageSize);
 	}
 
 }

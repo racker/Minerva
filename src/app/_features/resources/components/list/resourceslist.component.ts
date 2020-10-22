@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import { ResourcesService } from '../../../../_services/resources/resources.service';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,7 +10,8 @@ import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
-import { IfStmt, ThrowStmt } from '@angular/compiler';
+import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+
 
 @Component({
   selector: 'app-resourceslist',
@@ -35,7 +35,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   progressVal: number = 0;
   defaultVal: number = 20;
   
-  defaultAmount: number = environment.pagination.pageSize;
+  defaultAmount: number;
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
@@ -45,9 +45,12 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   resourceArr:any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
-    private validateResource: ValidateResource, private fb: FormBuilder,
-    private router: Router, private spnService: SpinnerService, private logService: LoggingService) {
+    private validateResource: ValidateResource, 
+    private fb: FormBuilder,
+    private router: Router, private spnService: SpinnerService, 
+    private logService: LoggingService, private env: EnvironmentConfig) {
       this.spnService.changeLoadingStatus(true);
+      this.defaultAmount= env.pagination.pageSize;
       }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { Monitor, Monitors } from '../../../../_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '../../../../_services/spinner/spinner.service';
 import { Router } from '@angular/router';
 import { isAdmin } from 'src/app/_shared/utils';
+import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 @Component({
   selector: 'app-monitorslist',
@@ -28,7 +28,7 @@ export class MonitorslistComponent implements OnInit {
   message   : string = 'Are you sure you want to delete the selected monitors?';
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
-  defaultAmount: number = environment.pagination.pageSize;
+  defaultAmount: number;
   Object: Object = Object;
   selectedMonitors: any = [];
   selectedMonForDeletion:any = [];
@@ -38,7 +38,12 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router, private changeDetector: ChangeDetectorRef) { this.spnService.changeLoadingStatus(true); }
+    private router: Router, 
+    private changeDetector: ChangeDetectorRef, private env: EnvironmentConfig) 
+    { 
+      this.spnService.changeLoadingStatus(true);
+      this.defaultAmount= env.pagination.pageSize;
+     }
 
   ngAfterViewInit() {
     setTimeout(() => {

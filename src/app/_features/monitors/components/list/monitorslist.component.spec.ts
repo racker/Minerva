@@ -33,7 +33,7 @@ var mockMonitor: Monitor = {
   "updatedTimestamp": "2019-12-31T19:04:50.630788Z"
 };
 
-fdescribe('MonitorslistComponent', () => {
+describe('MonitorslistComponent', () => {
   let injector: TestBed;
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;

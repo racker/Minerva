@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { Resource } from 'src/app/_models/resources';
 import { AdditionalSettingsComponent } from '../../components/additional-settings/additional-settings.component';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 const keyPair = {
   keysandvalues: [
@@ -84,7 +85,13 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
           provide: AJV_INSTANCE,
           useFactory: createAjvInstance,
           deps: [AJV_CLASS, AJV_CONFIG]
-        }
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
       ]
     })
     .compileComponents();
