@@ -30,14 +30,8 @@
         <hx-progress value="{{progressVal}}"></hx-progress>
       </hx-div>
     </div>
-    <hx-alert type="success">  {{ this.successCount }} out of {{ selectedMonForDeletion.length }} is/are deleted successfully!
+    <hx-alert #hxAlert type="success" persist>  {{ this.successCount }} out of {{ selectedMonForDeletion.length }} were deleted successfully!
     </hx-alert>
-      <div *ngFor="let selectedMonitor of selectedMonForDeletion">
-        <hx-alert *ngIf="selectedMonitor?.error"
-        type="error">
-        {{selectedMonitor.monitor.name || monitorUtil.formatSummaryField(selectedMonitor.monitor)}}
-      </hx-alert>
-      </div>
     <footer>
       <button id="triggerOk" class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
     </footer>

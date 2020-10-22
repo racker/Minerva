@@ -6,6 +6,9 @@ import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '../../../../_services/spinner/spinner.service';
 import { Router } from '@angular/router';
 import { isAdmin } from 'src/app/_shared/utils';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { LogLevels } from 'src/app/_enums/log-levels.enum';
+
 
 @Component({
   selector: 'app-monitorslist',
@@ -17,9 +20,11 @@ export class MonitorslistComponent implements OnInit {
   @ViewChild('confirmMonitor') confirmMonitor:ElementRef;
   @ViewChild('delMonitorLink') delMonitor:ElementRef;
   @ViewChild('chkColumn') chkColumn:ElementRef;
+  @ViewChild('hxAlert') hxAlert:ElementRef;
 
   monitorSearchPlaceholderText: string;
   monitors: any[];
+  failedMonitors:any = [];
   total: number;
   page: number = 0;
   successCount: number = 0;
@@ -39,7 +44,7 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router, private changeDetector: ChangeDetectorRef) { this.spnService.changeLoadingStatus(true); }
+    private router: Router, private changeDetector: ChangeDetectorRef, private logService:LoggingService ) { this.spnService.changeLoadingStatus(true); }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -186,6 +191,11 @@ export class MonitorslistComponent implements OnInit {
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
+    this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
+    if(this.failedMonitors.length > 0) {
+      this.failedMonitors.join(' , ');
+      this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
+    }
   }
 
   /**
@@ -215,8 +225,10 @@ export class MonitorslistComponent implements OnInit {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
             this.successCount++;
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: false});
-        }).catch(err => {
+        }).catch(err => {           
+            this.failedMonitors.push(element.name);
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
+
         });
         this.monitorArr.push(id);
     })
@@ -230,5 +242,6 @@ export class MonitorslistComponent implements OnInit {
   progressBar(d, obj:any) {    
     this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
     this.selectedMonForDeletion.push(obj);
+
   }
 }

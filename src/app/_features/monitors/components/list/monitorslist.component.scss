@@ -18,20 +18,6 @@
     text-transform: lowercase;
 }
 
-:host > #hxClose {
-    display: none !important;
-}
-
- 
-
-:host > #hxDismiss {
-    flex-shrink: 0;
-    height: 3rem;
-    padding: 1rem;
-    width: 3rem;
-    display: none !important;
-}
-
 hx-alert[type="success"] {
     color: #4caf51 !important;
     background-color: #ffffff !important;
