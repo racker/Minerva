@@ -1,17 +1,16 @@
 import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MonitorslistComponent } from './monitorslist.component';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { MonitorsPage } from '../../pages/monitors/monitors.page';
 import { monitorsMock } from '../../../../_mocks/monitors/monitors.service.mock'
-import { environment } from '../../../../../environments/environment';
 import { Monitor } from 'src/app/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -34,11 +33,12 @@ var mockMonitor: Monitor = {
   "updatedTimestamp": "2019-12-31T19:04:50.630788Z"
 };
 
-describe('MonitorslistComponent', () => {
+fdescribe('MonitorslistComponent', () => {
   let injector: TestBed;
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;
   let monitorService: MonitorService;
+  let env:EnvironmentConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,14 +51,21 @@ describe('MonitorslistComponent', () => {
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         MonitorService,
-        mockResourcesProvider
+        mockResourcesProvider,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ]
     })
       .compileComponents();
       injector = getTestBed();
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
-    monitorService = injector.get(MonitorService);
+    monitorService = injector.inject(MonitorService);
+    env= injector.inject(EnvironmentConfig);
     component.ngOnInit();
     fixture.detectChanges();
   }));
@@ -74,7 +81,7 @@ describe('MonitorslistComponent', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     expect(component.monitors).toEqual(new monitorsMock().collection.content
-      .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
+      .slice(0 * env.pagination.monitors.pageSize, 1 * env.pagination.monitors.pageSize));
   });
 
   it('should assign total amount of monitors', async () => {

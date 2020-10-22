@@ -7,7 +7,6 @@ import { Monitor, Label } from 'src/app/_models/monitors';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { tap } from 'rxjs/operators';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
-import { environment } from '../../../../../../../../../src/environments/environment';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
 import { transformKeyPairs } from 'src/app/_shared/utils';

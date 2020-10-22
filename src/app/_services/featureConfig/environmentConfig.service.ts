@@ -10,14 +10,26 @@ import { environment } from "../../../environments/environment";
  * factory function
  * @return FeatureConfig instance
  */
-export function featConfig(config: FeatureConfig) {
+export function envConfig(config: EnvironmentConfig) {
     return (() => {
-        config.loadFeatureConfig();
+        config.loadEnvironment();
     });
 }
 
 export interface FeatureFlags {
-    [name: string]: boolean;
+  [name: string]: boolean;
+}
+
+export interface Pagination {
+  
+    pageSize: number,
+    resources: {
+      pageSize: number
+    },
+    monitors: {
+      pageSize: number
+    }
+  
 }
 
 /**
@@ -26,10 +38,16 @@ export interface FeatureFlags {
 @Injectable({
 	providedIn: "root"
 })
-export class FeatureConfig {
+export class EnvironmentConfig {
 
-
-    featureFlags:FeatureFlags;
+  production: boolean;
+  mock: boolean;
+  featureFlags:FeatureFlags;
+  api:{[name: string]: boolean;}
+  pagination:Pagination;
+  resources: {
+    disallowLabelEdit: string
+  };
 	
 	constructor() {
 
@@ -38,9 +56,10 @@ export class FeatureConfig {
     /**
      * load feature config Through Envrionment file
      */
-	public loadFeatureConfig()  {
+	public loadEnvironment()  {
         // merging Environment in local instance
         Object.assign( this, environment );
+        return this.mock;
 	}
 
 }

@@ -1,22 +1,22 @@
 
-import { FeatureConfig } from "./featureConfig.service";
+import { EnvironmentConfig } from "./environmentConfig.service";
 import { environment} from "../../../environments/environment";
 import { getTestBed, TestBed } from "@angular/core/testing";
 describe('Feature and Environment Config', () => {
-    let featConf: FeatureConfig;
+    let featConf: EnvironmentConfig;
     let injector: TestBed;
 
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [FeatureConfig]
+            providers: [EnvironmentConfig]
         })
         injector = getTestBed();
-        featConf = injector.inject(FeatureConfig);
+        featConf = injector.inject(EnvironmentConfig);
     });
 
     it('should Load Feature Flag', (done)=>{
-        featConf.loadFeatureConfig();
+        featConf.loadEnvironment();
         expect(featConf.featureFlags.adminAccess).toBe(environment.featureFlags.adminAccess)
         done();
     })

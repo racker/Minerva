@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from "@ang
 import { FieldSet } from "../../interfaces/field.interface";
 import { Observable, Subscription } from "rxjs";
 import { MarkFormGroupTouched } from "src/app/_shared/utils";
-import { environment } from '../../../../../environments/environment';
 import { ZoneService } from "src/app/_services/zones/zones.service";
 import { SpinnerService } from "src/app/_services/spinner/spinner.service";
 import { Zone } from "src/app/_models/zone";
