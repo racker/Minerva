@@ -11,6 +11,9 @@ import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { of } from 'rxjs';
+
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -38,6 +41,7 @@ describe('MonitorslistComponent', () => {
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;
   let monitorService: MonitorService;
+  let logService: LoggingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -58,6 +62,7 @@ describe('MonitorslistComponent', () => {
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
     monitorService = injector.get(MonitorService);
+    logService      = injector.get(LoggingService);
     component.ngOnInit();
     fixture.detectChanges();
   }));
@@ -223,6 +228,13 @@ describe('MonitorslistComponent', () => {
     });
 
   });
+
+  fit('should check failedMonitors array', () => {
+    component.failedMonitors = ["lovedeep-2", "lovedeep-1"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  })
 
 
 
