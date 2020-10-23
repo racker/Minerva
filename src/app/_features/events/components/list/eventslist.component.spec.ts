@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { EventsMock } from '../../../../_mocks/events/events.service.mock';
 import { EventsService } from '../../../../_services/events/events.service';
@@ -8,10 +8,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 
 import { EventslistComponent } from './eventslist.component';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('EventslistComponent', () => {
   let component: EventslistComponent;
   let fixture: ComponentFixture<EventslistComponent>;
+  let env: EnvironmentConfig;
+  let injector: TestBed;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,7 +24,14 @@ describe('EventslistComponent', () => {
         HttpClientModule,
         RouterTestingModule,
       ],
-      providers:[{provide:EventsService},{ provide: ComponentFixtureAutoDetect, useValue: true },
+      providers:[{provide:EventsService},
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ],
     })
     .compileComponents();
@@ -29,7 +39,9 @@ describe('EventslistComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EventslistComponent);
+    injector= getTestBed();
     component = fixture.componentInstance;
+    env = injector.inject(EnvironmentConfig);
     fixture.detectChanges();
   });
 

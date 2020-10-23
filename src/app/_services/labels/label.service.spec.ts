@@ -2,17 +2,28 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { LabelService } from './label.service';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 
 describe('LabelService', () => {
   let injector: TestBed;
   let service: LabelService;
+  let env: EnvironmentConfig;
 
   beforeEach(() => { TestBed.configureTestingModule({
     imports: [HttpClientModule],
-    providers: [LabelService]
+    providers: [LabelService,
+      {
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+      }
+    ]
   });
 
   injector = getTestBed();
+  env = injector.inject(EnvironmentConfig);
   service = injector.inject(LabelService);
 });
 

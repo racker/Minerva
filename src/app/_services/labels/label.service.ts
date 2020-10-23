@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LoggingService } from '../logging/logging.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { LogLevels } from 'src/app/_enums/log-levels.enum'
 import { LabelResources, LabelMonitors } from '../../_models/labels';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
 import { of, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';import { PortalDataService } from '../portal/portal-data.service';
+import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 ;
 
 const httpOptions = {
@@ -31,20 +31,21 @@ export class LabelService {
   }
 
   private mockedLabels = new LabelMock();
-  constructor(private http:HttpClient, private portalService: PortalDataService,
-    private logService: LoggingService) { }
+  constructor(private http:HttpClient,
+     private portalService: PortalDataService,
+    private logService: LoggingService, private env : EnvironmentConfig) { }
 
   /**
    * @description Get all labels attached to all Resources
    * @returns Observable {}
    */
   getResourceLabels(): Observable<LabelResources> {
-    if (environment.mock) {
+    if (this.env.mock) {
       this._labels = this.mockedLabels.resourceLabels;
       return of<LabelResources>(this.mockedLabels.resourceLabels);
     }
     else {
-      return this.http.get<LabelResources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.get<LabelResources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /resource-labels`, httpOptions)
       .pipe(
         tap(data => {
@@ -60,12 +61,12 @@ export class LabelService {
  * @returns Observable {}
  */
   getMonitorLabels(): Observable<LabelMonitors> {
-    if (environment.mock) {
+    if (this.env.mock) {
       this._labels = this.mockedLabels.monitorLabels;
       return of<LabelMonitors>(this.mockedLabels.monitorLabels);
     }
     else {
-      return this.http.get<LabelMonitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.get<LabelMonitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /resource-labels`, httpOptions)
       .pipe(
         tap(data => {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { tap, map, switchMap, flatMap } from 'rxjs/operators';
+import { tap, map, flatMap } from 'rxjs/operators';
 import { PortalDataService } from '../portal/portal-data.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { IMetric, IMetricField, IMeasurement, IDevice } from 'src/app/_models/metrics';
@@ -118,8 +118,10 @@ export class MetricsService {
     return this.selectedEnd.asObservable();
   }
 
-  constructor(private http:HttpClient, private logService: LoggingService,
-    private portalDataService: PortalDataService, private influxService: InfluxService) { }
+  constructor(private http:HttpClient, 
+    private logService: LoggingService,
+    private portalDataService: PortalDataService, 
+    private influxService: InfluxService) { }
 
   /**
     * @returns Observable array of available measurements

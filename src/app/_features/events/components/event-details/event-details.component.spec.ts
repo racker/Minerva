@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 
 import { EventDetailsComponent } from './event-details.component';
 import { EventsService } from 'src/app/_services/events/events.service';
@@ -7,11 +7,15 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import {  EventsMock} from "../../../../_mocks/events/events.service.mock";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('EventDetailsComponent', () => {
+  let injector: TestBed;
   let component: EventDetailsComponent;
   let fixture: ComponentFixture<EventDetailsComponent>;
   let eventMock=new EventsMock();
+  let env: EnvironmentConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,13 +23,23 @@ describe('EventDetailsComponent', () => {
       providers:[EventsService,
         {
           provide: ActivatedRoute,
+          
           useValue: {
             params: of({id: "345d678ddopdkdjd67isdjj"}),
           }
-        }],
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
+      ],
       imports:[SharedModule, HttpClientTestingModule]
     })
     .compileComponents();
+    injector = getTestBed();
+    env= injector.inject(EnvironmentConfig);
   }));
 
   beforeEach(() => {

@@ -1,7 +1,5 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
 import { MonitorService } from './monitor.service';
-import { environment } from '../../../environments/environment';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
 import { Event, Events } from "../../_models/events";
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
@@ -8,6 +7,7 @@ import { LoggingService } from '../logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { EventsMock } from "../../_mocks/events/events.service.mock";
 import { PortalDataService } from '../portal/portal-data.service';
+import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,8 +23,9 @@ export class EventsService {
   private event;
   private mockedEvents = new EventsMock();
 
-  constructor(private http: HttpClient, private portalService: PortalDataService,
-    private logService: LoggingService) { }
+  constructor(private http: HttpClient, 
+    private portalService: PortalDataService,
+    private logService: LoggingService, private env: EnvironmentConfig) { }
 
   get events(): Events {
     return this._events;
@@ -48,12 +49,12 @@ export class EventsService {
  * @returns Observable<ListEvents>
  */
   getEvents(size?: number): Observable<Events> {
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = Object.assign({}, this.mockedEvents.eventList);
       this.events = mocks;
       return of<Events>(this.events).pipe(delay(500));
     } else {
-      return this.http.get<Events>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.get<Events>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /event-tasks?size=${size}`, httpOptions)
         .pipe(
           tap(data => {
@@ -68,12 +69,12 @@ export class EventsService {
    * @param id event id
    */
   getEventById(id): Observable<Event> {
-    if (environment.mock) {
+    if (this.env.mock) {
       let mock = Object.assign({}, this.mockedEvents.single)
       this.event = mock;
       return of<Event>(this.event).pipe(delay(500));
     }
-    return this.http.get<Event>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.get<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /event-tasks/${id}`, httpOptions)
       .pipe(
         tap(data => {
@@ -88,10 +89,10 @@ export class EventsService {
  * @param id string
  */
   deleteEvent(id: string): Observable<any> {
-    if (environment.mock) {
+    if (this.env.mock) {
       return of<boolean>(true);
     } else {
-      return this.http.delete<Event>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.delete<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /event-tasks/${id}`, httpOptions)
         .pipe(
           tap(data => {
