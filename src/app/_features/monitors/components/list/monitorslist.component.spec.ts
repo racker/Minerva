@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { MonitorslistComponent } from './monitorslist.component';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { MonitorsPage } from '../../pages/monitors/monitors.page';
@@ -68,6 +67,25 @@ describe('MonitorslistComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should setup defaults', async () => {
+    expect(component.monitorSearchPlaceholderText).toBeDefined();
+    expect(component.monitors).toBeDefined();
+    expect(component.failedMonitors).toEqual([]);
+    expect(component.page).toEqual(0);
+    expect(component.successCount).toEqual(0);
+    expect(component.progressVal).toEqual(0);
+    expect(component.disableOk).toEqual(true);
+    expect(component.modalType).toEqual('delMonitorModal');
+    expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
+    expect(component.confirmMessageSuccess).toEqual('');
+    expect(component.confirmMessageError).toEqual('');
+    expect(component.defaultAmount).toEqual(environment.pagination.pageSize);
+    expect(component.Object).toEqual(Object);
+    expect(component.selectedMonitors).toEqual([]);
+    expect(component.selectedMonForDeletion).toEqual([]);
+    expect(component.monitorArr).toEqual([]);
   });
 
   it('ngOnInit should resolve monitors', async () => {
@@ -177,7 +195,7 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};
     let count = 0;
     count++;
     component.progressBar(count, obj);
@@ -185,11 +203,11 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
+    expect(component.selectedMonForDeletion).toEqual([obj]);
   });
 
   it('should execute reset for checked flag to false', () => {
@@ -207,7 +225,7 @@ describe('MonitorslistComponent', () => {
   });
 
 
-  
+
 
 
 
