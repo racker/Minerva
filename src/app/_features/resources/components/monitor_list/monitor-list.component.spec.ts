@@ -8,6 +8,8 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;
@@ -20,7 +22,15 @@ describe('MonitorListComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
               ],
-      providers:[{provide:MonitorService,
+      providers:[
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
+        {provide:MonitorService,
+        
       },
       mockResourcesProvider]
     })

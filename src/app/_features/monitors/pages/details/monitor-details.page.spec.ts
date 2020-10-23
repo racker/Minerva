@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +21,7 @@ import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe
 import { MonitorUtil } from '../../mon.utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('MonitorDetailComponent', () => {
   let injector: TestBed;
@@ -129,6 +130,12 @@ describe('MonitorDetailComponent', () => {
           provide: AJV_INSTANCE,
           useFactory: createAjvInstance,
           deps: [AJV_CLASS, AJV_CONFIG]
+        },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
         }
       ]
     })

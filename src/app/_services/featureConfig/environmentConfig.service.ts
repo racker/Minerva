@@ -43,7 +43,7 @@ export class EnvironmentConfig {
   production: boolean;
   mock: boolean;
   featureFlags:FeatureFlags;
-  api:{[name: string]: boolean;}
+  api:{[name: string]:string;}
   pagination:Pagination;
   resources: {
     disallowLabelEdit: string
