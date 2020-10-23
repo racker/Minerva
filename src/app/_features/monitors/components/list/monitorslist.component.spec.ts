@@ -229,7 +229,7 @@ describe('MonitorslistComponent', () => {
 
   });
 
-  fit('should check failedMonitors array', () => {
+  it('should check failedMonitors array', () => {
     component.failedMonitors = ["lovedeep-2", "lovedeep-1"];
     let spy = spyOn(logService, 'log');
     component.triggerOk();
