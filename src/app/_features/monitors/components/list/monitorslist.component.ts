@@ -112,15 +112,15 @@ export class MonitorslistComponent implements OnInit {
    * @returns void
    */
   checkColumn(event) {
+    this.monitors.forEach(e => {
+      e["checked"] = event.target.checked;
+    });
     if (event.target.checked) {
       this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
     }
     else {
       this.selectedMonitors = [];
     }
-    this.monitors.forEach(e => {
-      e["checked"] = event.target.checked;
-    });
   }
 
   /**
@@ -154,13 +154,20 @@ export class MonitorslistComponent implements OnInit {
    * @param monitor Monitor
    */
   selectMonitors(monitor: Monitor) {
-    if (this.selectedMonitors.indexOf(monitor) === -1) {
+    if (this.checkExist(this.selectedMonitors, monitor.id) === false) {
       this.selectedMonitors.push(monitor);
     } else {
       this.selectedMonitors.splice(
-        this.selectedMonitors.indexOf(monitor), 1
+        this.selectedMonitors.map(value => value.id === monitor.id), 1
       );
     }
+  }
+
+  checkExist(arr, id) {
+    const { length } = arr;
+    const len = length + 1;
+    const found = arr.some(el => el.id === id);
+    return found;
   }
 
     /**
@@ -195,6 +202,7 @@ export class MonitorslistComponent implements OnInit {
       this.failedMonitors.join(' , ');
       this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
     }
+    this.successCount = 0;
   }
 
   /**
@@ -227,7 +235,6 @@ export class MonitorslistComponent implements OnInit {
         }).catch(err => {           
             this.failedMonitors.push(element.name);
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
-
         });
         this.monitorArr.push(id);
     })
