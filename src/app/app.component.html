@@ -1,8 +1,3 @@
-<header id="head">
-  <!-- Eyebrow Goes Here -->
-  <pilot-nav></pilot-nav>
-</header>
-
 <div>
   <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
     <!-- Product Navigation -->
@@ -19,7 +14,7 @@
           <hx-panelbody  class="hxBox hxMd">
             <hx-alert *ngIf="message" (dismiss)="alertDismiss()"
             type="error">
-              {{message}} 
+              {{message}}
             </hx-alert>
             <div class="spinner-overlay" *ngIf="isLoading"></div>
             <hx-busy class="gbl-spinner-show" *ngIf="isLoading"></hx-busy>

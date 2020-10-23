@@ -61,8 +61,7 @@ export class MonitorService {
    * @returns Observable<Monitors>
    */
   getMonitors(size: number, page: number): Observable<Monitors> {
-    return this.http.get<Monitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-    /monitors`, { headers:httpOptions.headers,
+    return this.http.get<Monitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors`, { headers:httpOptions.headers,
       params: {
         size: `${size}`,
         page: `${page}`
@@ -82,8 +81,7 @@ export class MonitorService {
  * @returns Observable<Monitor>
  */
   getMonitor(id: string): Observable<Monitor> {
-      return this.http.get<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /monitors/${id}`, httpOptions)
+      return this.http.get<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`, httpOptions)
       .pipe(
         tap(data => {
           this._monitor = data;
@@ -98,8 +96,7 @@ export class MonitorService {
    * @returns Observable<Monitor>
    */
   createMonitor(monitor:CreateMonitor): Observable<Monitor> {
-          return this.http.post<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-          /monitors`, monitor, httpOptions)
+          return this.http.post<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors`, monitor, httpOptions)
           .pipe(
             tap(data => {
               return of<Monitor>(data);
@@ -116,8 +113,7 @@ export class MonitorService {
    * @returns Observable<Monitor>
    */
   updateMonitor(id: string, details: any[]): Observable<Monitor> {
-      return this.http.patch<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /monitors/${id}`, details, httpOptions)
+      return this.http.patch<Monitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`, details, httpOptions)
       .pipe(
         tap((data: Monitor) => {
           this._monitor = data;
@@ -132,8 +128,7 @@ export class MonitorService {
    * @param id string
    */
   deleteMonitor(id:string): Observable<any> {
-      return this.http.delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /monitors/${id}`, {observe: 'response'})
+      return this.http.delete(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`, {observe: 'response'})
       .pipe(
         tap(data => {
           this.logService.log(`Monitor deleted: ${id}`, LogLevels.info);
@@ -149,8 +144,7 @@ export class MonitorService {
 
   deleteMonitorPromise(id:string): Promise<any> {
     return this.http
-      .delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /monitors/${id}`)
+      .delete(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`)
       .toPromise()
       .then(
         (res: Response) => Promise.resolve(res)
@@ -169,8 +163,7 @@ export class MonitorService {
   getBoundMonitor(ids:any):Observable<BoundMonitorPaging>{
     // TODO: Add paging mechanism to this service
         let queryParam = Object.keys(ids).map((key) => key + "=" + ids[key]).join('&');
-        return this.http.get<BoundMonitorPaging>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-        /monitors/bound-monitors?${queryParam}`, httpOptions)
+        return this.http.get<BoundMonitorPaging>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors/bound-monitors?${queryParam}`, httpOptions)
         .pipe(
           tap(data => {
             this._boundMonitor = data;
@@ -180,8 +173,7 @@ export class MonitorService {
   }
 
   searchMonitors(search:string): Observable<Monitors> {
-      return this.http.get<Monitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /monitors-search/`, {
+      return this.http.get<Monitors>(`${environment.api.salus}/${this.portalService.portalData.domainId}/monitors-search/`, {
         params: {
           q: search
         }
@@ -194,8 +186,7 @@ export class MonitorService {
 
   monitorTest(monitorData: CreateTestMonitor): Observable<TestMonitor> {
     let data = monitorData;
-      return this.http.post<TestMonitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}
-      /test-monitor`, data, httpOptions)
+      return this.http.post<TestMonitor>(`${environment.api.salus}/${this.portalService.portalData.domainId}/test-monitor`, data, httpOptions)
         .pipe(
           tap(data => {
             let stuff = data;
