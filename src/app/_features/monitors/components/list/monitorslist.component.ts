@@ -6,6 +6,9 @@ import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '../../../../_services/spinner/spinner.service';
 import { Router } from '@angular/router';
 import { isAdmin } from 'src/app/_shared/utils';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { LogLevels } from 'src/app/_enums/log-levels.enum';
+
 
 @Component({
   selector: 'app-monitorslist',
@@ -20,8 +23,10 @@ export class MonitorslistComponent implements OnInit {
 
   monitorSearchPlaceholderText: string;
   monitors: any[];
+  failedMonitors:any = [];
   total: number;
   page: number = 0;
+  successCount: number = 0;
   progressVal: number = 0;
   disableOk: boolean = true;
   modalType : string = 'delMonitorModal';
@@ -38,7 +43,7 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router, private changeDetector: ChangeDetectorRef) { this.spnService.changeLoadingStatus(true); }
+    private router: Router, private changeDetector: ChangeDetectorRef, private logService:LoggingService ) { this.spnService.changeLoadingStatus(true); }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -107,15 +112,15 @@ export class MonitorslistComponent implements OnInit {
    * @returns void
    */
   checkColumn(event) {
+    this.monitors.forEach(e => {
+      e["checked"] = event.target.checked;
+    });
     if (event.target.checked) {
       this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
     }
     else {
       this.selectedMonitors = [];
     }
-    this.monitors.forEach(e => {
-      e["checked"] = event.target.checked;
-    });
   }
 
   /**
@@ -149,13 +154,20 @@ export class MonitorslistComponent implements OnInit {
    * @param monitor Monitor
    */
   selectMonitors(monitor: Monitor) {
-    if (this.selectedMonitors.indexOf(monitor) === -1) {
+    if (this.checkExist(this.selectedMonitors, monitor.id) === false) {
       this.selectedMonitors.push(monitor);
     } else {
       this.selectedMonitors.splice(
-        this.selectedMonitors.indexOf(monitor), 1
+        this.selectedMonitors.map(value => value.id === monitor.id), 1
       );
     }
+  }
+
+  checkExist(arr, id) {
+    const { length } = arr;
+    const len = length + 1;
+    const found = arr.some(el => el.id === id);
+    return found;
   }
 
     /**
@@ -185,6 +197,12 @@ export class MonitorslistComponent implements OnInit {
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
+    this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
+    if(this.failedMonitors.length > 0) {
+      this.failedMonitors.join(' , ');
+      this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
+    }
+    this.successCount = 0;
   }
 
   /**
@@ -212,8 +230,10 @@ export class MonitorslistComponent implements OnInit {
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
         var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+            this.successCount++;
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: false});
-        }).catch(err => {
+        }).catch(err => {           
+            this.failedMonitors.push(element.name);
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
         });
         this.monitorArr.push(id);
@@ -228,5 +248,6 @@ export class MonitorslistComponent implements OnInit {
   progressBar(d, obj:any) {    
     this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
     this.selectedMonForDeletion.push(obj);
+
   }
 }

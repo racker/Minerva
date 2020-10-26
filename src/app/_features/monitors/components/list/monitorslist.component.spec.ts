@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { MonitorslistComponent } from './monitorslist.component';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { MonitorsPage } from '../../pages/monitors/monitors.page';
@@ -12,6 +11,9 @@ import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { of } from 'rxjs';
+
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -39,6 +41,7 @@ describe('MonitorslistComponent', () => {
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;
   let monitorService: MonitorService;
+  let logService: LoggingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,6 +62,7 @@ describe('MonitorslistComponent', () => {
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
     monitorService = injector.get(MonitorService);
+    logService      = injector.get(LoggingService);
     component.ngOnInit();
     fixture.detectChanges();
   }));
@@ -68,6 +72,25 @@ describe('MonitorslistComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should setup defaults', async () => {
+    expect(component.monitorSearchPlaceholderText).toBeDefined();
+    expect(component.monitors).toBeDefined();
+    expect(component.failedMonitors).toEqual([]);
+    expect(component.page).toEqual(0);
+    expect(component.successCount).toEqual(0);
+    expect(component.progressVal).toEqual(0);
+    expect(component.disableOk).toEqual(true);
+    expect(component.modalType).toEqual('delMonitorModal');
+    expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
+    expect(component.confirmMessageSuccess).toEqual('');
+    expect(component.confirmMessageError).toEqual('');
+    expect(component.defaultAmount).toEqual(environment.pagination.pageSize);
+    expect(component.Object).toEqual(Object);
+    expect(component.selectedMonitors).toEqual([]);
+    expect(component.selectedMonForDeletion).toEqual([]);
+    expect(component.monitorArr).toEqual([]);
   });
 
   it('ngOnInit should resolve monitors', async () => {
@@ -177,7 +200,7 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};
     let count = 0;
     count++;
     component.progressBar(count, obj);
@@ -185,11 +208,11 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
+    expect(component.selectedMonForDeletion).toEqual([obj]);
   });
 
   it('should execute reset for checked flag to false', () => {
@@ -206,8 +229,15 @@ describe('MonitorslistComponent', () => {
 
   });
 
+  it('should check failedMonitors array', () => {
+    component.failedMonitors = ["lovedeep-2", "lovedeep-1"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  })
 
-  
+
+
 
 
 
