@@ -47,8 +47,7 @@ export class ZoneService {
             this._monZone = mock;
             return of<Zones>(this._monZone);
         }
-        return this.http.get<Zones>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-        /zones`, httpsoption)
+        return this.http.get<Zones>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/zones`, httpsoption)
             .pipe(
                 tap(data => {
                     this._monZone = data;

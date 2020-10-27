@@ -11,6 +11,8 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -39,6 +41,7 @@ describe('MonitorslistComponent', () => {
   let fixture: ComponentFixture<MonitorslistComponent>;
   let monitorService: MonitorService;
   let env:EnvironmentConfig;
+  let logService: LoggingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -66,6 +69,7 @@ describe('MonitorslistComponent', () => {
     component = fixture.componentInstance;
     monitorService = injector.inject(MonitorService);
     env= injector.inject(EnvironmentConfig);
+    logService      = injector.inject(LoggingService);
     component.ngOnInit();
     fixture.detectChanges();
   }));
@@ -75,6 +79,25 @@ describe('MonitorslistComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should setup defaults', async () => {
+    expect(component.monitorSearchPlaceholderText).toBeDefined();
+    expect(component.monitors).toBeDefined();
+    expect(component.failedMonitors).toEqual([]);
+    expect(component.page).toEqual(0);
+    expect(component.successCount).toEqual(0);
+    expect(component.progressVal).toEqual(0);
+    expect(component.disableOk).toEqual(true);
+    expect(component.modalType).toEqual('delMonitorModal');
+    expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
+    expect(component.confirmMessageSuccess).toEqual('');
+    expect(component.confirmMessageError).toEqual('');
+    expect(component.defaultAmount).toEqual(env.pagination.pageSize);
+    expect(component.Object).toEqual(Object);
+    expect(component.selectedMonitors).toEqual([]);
+    expect(component.selectedMonForDeletion).toEqual([]);
+    expect(component.monitorArr).toEqual([]);
   });
 
   it('ngOnInit should resolve monitors', async () => {
@@ -184,7 +207,7 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};
     let count = 0;
     count++;
     component.progressBar(count, obj);
@@ -192,11 +215,11 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
+    expect(component.selectedMonForDeletion).toEqual([obj]);
   });
 
   it('should execute reset for checked flag to false', () => {
@@ -213,8 +236,15 @@ describe('MonitorslistComponent', () => {
 
   });
 
+  it('should check failedMonitors array', () => {
+    component.failedMonitors = ["lovedeep-2", "lovedeep-1"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  })
 
-  
+
+
 
 
 

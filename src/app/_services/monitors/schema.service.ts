@@ -61,8 +61,7 @@ export class SchemaService {
         res(this.schema);
       }
       else {
-        this.http.get<Schema>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-        /schema/monitors`).subscribe(result => {
+        this.http.get<Schema>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/schema/monitors`).subscribe(result => {
           result['$id'] = result.$schema;
           delete result.$schema;
           this._schema = result;

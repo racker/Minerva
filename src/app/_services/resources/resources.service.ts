@@ -59,8 +59,7 @@ export class ResourcesService {
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /resources?size=${size}&page=${page}`, httpOptions)
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, httpOptions)
     .pipe(
       tap(data =>
         { this._resources = data;
@@ -78,8 +77,7 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   getResource(id: string): Observable<Resource> {
-    return this.http.get<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /resources/${id}`)
+    return this.http.get<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`)
       .pipe(
         tap(data => {
           this._resource = data;
@@ -94,8 +92,7 @@ export class ResourcesService {
    * @returns Resource
    */
   createResource(resource: CreateResource): Observable<Resource> {
-    return this.http.post<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /resources`, resource,  httpOptions)
+    return this.http.post<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, resource,  httpOptions)
     .pipe(
         tap(data => {
           this._resource = data;
@@ -110,8 +107,7 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   updateResource(id:string, updatedData: {[key: string]: any}): Observable<Resource> {
-      return this.http.put<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /resources/${id}`, updatedData)
+      return this.http.put<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`, updatedData)
       .pipe(
         tap(data => {
           this._resource = data,
@@ -127,13 +123,11 @@ export class ResourcesService {
    * @returns HttpResponse of empty object OR a boolean when in offline mode
     */
   validateResourceId(id:string): any {
-      return this.http.head(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /resources/${id}`, {observe: 'response'});
+      return this.http.head(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`, {observe: 'response'});
   }
 
   searchResources(search: string): Observable<Resources> {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /resources-search?q=${search}`)
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources-search?q=${search}`)
     .pipe(
       tap(data => {
         this.logService.log(`Search Resources`, LogLevels.info);
@@ -146,8 +140,7 @@ export class ResourcesService {
    * @param id string
    */
   deleteResource(id: string) {
-    return this.http.delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /resources/${id}`)
+    return this.http.delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`)
       .pipe(
         tap(data => {
           this.logService.log(`Resource deleted: ${id}`, LogLevels.info);
@@ -167,8 +160,7 @@ export class ResourcesService {
       })
     }
     return this.http
-      .delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /resources/${id}`)
+      .delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`)
       .toPromise()
       .then(
         (res: Response) => Promise.resolve(res)
