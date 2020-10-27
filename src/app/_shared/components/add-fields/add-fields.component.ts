@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray, AbstractCon
 import { keyPairValidator } from '../../validators/keyvalue.validator';
 import { disallowValidator } from '../../validators/disallow.validator';
 import { Subscription, Observable, Subject } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { MarkFormGroupTouched } from '../../utils';
 import { Label } from 'src/app/_models/monitors';
+import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 @Component({
   selector: 'app-add-fields',
@@ -13,7 +13,9 @@ import { Label } from 'src/app/_models/monitors';
   styleUrls: ['./add-fields.component.scss']
 })
 export class AddFieldsComponent implements OnInit, OnChanges {
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private env: EnvironmentConfig) { }
   @Input()
   initialData: { [key: string]: any };
   @Input()
@@ -119,7 +121,7 @@ export class AddFieldsComponent implements OnInit, OnChanges {
   resetLabelForm(data: any) {
     Object.keys(data).map(key => {
       let value = data[key];
-      let disabled = key.startsWith(environment.resources.disallowLabelEdit) && this.labelContraints;
+      let disabled = key.startsWith(this.env.resources.disallowLabelEdit) && this.labelContraints;
       this.addArray.push(this.fb.group({
         key: new FormControl({value: key, disabled},
           (this.labelContraints && [disallowValidator])),

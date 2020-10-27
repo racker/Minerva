@@ -1,15 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { async, ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AddFieldsComponent } from './add-fields.component';
 import { Subject } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('AddFieldsComponent', () => {
   let component: AddFieldsComponent;
   let fixture: ComponentFixture<AddFieldsComponent>;
-  let submitSubject: Subject<void> = new Subject<void>()
+  let env: EnvironmentConfig;
+  let submitSubject: Subject<void> = new Subject<void>();
+  let injector:TestBed;
 
   const onChange = () => {
     component.ngOnChanges({
@@ -21,7 +24,13 @@ describe('AddFieldsComponent', () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [ ReactiveFormsModule, HttpClientTestingModule ],
-      declarations: [ AddFieldsComponent ]
+      declarations: [ AddFieldsComponent ],
+      providers: [{
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+      }]
     })
     .compileComponents();
   }));
@@ -33,6 +42,8 @@ describe('AddFieldsComponent', () => {
     component.validateForm = submitSubject.asObservable();
     onChange();
     fixture.detectChanges();
+    injector= getTestBed();
+    env = injector.inject(EnvironmentConfig);
   });
 
   it('should create', () => {

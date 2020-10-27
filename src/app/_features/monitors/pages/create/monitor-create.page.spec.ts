@@ -16,7 +16,7 @@ import ajv from 'ajv';
 import { MonitorsPage } from '../monitors/monitors.page';
 import { MarkFormGroupTouched } from 'src/app/_shared/utils';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Resource } from 'src/app/_models/resources';
 import { AdditionalSettingsComponent } from '../../components/additional-settings/additional-settings.component';
 import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
@@ -99,13 +99,12 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
 
   beforeEach(() => {
     injector = getTestBed();
-    schemaService = injector.get(SchemaService);
-    monitorService = injector.get(MonitorService);
+    schemaService = injector.inject(SchemaService);
+    monitorService = injector.inject(MonitorService);
     fixture = TestBed.createComponent(MonitorCreatePage);
     component = fixture.componentInstance;
     schemaService.loadSchema();
     spySubManager = spyOn(component.subManager, 'add');
-    spyMonitorService = spyOn(monitorService, 'createMonitor');
     component.additionalSettingsForm = addSettingsForm;
     fixture.detectChanges();
   });
@@ -125,7 +124,7 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
     expect(component).toBeTruthy();
   });
 
-  xit('should setup defaults', () => {
+  it('should setup defaults', () => {
     expect(component['labelSubmit']).toBeDefined();
     expect(component['labelFormValid']).toBeDefined();
     expect(component['dynamicFormSubmit']).toBeDefined();
@@ -183,7 +182,7 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
     expect(spySubManager).toHaveBeenCalledTimes(3);
   });
 
-  it('should addMonitor() using service', () => {
+  it('should addMonitor() using service', (done) => {
     component.selectedMonitor = 'Cpu';
     component.dynaConfig = {
       monitorType: 'Local',
@@ -202,11 +201,11 @@ const addSettingsForm = jasmine.createSpyObj('AdditionalSettingsComponent', ['va
         }]
     };
     fixture.detectChanges();
-    async() => {
-      updateForm('coolName', 'cpu');
-      await component.addMonitor();
-      expect(monitorService.createMonitor).toHaveBeenCalled();
-    };
+    updateForm('coolName', 'cpu');
+    component.addMonitor();
+    expect(component.addMonLoading).toBe(false);
+    done();
+  
   });
 
   it('should make selectedMonitor equal to dropdown selection', () => {
