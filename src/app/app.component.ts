@@ -9,12 +9,11 @@ import { SpinnerService } from './_services/spinner/spinner.service';
 })
 
 export class AppComponent implements OnInit  {
-  title = 'minerva';
   message: string = undefined;
   isLoading: boolean;
   constructor(private lgService:LoggingService,
      private changeDetector: ChangeDetectorRef, private spnService:SpinnerService){
-  
+
      }
 
   ngOnInit() {
