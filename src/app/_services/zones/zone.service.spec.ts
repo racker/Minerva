@@ -1,6 +1,8 @@
 import { TestBed, getTestBed } from "@angular/core/testing";
 import {  HttpClientModule} from "@angular/common/http";
 import { ZoneService } from "./zones.service";
+import { APP_INITIALIZER } from "@angular/core";
+import { envConfig, EnvironmentConfig } from "../featureConfig/environmentConfig.service";
 
 describe("Zone Service",() =>{
     let injector : TestBed;
@@ -12,7 +14,14 @@ describe("Zone Service",() =>{
                 HttpClientModule
             ],
             providers:[
-                ZoneService
+                ZoneService,
+                {
+                    provide: APP_INITIALIZER,
+                    useFactory: envConfig,
+                    deps: [ EnvironmentConfig ],
+                    multi: true
+                }
+
             ]
         })
         injector= getTestBed();

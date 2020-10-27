@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 @Component({
   selector: 'app-pagination',
@@ -19,7 +19,7 @@ export class PaginationComponent {
   @Output() goNext = new EventEmitter<boolean>();
   @Output() goPage = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(private env: EnvironmentConfig) { }
 
   getMin(): number {
     return ((this.perPage * (this.page + 1)) - this.perPage) + 1;
@@ -56,7 +56,7 @@ export class PaginationComponent {
   getPages(): number[] {
     const c = Math.ceil(this.total / this.perPage);
     const p = this.page || 1;
-    const pagesToShow = this.pagesToShow || environment.pagination.pageSize;
+    const pagesToShow = this.pagesToShow || this.env.pagination.pageSize;
     const pages: number[] = [];
     pages.push(p);
     const times = pagesToShow - 1;

@@ -1,8 +1,10 @@
 import { TestBed, inject, getTestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MetricsService } from './metrics.service';
 import { metricMocks } from '../../_mocks/metrics/metrics.service.mock';
 import { InfluxService } from '../influx/influx.service';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 
 describe('MetricsService', () => {
   let injector: TestBed;
@@ -15,12 +17,19 @@ describe('MetricsService', () => {
       imports: [
         HttpClientTestingModule
       ],
-      providers: [MetricsService, InfluxService]
+      providers: [MetricsService, InfluxService,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+      }
+      ]
     });
 
     injector = getTestBed();
-    service = injector.get(MetricsService);
-    influxService = injector.get(InfluxService);
+    service = injector.inject(MetricsService);
+    influxService = injector.inject(InfluxService);
 
   });
 

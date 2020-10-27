@@ -1,14 +1,16 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ResourcesService } from './resources.service';
-import { environment } from '../../../environments/environment';
 import { resourcesMock } from '../../_mocks/resources/resources.service.mock';
 import { Resource, CreateResource } from 'src/app/_models/resources';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 
 describe('ResourcesService', () => {
   let injector: TestBed;
   let service: ResourcesService;
+  let env: EnvironmentConfig;
   let createResource: CreateResource = {
     resourceId: 'newcool-server',
     presenceMonitoringEnabled: false
@@ -21,11 +23,18 @@ describe('ResourcesService', () => {
       ],
       providers: [
         ResourcesService,
-        mockResourcesProvider
+        mockResourcesProvider,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ]
     });
 
     injector = getTestBed();
+    env= injector.inject(EnvironmentConfig);
     service = TestBed.inject(ResourcesService);
   });
 
@@ -48,10 +57,10 @@ describe('ResourcesService', () => {
 
   describe('CRUD Operations', () => {
     it('should return collection', (done) => {
-      service.getResources(environment.pagination.resources.pageSize, 0).subscribe((data) => {
+      service.getResources(env.pagination.resources.pageSize, 0).subscribe((data) => {
         let mocked = new resourcesMock().collection;
         let slicedArray = new resourcesMock().collection.content
-         .slice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize);
+         .slice(0 * env.pagination.resources.pageSize, 1 * env.pagination.resources.pageSize);
         mocked.content = slicedArray;
         expect(data).toEqual(mocked);
         done();

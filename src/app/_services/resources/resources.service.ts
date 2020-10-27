@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Resource, Resources, CreateResource } from '../../_models/resources';
 import { resourcesMock } from 'src/app/_mocks/resources/resources.service.mock';
 import { PortalDataService } from '../portal/portal-data.service';
+import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,8 +24,9 @@ export class ResourcesService {
   private _resources: Resources;
   private _resource: Resource;
   private mockedResources = new resourcesMock();
-  constructor(private http:HttpClient, private portalService: PortalDataService,
-    private logService: LoggingService) { }
+  constructor(private http:HttpClient, 
+    private portalService: PortalDataService,
+    private logService: LoggingService, private env : EnvironmentConfig) { }
 
   get resources(): Resources {
     return this._resources;
@@ -50,7 +51,7 @@ export class ResourcesService {
    * @returns Observable<Resources>
    */
   getResources(size?: number, page?: number): Observable<Resources> {
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = Object.assign({}, this.mockedResources.collection);
       let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.resources = mocks;
@@ -58,7 +59,7 @@ export class ResourcesService {
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /resources?size=${size}&page=${page}`, httpOptions)
     .pipe(
       tap(data =>
@@ -77,7 +78,7 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   getResource(id: string): Observable<Resource> {
-    return this.http.get<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.get<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /resources/${id}`)
       .pipe(
         tap(data => {
@@ -93,7 +94,7 @@ export class ResourcesService {
    * @returns Resource
    */
   createResource(resource: CreateResource): Observable<Resource> {
-    return this.http.post<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.post<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /resources`, resource,  httpOptions)
     .pipe(
         tap(data => {
@@ -109,7 +110,7 @@ export class ResourcesService {
    * @returns Observable<Resource>
    */
   updateResource(id:string, updatedData: {[key: string]: any}): Observable<Resource> {
-      return this.http.put<Resource>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.put<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /resources/${id}`, updatedData)
       .pipe(
         tap(data => {
@@ -126,12 +127,12 @@ export class ResourcesService {
    * @returns HttpResponse of empty object OR a boolean when in offline mode
     */
   validateResourceId(id:string): any {
-      return this.http.head(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      return this.http.head(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /resources/${id}`, {observe: 'response'});
   }
 
   searchResources(search: string): Observable<Resources> {
-    return this.http.get<Resources>(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /resources-search?q=${search}`)
     .pipe(
       tap(data => {
@@ -145,7 +146,7 @@ export class ResourcesService {
    * @param id string
    */
   deleteResource(id: string) {
-    return this.http.delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
+    return this.http.delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}
     /resources/${id}`)
       .pipe(
         tap(data => {
@@ -160,13 +161,13 @@ export class ResourcesService {
    */
 
   deleteResourcePromise(id:string): Promise<any> {
-    if(environment.mock) {
+    if(this.env.mock) {
       return new Promise((resolve, reject) => {
           resolve(true);
       })
     }
     return this.http
-      .delete(`${environment.api.salus}/${this.portalService.portalData.domainId}
+      .delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}
       /resources/${id}`)
       .toPromise()
       .then(

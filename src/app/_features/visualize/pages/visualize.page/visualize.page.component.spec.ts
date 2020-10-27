@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { VisualizePage } from './visualize.page.component';
@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { SharedModule } from '../../../../_shared/shared.module';
 import { By } from '@angular/platform-browser';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 const routes = [
   {
@@ -46,7 +47,13 @@ describe('VisualizePage', async() => {
             routeConfig: routes[0]
           }
         }
-      }],
+      },
+      {
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+    }],
       imports: [
         SharedModule,
         HttpClientModule,

@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PaginationComponent } from './pagination.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
@@ -12,7 +13,13 @@ describe('PaginationComponent', () => {
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ PaginationComponent ],
-      imports:[HttpClientTestingModule]
+      imports:[HttpClientTestingModule],
+      providers: [{
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+      }]
     })
     .compileComponents();
   }));

@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SharedModule } from '../../../../_shared/shared.module';
 import { metricMocks } from '../../../../_mocks/metrics/metrics.service.mock';
 import { SelectionsComponent } from './selections.component';
 import { IMeasurement, IMetricField } from 'src/app/_models/metrics';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
 
 describe('SelectionsComponent', () => {
   let component: SelectionsComponent;
@@ -18,7 +18,12 @@ describe('SelectionsComponent', () => {
     TestBed.configureTestingModule({
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
       declarations: [ SelectionsComponent ],
-      providers: [ MetricsService ],
+      providers: [ MetricsService,  {
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+    } ],
       imports: [
         HttpClientTestingModule,
         SharedModule
