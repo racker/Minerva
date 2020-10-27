@@ -27,8 +27,8 @@ export class AdminResourceDetailsPage implements OnInit {
   modalType:string;
 
   resource$: Observable<Resource>;
-  private metaSubmit: Subject<void> = new Subject<void>();
-  private labelsSubmit: Subject<void> = new Subject<void>();
+  public metaSubmit: Subject<void> = new Subject<void>();
+  public labelsSubmit: Subject<void> = new Subject<void>();
   public metaFormSubmit: Subject<boolean> = new Subject<boolean>();
   public labelFormSubmit: Subject<boolean> = new Subject<boolean>();
   subManager = new Subscription();

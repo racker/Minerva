@@ -112,6 +112,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "minerva:build",
+            "proxyConfig": "proxy.conf.js",
             "host": "dev.i.rax.io"
           },
           "configurations": {

@@ -40,9 +40,9 @@ export class MonitorDetailsPage implements OnInit {
   id: string;
   dynamicFormSubmit: Subject<void> = new Subject<void>();
   dynamicFormValid: Subject<boolean> = new Subject<boolean>();
-  private labelsSubmit: Subject<void> = new Subject<void>();
-  private labelFormSubmit: Subject<boolean> = new Subject<boolean>();
-  private resetLabelSubject: Subject<{[key:string]: any}> = new Subject<{[key:string]: any}>();
+  public labelsSubmit: Subject<void> = new Subject<void>();
+  public labelFormSubmit: Subject<boolean> = new Subject<boolean>();
+  public resetLabelSubject: Subject<{[key:string]: any}> = new Subject<{[key:string]: any}>();
   @ViewChild(DynamicFormComponent) subForm: DynamicFormComponent;
   @ViewChild(AddFieldsComponent) labelsForm: AddFieldsComponent;
   @ViewChild(AdditionalSettingsComponent) additionalSettingsForm: AdditionalSettingsComponent;

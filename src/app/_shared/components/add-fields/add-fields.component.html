@@ -5,7 +5,7 @@
 <ng-container [formGroupName]="i">
 <div class="hxCol hxSpan-6">
 <hx-text-control [attr.hx-dirty]="getGroupControl(i, 'key').dirty" [attr.hx-touched]="getGroupControl(i, 'key').touched">
-    <input id="txtKey-{{i}}" list="list-keys" placeholder="key" [attr.disabled]="disable ? '' : null" [required]="(keyValueForm.controls.keysandvalues.controls[i].errors?.keyRequired ||
+    <input id="txtKey-{{i}}" list="list-keys" placeholder="key" [attr.disabled]="disable ? '' : null" [required]="(keyValueForm.get('keysandvalues')['controls'][i].errors?.keyRequired ||
     getGroupControl(i, 'key').hasError('required')) && getGroupControl(i, 'key').touched" [attr.agent_discovered]="getGroupControl(i, 'key').hasError('disallow') && getGroupControl(i, 'key').touched"
     formControlName="key" type="text" />
 </hx-text-control>
@@ -18,7 +18,7 @@
 </div>
 <div class="hxCol hxSpan-6">
     <hx-text-control [attr.hx-dirty]="getGroupControl(i, 'value').dirty" [attr.hx-touched]="getGroupControl(i, 'value').touched">
-        <input id="txtValue-{{i}}" list="list-values" placeholder="value" [attr.disabled]="disable ? '' : null" [required]="(keyValueForm.controls.keysandvalues.controls[i].errors?.valRequired ||
+        <input id="txtValue-{{i}}" list="list-values" placeholder="value" [attr.disabled]="disable ? '' : null" [required]="(keyValueForm.get('keysandvalues')['controls'][i].errors?.valRequired ||
         getGroupControl(i, 'value').hasError('required')) && getGroupControl(i, 'value').touched" formControlName="value" type="text" />
     </hx-text-control>
     <datalist id="list-values">
