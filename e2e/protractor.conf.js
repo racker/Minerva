@@ -38,7 +38,7 @@ exports.config = {
       jasmine.getEnv().afterEach(function(done){
         browser.takeScreenshot().then(function (png) {
           allure.createAttachment('Screenshot', function () {
-            return new Buffer(png, 'base64')
+            return new Buffer.from(png, 'base64')
           }, 'image/png')();
           done();
         })
