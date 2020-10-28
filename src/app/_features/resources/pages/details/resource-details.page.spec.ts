@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,7 @@ import { ResourcesService } from 'src/app/_services/resources/resources.service'
 import { of } from 'rxjs';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 const routes = [
   {
@@ -68,6 +69,7 @@ describe('ResourceDetailsPage', () => {
   let component: ResourceDetailsPage;
   let fixture: ComponentFixture<ResourceDetailsPage>;
   let resourceService: ResourcesService;
+  let env: EnvironmentConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -87,6 +89,12 @@ describe('ResourceDetailsPage', () => {
             }
           },
         },
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         mockResourcesProvider,
         ResourcesService
@@ -101,7 +109,8 @@ describe('ResourceDetailsPage', () => {
     injector = getTestBed();
     fixture = TestBed.createComponent(ResourceDetailsPage);
     component = fixture.componentInstance;
-    resourceService = injector.get(ResourcesService);
+    resourceService = injector.inject(ResourcesService);
+    env = injector.inject(EnvironmentConfig);
     fixture.detectChanges();
   }));
 

@@ -1,9 +1,11 @@
+
+let absoluteHost = `${window.location.protocol}//${window.location.hostname}`;
 export const environment = {
   production: true,
   mock: false,
   api: {
-    salus: 'api/monitoring',
-    metrics: 'api/metrics'
+    salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
+    metrics: `api/metrics`
   },
   pagination: {
     pageSize: 25,
@@ -16,5 +18,8 @@ export const environment = {
   },
   resources: {
     disallowLabelEdit: 'agent_'
+  },
+  featureFlags:{
+    adminAccess:true
   }
 };

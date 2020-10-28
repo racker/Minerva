@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   mock: false,
   api: {
-    salus: `${absoluteHost}/api/monitoring`,
+    salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
     metrics: `${absoluteHost}/api/metrics`
   },
   pagination: {
@@ -20,6 +20,9 @@ export const environment = {
   },
   resources: {
     disallowLabelEdit: 'agent_'
+  },
+  featureFlags:{
+    adminAccess:true
   }
 };
 

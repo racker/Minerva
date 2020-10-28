@@ -1,7 +1,33 @@
-<hx-alert *ngIf="message" (dismiss)="alertDismiss()"
-type="error">
-  {{message}} 
-</hx-alert>
-<div class="spinner-overlay" *ngIf="isLoading"></div>
-<hx-busy class="gbl-spinner-show" *ngIf="isLoading"></hx-busy>
-<router-outlet></router-outlet>
+<div>
+  <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
+    <!-- Product Navigation -->
+    <a href="resources">Resources</a>
+    <a href="monitors">Monitoring</a>
+    <a href="visualize">Visualize</a>
+    <a href="admin">Admin</a>
+    <!-- end:Product Navigation -->
+  </nav>
+    <div  id="stage">
+      <!-- Accessibility: [role="main"] must be present on main#content -->
+      <main style="min-height: 1000px;" role="main" id="content">
+        <hx-panel class="hxSpan-12-xs">
+          <hx-panelbody  class="hxBox hxMd">
+            <hx-alert *ngIf="message" (dismiss)="alertDismiss()"
+            type="error">
+              {{message}}
+            </hx-alert>
+            <div class="spinner-overlay" *ngIf="isLoading"></div>
+            <hx-busy class="gbl-spinner-show" *ngIf="isLoading"></hx-busy>
+            <router-outlet></router-outlet>
+          </hx-panelbody>
+        </hx-panel>
+      </main>
+    </div>
+  </div>
+<footer id="foot">
+  &copy; 2018 Rackspace US, Inc.
+  <nav>
+    <a href="https://www.rackspace.com/information/legal/websiteterms">Website Terms</a>
+    <a href="https://www.rackspace.com/information/legal/privacystatement">Privacy Policy</a>
+  </nav>
+</footer>

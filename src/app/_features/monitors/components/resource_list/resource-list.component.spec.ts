@@ -6,15 +6,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock';
 import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Monitor } from 'src/app/_models/monitors';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('ResourceListComponent', () => {
   let component: ResourceListComponent;
   let fixture: ComponentFixture<ResourceListComponent>;
+  let env: EnvironmentConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,6 +28,12 @@ describe('ResourceListComponent', () => {
       ],
       providers:[
         {provide:ResourcesService},
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
         mockResourcesProvider
       ]
     })

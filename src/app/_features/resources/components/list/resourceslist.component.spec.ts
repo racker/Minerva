@@ -1,13 +1,12 @@
 import { async, ComponentFixture, TestBed, getTestBed, inject, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import {ReactiveFormsModule, FormsModule, FormBuilder, Validators} from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { ResourcesListComponent } from './resourceslist.component';
 import { ResourcesPage } from '../../pages/resources/resources.page';
 import { ResourceDetailsPage } from '../../pages/details/resource-details.page';
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock'
-import { environment } from '../../../../../environments/environment';
 import { Resource } from 'src/app/_models/resources';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
@@ -16,6 +15,7 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 var mockResource: Resource = {
   "resourceId": "development:1",
@@ -44,6 +44,7 @@ describe('ResourcesListComponent', () => {
   let resourceService: ResourcesService;
   let spinnerService: SpinnerService;
   let router: Router;
+  let env: EnvironmentConfig;
 
   // create new instance of FormBuilder
   const formBuilder: FormBuilder = new FormBuilder();
@@ -63,6 +64,13 @@ describe('ResourcesListComponent', () => {
         ResourcesService,
         SpinnerService,
         ValidateResource,
+        EnvironmentConfig,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
         // reference the new instance of formBuilder from above
         { provide: FormBuilder, useValue: formBuilder },
         { provide: ComponentFixtureAutoDetect, useValue: true },
@@ -76,7 +84,9 @@ describe('ResourcesListComponent', () => {
     resourceService = TestBed.inject(ResourcesService);
     validateResource = TestBed.inject(ValidateResource);
     spinnerService = TestBed.inject(SpinnerService);
-    router = injector.get(Router);
+    env = TestBed.inject(EnvironmentConfig);
+    env.loadEnvironment();
+    router = injector.inject(Router);
     component.addResourceForm = formBuilder.group({
       name: ['', Validators.required],
       enabled: ''
@@ -103,7 +113,7 @@ describe('ResourcesListComponent', () => {
       fixture.detectChanges();
       await fixture.whenStable();
       expect(component.resources).toEqual(new resourcesMock().collection.content
-        .slice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize));
+        .slice(0 * env.pagination.resources.pageSize, 1 * env.pagination.resources.pageSize));
     });
 
     it('should assign total amount of resources', async() => {
@@ -221,7 +231,7 @@ describe('ResourcesListComponent', () => {
 
 it('should reset results when search dismissed', () => {
   const spliceContent=new resourcesMock().collection;
-  spliceContent.content.splice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize)
+  spliceContent.content.splice(0 * env.pagination.resources.pageSize, 1 * env.pagination.resources.pageSize)
   const spy = spyOnProperty(resourceService, 'resources', 'get').and.returnValue(spliceContent);
   component.resources=null;
   component.total = null;

@@ -12,42 +12,15 @@
   <!-- DO NOT COMPILE: Appends polyfills to <head> if needed by user's browser. -->
   <script src="webcomponents/webcomponents-loader.js"></script>
 </head>
-<body class="hxHorizontal" id="top">
+<body style="width:100%" class="hxHorizontal" id="top">
   <!-- Accessibility: This link should be the first item in tab order. -->
   <a href="#content">Skip to main content</a>
-
   <header id="head">
     <!-- Eyebrow Goes Here -->
     <pilot-nav></pilot-nav>
   </header>
+  <app-root></app-root>
 
-  <div>
-    <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
-      <!-- Product Navigation -->
-      <a href="/intelligence/resources">Resources</a>
-      <a href="/intelligence/monitors">Monitoring</a>
-      <a href="/intelligence/visualize">Visualize</a>
-      <a href="/intelligence/admin">Admin</a>
-      <!-- end:Product Navigation -->
-    </nav>
-      <div id="stage">
-        <!-- Accessibility: [role="main"] must be present on main#content -->
-        <main role="main" id="content">
-          <hx-panel class="hxSpan-12-xs">
-            <hx-panelbody class="hxBox hxMd">
-              <app-root></app-root>
-            </hx-panelbody>
-          </hx-panel>
-        </main>
-      </div>
-    </div>
-  <footer id="foot">
-    &copy; 2018 Rackspace US, Inc.
-    <nav>
-      <a href="https://www.rackspace.com/information/legal/websiteterms">Website Terms</a>
-      <a href="https://www.rackspace.com/information/legal/privacystatement">Privacy Policy</a>
-    </nav>
-  </footer>
   <a id="bottom"></a>
 </body>
 </html>

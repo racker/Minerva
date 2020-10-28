@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { ReactiveFormsModule, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -10,6 +10,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SelectComponent } from '../select/select.component';
 import { ZoneService } from 'src/app/_services/zones/zones.service';
 import { HttpClientModule } from '@angular/common/http';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('DynamicFormComponent', () => {
   let injector: TestBed;
@@ -35,7 +36,13 @@ describe('DynamicFormComponent', () => {
         SelectComponent
   ],
   providers: [
-    ZoneService
+    ZoneService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: envConfig,
+      deps: [ EnvironmentConfig ],
+      multi: true
+  }
   ]
 }) // overrideModule for adding entryComponents to Testbed
   .overrideModule(BrowserDynamicTestingModule, {
