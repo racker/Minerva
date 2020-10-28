@@ -7,7 +7,7 @@ import { LoggingService } from '../logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { EventsMock } from "../../_mocks/events/events.service.mock";
 import { PortalDataService } from '../portal/portal-data.service';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

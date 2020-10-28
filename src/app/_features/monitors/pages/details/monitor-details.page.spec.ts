@@ -21,7 +21,7 @@ import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe
 import { MonitorUtil } from '../../mon.utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('MonitorDetailComponent', () => {
   let injector: TestBed;

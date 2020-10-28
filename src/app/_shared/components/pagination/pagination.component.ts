@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 @Component({
   selector: 'app-pagination',

@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LabelService } from './label.service';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 describe('LabelService', () => {
   let injector: TestBed;

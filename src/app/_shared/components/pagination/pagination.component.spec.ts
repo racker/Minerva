@@ -3,7 +3,7 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PaginationComponent } from './pagination.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;

@@ -8,7 +8,7 @@ import { of, Observable } from "rxjs";
 import { zoneMocks } from "../../_mocks/zones/zone.service.mock";
 import { Zones } from "src/app/_models/zone";
 import { PortalDataService } from "../portal/portal-data.service";
-import { EnvironmentConfig } from "../featureConfig/environmentConfig.service";
+import { EnvironmentConfig } from "../config/environmentConfig.service";
 
 const httpsoption = {
     headers: new HttpHeaders(

@@ -9,7 +9,7 @@ import { LoggingService } from '../../_services/logging/logging.service';
 import { metricMocks } from '../../_mocks/metrics/metrics.service.mock';
 import { InfluxService } from '../influx/influx.service';
 import { DeviceNamePipe } from '../../_shared/pipes/device-name.pipe';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 @Injectable({
   providedIn: 'root'

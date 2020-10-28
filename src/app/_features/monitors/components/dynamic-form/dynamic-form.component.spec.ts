@@ -10,7 +10,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SelectComponent } from '../select/select.component';
 import { ZoneService } from 'src/app/_services/zones/zones.service';
 import { HttpClientModule } from '@angular/common/http';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('DynamicFormComponent', () => {
   let injector: TestBed;

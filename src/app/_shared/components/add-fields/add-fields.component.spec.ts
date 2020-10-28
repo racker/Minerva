@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddFieldsComponent } from './add-fields.component';
 import { Subject } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('AddFieldsComponent', () => {
   let component: AddFieldsComponent;

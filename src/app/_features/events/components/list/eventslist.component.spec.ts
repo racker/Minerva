@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 
 import { EventslistComponent } from './eventslist.component';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('EventslistComponent', () => {
   let component: EventslistComponent;

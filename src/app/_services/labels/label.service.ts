@@ -6,7 +6,7 @@ import { LabelResources, LabelMonitors } from '../../_models/labels';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
 import { of, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';import { PortalDataService } from '../portal/portal-data.service';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 ;
 
 const httpOptions = {

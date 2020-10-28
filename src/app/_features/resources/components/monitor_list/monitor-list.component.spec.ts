@@ -9,7 +9,7 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;

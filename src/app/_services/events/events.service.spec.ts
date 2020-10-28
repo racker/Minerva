@@ -3,7 +3,7 @@ import { EventsService } from './events.service';
 import { HttpClientModule } from '@angular/common/http';
 import { EventsMock } from "../../_mocks/events/events.service.mock";
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 
 describe('EventsService', () => {

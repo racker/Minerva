@@ -4,7 +4,7 @@ import { MetricsService } from './metrics.service';
 import { metricMocks } from '../../_mocks/metrics/metrics.service.mock';
 import { InfluxService } from '../influx/influx.service';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 describe('MetricsService', () => {
   let injector: TestBed;

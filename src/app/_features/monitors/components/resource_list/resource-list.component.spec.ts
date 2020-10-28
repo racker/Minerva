@@ -11,7 +11,7 @@ import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Monitor } from 'src/app/_models/monitors';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('ResourceListComponent', () => {
   let component: ResourceListComponent;

@@ -8,7 +8,7 @@ import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Subscription } from 'rxjs';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('AdditionalSettingsComponent', () => {
   let injector: TestBed;

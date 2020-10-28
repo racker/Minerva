@@ -5,7 +5,7 @@ import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from 'src/app/_features/moni
 import ajv from 'ajv';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 describe('SchemaService', () => {
   let injector: TestBed;

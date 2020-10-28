@@ -9,7 +9,7 @@ import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { BoundMonitorPaging } from 'src/app/_models/resources';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 import { PortalDataService } from '../portal/portal-data.service';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

@@ -5,7 +5,7 @@ import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '../../../../_services/spinner/spinner.service';
 import { Router } from '@angular/router';
 import { isAdmin } from 'src/app/_shared/utils';
-import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 

@@ -8,7 +8,7 @@ import { ResourcesService } from 'src/app/_services/resources/resources.service'
 import { CntrlAttribute } from '../../mon.utils';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 /**
  * Rules of AdditionalSettingsComponent

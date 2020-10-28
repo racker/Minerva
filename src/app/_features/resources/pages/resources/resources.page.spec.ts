@@ -5,7 +5,7 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ResourcesListComponent } from '../../components/list/resourceslist.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ResourcesPage } from './resources.page';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('ResourcesPage', () => {
   let page: ResourcesPage;

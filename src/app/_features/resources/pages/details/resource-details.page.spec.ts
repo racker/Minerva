@@ -12,7 +12,7 @@ import { ResourcesService } from 'src/app/_services/resources/resources.service'
 import { of } from 'rxjs';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 const routes = [
   {

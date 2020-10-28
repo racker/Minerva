@@ -5,7 +5,7 @@ import { disallowValidator } from '../../validators/disallow.validator';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { MarkFormGroupTouched } from '../../utils';
 import { Label } from 'src/app/_models/monitors';
-import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 @Component({
   selector: 'app-add-fields',

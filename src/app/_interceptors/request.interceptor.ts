@@ -6,7 +6,7 @@ import { ResourcesService } from '../_services/resources/resources.service';
 import { resourcesMock } from '../_mocks/resources/resources.service.mock';
 import { monitorsMock } from '../_mocks/monitors/monitors.service.mock';
 import { MonitorService } from '../_services/monitors/monitor.service';
-import { EnvironmentConfig } from "../_services/featureConfig/environmentConfig.service";
+import { EnvironmentConfig } from "../_services/config/environmentConfig.service";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {

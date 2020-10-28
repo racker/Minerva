@@ -6,7 +6,7 @@ import { SelectionsComponent } from './selections.component';
 import { IMeasurement, IMetricField } from 'src/app/_models/metrics';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('SelectionsComponent', () => {
   let component: SelectionsComponent;

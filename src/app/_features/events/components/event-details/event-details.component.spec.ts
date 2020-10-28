@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import {  EventsMock} from "../../../../_mocks/events/events.service.mock";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('EventDetailsComponent', () => {
   let injector: TestBed;

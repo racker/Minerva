@@ -6,7 +6,7 @@ import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { Schema } from 'src/app/_models/monitors';
 import { PortalDataService } from '../portal/portal-data.service';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 export const AJV_INSTANCE = new InjectionToken<Ajv>('The AJV Class Instance');
 

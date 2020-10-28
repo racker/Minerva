@@ -10,7 +10,7 @@ import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
-import { EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 
 @Component({

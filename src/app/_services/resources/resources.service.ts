@@ -7,7 +7,7 @@ import { LogLevels } from '../../_enums/log-levels.enum';
 import { Resource, Resources, CreateResource } from '../../_models/resources';
 import { resourcesMock } from 'src/app/_mocks/resources/resources.service.mock';
 import { PortalDataService } from '../portal/portal-data.service';
-import { EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

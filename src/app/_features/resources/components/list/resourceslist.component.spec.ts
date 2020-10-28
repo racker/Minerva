@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 var mockResource: Resource = {
   "resourceId": "development:1",

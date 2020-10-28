@@ -5,7 +5,7 @@ import { resourcesMock } from '../../_mocks/resources/resources.service.mock';
 import { Resource, CreateResource } from 'src/app/_models/resources';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { APP_INITIALIZER } from '@angular/core';
-import { envConfig, EnvironmentConfig } from '../featureConfig/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 describe('ResourcesService', () => {
   let injector: TestBed;
