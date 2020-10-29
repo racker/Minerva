@@ -16,6 +16,8 @@ import { PaginationComponent } from 'src/app/_shared/components/pagination/pagin
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+
 
 var mockResource: Resource = {
   "resourceId": "development:1",
@@ -45,6 +47,8 @@ describe('ResourcesListComponent', () => {
   let spinnerService: SpinnerService;
   let router: Router;
   let env: EnvironmentConfig;
+  let logService: LoggingService;
+
 
   // create new instance of FormBuilder
   const formBuilder: FormBuilder = new FormBuilder();
@@ -85,6 +89,7 @@ describe('ResourcesListComponent', () => {
     validateResource = TestBed.inject(ValidateResource);
     spinnerService = TestBed.inject(SpinnerService);
     env = TestBed.inject(EnvironmentConfig);
+    logService      = injector.inject(LoggingService);
     env.loadEnvironment();
     router = injector.inject(Router);
     component.addResourceForm = formBuilder.group({
@@ -165,7 +170,7 @@ describe('ResourcesListComponent', () => {
   it('should remove a selected resource', () => {
     component.selectResource(mockResource);
     component.selectResource(mockResource);
-    expect(component.selectedResources.indexOf(mockResource)).toEqual(-1);
+    expect(component.checkExist(component.selectedResources, mockResource.resourceId)).toEqual(false);
   });
 
   it('should goto page', () => {
@@ -289,7 +294,7 @@ it('should destroy subscriptions', (done) => {
 
   it('should execute progress bar for success', () => {
     let obj = [{id:"test-1", error: true}];       
-    let count;
+    let count = 0;
     count++;
     component.progressBar(count, obj);
     expect(component.selectedResForDeletion).toEqual([obj]);    
@@ -297,13 +302,31 @@ it('should destroy subscriptions', (done) => {
 
   it('should execute progress bar for failure', () => {
     let obj = {id:"test-2", error: false};       
-    let count;
+    let count = 0;
     count++;
     component.progressBar(count, obj);
     expect(component.selectedResForDeletion).toEqual([obj]);    
   });
 
+  it('should execute reset for checked flag to false', () => {
+    let checked = false;
+    component.resources = [
+      {tenantId: "833544", resourceId: "development:1", labels: {agent_discovered_arch: "amd64", agent_discovered_hostname: "MS90HCG8WL", agent_discovered_os: "darwin", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
+      {resourceId: "development:2", labels: {pingable: "true"}, metadata: {ping_ip: "localhost"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
+      {resourceId: "development:3", labels: {agent_discovered_hostname: "PR32IQG5OA", agent_discovered_os: "arch", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"}
+    ];
+    component.reset();
+    component.resources.forEach(e => {
+      expect(e.checked).toBe(checked);
+    });
 
+  });
 
+  it('should check failedMonitors array', () => {
+    component.failedResources = ["test-1", "test-2"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  })
 
 });

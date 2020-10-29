@@ -72,14 +72,8 @@
     <hx-progress value="{{progressVal}}"></hx-progress>
   </hx-div>
   </div>
-  <div *ngFor="let selectedResource of selectedResForDeletion">
-    <hx-div [ngClass]="selectedResource?.error ? 'hxDivErr' : 'hxDivSuccess'">
-      {{selectedResource.id}}
-    </hx-div>
-
-
-  </div>
-
+  <hx-alert type="success" persist>  {{ this.successCount }} out of {{ selectedResForDeletion.length }} were deleted successfully!
+  </hx-alert>
   <footer>
     <button class="hxBtn hxPrimary"(click)="triggerOk()" [disabled]="disableOk">Ok</button>
   </footer>
@@ -91,7 +85,7 @@
     <tr>
       <th class="hxControl">
           <hx-checkbox-control>
-              <input
+              <input #chkColumnRs
                 type="checkbox"
                 id="chkColumnRs"
                 (change)="checkColumn($event)"

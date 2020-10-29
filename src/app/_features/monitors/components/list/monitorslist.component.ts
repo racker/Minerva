@@ -202,7 +202,6 @@ export class MonitorslistComponent implements OnInit {
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
-    this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
     if(this.failedMonitors.length > 0) {
       this.failedMonitors.join(' , ');
       this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
