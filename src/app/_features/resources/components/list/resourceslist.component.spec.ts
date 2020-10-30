@@ -34,6 +34,7 @@ var mockResource: Resource = {
   "tenantId": "833544",
   "presenceMonitoringEnabled": true,
   "associatedWithEnvoy": false,
+  "checked":false,
   "createdTimestamp": new Date(),
   "updatedTimestamp": new Date()
 };

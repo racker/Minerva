@@ -22,7 +22,7 @@ export class MonitorslistComponent implements OnInit {
   @ViewChild('chkColumn') chkColumn:ElementRef;
 
   monitorSearchPlaceholderText: string;
-  monitors: any[];
+  monitors: Monitor[];
   failedMonitors:any = [];
   total: number;
   page: number = 0;

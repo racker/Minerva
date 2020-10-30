@@ -30,7 +30,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   confirmMessageSuccess : string = "";
   confirmMessageError : string = "";
   
-  resources: any[];
+  resources: Resource[];
   failedResources:any = [];
   total: number;
   page: number = 0;
@@ -147,7 +147,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   addResource(resourceForm: FormGroup):void {
     if (resourceForm.controls['name'].value) {
       this.addResLoading = true;
-      // check if the resourceId can be be used & is valid
+      // check if the resourceId can be  be used & is valid
       this.validateResource.valid(resourceForm.controls['name'].value)
         .subscribe((response) => {
         this.addResLoading = false;
