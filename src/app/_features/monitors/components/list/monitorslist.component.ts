@@ -22,7 +22,7 @@ export class MonitorslistComponent implements OnInit {
   @ViewChild('chkColumn') chkColumn:ElementRef;
 
   monitorSearchPlaceholderText: string;
-  monitors: any[];
+  monitors: Monitor[];
   failedMonitors:any = [];
   total: number;
   page: number = 0;
@@ -163,7 +163,7 @@ export class MonitorslistComponent implements OnInit {
       this.selectedMonitors.push(monitor);
     } else {
       this.selectedMonitors.splice(
-        this.selectedMonitors.map(value => value.id === monitor.id), 1
+        this.selectedMonitors.findIndex(value => value.id === monitor.id), 1
       );
     }
   }
@@ -202,7 +202,6 @@ export class MonitorslistComponent implements OnInit {
     });  
     this.selectedMonitors = [];
     this.fetchMonitors();
-    this.selectedMonitors = this.monitors.map(x => Object.assign({}, x));
     if(this.failedMonitors.length > 0) {
       this.failedMonitors.join(' , ');
       this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
