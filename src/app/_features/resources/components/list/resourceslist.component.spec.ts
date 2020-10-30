@@ -111,8 +111,26 @@ describe('ResourcesListComponent', () => {
   });
 
     it ('should have defaults', () => {
-        expect(component.addResLoading).toEqual(false);
+        expect(component.searchPlaceholderText).toBeDefined();
+        expect(component.modalType).toEqual('delResourceModal');
+        expect(component.message).toEqual('Are you sure you want to delete selected resource?');
+        expect(component.confirmMessageSuccess).toEqual('');
+        expect(component.confirmMessageError).toEqual('');
+        expect(component.resources).toBeDefined();
+        expect(component.total).toBeDefined();
         expect(component.addButton).toBeDefined();
+        expect(component.failedResources).toEqual([]);
+        expect(component.page).toEqual(0);
+        expect(component.progressVal).toEqual(0);
+        expect(component.defaultVal).toEqual(20);
+        expect(component.successCount).toEqual(0);
+        expect(component.defaultAmount).toBeDefined();
+        expect(component.addResLoading).toEqual(false);
+        expect(component.disableOk).toEqual(true);
+        expect(component.selectedResources).toEqual([]);
+        expect(component.selectedResForDeletion).toEqual([]);
+        expect(component.resourceArr).toEqual([]);
+        expect(component.addResourceForm).toBeDefined();
     });
 
     it('ngOnInit should resolve resources', async() => {
@@ -265,7 +283,7 @@ it('should destroy subscriptions', (done) => {
   it('should listen for triggerOk', () => {
     component.triggerOk();
     expect(component.confirmResource.nativeElement.getAttribute('close')).toBe('true');
-    expect(component.confirmResource.nativeElement.getAttribute('open')).toBeNull;    
+    expect(component.confirmResource.nativeElement.getAttribute('open')).toBeNull;
   });
 
   it('should listen for triggerClose', () => {
@@ -294,19 +312,19 @@ it('should destroy subscriptions', (done) => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = [{id:"test-1", error: true}];       
+    let obj = [{id:"test-1", error: true}];
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedResForDeletion).toEqual([obj]);    
+    expect(component.selectedResForDeletion).toEqual([obj]);
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:"test-2", error: false};       
+    let obj = {id:"test-2", error: false};
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedResForDeletion).toEqual([obj]);    
+    expect(component.selectedResForDeletion).toEqual([obj]);
   });
 
   it('should execute reset for checked flag to false', () => {
