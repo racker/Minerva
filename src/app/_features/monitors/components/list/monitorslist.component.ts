@@ -163,7 +163,7 @@ export class MonitorslistComponent implements OnInit {
       this.selectedMonitors.push(monitor);
     } else {
       this.selectedMonitors.splice(
-        this.selectedMonitors.map(value => value.id === monitor.id), 1
+        this.selectedMonitors.findIndex(value => value.id === monitor.id), 1
       );
     }
   }

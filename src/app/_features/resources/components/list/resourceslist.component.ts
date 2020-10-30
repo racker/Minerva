@@ -127,7 +127,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       this.selectedResources.push(resource);
     } else {
       this.selectedResources.splice(
-        this.selectedResources.map(value => value.resourceId === resource.resourceId), 1
+        this.selectedResources.findIndex(value => value.resourceId === resource.resourceId), 1
       );
     }
   }
