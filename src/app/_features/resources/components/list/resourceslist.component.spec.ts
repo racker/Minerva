@@ -341,6 +341,20 @@ it('should destroy subscriptions', (done) => {
 
   });
 
+  fit('should execute reset for checked flag to true', () => {
+    let checked = false;
+    component.resources = [
+      {tenantId: "833544", resourceId: "development:1", labels: {agent_discovered_arch: "amd64", agent_discovered_hostname: "MS90HCG8WL", agent_discovered_os: "darwin", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
+      {resourceId: "development:2", labels: {pingable: "true"}, metadata: {ping_ip: "localhost"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
+      {resourceId: "development:3", labels: {agent_discovered_hostname: "PR32IQG5OA", agent_discovered_os: "arch", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"}
+    ];
+    component.reset();
+    component.resources.forEach(e => {
+      expect(e.checked).toBe(checked);
+    });
+
+  });
+
   it('should check failedMonitors array', () => {
     component.failedResources = ["test-1", "test-2"];
     let spy = spyOn(logService, 'log');

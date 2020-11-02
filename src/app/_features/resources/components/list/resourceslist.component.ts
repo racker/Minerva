@@ -133,8 +133,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   checkExist(arr, id) {
-    const { length } = arr;
-    const len = length + 1;
     const found = arr.some(el => el.resourceId === id);
     return found;
   }
@@ -247,10 +245,10 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   reset() {
     this.resources.forEach(e => {
       if(e.checked)
-        e.checked = false;
-        this.chkColumnRs.nativeElement.checked = false;
-    
+        e.checked = false;    
       });
+      this.chkColumnRs.nativeElement.checked = false;
+
   }
 
   /**
