@@ -1,19 +1,19 @@
 'use strict';
-var fs = require('fs');
-var path = require('path');
-var portalMock = require('../mocks/portal');
-var portal = {
+const fs = require('fs');
+const path = require('path');
+const portalMock = require('./mock-portaldata');
+const portal = {
     /**
      * @name createPortal
      * @description create portal data js file and add PORTAL_DATA property
      * to the window object as an object
      * @param {object} data represents authorized user info
      */
-    createPortal: (data) => {
-        var portalData;
-        if (data) {
-            portalData = `window.PORTAL_DATA = {isRacker:false, userId: "${data.user.id}",
-            username:'${data.user.id}', domainId: '${data.token.tenant.id}', tenants:['cloud:${data.token.tenant.id}']};`;
+    createPortal: (user) => {
+        let portalData;
+        if (user) {
+            portalData = `window.PORTAL_DATA = {isRacker:false, userId: "${user.id}",
+            username:'${user.name}', domainId: '${user['RAX-AUTH:domainId']}', tenants:['cloud:${user['RAX-AUTH:domainId']}']};`;
         }
         else {
             portalData = portalMock.data;
@@ -26,7 +26,7 @@ var portal = {
         }
 
         // lastly write file to path
-        fs.writeFileSync(path.join(__dirname, '../scripts/portaldata.js'), portalData);
+        fs.writeFileSync(path.join(dir, 'portaldata.js'), portalData);
     }
 };
 

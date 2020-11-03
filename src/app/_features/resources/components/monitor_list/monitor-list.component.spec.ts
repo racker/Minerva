@@ -8,6 +8,7 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;
@@ -15,6 +16,7 @@ describe('MonitorListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ MonitorListComponent, PaginationComponent],
       imports: [
         HttpClientTestingModule,

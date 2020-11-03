@@ -70,7 +70,10 @@ docs
 .vscode
 
 #created scripts for local dev
-localenv/scripts/*
+scripts/*
 !scripts/.gitkeep
 
 .DS_Store
+
+# Portal session from __Secure-portal_sessionid cookie
+.portal-session
