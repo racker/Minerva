@@ -19,7 +19,7 @@
     "build": "make build-frontend",
     "prebuild:mock": "npm run mocksetup",
     "build:mock": "ng build --watch=false -c=mock",
-    "test:unit": "ng test --project=minerva -c=mock --watch=false",
+    "test:unit": "npm run mocksetup && ng test --project=minerva -c=mock --watch=false",
     "test:unit-ci": "ng test --project=minerva -c=mock --watch=false",
     "test:admin": "ng test --project=admin -c=mock",
     "test:admin-ci": "ng test --project=admin -c=mock --watch=false",
