@@ -34,6 +34,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   failedResources:any = [];
   total: number;
   page: number = 0;
+  sorting: string = "";
   progressVal: number = 0;
   defaultVal: number = 20;
   successCount: number = 0;
@@ -41,6 +42,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
+  isDescending:boolean = true;
   disableOk: boolean = true;  
   selectedResources: any = [];
   selectedResForDeletion:any = [];
@@ -57,10 +59,11 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchResources = () => {
-      return this.resourceService.getResources(this.defaultAmount, this.page)
+      return this.resourceService.getResources(this.defaultAmount, this.page, this.sorting)
         .pipe(
           takeUntil(this.ngUnsubscribe)
         ).subscribe(() => {
+          console.log("this.resourceService.resources.content ", JSON.stringify(this.resourceService.resources.content));
           this.resources = this.resourceService.resources.content;
           this.total = this.resourceService.resources.totalElements;
           this.searchPlaceholderText = `Search ${this.total} Resources`;
@@ -95,6 +98,14 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       e["checked"] = event.target.checked;
     });
   }
+
+  sortResources(orderBy, sortBy) {
+    this.isDescending = !this.isDescending;
+    this.sorting = sortBy + ',' + orderBy;
+    this.fetchResources();
+    this.spnService.changeLoadingStatus(true);   
+  }
+
   /**
    * @description <app-pagination>
    * @param n number
