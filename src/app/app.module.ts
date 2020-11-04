@@ -1,8 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoggingService } from './_services/logging/logging.service';
@@ -20,7 +20,7 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
   declarations: [
     AppComponent
   ],
-  imports: [    
+  imports: [
     AppRoutingModule,
     AdminAppModule.forRoot(),
     BrowserAnimationsModule,
@@ -34,6 +34,7 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
   providers: [
     SchemaResolver,
     SchemaService,
+    {provide: APP_BASE_HREF, useValue: '/intelligence/'},
     { provide: AJV_CLASS, useValue: ajv },
     { provide: AJV_CONFIG, useValue: { useDefaults: true } },
     {
