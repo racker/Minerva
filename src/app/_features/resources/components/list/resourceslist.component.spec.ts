@@ -295,18 +295,17 @@ it('should destroy subscriptions', (done) => {
   });
 
   it('should execute delete multiple resources succesfully', () => {
-
-    component.selectedResources = new resourcesMock().collection.content;
+    component.selectedResources = new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(resolve => { resolve(true)}));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(54);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
-  fit('should execute delete multiple resources failed', () => {
-    component.selectedResources =  new resourcesMock().collection.content;
+  it('should execute delete multiple resources failed', () => {
+    component.selectedResources =  new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(54);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it('should execute progress bar for success', () => {
@@ -358,7 +357,7 @@ it('should destroy subscriptions', (done) => {
     expect(spy).toHaveBeenCalled();
   });
 
-  fit('should check sorting resources desc', () => {
+  it('should check sorting resources desc', () => {
       component.sortResources('desc', 'resourceId');
       expect(component.sorting).toBe('resourceId,desc');
     });

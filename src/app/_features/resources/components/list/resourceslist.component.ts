@@ -63,7 +63,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
         .pipe(
           takeUntil(this.ngUnsubscribe)
         ).subscribe(() => {
-          console.log("this.resourceService.resources.content ", JSON.stringify(this.resourceService.resources.content));
           this.resources = this.resourceService.resources.content;
           this.total = this.resourceService.resources.totalElements;
           this.searchPlaceholderText = `Search ${this.total} Resources`;
@@ -99,6 +98,12 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  /**
+   * @description sort resources used for sorting the resource list by passing params this.sorting.
+   * @param orderBy string
+   * @param sortBy string
+  */  
   sortResources(orderBy, sortBy) {
     this.isDescending = !this.isDescending;
     this.sorting = sortBy + ',' + orderBy;
