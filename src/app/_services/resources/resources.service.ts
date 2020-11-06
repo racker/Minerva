@@ -16,6 +16,8 @@ const httpOptions = {
 }
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,16 +52,18 @@ export class ResourcesService {
    * @param page
    * @returns Observable<Resources>
    */
-  getResources(size?: number, page?: number): Observable<Resources> {
+  getResources(size?: number, page?: number, sorting?:string): Observable<Resources> {
     if (this.env.mock) {
       let mocks = Object.assign({}, this.mockedResources.collection);
+      if(sorting)
+      this.mockedResources.collection.content.reverse();
       let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
       this.resources = mocks;
       this.resources.content = slicedData;
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, httpOptions)
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, { headers: httpOptions.headers, params: {'sort':sorting} } )
     .pipe(
       tap(data =>
         { this._resources = data;
@@ -67,8 +71,6 @@ export class ResourcesService {
         }));
     }
   }
-
-
 
 
   /**

@@ -20,6 +20,7 @@ const routes: Routes = [
   {
       path: ':id',
       component: ResourceDetailsPage,
+      //resolve: { data: ResourceResolver } // for future use if you want to use route resolver class. see ResourceResolver for reference.
       data: {
         breadcrumb: 'DETAILS'
       }

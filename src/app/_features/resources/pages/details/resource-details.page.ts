@@ -44,6 +44,15 @@ export class ResourceDetailsPage implements OnInit {
   // TODO(optional): attempt to move this logic to a route resolve as opposed
   // to connecting the subscription to the request within the component
   ngOnInit() {
+
+    /*
+       TODO: if in future we want to userouter resolve. then we could get the resolved data by using this.route.snapshot. This will
+       provide you data coming from an api which yo called inside resolver class. for e.g ResourceResolver class created inside _services/resources
+       folder.
+       this.route.snapshot.data
+    */
+    
+    
     this.message = "Are you sure you'd like to delete this Resource?";
     this.modalType = 'delResModal';
     this.route.params.subscribe(params => {

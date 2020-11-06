@@ -1,167 +1,167 @@
 <div *ngIf="resource$ | async as resource">
-<div class="hxRow resource-header">
-<div class="hxCol hxSpan-12">
-    <app-breadcrumb [routeDetails]="resource.resourceId"></app-breadcrumb>
-</div>
-<div class="hxCol hxSpan-9 resource-title">
-  <h2>{{resource.resourceId}}</h2>
-</div>
-<div class="hxCol hxSpan-3 cog-menu-div align-right">
-    <hx-disclosure class="hxBtn" aria-controls="basicMenuId">
-        <hx-icon type="cog"></hx-icon>
-        <span>Actions</span>
-        <hx-icon class="hxPrimary" type="angle-down"></hx-icon>
-    </hx-disclosure>
-    <hx-menu id="basicMenuId">
-      <section>
-        <header>Manage</header>
-        <hx-menuitem (click)="metaPopPencil.nativeElement.click()">Add Metadata</hx-menuitem>
-        <hx-menuitem (click)="labelPopPencil.nativeElement.click()">Add Labels</hx-menuitem>
-        <hx-menuitem><hx-disclosure #delResLink
-          aria-controls="delResModal">Delete Resource</hx-disclosure></hx-menuitem>
-      </section>
-      <section>
-        <header>Monitor</header>
-        <hx-menuitem>Create Check...</hx-menuitem>
-        <hx-menuitem>Create Suppression...</hx-menuitem>
-      </section>
-    </hx-menu>
-</div>
-</div>
-
-<div class="hxRow hxSpan-9">
-  <div class="hxCol hxSpan-9">
-    <h3>Resource Details</h3>
+  <div class="hxRow resource-header">
+  <div class="hxCol hxSpan-12">
+      <app-breadcrumb [routeDetails]="resource.resourceId"></app-breadcrumb>
   </div>
-</div>
-
-<div class="hxRow hxSpan-9">
-  <div class="hxCol hxSpan-6">
-    <h4>Monitoring Agent</h4>
-    {{resource.associatedWithEnvoy == true ? 'Yes': 'No'}}
+  <div class="hxCol hxSpan-9 resource-title">
+    <h2>{{resource.resourceId}}</h2>
   </div>
-</div>
+  <div class="hxCol hxSpan-3 cog-menu-div align-right">
+      <hx-disclosure class="hxBtn" aria-controls="basicMenuId">
+          <hx-icon type="cog"></hx-icon>
+          <span>Actions</span>
+          <hx-icon class="hxPrimary" type="angle-down"></hx-icon>
+      </hx-disclosure>
+      <hx-menu id="basicMenuId">
+        <section>
+          <header>Manage</header>
+          <hx-menuitem (click)="metaPopPencil.nativeElement.click()">Add Metadata</hx-menuitem>
+          <hx-menuitem (click)="labelPopPencil.nativeElement.click()">Add Labels</hx-menuitem>
+          <hx-menuitem><hx-disclosure #delResLink
+            aria-controls="delResModal">Delete Resource</hx-disclosure></hx-menuitem>
+        </section>
+        <section>
+          <header>Monitor</header>
+          <hx-menuitem>Create Check...</hx-menuitem>
+          <hx-menuitem>Create Suppression...</hx-menuitem>
+        </section>
+      </hx-menu>
+  </div>
+  </div>
 
-<div class="hxRow hxSpan-9">
-  <div class="hxCol hxSpan-6">
-    <h4 class="inline-icon">Metadata</h4><hx-disclosure aria-controls="metaPopover" #metapop id="metapop" class="editclick">
-      <hx-icon type="pencil"></hx-icon></hx-disclosure>
-    <div *ngIf="resource.metadata">
-     <div class="hxRow" *ngFor="let address of Object.keys(resource.metadata)">
-      <div class="hxCol">
-        {{address}}
-      </div>
-      <div class="hxCol">
-        {{resource.metadata[address]}}
-      </div>
-    </div>
-  <hx-popover id="metaPopover" position="bottom-right">
-    <header>
-      Metadata fields
-    </header>
-    <hx-div>
-      <app-add-fields [initialData]="resource.metadata" [validateForm]="metaSubmit.asObservable()"
-      (formValuesChanged)="metaValueUpdated($event)" (formValid)="metaFormSubmit.next($event)">
-      </app-add-fields>
-    </hx-div>
-    <footer>
-      <button class="hxBtn hxPrimary" [disabled]="metaLoading" (click)="metaLoading = true; metaSubmit.next()">
-        <hx-busy class="popover-busy" *ngIf="metaLoading"></hx-busy>
-        Submit</button>
-      <button class="hxBtn" (click)="metaPopPencil.nativeElement.click()" aria-controls="metaPopover">Cancel</button>
-    </footer>
-  </hx-popover>
+  <div class="hxRow hxSpan-9">
+    <div class="hxCol hxSpan-9">
+      <h3>Resource Details</h3>
     </div>
   </div>
 
-  <div class="hxCol hxSpan-6">
-    <h4>Created Date</h4>
-    {{resource.createdTimestamp |  date:'MM/dd/yyyy'}}
+  <div class="hxRow hxSpan-9">
+    <div class="hxCol hxSpan-6">
+      <h4>Monitoring Agent</h4>
+      {{resource.associatedWithEnvoy == true ? 'Yes': 'No'}}
+    </div>
   </div>
-</div>
 
-<div class="hxRow hxSpan-9">
-  <div class="hxCol hxSpan-6">
-    <h4>Last Updated</h4>
-    {{resource.updatedTimestamp |  date:'MM/dd/yyyy'}}
-  </div>
-  <div class="hxCol hxSpan-6">
-    <h4>Visual</h4>
-      <a [routerLink]="['']">Default Graphs <hx-icon type="monitoring"></hx-icon></a>
-  </div>
-</div>
-
-<div class="hxRow hxSpan-9 last-item">
-  <div class="hxCol hxSpan-6">
-    <h4 class="inline-icon">Labels</h4><hx-disclosure aria-controls="labelPopover" #labelpop id="labelpop" class="editclick">
+  <div class="hxRow hxSpan-9">
+    <div class="hxCol hxSpan-6">
+      <h4 class="inline-icon">Metadata</h4><hx-disclosure aria-controls="metaPopover" #metapop id="metapop" class="editclick">
         <hx-icon type="pencil"></hx-icon></hx-disclosure>
-    <div *ngIf="resource.labels">
-    <div class="hxRow" *ngFor="let label of Object.keys(resource.labels)">
-        <div class="hxCol hxSpan-6">
-          {{label}}
+      <div *ngIf="resource.metadata">
+      <div class="hxRow" *ngFor="let address of Object.keys(resource.metadata)">
+        <div class="hxCol">
+          {{address}}
         </div>
-        <div class="hxCol hxSpan-6">
-          {{resource.labels[label]}}
+        <div class="hxCol">
+          {{resource.metadata[address]}}
         </div>
       </div>
-  <hx-popover id="labelPopover" position="bottom-right">
+    <hx-popover id="metaPopover" position="bottom-right">
       <header>
-        Labels
+        Metadata fields
       </header>
       <hx-div>
-        <app-add-fields [initialData]="resource.labels" [validateForm]="labelsSubmit.asObservable()"
-        [labelContraints]="true" (formValuesChanged)="labelsUpdated($event)" (formValid)="labelFormSubmit.next($event)">
+        <app-add-fields [initialData]="resource.metadata" [validateForm]="metaSubmit.asObservable()"
+        (formValuesChanged)="metaValueUpdated($event)" (formValid)="metaFormSubmit.next($event)">
         </app-add-fields>
       </hx-div>
       <footer>
-        <button class="hxBtn hxPrimary" [disabled]="labelsLoading" (click)="labelsLoading = true; labelsSubmit.next()">
-          <hx-busy class="popover-busy" *ngIf="labelsLoading"></hx-busy>
+        <button class="hxBtn hxPrimary" [disabled]="metaLoading" (click)="metaLoading = true; metaSubmit.next()">
+          <hx-busy class="popover-busy" *ngIf="metaLoading"></hx-busy>
           Submit</button>
-        <button class="hxBtn" [disabled]="labelsLoading" (click)="labelPopPencil.nativeElement.click()" aria-controls="metaPopover">Cancel</button>
+        <button class="hxBtn" (click)="metaPopPencil.nativeElement.click()" aria-controls="metaPopover">Cancel</button>
       </footer>
     </hx-popover>
+      </div>
+    </div>
 
+    <div class="hxCol hxSpan-6">
+      <h4>Created Date</h4>
+      {{resource.createdTimestamp |  date:'MM/dd/yyyy'}}
     </div>
   </div>
-</div>
-<app-modal modalType="delResModal" header="Delete {{resource.resourceId}}" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(resource.resourceId)"></app-modal>
 
-<hx-disclosure aria-controls="delErrorModal" #delResourcepop id="delRespop" class="nodisplaClick"></hx-disclosure>
-
-
-<app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{resource.resourceId}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
-
-</div>
-<div class="hxRow hxSpan-9">
-  <div class="hxCol">
-    <h3>Monitors</h3>
+  <div class="hxRow hxSpan-9">
+    <div class="hxCol hxSpan-6">
+      <h4>Last Updated</h4>
+      {{resource.updatedTimestamp |  date:'MM/dd/yyyy'}}
+    </div>
+    <div class="hxCol hxSpan-6">
+      <h4>Visual</h4>
+        <a [routerLink]="['']">Default Graphs <hx-icon type="monitoring"></hx-icon></a>
+    </div>
   </div>
-</div>
 
-<div class="hxRow hxSpan-9">
-  <div class="hxCol">
-      <p>This section contains all of the entities being monitored, including all of your Rackspace cloud servers.
-          While non-Rackspace products can be monitored, Rackspace technical support may be limited.</p>
+  <div class="hxRow hxSpan-9 last-item">
+    <div class="hxCol hxSpan-6">
+      <h4 class="inline-icon">Labels</h4><hx-disclosure aria-controls="labelPopover" #labelpop id="labelpop" class="editclick">
+          <hx-icon type="pencil"></hx-icon></hx-disclosure>
+      <div *ngIf="resource.labels">
+      <div class="hxRow" *ngFor="let label of Object.keys(resource.labels)">
+          <div class="hxCol hxSpan-6">
+            {{label}}
+          </div>
+          <div class="hxCol hxSpan-6">
+            {{resource.labels[label]}}
+          </div>
+        </div>
+    <hx-popover id="labelPopover" position="bottom-right">
+        <header>
+          Labels
+        </header>
+        <hx-div>
+          <app-add-fields [initialData]="resource.labels" [validateForm]="labelsSubmit.asObservable()"
+          [labelContraints]="true" (formValuesChanged)="labelsUpdated($event)" (formValid)="labelFormSubmit.next($event)">
+          </app-add-fields>
+        </hx-div>
+        <footer>
+          <button class="hxBtn hxPrimary" [disabled]="labelsLoading" (click)="labelsLoading = true; labelsSubmit.next()">
+            <hx-busy class="popover-busy" *ngIf="labelsLoading"></hx-busy>
+            Submit</button>
+          <button class="hxBtn" [disabled]="labelsLoading" (click)="labelPopPencil.nativeElement.click()" aria-controls="metaPopover">Cancel</button>
+        </footer>
+      </hx-popover>
+
+      </div>
+    </div>
   </div>
-</div>
+  <app-modal modalType="delResModal" header="Delete {{resource.resourceId}}" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(resource.resourceId)"></app-modal>
 
-<div class="hxRow hxSpan-9 last-item">
-  <app-monitor-list [resourceId]="id"></app-monitor-list>
-</div>
+  <hx-disclosure aria-controls="delErrorModal" #delResourcepop id="delRespop" class="nodisplaClick"></hx-disclosure>
 
 
-<div class="hxRow hxSpan-9">
+  <app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{resource.resourceId}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
+
+  <div class="hxRow hxSpan-9">
     <div class="hxCol">
-      <h3>Suppressions</h3>
+      <h3>Monitors</h3>
     </div>
   </div>
-<div class="hxRow hxSpan-9">
-    <div class="hxCol">
-        <p>A suppression temporarily mutes an alarm (it will still get triggered but you won't receive an alert).
-          E.g. a suppression would be useful when you are doing maintenance on a server.</p>
-    </div>
-</div>
 
-<div class="hxRow hxSpan-9 last-item">
-    <pre><code>[Monitor Grid here]</code></pre>
+  <div class="hxRow hxSpan-9">
+    <div class="hxCol">
+        <p>This section contains all of the entities being monitored, including all of your Rackspace cloud servers.
+            While non-Rackspace products can be monitored, Rackspace technical support may be limited.</p>
+    </div>
+  </div>
+
+  <div class="hxRow hxSpan-9 last-item">
+    <app-monitor-list [resourceId]="id"></app-monitor-list>
+  </div>
+
+
+  <div class="hxRow hxSpan-9">
+      <div class="hxCol">
+        <h3>Suppressions</h3>
+      </div>
+    </div>
+  <div class="hxRow hxSpan-9">
+      <div class="hxCol">
+          <p>A suppression temporarily mutes an alarm (it will still get triggered but you won't receive an alert).
+            E.g. a suppression would be useful when you are doing maintenance on a server.</p>
+      </div>
+  </div>
+
+  <div class="hxRow hxSpan-9 last-item">
+      <pre><code>[Monitor Grid here]</code></pre>
+  </div>
 </div>
