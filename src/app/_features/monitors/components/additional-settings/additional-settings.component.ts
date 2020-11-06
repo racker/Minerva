@@ -39,6 +39,7 @@ export class AdditionalSettingsComponent implements OnInit {
 
   resources: Resource[] = [];
   page: number = 0;
+  sorting: string = "";
 
   defaultAmount: number;
 
@@ -99,7 +100,7 @@ export class AdditionalSettingsComponent implements OnInit {
    * @param 25 list only
    */
   getResoure() {
-    this.resourceService.getResources(this.defaultAmount, this.page).subscribe(
+    this.resourceService.getResources(this.defaultAmount, this.page, this.sorting).subscribe(
       (data) => {
         this.resources = this.resources.concat(data.content);
       },

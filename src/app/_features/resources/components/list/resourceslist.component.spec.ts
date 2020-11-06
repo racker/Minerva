@@ -8,6 +8,8 @@ import { ResourcesPage } from '../../pages/resources/resources.page';
 import { ResourceDetailsPage } from '../../pages/details/resource-details.page';
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock'
 import { Resource } from 'src/app/_models/resources';
+import { default as resourceMockCollection } from 'src/app/_mocks/resources/collection.json';
+import { Resources } from 'src/app/_models/resources.js';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { Router } from '@angular/router';
@@ -293,22 +295,17 @@ it('should destroy subscriptions', (done) => {
   });
 
   it('should execute delete multiple resources succesfully', () => {
-
-    component.selectedResources = [
-      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"},{resourceId: "test-3", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:51Z",updatedTimestamp: "2020-09-24T13:44:51Z"}
-    ];
+    component.selectedResources = new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(resolve => { resolve(true)}));
     component.triggerConfirm();
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it('should execute delete multiple resources failed', () => {
-    component.selectedResources = [
-      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"}];
-
+    component.selectedResources =  new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it('should execute progress bar for success', () => {
@@ -329,11 +326,10 @@ it('should destroy subscriptions', (done) => {
 
   it('should execute reset for checked flag to false', () => {
     let checked = false;
-    component.resources = [
-      {tenantId: "833544", resourceId: "development:1", labels: {agent_discovered_arch: "amd64", agent_discovered_hostname: "MS90HCG8WL", agent_discovered_os: "darwin", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
-      {resourceId: "development:2", labels: {pingable: "true"}, metadata: {ping_ip: "localhost"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
-      {resourceId: "development:3", labels: {agent_discovered_hostname: "PR32IQG5OA", agent_discovered_os: "arch", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: false, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"}
-    ];
+    component.resources = new resourcesMock().collection.content;
+    component.resources.forEach(element => {
+        element['checked'] = false;
+    });
     component.reset();
     component.resources.forEach(e => {
       expect(e.checked).toBe(checked);
@@ -341,13 +337,12 @@ it('should destroy subscriptions', (done) => {
 
   });
 
-  fit('should execute reset for checked flag to true', () => {
+  it('should execute reset for checked flag to true', () => {
     let checked = false;
-    component.resources = [
-      {tenantId: "833544", resourceId: "development:1", labels: {agent_discovered_arch: "amd64", agent_discovered_hostname: "MS90HCG8WL", agent_discovered_os: "darwin", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
-      {resourceId: "development:2", labels: {pingable: "true"}, metadata: {ping_ip: "localhost"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"},
-      {resourceId: "development:3", labels: {agent_discovered_hostname: "PR32IQG5OA", agent_discovered_os: "arch", agent_environment: "localdev", pingable: "true"}, metadata: {ping_ip: "127.0.0.1"}, tenantId: "833544", presenceMonitoringEnabled: true, associatedWithEnvoy: true, checked: true, createdTimestamp: "2016-04-26T18:09:16Z", updatedTimestamp: "2016-04-26T18:09:16Z"}
-    ];
+    component.resources = new resourcesMock().collection.content;
+    component.resources.forEach(element => {
+        element['checked'] = true;
+    });
     component.reset();
     component.resources.forEach(e => {
       expect(e.checked).toBe(checked);
@@ -360,6 +355,11 @@ it('should destroy subscriptions', (done) => {
     let spy = spyOn(logService, 'log');
     component.triggerOk();
     expect(spy).toHaveBeenCalled();
-  })
+  });
+
+  it('should check sorting resources desc', () => {
+      component.sortResources('desc', 'resourceId');
+      expect(component.sorting).toBe('resourceId,desc');
+    });
 
 });

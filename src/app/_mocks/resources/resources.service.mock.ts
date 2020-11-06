@@ -1,5 +1,6 @@
 import { default as resourceMockCollection } from './collection.json';
 import { default as resourceMockSingle } from './single.json';
+import { default as testResourceMock } from './testResource.json';
 import { Resource, Resources } from 'src/app/_models/resources.js';
 import { default as boundResource } from './boundResource.json';
 import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
@@ -23,6 +24,7 @@ let resource: Resource = <Resource>{
 export class resourcesMock {
     collection: Resources = resourceMockCollection;
     single: Resource = resource;
+    test:Resources = testResourceMock;
     boundResource = boundResource;
     page: number;
     size: number;
