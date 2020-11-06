@@ -20,8 +20,8 @@ export class ResourceDetailsPage implements OnInit {
   @ViewChild('delResLink') delResource:ElementRef;
   @ViewChild('delResourcepop') delResourcePop: ElementRef;
   id: string;
-  message: string;
-  modalType:string;
+  message: string = "Are you sure you'd like to delete this Resource?";
+  modalType:string = "delResModal";
   header:string;
   error:string;
   resource$: Observable<Resource>;
@@ -51,10 +51,6 @@ export class ResourceDetailsPage implements OnInit {
        folder.
        this.route.snapshot.data
     */
-    
-    
-    this.message = "Are you sure you'd like to delete this Resource?";
-    this.modalType = 'delResModal';
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.resource$ = this.resourceService.getResource(this.id).pipe(
