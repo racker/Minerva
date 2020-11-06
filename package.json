@@ -13,7 +13,7 @@
   "homepage": "https://github.com/racker/Minerva#readme",
   "scripts": {
     "ng": "ng",
-    "start:dev": "ng serve -c local --public-host dev.i.rax.io --base-href /intelligence -o",
+    "start:dev": "node ./helpers/setup.js",
     "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
     "build": "make build-frontend",

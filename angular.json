@@ -122,9 +122,13 @@
             "mock": {
               "browserTarget": "minerva:build:mock"
             },
-            "local": {
+            "local-prod": {
               "browserTarget": "minerva:build:local",
-              "proxyConfig": "proxy.conf.js"
+              "proxyConfig": "proxy.prod.conf.js"
+            },
+            "local-staging": {
+              "browserTarget": "minerva:build:local",
+              "proxyConfig": "proxy.stage.conf.js"
             }
         }
       },
