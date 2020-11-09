@@ -20,9 +20,13 @@ void (async function() {
       ? settings.staging.pilot
       : settings.prod.pilot
 
+    const portalURL = envSetup === 0
+      ? settings.staging.portal
+      : settings.prod.portal;
+
     // Ask dev for portal session id
     console.log(`for /api/ access you need a portal session.
-    to get sessions ID: Copy cookie value for "__Secure-portal_sessionid"\n`);
+    to get sessions ID: ${portalURL}racker copy cookie value for "__Secure-portal_sessionid"\n`);
     let portalSessionId = readlineSync.question(`Enter ${setup[envSetup]} Portal Session ID [DEFAULTS to last saved session]:`);
     if (!portalSessionId) {
       portalSessionId = fs.readFileSync('.portal-session').toString();

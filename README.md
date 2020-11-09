@@ -32,7 +32,6 @@ This  will install all the application and developer dependencies into the proje
 
 ```
 npm install
-cd localenv && npm install
 ```
 
 ## Setup the proxy
@@ -45,29 +44,24 @@ In order to run the application locally you will need to add the following to yo
 
 ## Run The App
 
-Running the application is quite simple, but there are a few options for us to take a look at
-
-## Development server
-
-The dev environment is setup to authenticate against either staging (staging) or production (prod), and is in part separated from the rest of the environment via the `localenv` folder. You have the option to use `--password` or `--apikey` to authenticate with.
-
-To launch either staging or pod environments run:
+Running the application is quite simple, after install of all `node_modules` we execute the local server setup
 
 ```
-cd localenv
-NODE_ENV=[staging, or prod] npm run dev -- --username [username] --password [password]
+npm run start:dev
 ```
 
-or..
+When this command fires you will be prompted for which environment you'd like to target. This sets up the difference between targeting `staging.portal.rackspace.com` or `portal.rackspace.com` for the API proxy.
 
-```
-cd localenv
-NODE_ENV=[staging, or prod] npm run dev -- --username [username] --apikey [apikey]
-```
+**Important to note that if you're targeting the staging you**
 
-Your option for `NODE_ENV` will depend on which identity environment you're wanting to target.
+When prompted for `__Secure-portal_sessionId`this can be attained by following the link provided in the terminal or just navigating to the designated portal login.
 
-Once complete navigate to `http://dev.i.rax.io:3000/intelligence` to use `browsersync` switch to port `3001`.
+* Open browser developer tools and navigate cookie storage: e.g. On Chrome it is under the "Application" tab
+
+* Copy the cookie value for "__Secure-portal_sessionid" and paste into the terminal
+
+
+Once complete navigate to `http://dev.i.rax.io:4200/intelligence`.
 
 ## Code scaffolding
 
@@ -78,7 +72,7 @@ Run `ng generate component <component-name>` to generate a new component. You ca
 
 Run `npm run build`. it will run `makefile build-frontend` to execute `makefile` file. `makefile` is a file containing a set of directives used by a make build automation tool to generate specified goal.
 
-`makefile` execute two commands `ng build --project='minerva'` & `ng build --project='admin'` and generates two different builds named `admin` & `minerva`. The build artifacts will be stored in the `dist/` directory. The `--project='minerva'` context actually tells which project we are going to build as it internally interacts with the `angular.json` and look for the project name specified inside `projects` object.  
+`makefile` execute two commands `ng build --project='minerva'` & `ng build --project='admin'` and generates two different builds named `admin` & `minerva`. The build artifacts will be stored in the `dist/` directory. The `--project='minerva'` context actually tells which project we are going to build as it internally interacts with the `angular.json` and look for the project name specified inside `projects` object.
 
 ## Running unit tests
 
