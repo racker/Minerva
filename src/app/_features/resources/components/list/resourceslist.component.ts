@@ -34,6 +34,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   failedResources:any = [];
   total: number;
   page: number = 0;
+  sorting: string = "";
   progressVal: number = 0;
   defaultVal: number = 20;
   successCount: number = 0;
@@ -41,6 +42,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
+  isDescending:boolean = true;
   disableOk: boolean = true;  
   selectedResources: any = [];
   selectedResForDeletion:any = [];
@@ -57,7 +59,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchResources = () => {
-      return this.resourceService.getResources(this.defaultAmount, this.page)
+      return this.resourceService.getResources(this.defaultAmount, this.page, this.sorting)
         .pipe(
           takeUntil(this.ngUnsubscribe)
         ).subscribe(() => {
@@ -95,6 +97,20 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       e["checked"] = event.target.checked;
     });
   }
+
+
+  /**
+   * @description sort resources used for sorting the resource list by passing params this.sorting.
+   * @param orderBy string
+   * @param sortBy string
+  */  
+  sortResources(orderBy, sortBy) {
+    this.isDescending = !this.isDescending;
+    this.sorting = sortBy + ',' + orderBy;
+    this.fetchResources();
+    this.spnService.changeLoadingStatus(true);   
+  }
+
   /**
    * @description <app-pagination>
    * @param n number
@@ -133,8 +149,6 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   checkExist(arr, id) {
-    const { length } = arr;
-    const len = length + 1;
     const found = arr.some(el => el.resourceId === id);
     return found;
   }
@@ -247,10 +261,10 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   reset() {
     this.resources.forEach(e => {
       if(e.checked)
-        e.checked = false;
-        this.chkColumnRs.nativeElement.checked = false;
-    
+        e.checked = false;    
       });
+      this.chkColumnRs.nativeElement.checked = false;
+
   }
 
   /**
