@@ -1,8 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoggingService } from './_services/logging/logging.service';
@@ -13,13 +13,14 @@ import { SchemaService, AJV_INSTANCE } from './_services/monitors/schema.service
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from './_features/monitors/monitors.module';
 import ajv from 'ajv';
 import { AdminAppModule } from 'projects/admin/src/app/app.module';
+import { envConfig, EnvironmentConfig } from './_services/config/environmentConfig.service';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   declarations: [
     AppComponent
   ],
-  imports: [    
+  imports: [
     AppRoutingModule,
     AdminAppModule.forRoot(),
     BrowserAnimationsModule,
@@ -33,6 +34,7 @@ import { AdminAppModule } from 'projects/admin/src/app/app.module';
   providers: [
     SchemaResolver,
     SchemaService,
+    {provide: APP_BASE_HREF, useValue: '/intelligence/'},
     { provide: AJV_CLASS, useValue: ajv },
     { provide: AJV_CONFIG, useValue: { useDefaults: true } },
     {
@@ -51,7 +53,13 @@ import { AdminAppModule } from 'projects/admin/src/app/app.module';
       useFactory: logger,
       multi: true,
       deps: []
-    }
+    },
+    {
+			provide: APP_INITIALIZER,
+			useFactory: envConfig,
+			deps: [ EnvironmentConfig ],
+			multi: true
+		}
   ],
   bootstrap: [ AppComponent ]
 })

@@ -16,7 +16,8 @@ export interface Resource {
     presenceMonitoringEnabled: boolean;
     associatedWithEnvoy: boolean;
     createdTimestamp: string | Date;
-    updatedTimestamp: string | Date
+    updatedTimestamp: string | Date;
+    checked?:boolean;
 }
 
 export interface Resources {

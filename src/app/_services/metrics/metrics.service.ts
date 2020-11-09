@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { tap, map, switchMap, flatMap } from 'rxjs/operators';
+import { tap, map, flatMap } from 'rxjs/operators';
 import { PortalDataService } from '../portal/portal-data.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { IMetric, IMetricField, IMeasurement, IDevice } from 'src/app/_models/metrics';
@@ -10,6 +9,7 @@ import { LoggingService } from '../../_services/logging/logging.service';
 import { metricMocks } from '../../_mocks/metrics/metrics.service.mock';
 import { InfluxService } from '../influx/influx.service';
 import { DeviceNamePipe } from '../../_shared/pipes/device-name.pipe';
+import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class MetricsService {
   // private fields
   private mocks = new metricMocks()
   private readonly db: string = `CORE-${this.portalDataService.portalData.domainId}`;
-  private readonly metricsURL:string = environment.api.metrics;
+  private readonly metricsURL:string;
   // metricFields will act as an BehaviorSubject that notes any change in
   // in metricFields
   private metricFields = new BehaviorSubject<IMetricField[] | null>(null);
@@ -118,8 +118,13 @@ export class MetricsService {
     return this.selectedEnd.asObservable();
   }
 
-  constructor(private http:HttpClient, private logService: LoggingService,
-    private portalDataService: PortalDataService, private influxService: InfluxService) { }
+  constructor(private http:HttpClient, 
+    private logService: LoggingService,
+    private portalDataService: PortalDataService, 
+    private influxService: InfluxService,
+    private env: EnvironmentConfig) { 
+      this.metricsURL = this.env.api.metrics;
+    }
 
   /**
     * @returns Observable array of available measurements
@@ -130,7 +135,7 @@ export class MetricsService {
       q: this.influxService.influxShowMeasurements()
     }
 
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = this.mocks.measurements;
       return of(mocks)
       .pipe(
@@ -164,7 +169,7 @@ export class MetricsService {
       db: this.db,
       q: this.influxService.influxShowFields(field)
     }
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = this.mocks.fields;
       return of(mocks).pipe(
         tap(data => {
@@ -202,7 +207,7 @@ export class MetricsService {
       db: this.db,
       q: this.influxService.influxDevices(field, measurement, startTime, endTime)
     }
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = this.mocks.devices;
       this.metricDevices.next(mocks);
       return of(mocks).pipe(
@@ -240,7 +245,7 @@ export class MetricsService {
       db: this.db,
       q: this.influxService.influxMetrics(field, measurement, startTime, endTime, device)
     }
-    if (environment.mock) {
+    if (this.env.mock) {
       let mocks = this.mocks.metrics;
       return of(mocks).pipe(
         tap(data => {

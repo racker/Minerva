@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import { ResourcesService } from '../../../../_services/resources/resources.service';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,7 +10,8 @@ import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
-import { IfStmt, ThrowStmt } from '@angular/compiler';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+
 
 @Component({
   selector: 'app-resourceslist',
@@ -22,6 +22,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   @ViewChild('delResourceLink') delResource:ElementRef;
   @ViewChild('confirmResource') confirmResource:ElementRef;
   @ViewChild('addResButton', { static: true }) addButton:ElementRef;
+  @ViewChild('chkColumnRs') chkColumnRs:ElementRef;
   private ngUnsubscribe = new Subject();
   searchPlaceholderText: string;
   modalType : string = 'delResourceModal';
@@ -30,29 +31,35 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   confirmMessageError : string = "";
   
   resources: Resource[];
+  failedResources:any = [];
   total: number;
   page: number = 0;
+  sorting: string = "";
   progressVal: number = 0;
   defaultVal: number = 20;
-  
-  defaultAmount: number = environment.pagination.pageSize;
+  successCount: number = 0;
+  defaultAmount: number;
   totalPages: number;
   fetchResources: any;
   addResLoading: boolean = false;
+  isDescending:boolean = true;
   disableOk: boolean = true;  
   selectedResources: any = [];
   selectedResForDeletion:any = [];
   resourceArr:any = [];
   addResourceForm: FormGroup;
   constructor(private resourceService: ResourcesService,
-    private validateResource: ValidateResource, private fb: FormBuilder,
-    private router: Router, private spnService: SpinnerService, private logService: LoggingService) {
+    private validateResource: ValidateResource, 
+    private fb: FormBuilder,
+    private router: Router, private spnService: SpinnerService, 
+    private logService: LoggingService, private env: EnvironmentConfig) {
       this.spnService.changeLoadingStatus(true);
+      this.defaultAmount= env.pagination.pageSize;
       }
 
   ngOnInit() {
     this.fetchResources = () => {
-      return this.resourceService.getResources(this.defaultAmount, this.page)
+      return this.resourceService.getResources(this.defaultAmount, this.page, this.sorting)
         .pipe(
           takeUntil(this.ngUnsubscribe)
         ).subscribe(() => {
@@ -90,6 +97,20 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
       e["checked"] = event.target.checked;
     });
   }
+
+
+  /**
+   * @description sort resources used for sorting the resource list by passing params this.sorting.
+   * @param orderBy string
+   * @param sortBy string
+  */  
+  sortResources(orderBy, sortBy) {
+    this.isDescending = !this.isDescending;
+    this.sorting = sortBy + ',' + orderBy;
+    this.fetchResources();
+    this.spnService.changeLoadingStatus(true);   
+  }
+
   /**
    * @description <app-pagination>
    * @param n number
@@ -117,15 +138,21 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
    * @description Add selected resources to an array for actions
    * @param resource Resource
    */
-  selectResource(resource:Resource):void {
-    if (this.selectedResources.indexOf(resource) === -1) {
+  selectResource(resource:Resource) {
+    if (this.checkExist(this.selectedResources, resource.resourceId) === false) {
       this.selectedResources.push(resource);
     } else {
       this.selectedResources.splice(
-        this.selectedResources.indexOf(resource), 1
+        this.selectedResources.findIndex(value => value.resourceId === resource.resourceId), 1
       );
     }
   }
+
+  checkExist(arr, id) {
+    const found = arr.some(el => el.resourceId === id);
+    return found;
+  }
+
 /**
  * @description Adds a resource after validating resource id
  * @param resourceForm FormGroup
@@ -134,7 +161,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   addResource(resourceForm: FormGroup):void {
     if (resourceForm.controls['name'].value) {
       this.addResLoading = true;
-      // check if the resourceId can be be used & is valid
+      // check if the resourceId can be  be used & is valid
       this.validateResource.valid(resourceForm.controls['name'].value)
         .subscribe((response) => {
         this.addResLoading = false;
@@ -215,12 +242,30 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
    */
 
   triggerOk() {
+    if(this.chkColumnRs.nativeElement.checked) 
+    this.reset();  
     this.confirmResource.nativeElement.removeAttribute("open");   
     this.confirmResource.nativeElement.setAttribute("close", "true");
-    this.fetchResources();
+    this.selectedResources.map(item => {
+      this.resources = this.resources.filter(a => a.resourceId !== item.resourceId);
+    });  
     this.selectedResources = [];
+    this.fetchResources();
+    if(this.failedResources.length > 0) {
+      this.failedResources.join(' , ');
+      this.logService.log(this.failedResources + ' failed deletion', LogLevels.error); 
+    }
+    this.successCount = 0;
   }
 
+  reset() {
+    this.resources.forEach(e => {
+      if(e.checked)
+        e.checked = false;    
+      });
+      this.chkColumnRs.nativeElement.checked = false;
+
+  }
 
   /**
    * @description Function called after confirm delete. selectedResources are list of resources selected for deletion.
@@ -234,12 +279,16 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.disableOk              = true;
     this.delResource.nativeElement.click();
     let d = 0;
-    this.selectedResources.forEach((element) => {
+    this.selectedResources.forEach((element, index) => {
       var id = this.resourceService.deleteResourcePromise(element.resourceId).then((resp) => {  
-        this.progressBar(d++, {id:element.resourceId, error: false});
-      })
+        this.successCount++;
+        this.progressBar(index++, {resource:this.resources.filter(a => a.resourceId === element.resourceId)[0], error: false});
+
+      })  
       .catch(err => {
-        this.progressBar(d++, {id:element.resourceId, error: true});
+        this.failedResources.push(element.resourceId);
+        this.progressBar(index++, {resource:this.resources.filter(a => a.resourceId === element.resourceId)[0], error: false});
+
       });
       this.resourceArr.push(id);
 
@@ -247,9 +296,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     Promise.all(this.resourceArr)
     .then(data => {
       this.disableOk  = false;
+      this.confirmResource.nativeElement.setAttribute("open", "true");
     });
-    this.confirmResource.nativeElement.setAttribute("open", "true");
-
   }
 
   progressBar(d, obj:any) {

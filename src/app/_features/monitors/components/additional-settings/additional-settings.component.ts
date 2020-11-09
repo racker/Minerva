@@ -8,7 +8,7 @@ import { ResourcesService } from 'src/app/_services/resources/resources.service'
 import { CntrlAttribute } from '../../mon.utils';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { environment } from 'src/environments/environment';
+import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 /**
  * Rules of AdditionalSettingsComponent
@@ -39,8 +39,9 @@ export class AdditionalSettingsComponent implements OnInit {
 
   resources: Resource[] = [];
   page: number = 0;
+  sorting: string = "";
 
-  defaultAmount: number = environment.pagination.pageSize;
+  defaultAmount: number;
 
   subManager = new Subscription();
 
@@ -77,9 +78,12 @@ export class AdditionalSettingsComponent implements OnInit {
     return this.updateSettingForm.get('excludedResourceIds') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private pipeSeconds: DurationSecondsPipe,
-    private logService: LoggingService, private resourceService: ResourcesService) {
-
+  constructor(private fb: FormBuilder,
+    private pipeSeconds: DurationSecondsPipe,
+    private logService: LoggingService,
+    private resourceService: ResourcesService,
+    envr: EnvironmentConfig) {
+    this.defaultAmount = envr.pagination.pageSize;
   }
   ngOnInit(): void {
     if (this.initialData) {
@@ -96,7 +100,7 @@ export class AdditionalSettingsComponent implements OnInit {
    * @param 25 list only
    */
   getResoure() {
-    this.resourceService.getResources(this.defaultAmount, this.page).subscribe(
+    this.resourceService.getResources(this.defaultAmount, this.page, this.sorting).subscribe(
       (data) => {
         this.resources = this.resources.concat(data.content);
       },

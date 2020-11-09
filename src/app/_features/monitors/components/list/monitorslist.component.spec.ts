@@ -1,17 +1,18 @@
 import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MonitorslistComponent } from './monitorslist.component';
 import { MonitorService } from '../../../../_services/monitors/monitor.service';
 import { MonitorsPage } from '../../pages/monitors/monitors.page';
 import { monitorsMock } from '../../../../_mocks/monitors/monitors.service.mock'
-import { environment } from '../../../../../environments/environment';
 import { Monitor } from 'src/app/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+
 
 var mockMonitor: Monitor = {
   "id": "76WE85UV",
@@ -30,6 +31,7 @@ var mockMonitor: Monitor = {
       "message": "162.242.171.102 (IPv4)"
     }
   },
+  "checked":false,
   "createdTimestamp": "2019-12-31T19:04:50.630736Z",
   "updatedTimestamp": "2019-12-31T19:04:50.630788Z"
 };
@@ -39,6 +41,8 @@ describe('MonitorslistComponent', () => {
   let component: MonitorslistComponent;
   let fixture: ComponentFixture<MonitorslistComponent>;
   let monitorService: MonitorService;
+  let env:EnvironmentConfig;
+  let logService: LoggingService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,14 +55,22 @@ describe('MonitorslistComponent', () => {
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         MonitorService,
-        mockResourcesProvider
+        mockResourcesProvider,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ]
     })
       .compileComponents();
       injector = getTestBed();
     fixture = TestBed.createComponent(MonitorslistComponent);
     component = fixture.componentInstance;
-    monitorService = injector.get(MonitorService);
+    monitorService = injector.inject(MonitorService);
+    env= injector.inject(EnvironmentConfig);
+    logService      = injector.inject(LoggingService);
     component.ngOnInit();
     fixture.detectChanges();
   }));
@@ -70,11 +82,30 @@ describe('MonitorslistComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should setup defaults', async () => {
+    expect(component.monitorSearchPlaceholderText).toBeDefined();
+    expect(component.monitors).toBeDefined();
+    expect(component.failedMonitors).toEqual([]);
+    expect(component.page).toEqual(0);
+    expect(component.successCount).toEqual(0);
+    expect(component.progressVal).toEqual(0);
+    expect(component.disableOk).toEqual(true);
+    expect(component.modalType).toEqual('delMonitorModal');
+    expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
+    expect(component.confirmMessageSuccess).toEqual('');
+    expect(component.confirmMessageError).toEqual('');
+    expect(component.defaultAmount).toEqual(env.pagination.pageSize);
+    expect(component.Object).toEqual(Object);
+    expect(component.selectedMonitors).toEqual([]);
+    expect(component.selectedMonForDeletion).toEqual([]);
+    expect(component.monitorArr).toEqual([]);
+  });
+
   it('ngOnInit should resolve monitors', async () => {
     fixture.detectChanges();
     await fixture.whenStable();
     expect(component.monitors).toEqual(new monitorsMock().collection.content
-      .slice(0 * environment.pagination.monitors.pageSize, 1 * environment.pagination.monitors.pageSize));
+      .slice(0 * env.pagination.monitors.pageSize, 1 * env.pagination.monitors.pageSize));
   });
 
   it('should assign total amount of monitors', async () => {
@@ -177,7 +208,7 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for success', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: true};
     let count = 0;
     count++;
     component.progressBar(count, obj);
@@ -185,19 +216,19 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};       
+    let obj = {id:[{id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z"}], error: false};
     let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedMonForDeletion).toEqual([obj]);    
+    expect(component.selectedMonForDeletion).toEqual([obj]);
   });
 
   it('should execute reset for checked flag to false', () => {
     let checked = false;
     component.monitors = [
-      {id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true},
-      {id: "76IM09JM", name: "Check Not Body II", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Staging", additionalProp3: "Website"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z",checked: true},
-      {id: "10YN3Q45", name: null, labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Prod", additionalProp3: "Load Balancer"}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true}
+      {id: "889EJ382", name: "Bandwidth Monitoring for eth0", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "UbuntuOS", additionalProp2: "Prod", additionalProp3: "DockerApps"}, details:{type: "local",plugin: {type: "cpu", message: "162.242.171.102 (IPv4)"}}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true},
+      {id: "76IM09JM", name: "Check Not Body II", labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Staging", additionalProp3: "Website"}, details:{type: "local",plugin: {type: "cpu", message: "162.242.171.102 (IPv4)"}}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z",checked: true},
+      {id: "10YN3Q45", name: null, labelSelectorMethod: "AND", interval: "30", labelSelector: {additionalProp1: "LinuxOS", additionalProp2: "Prod", additionalProp3: "Load Balancer"}, details:{type: "local",plugin: {type: "cpu", message: "162.242.171.102 (IPv4)"}}, createdTimestamp: "2019-12-31T19:04:51Z", updatedTimestamp: "2020-01-03T18:50:16Z", checked: true}
     ];
     component.reset();
     component.monitors.forEach(e => {
@@ -206,8 +237,15 @@ describe('MonitorslistComponent', () => {
 
   });
 
+  it('should check failedMonitors array', () => {
+    component.failedMonitors = ["lovedeep-2", "lovedeep-1"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  })
 
-  
+
+
 
 
 

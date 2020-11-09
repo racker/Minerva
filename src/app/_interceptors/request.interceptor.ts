@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { HttpRequest, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { ResourcesService } from '../_services/resources/resources.service';
 import { resourcesMock } from '../_mocks/resources/resources.service.mock';
 import { monitorsMock } from '../_mocks/monitors/monitors.service.mock';
 import { MonitorService } from '../_services/monitors/monitor.service';
+import { EnvironmentConfig } from "../_services/config/environmentConfig.service";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -14,15 +14,17 @@ export class RequestInterceptor implements HttpInterceptor {
     size:number = 0;
     resourceService :any;
     monitorService:any;
+    env: EnvironmentConfig;
     mockedResources = new resourcesMock();
     mockMon= new monitorsMock();;
     constructor(private inj: Injector) {
         this.resourceService = this.inj.get(ResourcesService);
-        this.monitorService = this.inj.get(MonitorService)
+        this.monitorService = this.inj.get(MonitorService);
+        this.env= this.inj.get(EnvironmentConfig);
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
-        if (!environment.mock) {
+        if (!this.env.mock) {
             return next.handle(request);
         }
 

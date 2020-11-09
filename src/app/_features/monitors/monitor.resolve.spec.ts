@@ -1,6 +1,5 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { SchemaService, AJV_INSTANCE } from 'src/app/_services/monitors/schema.service';
 import { SchemaResolver } from './monitor.resolve';
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from './monitors.module';

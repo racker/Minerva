@@ -19,7 +19,7 @@ export interface Monitor {
         }
     },
     summary?: any;
-
+    checked?:boolean;
     createdTimestamp: string;
     updatedTimestamp: string;
 }

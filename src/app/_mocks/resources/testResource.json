@@ -1,0 +1,81 @@
+{
+    "content":[{
+        "tenantId": "833544",
+        "resourceId": "development:1",
+        "labels": {
+          "agent_discovered_arch": "amd64",
+          "agent_discovered_hostname": "MS90HCG8WL",
+          "agent_discovered_os": "darwin",
+          "agent_environment": "localdev",
+          "pingable": "true"
+        },
+        "metadata": {
+          "ping_ip": "127.0.0.1"
+        },
+        "presenceMonitoringEnabled": true,
+        "region": null,
+        "associatedWithEnvoy": true,
+        "createdTimestamp": "2016-04-26T18:09:16Z",
+        "updatedTimestamp": "2016-04-26T18:09:16Z"
+      },
+      {
+        "resourceId": "development:2",
+        "labels": {
+          "pingable": "true"
+        },
+        "metadata": {
+          "ping_ip": "localhost"
+        },
+        "tenantId": "833544",
+        "presenceMonitoringEnabled": true,
+        "region": null,
+        "associatedWithEnvoy": true,
+        "createdTimestamp": "2016-04-26T18:09:16Z",
+        "updatedTimestamp": "2016-04-26T18:09:16Z"
+      },
+      {
+        "resourceId": "development:3",
+        "labels": {
+          "agent_discovered_hostname": "PR32IQG5OA",
+          "agent_discovered_os": "arch",
+          "agent_environment": "localdev",
+          "pingable": "true",
+          "agent.discovered.arch": "amd64"
+        },
+        "metadata": {
+          "ping_ip": "127.0.0.1"
+        },
+        "tenantId": "833544",
+        "presenceMonitoringEnabled": true,
+        "region": null,
+        "associatedWithEnvoy": true,
+        "createdTimestamp": "2016-04-26T18:09:16Z",
+        "updatedTimestamp": "2016-04-26T18:09:16Z"
+      }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageSize": 100,
+    "pageNumber": 0,
+    "paged": true,
+    "unpaged": false
+  },
+"last": false,
+  "totalElements": 54,
+  "totalPages": 1,
+  "size": 100,
+  "number": 0,
+  "numberOfElements": 54,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "first": true,
+  "empty": false
+}

@@ -1,7 +1,5 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
 import { MonitorService } from './monitor.service';
-import { environment } from '../../../environments/environment';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
@@ -9,11 +7,14 @@ import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from '../config/environmentConfig.service';
 
 describe('MonitorService', () => {
   let injector: TestBed;
   let service: MonitorService;
   let newMonitor: CreateMonitor;
+  let env: EnvironmentConfig;
 
   beforeEach(() => {
     newMonitor = {
@@ -34,11 +35,19 @@ describe('MonitorService', () => {
       ],
       providers: [
         MonitorService,
-        mockResourcesProvider
+        mockResourcesProvider,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        }
       ]
     });
     injector = getTestBed();
-    service = injector.get(MonitorService);
+    service = injector.inject(MonitorService);
+    env = injector.inject(EnvironmentConfig);
+    env.loadEnvironment();
 });
 
 afterEach(() => {
@@ -60,10 +69,10 @@ afterEach(() => {
 
   
     it('should return collection', (done) => {
-      service.getMonitors(environment.pagination.pageSize, 0).subscribe((data) => {
+      service.getMonitors(env.pagination.pageSize, 0).subscribe((data) => {
         let mocked = new monitorsMock().collection;
         let slicedArray = new monitorsMock().collection.content
-         .slice(0 * environment.pagination.pageSize, 1 * environment.pagination.pageSize);
+         .slice(0 * env.pagination.pageSize, 1 * env.pagination.pageSize);
         mocked.content = slicedArray
         expect(data).toEqual(mocked);
         done();

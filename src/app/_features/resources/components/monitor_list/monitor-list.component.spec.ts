@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MonitorService } from "../../../../_services/monitors/monitor.service";
 import { MonitorListComponent } from './monitor-list.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,7 +9,8 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 describe('MonitorListComponent', () => {
   let component: MonitorListComponent;
@@ -22,7 +24,15 @@ describe('MonitorListComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
               ],
-      providers:[{provide:MonitorService,
+      providers:[
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
+        {provide:MonitorService,
+
       },
       mockResourcesProvider]
     })

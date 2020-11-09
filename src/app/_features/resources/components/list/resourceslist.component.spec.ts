@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed, getTestBed, inject, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import {ReactiveFormsModule, FormsModule, FormBuilder, Validators} from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { ResourcesListComponent } from './resourceslist.component';
 import { ResourcesPage } from '../../pages/resources/resources.page';
 import { ResourceDetailsPage } from '../../pages/details/resource-details.page';
 import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock'
-import { environment } from '../../../../../environments/environment';
 import { Resource } from 'src/app/_models/resources';
+import { default as resourceMockCollection } from 'src/app/_mocks/resources/collection.json';
+import { Resources } from 'src/app/_models/resources.js';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { Router } from '@angular/router';
@@ -16,6 +17,9 @@ import { of } from 'rxjs';
 import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+
 
 var mockResource: Resource = {
   "resourceId": "development:1",
@@ -32,6 +36,7 @@ var mockResource: Resource = {
   "tenantId": "833544",
   "presenceMonitoringEnabled": true,
   "associatedWithEnvoy": false,
+  "checked":false,
   "createdTimestamp": new Date(),
   "updatedTimestamp": new Date()
 };
@@ -44,6 +49,9 @@ describe('ResourcesListComponent', () => {
   let resourceService: ResourcesService;
   let spinnerService: SpinnerService;
   let router: Router;
+  let env: EnvironmentConfig;
+  let logService: LoggingService;
+
 
   // create new instance of FormBuilder
   const formBuilder: FormBuilder = new FormBuilder();
@@ -63,6 +71,13 @@ describe('ResourcesListComponent', () => {
         ResourcesService,
         SpinnerService,
         ValidateResource,
+        EnvironmentConfig,
+        {
+          provide: APP_INITIALIZER,
+          useFactory: envConfig,
+          deps: [ EnvironmentConfig ],
+          multi: true
+        },
         // reference the new instance of formBuilder from above
         { provide: FormBuilder, useValue: formBuilder },
         { provide: ComponentFixtureAutoDetect, useValue: true },
@@ -76,7 +91,10 @@ describe('ResourcesListComponent', () => {
     resourceService = TestBed.inject(ResourcesService);
     validateResource = TestBed.inject(ValidateResource);
     spinnerService = TestBed.inject(SpinnerService);
-    router = injector.get(Router);
+    env = TestBed.inject(EnvironmentConfig);
+    logService      = injector.inject(LoggingService);
+    env.loadEnvironment();
+    router = injector.inject(Router);
     component.addResourceForm = formBuilder.group({
       name: ['', Validators.required],
       enabled: ''
@@ -95,15 +113,33 @@ describe('ResourcesListComponent', () => {
   });
 
     it ('should have defaults', () => {
-        expect(component.addResLoading).toEqual(false);
+        expect(component.searchPlaceholderText).toBeDefined();
+        expect(component.modalType).toEqual('delResourceModal');
+        expect(component.message).toEqual('Are you sure you want to delete selected resource?');
+        expect(component.confirmMessageSuccess).toEqual('');
+        expect(component.confirmMessageError).toEqual('');
+        expect(component.resources).toBeDefined();
+        expect(component.total).toBeDefined();
         expect(component.addButton).toBeDefined();
+        expect(component.failedResources).toEqual([]);
+        expect(component.page).toEqual(0);
+        expect(component.progressVal).toEqual(0);
+        expect(component.defaultVal).toEqual(20);
+        expect(component.successCount).toEqual(0);
+        expect(component.defaultAmount).toBeDefined();
+        expect(component.addResLoading).toEqual(false);
+        expect(component.disableOk).toEqual(true);
+        expect(component.selectedResources).toEqual([]);
+        expect(component.selectedResForDeletion).toEqual([]);
+        expect(component.resourceArr).toEqual([]);
+        expect(component.addResourceForm).toBeDefined();
     });
 
     it('ngOnInit should resolve resources', async() => {
       fixture.detectChanges();
       await fixture.whenStable();
       expect(component.resources).toEqual(new resourcesMock().collection.content
-        .slice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize));
+        .slice(0 * env.pagination.resources.pageSize, 1 * env.pagination.resources.pageSize));
     });
 
     it('should assign total amount of resources', async() => {
@@ -155,7 +191,7 @@ describe('ResourcesListComponent', () => {
   it('should remove a selected resource', () => {
     component.selectResource(mockResource);
     component.selectResource(mockResource);
-    expect(component.selectedResources.indexOf(mockResource)).toEqual(-1);
+    expect(component.checkExist(component.selectedResources, mockResource.resourceId)).toEqual(false);
   });
 
   it('should goto page', () => {
@@ -221,7 +257,7 @@ describe('ResourcesListComponent', () => {
 
 it('should reset results when search dismissed', () => {
   const spliceContent=new resourcesMock().collection;
-  spliceContent.content.splice(0 * environment.pagination.resources.pageSize, 1 * environment.pagination.resources.pageSize)
+  spliceContent.content.splice(0 * env.pagination.resources.pageSize, 1 * env.pagination.resources.pageSize)
   const spy = spyOnProperty(resourceService, 'resources', 'get').and.returnValue(spliceContent);
   component.resources=null;
   component.total = null;
@@ -249,7 +285,7 @@ it('should destroy subscriptions', (done) => {
   it('should listen for triggerOk', () => {
     component.triggerOk();
     expect(component.confirmResource.nativeElement.getAttribute('close')).toBe('true');
-    expect(component.confirmResource.nativeElement.getAttribute('open')).toBeNull;    
+    expect(component.confirmResource.nativeElement.getAttribute('open')).toBeNull;
   });
 
   it('should listen for triggerClose', () => {
@@ -259,41 +295,71 @@ it('should destroy subscriptions', (done) => {
   });
 
   it('should execute delete multiple resources succesfully', () => {
-
-    component.selectedResources = [
-      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"},{resourceId: "test-3", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:51Z",updatedTimestamp: "2020-09-24T13:44:51Z"}
-    ];
+    component.selectedResources = new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(resolve => { resolve(true)}));
     component.triggerConfirm();
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it('should execute delete multiple resources failed', () => {
-    component.selectedResources = [
-      {resourceId: "test-1", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:28Z",updatedTimestamp: "2020-09-24T13:44:28Z"},{resourceId: "test-2", labels: {}, metadata: {}, presenceMonitoringEnabled: false, createdTimestamp: "2020-09-24T13:44:43Z", updatedTimestamp:"2020-09-24T13:44:43Z"}];
-
+    component.selectedResources =  new resourcesMock().test.content;
     let spy = spyOn(resourceService, 'deleteResourcePromise').and.returnValue(new Promise(reject => { reject(new Error('Not found'))}));
     component.triggerConfirm();
-    expect(spy).toHaveBeenCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
 
   it('should execute progress bar for success', () => {
-    let obj = [{id:"test-1", error: true}];       
-    let count;
+    let obj = [{id:"test-1", error: true}];
+    let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedResForDeletion).toEqual([obj]);    
+    expect(component.selectedResForDeletion).toEqual([obj]);
   });
 
   it('should execute progress bar for failure', () => {
-    let obj = {id:"test-2", error: false};       
-    let count;
+    let obj = {id:"test-2", error: false};
+    let count = 0;
     count++;
     component.progressBar(count, obj);
-    expect(component.selectedResForDeletion).toEqual([obj]);    
+    expect(component.selectedResForDeletion).toEqual([obj]);
   });
 
+  it('should execute reset for checked flag to false', () => {
+    let checked = false;
+    component.resources = new resourcesMock().collection.content;
+    component.resources.forEach(element => {
+        element['checked'] = false;
+    });
+    component.reset();
+    component.resources.forEach(e => {
+      expect(e.checked).toBe(checked);
+    });
 
+  });
 
+  it('should execute reset for checked flag to true', () => {
+    let checked = false;
+    component.resources = new resourcesMock().collection.content;
+    component.resources.forEach(element => {
+        element['checked'] = true;
+    });
+    component.reset();
+    component.resources.forEach(e => {
+      expect(e.checked).toBe(checked);
+    });
+
+  });
+
+  it('should check failedMonitors array', () => {
+    component.failedResources = ["test-1", "test-2"];
+    let spy = spyOn(logService, 'log');
+    component.triggerOk();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should check sorting resources desc', () => {
+      component.sortResources('desc', 'resourceId');
+      expect(component.sorting).toBe('resourceId,desc');
+    });
 
 });

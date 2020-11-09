@@ -1,13 +1,14 @@
 
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
 import { tap } from "rxjs/operators";
 import { LogLevels } from 'src/app/_enums/log-levels.enum'
 import { LoggingService } from "../logging/logging.service";
 import { of, Observable } from "rxjs";
 import { zoneMocks } from "../../_mocks/zones/zone.service.mock";
 import { Zones } from "src/app/_models/zone";
+import { PortalDataService } from "../portal/portal-data.service";
+import { EnvironmentConfig } from "../config/environmentConfig.service";
 
 const httpsoption = {
     headers: new HttpHeaders(
@@ -30,23 +31,23 @@ export class ZoneService {
     }
     set setzone(data: any) {
         this._monZone = data;
-
     }
 
-    constructor(private http: HttpClient, private logService: LoggingService) {
-    }
+    constructor(private http: HttpClient, 
+        private portalService:PortalDataService,
+        private logService: LoggingService, private env : EnvironmentConfig) { }
 
     /**
-     * Get Zones 
+     * Get Zones
      * @returns Zones with pagination details
      */
     getZones(): Observable<Zones> {
-        if (environment.mock) {
+        if (this.env.mock) {
             let mock = Object.assign({}, this.mockZones.zones);
             this._monZone = mock;
             return of<Zones>(this._monZone);
         }
-        return this.http.get<Zones>(`${environment.api.salus}/zones`, httpsoption)
+        return this.http.get<Zones>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/zones`, httpsoption)
             .pipe(
                 tap(data => {
                     this._monZone = data;

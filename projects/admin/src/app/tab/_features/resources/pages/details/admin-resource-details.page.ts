@@ -4,7 +4,6 @@ import { ResourcesService } from '../../../../../../../../../src/app/_services/r
 import { Observable, Subject, Subscription } from 'rxjs';
 import  { transformKeyPairs } from '../../../../../../../../../src/app/_shared/utils';
 import { Resource } from '../../../../../../../../../src/app/_models/resources';
-import { environment } from '../../../../../../../../../src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { SpinnerService } from '../../../../../../../../../src/app/_services/spinner/spinner.service';
 
