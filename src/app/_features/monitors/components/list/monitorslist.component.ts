@@ -140,7 +140,7 @@ export class MonitorslistComponent implements OnInit {
   */  
   sortMonitors(orderBy, sortBy) {
     this.isDescending = !this.isDescending;
-    if(this.isSearching === true) {
+    if(this.isSearching) {
       this.monitors = this.monitors.reverse();
     } else {
       this.sorting = sortBy + ',' + orderBy;

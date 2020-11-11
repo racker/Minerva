@@ -107,7 +107,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   */  
   sortResources(orderBy, sortBy) {
       this.isDescending = !this.isDescending;
-      if(this.isSearching === true) {
+      if(this.isSearching) {
         this.resources = this.resources.reverse();
       } else {
         this.sorting = sortBy + ',' + orderBy;

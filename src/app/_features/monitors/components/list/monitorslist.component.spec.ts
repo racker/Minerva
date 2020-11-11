@@ -89,7 +89,9 @@ describe('MonitorslistComponent', () => {
     expect(component.page).toEqual(0);
     expect(component.successCount).toEqual(0);
     expect(component.progressVal).toEqual(0);
+    expect(component.sorting).toBeDefined();
     expect(component.disableOk).toEqual(true);
+    expect(component.isDescending).toEqual(true);
     expect(component.modalType).toEqual('delMonitorModal');
     expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
     expect(component.confirmMessageSuccess).toEqual('');
