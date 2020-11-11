@@ -60,13 +60,15 @@ export class MonitorService {
    * @description Gets a list of monitors
    * @param size number
    * @param page number
+   * @param sorting string
    * @returns Observable<Monitors>
    */
-  getMonitors(size: number, page: number): Observable<Monitors> {
+  getMonitors(size: number, page: number, sorting?:string): Observable<Monitors> {
     return this.http.get<Monitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`, { headers:httpOptions.headers,
       params: {
         size: `${size}`,
-        page: `${page}`
+        page: `${page}`,
+        'sort':sorting
       }
     })
       .pipe(

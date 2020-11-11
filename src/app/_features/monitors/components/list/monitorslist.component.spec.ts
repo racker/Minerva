@@ -242,11 +242,11 @@ describe('MonitorslistComponent', () => {
     let spy = spyOn(logService, 'log');
     component.triggerOk();
     expect(spy).toHaveBeenCalled();
-  })
+  });
 
-
-
-
-
+  it('should check sorting monitors desc', () => {
+    component.sortMonitors('desc', 'id');
+    expect(component.sorting).toBe('id,desc');
+  });
 
 });

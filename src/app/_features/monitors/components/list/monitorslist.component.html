@@ -54,7 +54,16 @@
               </label>
             </hx-checkbox-control>
       </th>
-      <th>MONITOR</th>
+      <th>MONITOR
+        <button class="buttonIcon"  (click)="isDescending ? sortMonitors('desc', 'id') : sortMonitors('asc', 'id')">
+          <hx-icon *ngIf="isDescending"
+            type="angle-down">
+          </hx-icon>
+          <hx-icon *ngIf="!isDescending"
+            type="angle-up">
+          </hx-icon>
+        </button>
+      </th>
       <th>LABELS</th>
       <th>SCOPE</th>
       <th>TYPE</th>
