@@ -33,7 +33,7 @@ let pilot = {
 
             request(options, (err, res, body) => {
                 if (err || body.badRequest) {
-                    reject(errr || body.badRequest);
+                    reject(err || body.badRequest);
                 }
                 pilot.createPilot(body);
                 resolve(body);
