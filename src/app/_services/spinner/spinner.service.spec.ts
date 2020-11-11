@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SpinnerService } from './spinner.service';
-import { doesNotReject } from 'assert';
 
 describe('SpinnerService', () => {
   let service: SpinnerService;
