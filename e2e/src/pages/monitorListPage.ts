@@ -9,6 +9,7 @@ export class MonitorsListPage
     noOfRows                    =this.webtable.all(by.tagName('tr'));
     checkBoxes                  =this.noOfRows.all(by.tagName('hx-checkbox'))  
     deleteBtn                   =element(by.xpath("//hx-disclosure[contains(text(),'Delete')]"))
+    headerCheckBox              =element(by.tagName('th')).element(by.tagName('hx-checkbox'))
     
    
     selectFiveMonitors(){
@@ -16,6 +17,16 @@ export class MonitorsListPage
         for(let i=0;i<=4;i++){
            this.checkBoxes.get(i).click();
            count=i;
+        }
+        count++;
+        return count
+   }
+
+   selectTwentyfiveMonitors(){
+       let count:number;
+       for(let i=0;i<=24;i++){
+          this.checkBoxes.get(i).click();
+          count=i;
         }
         count++;
         return count
