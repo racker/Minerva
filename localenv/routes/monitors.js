@@ -22,10 +22,12 @@ router.get(`/bound-monitors`, (req, res) =>{
 router.get('/', (req, res) => {
     let page = req.query.page;
     let size = req.query.size;
+    let sort = req.query.sort;
     axios.get(`${config.monitoring.api_host}${config.monitoring.api_url}/${Identity.info().token.tenant.id}/monitors`, {
         params: {
             size,
-            page
+            page,
+            sort
         },
         headers: { 'x-auth-token': Identity.info().token.id }
 

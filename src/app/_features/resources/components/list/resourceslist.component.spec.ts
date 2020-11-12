@@ -350,7 +350,7 @@ it('should destroy subscriptions', (done) => {
 
   });
 
-  it('should check failedMonitors array', () => {
+  it('should check failedResources array', () => {
     component.failedResources = ["test-1", "test-2"];
     let spy = spyOn(logService, 'log');
     component.triggerOk();
@@ -360,6 +360,6 @@ it('should destroy subscriptions', (done) => {
   it('should check sorting resources desc', () => {
       component.sortResources('desc', 'resourceId');
       expect(component.sorting).toBe('resourceId,desc');
-    });
+  });
 
 });

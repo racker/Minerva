@@ -33,17 +33,18 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   resources: Resource[];
   failedResources:any = [];
   total: number;
-  page: number = 0;
-  sorting: string = "";
-  progressVal: number = 0;
-  defaultVal: number = 20;
-  successCount: number = 0;
+  page = 0;
+  sorting = "";
+  progressVal = 0;
+  defaultVal = 20;
+  successCount = 0;
   defaultAmount: number;
   totalPages: number;
   fetchResources: any;
-  addResLoading: boolean = false;
-  isDescending:boolean = true;
-  disableOk: boolean = true;
+  addResLoading = false;
+  isDescending = true;
+  disableOk = true; 
+  isSearching = false; 
   selectedResources: any = [];
   selectedResForDeletion:any = [];
   resourceArr:any = [];
@@ -105,10 +106,14 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
    * @param sortBy string
   */
   sortResources(orderBy, sortBy) {
-    this.isDescending = !this.isDescending;
-    this.sorting = sortBy + ',' + orderBy;
-    this.fetchResources();
-    this.spnService.changeLoadingStatus(true);
+      this.isDescending = !this.isDescending;
+      if(this.isSearching) {
+        this.resources = this.resources.reverse();
+      } else {
+        this.sorting = sortBy + ',' + orderBy;
+        this.fetchResources();
+        this.spnService.changeLoadingStatus(true);
+      }
   }
 
   /**
@@ -212,6 +217,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   resetSearch(): void {
     this.resources = this.resourceService.resources.content;
     this.total = this.resourceService.resources.totalElements;
+    this.isSearching = false;
   }
 
   /**
@@ -222,6 +228,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
     this.resources = mergeUniqueObjectsOfArray(resources.content,
       this.selectedResources, "resourceId");
     this.total =  this.resources.length;
+    this.isSearching = true;
   }
 
   /**
