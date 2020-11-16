@@ -1,10 +1,10 @@
 <div>
   <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
     <!-- Product Navigation -->
-    <a href="resources">Resources</a>
-    <a href="monitors">Monitoring</a>
-    <a href="visualize">Visualize</a>
-    <a href="admin">Admin</a>
+    <a [routerLink]="'/resources'" href="">Resources</a>
+    <a [routerLink]="'/monitors'">Monitoring</a>
+    <a [routerLink]="'/visualize'">Visualize</a>
+    <a [routerLink]="'/admin'">Admin</a>
     <!-- end:Product Navigation -->
   </nav>
     <div id="stage"[ngClass]="{'spinner-overlay' : isLoading}">
