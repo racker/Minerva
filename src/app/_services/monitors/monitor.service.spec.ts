@@ -3,8 +3,6 @@ import { MonitorService } from './monitor.service';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { APP_INITIALIZER } from '@angular/core';
@@ -59,7 +57,7 @@ afterEach(() => {
 
   it('should set & get Monitors', () => {
     service.monitors = new monitorsMock().collection;
-    expect(service.monitors.content[0].id).toEqual("889EJ382");
+    expect(service.monitors.content.length).toEqual(30);
   });
 
   it('should set & get single Monitor', () => {
@@ -67,7 +65,7 @@ afterEach(() => {
     expect(service.monitor.id).toEqual("23ONM715")
   });
 
-  
+
     it('should return collection', (done) => {
       service.getMonitors(env.pagination.pageSize, 0).subscribe((data) => {
         let mocked = new monitorsMock().collection;
@@ -133,7 +131,7 @@ afterEach(() => {
 
     it('should delete a multiple Monitors', async() => {
       let resp = await service.deleteMonitorPromise('test-1');
-       expect(resp).toBe(true); 
+       expect(resp).toBe(true);
     });
 
 

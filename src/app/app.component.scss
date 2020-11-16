@@ -6,6 +6,7 @@ a.editclick {
 .required {
     color: #d32f2f;
 }
+
 hx-busy.gbl-spinner-show {
     position: absolute !important;
     width: 2em;
@@ -18,7 +19,7 @@ hx-busy.gbl-spinner-show {
     transform-origin: unset;
 }
 .spinner-overlay {
-    position: fixed !important;
+    pointer-events: none;
     left: 0;
     top: 0;
     width: 100%;

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Monitors, Monitor, TestMonitor } from 'src/app/_models/monitors';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
 import { BoundMonitorPaging } from 'src/app/_models/resources';
+import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 import { PortalDataService } from '../portal/portal-data.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
@@ -24,7 +25,7 @@ export class MonitorService {
 
   private _monitors: Monitors;
   private _monitor: Monitor;
-
+  private mockedMonitors = new monitorsMock();
   private _boundMonitor: BoundMonitorPaging;
 
   constructor(private http:HttpClient,
@@ -60,22 +61,34 @@ export class MonitorService {
    * @description Gets a list of monitors
    * @param size number
    * @param page number
+   * @param sorting string
    * @returns Observable<Monitors>
    */
-  getMonitors(size: number, page: number): Observable<Monitors> {
-    return this.http.get<Monitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`, { headers:httpOptions.headers,
-      params: {
-        size: `${size}`,
-        page: `${page}`
-      }
-    })
-      .pipe(
-        tap(data => {
-          this.monitors = data;
-          this.logService.log(this.monitors, LogLevels.info);
-        }));
-
-  }
+  getMonitors(size: number, page: number, sorting?:string): Observable<Monitors> {
+    if (this.env.mock) {
+      let mocks = Object.assign({}, this.mockedMonitors.collection);
+      if(sorting)
+      this.mockedMonitors.collection.content.reverse();
+      let slicedData = [... mocks.content.slice(page * size, (page + 1) * size)];
+      this.monitors = mocks;
+      this.monitors.content = slicedData;
+      return of<Monitors>(this.monitors).pipe(delay(500));
+    }
+    else {
+      return this.http.get<Monitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`, { headers:httpOptions.headers,
+        params: {
+          size: `${size}`,
+          page: `${page}`,
+          sort:sorting
+        }
+      })
+        .pipe(
+          tap(data => {
+            this.monitors = data;
+            this.logService.log(this.monitors, LogLevels.info);
+          }));  
+    }
+}
 
 /**
  * @description Gets a single monitor

@@ -25,14 +25,17 @@ export class MonitorslistComponent implements OnInit {
   monitors: Monitor[];
   failedMonitors:any = [];
   total: number;
-  page: number = 0;
-  successCount: number = 0;
-  progressVal: number = 0;
-  disableOk: boolean = true;
-  modalType : string = 'delMonitorModal';
-  message   : string = 'Are you sure you want to delete the selected monitors?';
-  confirmMessageSuccess : string = "";
-  confirmMessageError : string = "";
+  page = 0;
+  sorting = "";
+  successCount = 0;
+  progressVal = 0;
+  disableOk = true;
+  isDescending = true;
+  isSearching = false;
+  modalType = 'delMonitorModal';
+  message = 'Are you sure you want to delete the selected monitors?';
+  confirmMessageSuccess = "";
+  confirmMessageError = "";
   defaultAmount: number;
   Object: Object = Object;
   selectedMonitors: any = [];
@@ -61,7 +64,7 @@ export class MonitorslistComponent implements OnInit {
   }
 
   fetchMonitors() {
-      this.monitorService.getMonitors(this.defaultAmount, this.page)
+      this.monitorService.getMonitors(this.defaultAmount, this.page, this.sorting)
         .subscribe(data => {
           this.spnService.changeLoadingStatus(false);
           this.monitors = this.monitorService.monitors.content;
@@ -98,6 +101,7 @@ export class MonitorslistComponent implements OnInit {
     resetSearch(): void {
         this.monitors = this.monitorService.monitors.content;
         this.total    = this.monitorService.monitors.totalElements;
+        this.isSearching = false;
     }
 
     /**
@@ -109,6 +113,7 @@ export class MonitorslistComponent implements OnInit {
     monitorResults(monitors: Monitors): void {
       this.monitors = monitors.content;
       this.total    = monitors.totalElements;
+      this.isSearching = true;
     }
 
   /**
@@ -125,6 +130,22 @@ export class MonitorslistComponent implements OnInit {
     }
     else {
       this.selectedMonitors = [];
+    }
+  }
+
+  /**
+   * @description sort monitors used for sorting the monitor list by passing params this.sorting.
+   * @param orderBy string
+   * @param sortBy string
+  */  
+  sortMonitors(orderBy, sortBy) {
+    this.isDescending = !this.isDescending;
+    if(this.isSearching) {
+      this.monitors = this.monitors.reverse();
+    } else {
+      this.sorting = sortBy + ',' + orderBy;
+      this.fetchMonitors();
+      this.spnService.changeLoadingStatus(true);
     }
   }
 
@@ -222,7 +243,7 @@ export class MonitorslistComponent implements OnInit {
   }
 
    /**
-   * @description Function called after confirm delete. selectedMonitors are list of resources selected for deletion.
+   * @description Function called after confirm delete. selectedMonitors are list of monitors selected for deletion.
    * monitorErrArr for storing ids which are already deleted or not found.
    * confirmMessageError and confirmMessageSuccess fields are showing success and error messages.
    *

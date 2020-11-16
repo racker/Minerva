@@ -15,4 +15,3 @@ steps:
         npm run test:unit-ci
 
 timeout: 3600s
-images: ['gcr.io/$PROJECT_ID/minerva-angular:latest']

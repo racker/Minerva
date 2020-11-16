@@ -89,7 +89,9 @@ describe('MonitorslistComponent', () => {
     expect(component.page).toEqual(0);
     expect(component.successCount).toEqual(0);
     expect(component.progressVal).toEqual(0);
+    expect(component.sorting).toBeDefined();
     expect(component.disableOk).toEqual(true);
+    expect(component.isDescending).toEqual(true);
     expect(component.modalType).toEqual('delMonitorModal');
     expect(component.message).toEqual('Are you sure you want to delete the selected monitors?');
     expect(component.confirmMessageSuccess).toEqual('');
@@ -242,11 +244,11 @@ describe('MonitorslistComponent', () => {
     let spy = spyOn(logService, 'log');
     component.triggerOk();
     expect(spy).toHaveBeenCalled();
-  })
+  });
 
-
-
-
-
+  it('should check sorting monitors desc', () => {
+    component.sortMonitors('desc', 'id');
+    expect(component.sorting).toBe('id,desc');
+  });
 
 });

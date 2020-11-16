@@ -1,13 +1,13 @@
 <div>
   <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
     <!-- Product Navigation -->
-    <a href="resources">Resources</a>
-    <a href="monitors">Monitoring</a>
-    <a href="visualize">Visualize</a>
-    <a href="admin">Admin</a>
+    <a [routerLink]="'/resources'" href="">Resources</a>
+    <a [routerLink]="'/monitors'">Monitoring</a>
+    <a [routerLink]="'/visualize'">Visualize</a>
+    <a [routerLink]="'/admin'">Admin</a>
     <!-- end:Product Navigation -->
   </nav>
-    <div  id="stage">
+    <div id="stage"[ngClass]="{'spinner-overlay' : isLoading}">
       <!-- Accessibility: [role="main"] must be present on main#content -->
       <main style="min-height: 1000px;" role="main" id="content">
         <hx-panel class="hxSpan-12-xs">
@@ -16,7 +16,6 @@
             type="error">
               {{message}}
             </hx-alert>
-            <div class="spinner-overlay" *ngIf="isLoading"></div>
             <hx-busy class="gbl-spinner-show" *ngIf="isLoading"></hx-busy>
             <router-outlet></router-outlet>
           </hx-panelbody>
