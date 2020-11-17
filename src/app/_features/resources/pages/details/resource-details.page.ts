@@ -25,10 +25,10 @@ export class ResourceDetailsPage implements OnInit {
   header:string;
   error:string;
   resource$: Observable<Resource>;
-  private metaSubmit: Subject<void> = new Subject<void>();
-  private labelsSubmit: Subject<void> = new Subject<void>();
-  private metaFormSubmit: Subject<boolean> = new Subject<boolean>();
-  private labelFormSubmit: Subject<boolean> = new Subject<boolean>();
+  public metaSubmit: Subject<void> = new Subject<void>();
+  public labelsSubmit: Subject<void> = new Subject<void>();
+  public metaFormSubmit: Subject<boolean> = new Subject<boolean>();
+  public labelFormSubmit: Subject<boolean> = new Subject<boolean>();
   subManager = new Subscription();
 
   Object = window.Object;

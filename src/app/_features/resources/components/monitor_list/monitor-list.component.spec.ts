@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MonitorService } from "../../../../_services/monitors/monitor.service";
 import { MonitorListComponent } from './monitor-list.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ describe('MonitorListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ MonitorListComponent, PaginationComponent],
       imports: [
         HttpClientTestingModule,
@@ -30,7 +32,7 @@ describe('MonitorListComponent', () => {
           multi: true
         },
         {provide:MonitorService,
-        
+
       },
       mockResourcesProvider]
     })

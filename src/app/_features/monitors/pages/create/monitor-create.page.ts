@@ -28,9 +28,9 @@ import { AdditionalSettingsComponent } from '../../components/additional-setting
 })
 export class MonitorCreatePage implements OnInit, OnDestroy,AfterViewInit {
   public labelSubmit: Subject<void> = new Subject<void>();
-  private labelFormValid: Subject<boolean> = new Subject<boolean>();
-  private dynamicFormSubmit: Subject<void> = new Subject<void>();
-  private dynamicFormValid: Subject<boolean> = new Subject<boolean>();
+  public labelFormValid: Subject<boolean> = new Subject<boolean>();
+  public dynamicFormSubmit: Subject<void> = new Subject<void>();
+  public dynamicFormValid: Subject<boolean> = new Subject<boolean>();
 
   createMonitorForm: FormGroup;
   addMonLoading: boolean = false;
