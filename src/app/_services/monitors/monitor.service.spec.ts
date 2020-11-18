@@ -57,7 +57,7 @@ afterEach(() => {
 
   it('should set & get Monitors', () => {
     service.monitors = new monitorsMock().collection;
-    expect(service.monitors.content[0].id).toEqual("U87X09OP");
+    expect(service.monitors.content.length).toEqual(30);
   });
 
   it('should set & get single Monitor', () => {

@@ -13,17 +13,20 @@
   "homepage": "https://github.com/racker/Minerva#readme",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --public-host dev.i.rax.io --baseHref=/intelligence -o",
+    "start:dev": "node ./helpers/setup.js",
+    "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
     "build": "make build-frontend",
-    "build:mock": "ng build --watch -c=mock",
-    "test:unit": "node ./localenv/helpers/createMocks.js && ng test --project=minerva -c=mock --watch=false",
+    "prebuild:mock": "npm run mocksetup",
+    "build:mock": "ng build --watch=false -c=mock",
+    "test:unit": "npm run mocksetup && ng test --project=minerva -c=mock --watch=false",
     "test:unit-ci": "ng test --project=minerva -c=mock --watch=false",
     "test:admin": "ng test --project=admin -c=mock",
     "test:admin-ci": "ng test --project=admin -c=mock --watch=false",
     "test:admin-e2e": "ng e2e --project=admin -c=mock ",
     "lint": "ng lint",
-    "test:e2e": "ng e2e --project=minerva -c=mock",
+    "mocksetup": "node ./helpers/createMocks.js",
+    "test:e2e": "npm run mocksetup && ng e2e --project=minerva -c=mock",
     "report": "allure generate allure-results --clean -o allure-report || true",
     "test:e2e-ci": "webdriver-manager update --standalone false --gecko false --versions.chrome 85.0.4183.87 && ng e2e --project=minerva -c=mock",
     "docs": "npx compodoc -p tsconfig.json -d docs"
@@ -47,7 +50,6 @@
     "@ngx-pwa/local-storage": "9.0.3",
     "@webcomponents/webcomponentsjs": "2.1.3",
     "ajv": "6.12.0",
-    "chromedriver": "2.45.0",
     "core-js": "2.5.4",
     "hedwig-monitoring-library": "https://github.com/racker/Hedwig/archive/v0.1.0.tar.gz",
     "helix-ui": "1.1.0-rc.0",
@@ -58,6 +60,7 @@
     "zone.js": "0.10.3"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "10.0.1",
     "@angular-devkit/build-angular": "0.901.7",
     "@angular/cli": "9.1.1",
     "@angular/compiler-cli": "9.1.2",
@@ -67,7 +70,11 @@
     "@types/jasminewd2": "2.0.3",
     "@types/node": "12.11.1",
     "angular-in-memory-web-api": "0.7.0",
+    "chromedriver": "2.45.0",
+    "clean-webpack-plugin": "3.0.0",
     "codelyzer": "5.1.2",
+    "express": "4.17.1",
+    "html-webpack-plugin": "4.5.0",
     "http-server": "0.12.3",
     "husky": "4.2.5",
     "jasmine-core": "3.5.0",
@@ -81,13 +88,16 @@
     "jasmine-allure-reporter": "1.0.2",
     "protractor": "7.0.0",
     "puppeteer": "1.15.0",
+    "readline-sync": "1.4.10",
     "ts-node": "7.0.0",
     "tslint": "5.11.0",
-    "typescript": "3.8.3"
+    "typescript": "3.8.3",
+    "webpack": "4.44.2",
+    "webpack-merge": "5.2.0"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "npm run test:unit"
-      }
+    "hooks": {
+      "pre-commit": "npm run test:unit"
     }
+  }
 }

@@ -90,11 +90,12 @@
                 }
               ],
               "scripts": [
-                "localenv/scripts/portaldata.js",
-                "localenv/scripts/pilotdata.js"
+                "scripts/portaldata.js",
+                "scripts/pilotdata.js"
               ]
             },
             "local": {
+              "outputHashing": "all",
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -102,8 +103,8 @@
                 }
               ],
               "scripts": [
-                "localenv/scripts/portaldata.js",
-                "localenv/scripts/pilotdata.js"
+                "scripts/portaldata.js",
+                "scripts/pilotdata.js"
               ]
             }
           }
@@ -121,8 +122,13 @@
             "mock": {
               "browserTarget": "minerva:build:mock"
             },
-            "local": {
-              "browserTarget": "minerva:build:local"
+            "local-prod": {
+              "browserTarget": "minerva:build:local",
+              "proxyConfig": "proxy.prod.conf.js"
+            },
+            "local-staging": {
+              "browserTarget": "minerva:build:local",
+              "proxyConfig": "proxy.stage.conf.js"
             }
         }
       },
@@ -144,7 +150,7 @@
                 }
               ],
               "scripts": [
-                "localenv/scripts/portaldata.js"
+                "scripts/portaldata.js"
               ]
             }
           },
@@ -337,7 +343,7 @@
                 }
               ],
               "scripts": [
-                "localenv/scripts/portaldata.js"
+                "scripts/portaldata.js"
               ]
             }
           },
@@ -387,7 +393,7 @@
             "mock": {
               "devServerTarget": "minerva:serve:mock"
             }
-            
+
           }
         }
       }

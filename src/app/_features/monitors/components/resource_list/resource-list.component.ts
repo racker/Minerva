@@ -27,7 +27,7 @@ export class ResourceListComponent implements OnInit {
   Object = window.Object;
   @Input() monitor: Monitor;
   subscriber = new Subscription();
-  constructor(private mntor : MonitorService, private router: Router) { }
+  constructor(private mntor : MonitorService, public router: Router) { }
 
   /**
    * @description Default (ngOnInit) function called when component loads for the first time.
