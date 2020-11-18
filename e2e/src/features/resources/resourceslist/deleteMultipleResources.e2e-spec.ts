@@ -25,40 +25,25 @@ describe("Delete multiple resources functionality", ()=> {
        page1 = new ResourcesListPage();
      
  
-     });
+    });
 
     it("To verify if delete button is enabled when a resource is selected",()=>{
         page1.resourcesCheckBoxes.get(0).click();
         expect(page1.deleteBtn.isEnabled()).toBe(true);
-     });
-
-    
-    it("To verify “Delete Selected Resource” pop over is displayed on clicking on delete button",()=>{
-         page1.selectFiveResources();
-         page1.deleteBtn.click();
-         browser.sleep(3000);
-
-         let overlay=new DeleteSelectedResourceOverlay();
-         expect(overlay.deleteSelectedResourceOverlay.getAttribute('aria-hidden')).toBe('false');
-         overlay.cancelBtn.click();
-   
     });
 
-    it("To verify if no.of.selected resources  is equal to the no.of.resources displayed on pop over",()=>{
-        
-        var noOfResources=page1.selectFifteenResources();
+    it("To verify “Delete Selected Resource” pop over is displayed on clicking on delete button",()=>{
+        page1.selectFiveResources();
         page1.deleteBtn.click();
         browser.sleep(3000);
 
         let overlay=new DeleteSelectedResourceOverlay();
-        overlay.confirmBtn.click();
-        expect(overlay.successListOfResources.count()).toEqual(noOfResources);
-        browser.sleep(2000);
-        overlay.okBtn.click();
-      });
+        expect(overlay.deleteSelectedResourceOverlay.getAttribute('aria-hidden')).toBe('false');
+        overlay.cancelBtn.click();
+   
+    });
 
     it("To verify if the pop over disappears after clicking on OK button",()=>{
-        
         page1.selectFiveResources();
         page1.deleteBtn.click();
         browser.sleep(3000);
@@ -67,6 +52,18 @@ describe("Delete multiple resources functionality", ()=> {
         overlay.confirmBtn.click();
         overlay.okBtn.click()
         expect(overlay.confirmMonitorModal.getAttribute('aria-hidden')).toEqual('true');
-      
-      });
     });
+
+    it("To verify if no.of.selected resources  is equal to the no.of.resources displayed on pop over",()=>{
+        page1.selectFiveResources();
+        page1.deleteBtn.click();
+        browser.sleep(3000);
+
+        let overlay=new DeleteSelectedResourceOverlay();
+        overlay.confirmBtn.click();
+        expect(overlay.successListOfResources.getText()).toEqual('5 out of 5 were deleted successfully!');
+        browser.sleep(2000);
+        overlay.okBtn.click();
+    });
+
+});

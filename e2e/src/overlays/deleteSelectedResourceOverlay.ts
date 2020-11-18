@@ -7,7 +7,7 @@ export class DeleteSelectedResourceOverlay{
     cancelBtn                   =element(by.id('cancelBtn'));
     okBtn                       =element(by.xpath("//button[contains(text(),'Ok')]")); 
     confirmMonitorModal         =element(by.id('confirmResourceModal'));
-    successListOfResources      =element.all(by.xpath("//hx-div[@class='hxDivSuccess']"))
+    successListOfResources      =element(by.xpath("//*[text() = ' 5 out of 5 were deleted successfully! ']"))
     closeBtn                    =element(by.id('hxClose'))
 
 }
