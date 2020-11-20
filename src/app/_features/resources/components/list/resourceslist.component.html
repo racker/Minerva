@@ -112,32 +112,45 @@
       <th></th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let resource of resources">
-      <td class="hxControl">
-          <hx-checkbox-control>
-              <input
-                type="checkbox"
-                id="resource-{{resource.resourceId}}"
-                (change)="selectResource(resource)"
-                [checked]="resource.checked"
-              />
-              <label for="resource-{{resource.resourceId}}">
-                <hx-checkbox></hx-checkbox>
-              </label>
-            </hx-checkbox-control>
-      </td>
-      <td>
-        <a routerLink="{{isAdminRoute(resource.resourceId)}}">{{resource.resourceId}}</a>
+  <ng-template *ngIf="resources?.length > 0; then results; else zeroResults">
+  </ng-template>
+  <ng-template #results>
+    <tbody>
+      <tr *ngFor="let resource of resources">
+        <td class="hxControl">
+            <hx-checkbox-control>
+                <input
+                  type="checkbox"
+                  id="resource-{{resource.resourceId}}"
+                  (change)="selectResource(resource)"
+                  [checked]="resource.checked"
+                />
+                <label for="resource-{{resource.resourceId}}">
+                  <hx-checkbox></hx-checkbox>
+                </label>
+              </hx-checkbox-control>
+        </td>
+        <td>
+          <a routerLink="{{isAdminRoute(resource.resourceId)}}">{{resource.resourceId}}</a>
 
+        </td>
+        <td>--</td>
+        <td>3</td>
+        <td>8</td>
+        <td>--</td>
+        <td>Visualize</td>
+      </tr>
+    </tbody>
+  </ng-template>
+  <ng-template #zeroResults>
+    <tbody class="zeroResults">
+      <tr>
+        <td colspan="7">
+        <h2>No Resources</h2>
       </td>
-      <td>--</td>
-      <td>3</td>
-      <td>8</td>
-      <td>--</td>
-      <td>Visualize</td>
-    </tr>
-  </tbody>
+      </tr>
+    </tbody>
+  </ng-template>
 </table>
 <div class="hxRow resource-paging">
   <div class="hxCol">

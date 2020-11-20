@@ -17,7 +17,7 @@
       padding: 0 0.75rem;
       font-size: 1rem;
       color: #424242;
-      background-color: #ffffff;      
+      background-color: #ffffff;
     }
   }
 }
@@ -38,4 +38,13 @@ hx-select-control >select~label {
 #mntrDetailPop{
 max-width: 52rem;
 min-width: 52rem;
+}
+
+tbody.zeroResults {
+  border-bottom: none;
+}
+
+tbody.zeroResults tr td {
+  text-align: center;
+  padding: 100px 0;
 }
