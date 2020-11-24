@@ -7,6 +7,9 @@
               <th>SCOPE</th>
       </tr>
     </thead>
+    <ng-template *ngIf="monitors?.length > 0; then results; else zeroResults">
+    </ng-template>
+    <ng-template #results>
     <tbody>
       <tr *ngFor="let monitor of monitors">
         <td [id]="monitor.monitorId"><a [routerLink]="['/monitors/details', monitor.monitorId]">{{monitor.monitorName || monitorUtil.formatTitleField(monitor) }}</a></td>
@@ -14,6 +17,10 @@
         <td>{{monitor.selectorScope}}</td>
       </tr>
     </tbody>
+  </ng-template>
+  <ng-template #zeroResults>
+    <app-zero-results message="No monitors"></app-zero-results>
+  </ng-template>
   </table>
   <div class="hxRow resource-paging">
     <div class="hxCol">

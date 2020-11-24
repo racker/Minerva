@@ -77,3 +77,5 @@ scripts/*
 
 # Portal session from __Secure-portal_sessionid cookie
 .portal-session
+
+allure-results

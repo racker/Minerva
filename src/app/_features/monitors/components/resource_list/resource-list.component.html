@@ -9,6 +9,9 @@
           <th></th>
         </tr>
       </thead>
+      <ng-template *ngIf="resources?.length > 0; then results; else zeroResults">
+      </ng-template>
+      <ng-template #results>
       <tbody>
         <tr *ngFor="let resource of resources">
           <td>{{resource.resourceId}}</td>
@@ -22,6 +25,10 @@
           </td>
         </tr>
       </tbody>
+      </ng-template>
+      <ng-template #zeroResults>
+        <app-zero-results message="No Resources"></app-zero-results>
+      </ng-template>
     </table>
     <hx-modal id="monitor-modal" class="hxLg">
       <header>
