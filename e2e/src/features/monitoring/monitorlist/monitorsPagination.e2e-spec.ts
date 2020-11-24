@@ -22,7 +22,6 @@ describe("Test pagination functionality on Monitors List page",function(){
 
     })
 
-
     it("Verify that the user is directed to last page when clicked on last page button",function(){
         page1.paginationLastPageButton().click();
         browser.sleep(5000);
@@ -67,55 +66,6 @@ describe("Test pagination functionality on Monitors List page",function(){
       element.all(by.tagName("tr")).then(function(rows){
           expect(rows.length).toEqual(6);
       })   
-});
-
-    it("Verify that first page button is disabled on initial load",function(){
-      
-        expect(page1.paginationFirstPageButton().isEnabled()).toBe(false);
-
     });
 
-    it("Verify that previous page button is disabled on initial load",function(){
-      
-        expect(page1.paginationPreviousPageButton().isEnabled()).toBe(false);
-    
-    });
-
-    it("Verify that last page button is enabled on initial load",function(){
-      
-        expect(page1.paginationLastPageButton().isEnabled()).toBe(true);
-    
-    });
-
-    it("Verify that next page button is enabled on initial load",function(){
-      
-        expect(page1.paginationNextPageButton().isEnabled()).toBe(true);
-    
-    });
-
-    it("Verify last page button is disabled on clicking on last page button",function(){
-     
-        page1.paginationLastPageButton().click();
-        expect(page1.paginationLastPageButton().isEnabled()).toBe(false);
-    
-    });
-
-    it("Verify next page button is disabled on clicking on last page button",function(){
-     
-        page1.paginationLastPageButton().click();
-        expect(page1.paginationNextPageButton().isEnabled()).toBe(false);
-    
-    });
-
-    it("Verify first page button is enabled on clicking on last page button",function(){
-       page1.paginationLastPageButton().click();
-       expect(page1.paginationFirstPageButton().isEnabled()).toBe(true);
-    
-    });
-
-    it("Verify previous page button is enabled on clicking on last page button",function(){
-     page1.paginationLastPageButton().click();
-     expect(page1.paginationPreviousPageButton().isEnabled()).toBe(true); 
-    
-    });
 });
