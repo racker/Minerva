@@ -7,7 +7,8 @@ export const environment = {
   mock: false,
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
-    metrics: `${absoluteHost}/api/metrics`
+    metrics: `${absoluteHost}/api/metrics`,
+    minerva:`${absoluteHost}/api/intelligence/minerva-api-staging-v1`
   },
   pagination: {
     pageSize: 25,
