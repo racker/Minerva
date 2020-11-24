@@ -43,8 +43,8 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   fetchResources: any;
   addResLoading = false;
   isDescending = true;
-  disableOk = true; 
-  isSearching = false; 
+  disableOk = true;
+  isSearching = false;
   selectedResources: any = [];
   selectedResForDeletion:any = [];
   resourceArr:any = [];

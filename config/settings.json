@@ -1,6 +1,6 @@
 {
   "staging": {
-    "pilot": "https://staging.pilot.api.rackspacecloud.com/v1/cloud",
+    "pilot": "https://vrrrby3gi6.execute-api.us-west-2.amazonaws.com/v1",
     "identity": "https://staging.identity.api.rackspacecloud.com/v2.0",
     "portal": "https://staging.portal.rackspace.com/"
   },
