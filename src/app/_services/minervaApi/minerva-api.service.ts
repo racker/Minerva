@@ -9,6 +9,10 @@ const httpOptions = {
     'Content-Type': 'application/json'
   })
 }
+
+/**
+ * Service that connect with Minerva api
+*/
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +24,7 @@ export class MinervaApiService {
     private logService: LoggingService,) { }
 
   getDemo(){
-    this.http.get(`${this.env.api.minerva}/demo`,httpOptions).pipe(
+    return this.http.get(`${this.env.api.minerva}/demo`,httpOptions).pipe(
       tap(data =>{
         this.logService.log(`Minerva Api: ${data}`, LogLevels.info);
       })
