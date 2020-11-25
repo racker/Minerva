@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MetricsService } from '../../../../_services/metrics/metrics.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MinervaApiService } from 'src/app/_services/minervaApi/minerva-api.service';
 
 @Component({
   selector: 'app-visualize.page',
@@ -22,7 +23,7 @@ export class VisualizePage implements OnInit, OnDestroy {
   subManager = new Subscription();
 
   constructor(private metricService: MetricsService, private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private mnrvaApi: MinervaApiService) { }
 
   async ngOnInit() {
 

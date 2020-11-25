@@ -7,6 +7,8 @@ import { resourcesMock } from '../_mocks/resources/resources.service.mock';
 import { monitorsMock } from '../_mocks/monitors/monitors.service.mock';
 import { MonitorService } from '../_services/monitors/monitor.service';
 import { EnvironmentConfig } from "../_services/config/environmentConfig.service";
+import { MinervaApiMock} from "../_mocks/minervaApi/minerva-api-service.mock"
+import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -14,13 +16,16 @@ export class RequestInterceptor implements HttpInterceptor {
     size:number = 0;
     resourceService :any;
     monitorService:any;
+    minervaService:any;
     env: EnvironmentConfig;
     mockedResources = new resourcesMock();
-    mockMon= new monitorsMock();;
+    mockMon= new monitorsMock();
+    mockMinerva = new MinervaApiMock();
     constructor(private inj: Injector) {
         this.resourceService = this.inj.get(ResourcesService);
         this.monitorService = this.inj.get(MonitorService);
         this.env= this.inj.get(EnvironmentConfig);
+        this.minervaService = this.inj.get(MinervaApiService);
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
@@ -52,6 +57,10 @@ export class RequestInterceptor implements HttpInterceptor {
                 return () => {
                     return of(this.mockMon.handleRoute(url, method, request, next) as any);
                 }
+            case url.includes('/intelligence'): // minerva-api
+                    return () => {
+                        return of(this.mockMinerva.handleRoute(url, method, request, next) as any);
+                    }
             default:
                 // pass through any requests not handled above
                 return () => { return next.handle(request); }
