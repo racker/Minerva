@@ -73,11 +73,11 @@ describe("Monitor List", () => {
     expect(rowsarr.length).toEqual(25);
 });
 
-fit("Should display 5 columns ", async()=>
+it("Should display 5 columns ", async()=>
 {
     await nav.navigateToMonitor();
     browser.sleep(2000);
-    var path =  element.all(by.xpath("//tr/th"));
+    var path =  element.all(by.xpath("//th"));
     var colNum = await path.getAttribute("childElementCount");
     expect(colNum.length).toEqual(5);
 });
