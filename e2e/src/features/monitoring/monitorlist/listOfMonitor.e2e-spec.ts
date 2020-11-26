@@ -77,9 +77,9 @@ it("Should display 5 columns ", async()=>
 {
     await nav.navigateToMonitor();
     browser.sleep(2000);
-  var path =  element.all(by.xpath("//tbody//tr[2]//td"));
-  var colNum = await path.getAttribute("childElementCount");
-  expect(colNum.length).toEqual(5);
+    var path =  element.all(by.xpath("//th"));
+    var colNum = await path.getAttribute("childElementCount");
+    expect(colNum.length).toEqual(5);
 });
 
 
