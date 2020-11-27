@@ -14,6 +14,7 @@ import { DeviceNamePipe } from './pipes/device-name.pipe';
 import { AddFieldsComponent } from './components/add-fields/add-fields.component';
 import { DurationSecondsPipe } from './pipes/duration-seconds.pipe';
 import { mockResourcesProvider } from '../_interceptors/request.interceptor';
+import { ZeroResultsComponent } from './components/zero-results/zero-results.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -25,6 +26,7 @@ import { mockResourcesProvider } from '../_interceptors/request.interceptor';
     DurationSecondsPipe,
     MeasurementNamePipe,
     AddFieldsComponent,
+    ZeroResultsComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { mockResourcesProvider } from '../_interceptors/request.interceptor';
     AddFieldsComponent,
     MeasurementNamePipe,
     DeviceNamePipe,
-    DurationSecondsPipe
+    DurationSecondsPipe,
+    ZeroResultsComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
