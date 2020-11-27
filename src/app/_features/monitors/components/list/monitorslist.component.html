@@ -95,7 +95,7 @@
   </tbody>
   </ng-template>
   <ng-template #zeroResults>
-    <app-zero-results message="No Monitors"></app-zero-results>
+    <app-zero-results *ngIf="monitors" message="No Monitors"></app-zero-results>
   </ng-template>
 </table>
 <div class="hxRow monitor-paging">
