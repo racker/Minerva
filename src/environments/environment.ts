@@ -7,7 +7,10 @@ export const environment = {
   mock: false,
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
-    metrics: `${absoluteHost}/api/metrics`
+    metrics: `${absoluteHost}/api/metrics`,
+    salusAdmin:`${absoluteHost}/api/`
+    //`http://salus-api-admin.staging.monplat.rackspace.net`,
+
   },
   pagination: {
     pageSize: 25,
