@@ -2,8 +2,20 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
+  - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
+    entrypoint: '/bin/sh'
+    args:
+      - '-c'
+      - |
+        echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
+        npm rebuild node-sass
+        npm run mocksetup
+        npm run test:e2e-ci
+        npm run test:unit-ci
+
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'ng', '--', 'build', '--prod']
+
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
