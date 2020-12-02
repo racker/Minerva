@@ -8,9 +8,7 @@ export const environment = {
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
     metrics: `${absoluteHost}/api/metrics`,
-    salusAdmin:`${absoluteHost}/api/`
-    //`http://salus-api-admin.staging.monplat.rackspace.net`,
-
+    minerva:`${absoluteHost}/api/intelligence/minerva-api-staging-v1`
   },
   pagination: {
     pageSize: 25,

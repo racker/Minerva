@@ -46,9 +46,9 @@ export class MonitorslistComponent implements OnInit {
   monitorUtil = MonitorUtil;
   constructor(private monitorService: MonitorService,
     private spnService: SpinnerService,
-    private router: Router, 
-    private changeDetector: ChangeDetectorRef, private env: EnvironmentConfig, private logService:LoggingService) 
-    { 
+    private router: Router,
+    private changeDetector: ChangeDetectorRef, private env: EnvironmentConfig, private logService:LoggingService)
+    {
       this.spnService.changeLoadingStatus(true);
       this.defaultAmount= env.pagination.pageSize;
      }
@@ -137,7 +137,7 @@ export class MonitorslistComponent implements OnInit {
    * @description sort monitors used for sorting the monitor list by passing params this.sorting.
    * @param orderBy string
    * @param sortBy string
-  */  
+  */
   sortMonitors(orderBy, sortBy) {
     this.isDescending = !this.isDescending;
     if(this.isSearching) {
@@ -214,25 +214,25 @@ export class MonitorslistComponent implements OnInit {
    */
 
   triggerOk() {
-    if(this.chkColumn.nativeElement.checked) 
-    this.reset();    
-    this.confirmMonitor.nativeElement.removeAttribute("open");   
-    this.confirmMonitor.nativeElement.setAttribute("close", "true");    
+    if(this.chkColumn.nativeElement.checked)
+    this.reset();
+    this.confirmMonitor.nativeElement.removeAttribute("open");
+    this.confirmMonitor.nativeElement.setAttribute("close", "true");
     this.selectedMonitors.map(item => {
       this.monitors = this.monitors.filter(a => a.id !== item.id);
-    });  
+    });
     this.selectedMonitors = [];
     this.fetchMonitors();
     if(this.failedMonitors.length > 0) {
       this.failedMonitors.join(' , ');
-      this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error); 
+      this.logService.log(this.failedMonitors + ' failed deletion', LogLevels.error);
     }
     this.successCount = 0;
   }
 
   /**
    * @description call function once delete operation completed
-   * 
+   *
    */
   reset() {
     this.monitors.forEach(e => {
@@ -254,10 +254,10 @@ export class MonitorslistComponent implements OnInit {
     this.disableOk              = true;
     this.delMonitor.nativeElement.click();
     this.selectedMonitors.forEach((element, index) => {
-        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => { 
+        var id = this.monitorService.deleteMonitorPromise(element.id).then((resp) => {
             this.successCount++;
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: false});
-        }).catch(err => {           
+        }).catch(err => {
             this.failedMonitors.push(element.name);
             this.progressBar(index++, {monitor:this.monitors.filter(a => a.id === element.id)[0], error: true});
         });
@@ -270,7 +270,7 @@ export class MonitorslistComponent implements OnInit {
       });
   }
 
-  progressBar(d, obj:any) {    
+  progressBar(d, obj:any) {
     this.progressVal = (d * 100) / this.selectedMonForDeletion.length;
     this.selectedMonForDeletion.push(obj);
 

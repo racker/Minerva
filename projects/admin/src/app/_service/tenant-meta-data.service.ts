@@ -20,6 +20,6 @@ export class TenantMetaDataService {
    * Request to the admin create tenant metadata API 
    */
   createTenantMetaData(metadata: TenantMetaData) {
-    return this.http.post(`${this.env.api.salusAdmin}/tenant-metadata`, metadata);
+    return this.http.post(`${this.env.api.minerva}/tenant-metadata`, metadata);
   }
 }
