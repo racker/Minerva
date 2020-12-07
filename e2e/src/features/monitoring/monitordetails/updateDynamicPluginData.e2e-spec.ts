@@ -11,6 +11,7 @@ describe("Test to update dynamic plugin data", ()=> {
     let nav  : navigations;
     let page1: MonitorsListPage;
     let page2: MonitorsDetailsPage;
+    let page3: UpdatePluginDataOverlay;
  
     beforeAll(() => {
        page = new AppPage();
@@ -25,6 +26,7 @@ describe("Test to update dynamic plugin data", ()=> {
        page1 = new MonitorsListPage();
        page1.monitorName().click();
        page2 = new MonitorsDetailsPage();
+       page3 = new UpdatePluginDataOverlay();
  
     });
 
@@ -54,8 +56,9 @@ describe("Test to update dynamic plugin data", ()=> {
         
         let overlay=new UpdatePluginDataOverlay();
         overlay.selectAnOptionFromProtocolDropdown();
-        
-        element(by.tagName("hx-select")).getCssValue('border').then((color)=>{
+        browser.sleep(2000);
+        page3.protocolDrpDwnValue.getCssValue('border').then((color)=>{
+            browser.sleep(2000);
             console.log(color);
             expect(color).toEqual('2px solid rgb(211, 47, 47)');
         })
@@ -76,9 +79,8 @@ describe("Test to update dynamic plugin data", ()=> {
             browser.sleep(3000);
             expect(overlay.hostRequiredErrMsg.isDisplayed()).toBe(true);
             overlay.submitBtn.get(1).click();
-            
-         });
-        });
+            });
+    });
 
         
     it("Verify that port value must not exceed 65535",()=>{
@@ -92,7 +94,7 @@ describe("Test to update dynamic plugin data", ()=> {
             browser.sleep(3000);
 
             expect(overlay.portErrMsg.getText()).toEqual("The maximum value to accept for this input 65535");
-        })
+    })
 
     it("Verify that port value must not be less than 1",()=>{
             page2.updatePluginDataPencilIcon.click();
@@ -105,7 +107,7 @@ describe("Test to update dynamic plugin data", ()=> {
             browser.sleep(3000);
 
             expect(overlay.portErrMsg.getText()).toEqual("The minimum value to accept for this input 1");
-        })
+    })
 
     it("Verify that TimeOut field accepts numeric values and can also be blank",()=>{
         //check if TimeOut field accepts null value   
@@ -125,7 +127,6 @@ describe("Test to update dynamic plugin data", ()=> {
             overlay1.TimeOutField.clear();
             overlay1.TimeOutField.sendKeys("500");
             overlay1.submitBtn.get(1).click();
-
     })
 
     it("Verify that ReadTimeOut field accepts numeric values and can also be blank",()=>{
