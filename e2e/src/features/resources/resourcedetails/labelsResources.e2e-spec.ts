@@ -1,73 +1,93 @@
 import { AppPage } from "../../../pages/app.po";
-import { element, by, browser, Browser } from "protractor";
+import { navigations } from "../../../commons/navigations";
+import { browser, element,by} from "protractor";
+import { ResourcesListPage } from "../../../pages/resourcelistpage";
 
 describe("Add-fields Component Test in resources", () => {
   let page: AppPage;
+  let nav  : navigations;
+  let page1: ResourcesListPage;
+
+  beforeAll(() => {
+    page = new AppPage();
+    page.navigateTo();
+    browser.manage().window().maximize();
+ });
 
   beforeEach(() => {
-    page = new AppPage();
-    browser.ignoreSynchronization = true;
-    page.navigateTo();
-    browser.sleep(3000);
-    element(by.xpath("//tr[2]//td[2]//a[1]")).click();
-    browser.sleep(3000);
+    nav = new navigations();
+    nav.navigateToResources();
+    browser.sleep(5000);
+    page1 = new ResourcesListPage();
   });
 
   it("Should check if a label is present", () => {
-   
-    element(by.xpath("//h4[contains(text(),'Labels')]")).isDisplayed();
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
-    expect(element(by.xpath("//hx-disclosure[@id='labelpop']")).isPresent()).toBe(true);
+    page1.secondRecord.click();
+    browser.sleep(3000);
+    page1.nameLabel.isDisplayed();
+    page1.updateLabelPen.click();
+    expect(page1.updateLabelPen.isPresent()).toBe(true);
   });
 
   it("Should check if Testing if the label has add button", () => {
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
+    page1.secondRecord.click();
+    browser.sleep(3000);
+    page1.updateLabelPen.click();
     browser.sleep(1000);
-    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
-    expect(element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).isPresent()).toBe(true);
+    page1.plusLabelValue.click();
+    expect(page1.plusLabelValue.isPresent()).toBe(true);
   });
 
-  it("Should check if click add button should add 2twice row should update", () => {
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
-    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
-
-    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();    
-
-    element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).click();
-
-    expect(element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn inline-button']")).isPresent()).toBe(true);
+  it("Should check if clicking on add button multiple times the row should multiply", () => {
+    page1.secondRecord.click();
+    browser.sleep(3000);
+    page1.updateLabelPen.click();
+    browser.sleep(1000);
+    page1.plusLabelValue.click();
+    page1.plusLabelValue.click();
+    page1.plusLabelValue.click();
+    expect(page1.plusLabelValue.isPresent()).toBe(true);
   });
 
   it("Should check if click minus button should remove a row", () => {
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
+    page1.secondRecord.click();
+    browser.sleep(3000);
+    page1.updateLabelPen.click();
     browser.sleep(1000);
-    element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[4]//button[1]")).click();
+    page1.minusLabelValue.click();
     browser.sleep(1000)
-    expect(element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[4]//button[1]")).isPresent()).toBe(false);
+    expect(page1.minusLabelValue.isPresent()).toBe(false);
   });
 
   it("Should check if after clicking key button and initiating popover any key with agent_discovered should have disabled input fields for both key & value input boxes", async () => {
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
+    page1.secondRecord.click();
     browser.sleep(3000);
-    var agent_discover = element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[@class='hxCol hxSpan-6']//div//div[1]//div[1]//hx-text-control[1]//input[1]")).click();
+    page1.updateLabelPen.click();
     browser.sleep(1000);
-    expect(element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[@class='hxCol hxSpan-6']//div//div[1]//div[1]//hx-text-control[1]//input[1]")).getAttribute('disabled')).toBe('true');
+    page1.agentDiscover.click();
+    browser.sleep(1000);
+    expect(page1.agentDiscover.getAttribute('disabled')).toBe('true');
   });
 
   it("Should check if entering Agent_ into a key field should prompt validation message and is not allowed", () => {
-    element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
-    element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[4]//div[1]//hx-text-control[1]//input[1]")).sendKeys("agent_");
+    page1.secondRecord.click();
+    browser.sleep(3000);
+    page1.updateLabelPen.click();
+    browser.sleep(1000);
+    page1.keyLabel.sendKeys("agent_");
     browser.sleep(2000);
-    var errMsg=element(by.xpath("//span[@class='required']"));
-    element(by.xpath("//div[@class='hxRow hxSpan-9 last-item']//div[4]//div[2]//hx-text-control[1]//input[1]")).sendKeys("123");
+    var errMsg = page1.errAgentDiscover;
+    page1.valueLabel.sendKeys("123");
     expect(errMsg.getText()).toEqual("'agent_' is a reserved phrase");
 });
 
 it("Should check if clicking cancel from within the popover should hide the popover", async () => {
-  element(by.xpath("//hx-disclosure[@id='labelpop']")).click();
-  element(by.xpath("//hx-popover[@id='labelPopover']//button[@class='hxBtn'][contains(text(),'Cancel')]")).click();
+  page1.secondRecord.click();
+  browser.sleep(3000);
+  page1.updateLabelPen.click();
+  page1.cancelButton.click();
   browser.sleep(2000);
-  var labelfalse =  element(by.xpath("//hx-disclosure[@id='labelpop']"));
+  var labelfalse = page1.updateLabelPen;
   let value1 = await labelfalse.getAttribute("ariaExpanded");
   expect(value1).toEqual("false");
 });

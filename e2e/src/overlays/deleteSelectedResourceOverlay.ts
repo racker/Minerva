@@ -9,5 +9,6 @@ export class DeleteSelectedResourceOverlay{
     confirmMonitorModal         =element(by.id('confirmResourceModal'));
     successListOfResources      =element(by.xpath("//*[text() = ' 5 out of 5 were deleted successfully! ']"))
     closeBtn                    =element(by.id('hxClose'))
+    resRowPath                  =element(by.css("table.hxTable tbody")).all(by.tagName("tr"))
 
 }
