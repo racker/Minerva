@@ -13,6 +13,7 @@ export class UpdatePluginDataOverlay{
    TimeOutField             =element(by.xpath("//input[@placeholder='timeout']"));
    ReadTimeOutField         =element(by.xpath("//input[@placeholder='readTimeout']"));
    ProtocolDrpDwn           =element(by.tagName('select'));
+   protocolDrpDwnValue      =element(by.tagName("hx-select"))
 
    selectAnOptionFromProtocolDropdown(){
       this.ProtocolDrpDwn.click();
