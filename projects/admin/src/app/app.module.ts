@@ -5,15 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuardService } from './auth/auth-gaurd.service';
 // import { SharedModule } from 'src/app/_shared/shared.module';
-const providers = [AuthGuardService]
+const providers = [AuthGuardService];
+import { environment } from '../environments/environment'
 
+// Firebase imports
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
     AppRoutingModule,
-   // SharedModule
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
   ],
   providers: providers,
   bootstrap: [AppComponent],
