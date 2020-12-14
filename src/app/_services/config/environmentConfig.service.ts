@@ -2,7 +2,7 @@
 //import the core angular services
 import { Injectable } from "@angular/core";
 // importing Environments
-import { environment } from "../../../environments/environment";
+import { environment } from "env/environment";
 
 
 

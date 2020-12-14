@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import { environment } from '../../../environments/environment';
+import { environment } from 'env/environment';
 
 /**
  * @description Validates fields against using 'agent_' in a key field for labels
