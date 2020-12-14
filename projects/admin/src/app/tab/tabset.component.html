@@ -16,13 +16,17 @@
       <hx-tablist>
         <hx-tab id="tab-1" current="true"> Monitors</hx-tab>
         <hx-tab id="tab-2">Resources</hx-tab>
+        <hx-tab id="tab-2">MetaData</hx-tab>
       </hx-tablist>
       <hx-tabcontent>
         <hx-tabpanel id="panel-1" open>
           <app-monitorslist></app-monitorslist>
         </hx-tabpanel>
-        <hx-tabpanel id="panel-2">  
-<app-resourceslist></app-resourceslist>
+        <hx-tabpanel id="panel-2">
+          <app-resourceslist></app-resourceslist>
+        </hx-tabpanel>
+        <hx-tabpanel id="panel-3">
+          <app-tenant-metadata-list></app-tenant-metadata-list>
         </hx-tabpanel>
       </hx-tabcontent>
     </hx-tabset>

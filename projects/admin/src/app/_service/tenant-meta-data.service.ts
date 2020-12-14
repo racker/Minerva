@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { TenantMetaData } from '../_model/tenantMetaData';
+import { TenantMetadata } from '../_model/tenantMetadata';
 
 
 const httpOption= {
@@ -19,7 +19,7 @@ export class TenantMetaDataService {
   /**
    * Request to the admin create tenant metadata API 
    */
-  createTenantMetaData(metadata: TenantMetaData) {
+  createTenantMetaData(metadata: TenantMetadata) {
     return this.http.post(`${this.env.api.minerva}/tenant-metadata`, metadata);
   }
 }
