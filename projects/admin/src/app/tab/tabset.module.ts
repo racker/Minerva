@@ -11,7 +11,6 @@ import { DetailsComponent } from './_features/monitors/pages/details/details.com
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
 
-
 @NgModule({
   declarations: [TabsetComponent, AdminResourceDetailsPage, DetailsComponent, EventDetailsComponent],
   imports: [
