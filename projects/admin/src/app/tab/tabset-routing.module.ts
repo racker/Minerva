@@ -4,6 +4,7 @@ import { TabsetComponent } from './tabset.component';
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { EventDetailsComponent } from "./_features/events/event-details/event-details.component";
+import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
 
 
 const routes: Routes = [
@@ -38,9 +39,12 @@ const routes: Routes = [
       breadcrumb: 'Event'
     }
   },
-
-
-
+  {
+    path:'tenant', component: TenantMetadataListComponent,
+    data: {
+      breadcrumb: 'Metadata'
+    }
+  }
 ];
 
 @NgModule({
