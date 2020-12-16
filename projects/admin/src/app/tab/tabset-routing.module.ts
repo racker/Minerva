@@ -40,7 +40,7 @@ const routes: Routes = [
     }
   },
   {
-    path:'tenanttmetadata', component: TenantMetadataListComponent,
+    path:'tenant', component: TenantMetadataListComponent,
     data: {
       breadcrumb: 'Metadata'
     }
