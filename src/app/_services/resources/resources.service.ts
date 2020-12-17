@@ -11,7 +11,8 @@ import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Referer': `https://staging.portal.rackspace.com/7799042/intelligence`
   })
 }
 
@@ -129,7 +130,7 @@ export class ResourcesService {
   }
 
   searchResources(search: string): Observable<Resources> {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources-search?q=${search}`)
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources-search/?q=${search}`)
     .pipe(
       tap(data => {
         this.logService.log(`Search Resources`, LogLevels.info);

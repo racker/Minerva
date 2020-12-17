@@ -24,7 +24,7 @@ export class ErrorService {
         case error.status>=400 && error.status<500:
           return 'The server can not find the requested resource.'
         case error.status>=500 && error.status<600: 
-        return 'Enternal server error.'   
+        return 'Internal server error.'   
         default:
           return error.message;          
       }    
