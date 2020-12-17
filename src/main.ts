@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import * as HelixUI from "helix-ui";
 
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { environment } from 'env/environment';
 
 if (environment.production) {
   enableProdMode();

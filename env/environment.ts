@@ -10,6 +10,10 @@ export const environment = {
     metrics: `${absoluteHost}/api/metrics`,
     minerva:`${absoluteHost}/api/intelligence/minerva-api-staging-v1`
   },
+  firebase: {
+    apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
+    authDomain: 'minerva-281312.firebaseapp.com'
+  },
   pagination: {
     pageSize: 25,
     resources: {
