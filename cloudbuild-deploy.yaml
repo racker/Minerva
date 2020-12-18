@@ -10,6 +10,7 @@ steps:
         echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
         npm rebuild node-sass
         npm run mocksetup
+        npm run test:e2e-ci
         npm run test:unit-ci
 
   - name: 'gcr.io/cloud-builders/npm'
