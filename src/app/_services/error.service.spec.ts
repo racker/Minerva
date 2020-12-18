@@ -29,7 +29,7 @@ describe('ErrorService', () => {
         url: 'http://wiki.stuff/something'
     });
     expect(service.getServerErrorMessage(error)).toEqual(
-        'Enternal server error.'
+        'Internal server error.'
     );
   });
   it('should execute getServerErrorMessage with status', () => {
