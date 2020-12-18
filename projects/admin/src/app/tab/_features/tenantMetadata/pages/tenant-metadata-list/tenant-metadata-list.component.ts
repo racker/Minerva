@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TenantMetadata} from "../../../../../_model/tenantMetadata";
 
 @Component({
   selector: 'app-tenant-metadata-list',
