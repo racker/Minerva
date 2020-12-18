@@ -28,7 +28,7 @@ describe("To test delete event functionality", ()=> {
  
     });
 
-    it("To verify if delete event option is present on monitor details page ",()=>{
+    xit("To verify if delete event option is present on monitor details page ",()=>{
       browser.executeScript('window.scrollTo (0,1000);').then(()=>{
          browser.sleep(3000);
          page2.eventCheckBox.get(0).click();
@@ -37,7 +37,7 @@ describe("To test delete event functionality", ()=> {
 
     });
 
-    it("To verify if delete event popover is displayed when clicked on delete button ",()=>{
+    xit("To verify if delete event popover is displayed when clicked on delete button ",()=>{
       browser.executeScript('window.scrollTo (0,1000);').then(()=>{
          browser.sleep(3000);
          page2.eventCheckBox.get(0).click();
@@ -50,7 +50,7 @@ describe("To test delete event functionality", ()=> {
           browser.sleep(3000);
     });
 
-    it("To verify if user is able to delete event",()=>{
+    xit("To verify if user is able to delete event",()=>{
       browser.executeScript('window.scrollTo (0,1000);').then(()=>{
          browser.sleep(3000);
          page2.eventCheckBox.get(0).click();
