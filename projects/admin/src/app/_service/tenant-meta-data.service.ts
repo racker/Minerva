@@ -17,9 +17,13 @@ export class TenantMetaDataService {
   constructor(private http: HttpClient, private env: EnvironmentConfig) {}
 
   /**
-   * Request to the admin create tenant metadata API 
+   * Request to the admin create tenant metadata API
    */
   createTenantMetaData(metadata: TenantMetaData) {
-    return this.http.post(`${this.env.api.minerva}/tenant-metadata`, metadata);
+    return this.http.post(`${this.env.api.salus}/tenant-metadata`, metadata);
+  }
+
+  listTenantMetaData() {
+    return this.http.get(`${this.env.api.salus}/tenant-metadata`);
   }
 }

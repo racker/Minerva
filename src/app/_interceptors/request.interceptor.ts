@@ -9,6 +9,8 @@ import { MonitorService } from '../_services/monitors/monitor.service';
 import { EnvironmentConfig } from "../_services/config/environmentConfig.service";
 import { MinervaApiMock } from "../_mocks/minervaApi/minerva-api-service.mock"
 import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
+import { TenantMock } from 'projects/admin/src/app/_mocks/tenants/tenants.service.mock';
+import { TenantMetaDataService } from 'projects/admin/src/app/_service/tenant-meta-data.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -21,6 +23,8 @@ export class RequestInterceptor implements HttpInterceptor {
     mockedResources = new resourcesMock();
     mockMon = new monitorsMock();
     mockMinerva = new MinervaApiMock();
+    mockTenants = new TenantMock();
+
     constructor(private inj: Injector) {
         this.resourceService = this.inj.get(ResourcesService);
         this.monitorService = this.inj.get(MonitorService);
@@ -59,6 +63,10 @@ export class RequestInterceptor implements HttpInterceptor {
             case url.includes('/intelligence'): // minerva-api
                 return () => {
                     return of(this.mockMinerva.handleRoute(url, method, request, next) as any);
+                }
+            case url.includes('/tenant-metadata'):
+                return () => {
+                    return of (this.mockTenants.handleRoute(url, method, request, next) as any);
                 }
             default:
                 // pass through any requests not handled above

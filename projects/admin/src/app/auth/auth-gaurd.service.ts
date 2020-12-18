@@ -14,6 +14,7 @@ export class AuthGuardService implements CanActivate {
 
     async canActivate(): Promise<boolean> {
 
+        return true;
         const user = await this.afAuth.currentUser;
         const provider = new firebase.default.auth.SAMLAuthProvider('saml.rackspacesso');
 
@@ -37,6 +38,5 @@ export class AuthGuardService implements CanActivate {
                     let errorMessage = error.message;
                 });
         }
-        return true;
     }
 }
