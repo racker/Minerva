@@ -1,14 +1,18 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-let absoluteHost = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+let absoluteHost = `${window.location.protocol}//${window.location.hostname}`;
 export const environment = {
   production: false,
-  mock: false,
+  mock: true,
   api: {
-    salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
+    salus: `${absoluteHost}/api/monitoring`,
     metrics: `${absoluteHost}/api/metrics`,
     minerva:`${absoluteHost}/api/intelligence/minerva-api-staging-v1`
+  },
+  firebase: {
+    apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
+    authDomain: 'minerva-281312.firebaseapp.com'
   },
   pagination: {
     pageSize: 25,
@@ -23,7 +27,7 @@ export const environment = {
     disallowLabelEdit: 'agent_'
   },
   featureFlags:{
-    adminAccess:true
+    adminAccess:false
   }
 };
 

@@ -10,9 +10,10 @@ import { EventsModule } from 'src/app/_features/events/events.module';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
+import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
 
 @NgModule({
-  declarations: [TabsetComponent, AdminResourceDetailsPage, DetailsComponent, EventDetailsComponent],
+  declarations: [TabsetComponent, AdminResourceDetailsPage, DetailsComponent, EventDetailsComponent, TenantMetadataListComponent],
   imports: [
     CommonModule,
     SharedModule,

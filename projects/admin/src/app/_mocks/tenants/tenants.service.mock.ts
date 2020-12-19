@@ -1,9 +1,9 @@
 import { default as tenantMetadataList } from './collection.json';
-import { TenantMetaData } from '../../_model/tenantMetaData';
+import { TenantMetadata } from '../../_model/tenantMetaData';
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 export class TenantMock {
-    tenantMetadata: TenantMetaData = tenantMetadataList.content[0];
+    tenantMetadata: TenantMetadata = tenantMetadataList.content[0];
 
     /**
          * Handle routes for mocked resources
@@ -21,7 +21,7 @@ export class TenantMock {
         }
     }
 
-    createTenant() : TenantMetaData {
+    createTenant() : TenantMetadata {
         return this.tenantMetadata;
     }
 
