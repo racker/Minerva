@@ -52,6 +52,7 @@ void (async function() {
         console.log("\n... Attempting login ....");
         const result = await Identity.login(req);
         Portal.createPortal(result.access.user);
+        headerObj.tenantId = result.access.user['RAX-AUTH:domainId'];
         fs.writeFileSync('.portal-session.json', JSON.stringify(headerObj));
         await Pilot.requestPilot({
             url: pilotURL, tenantId: result.access.user['RAX-AUTH:domainId'],
