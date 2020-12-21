@@ -19,3 +19,5 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
+
+timeout: 3600s
