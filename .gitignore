@@ -76,6 +76,6 @@ scripts/*
 .DS_Store
 
 # Portal session from __Secure-portal_sessionid cookie
-.portal-session
+.portal-session.json
 
 allure-results
