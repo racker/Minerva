@@ -122,7 +122,6 @@ afterEach(() => {
           }
         }
       };
-
       service.monitorTest(monitorData).subscribe(data => {
         expect(data).toEqual(new monitorsMock().testMonitor);
         done();
