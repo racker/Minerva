@@ -10,7 +10,7 @@ import { EnvironmentConfig } from "../_services/config/environmentConfig.service
 import { MinervaApiMock } from "../_mocks/minervaApi/minerva-api-service.mock"
 import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
 import { TenantMock } from 'projects/admin/src/app/_mocks/tenants/tenants.service.mock';
-import { TenantMetaDataService } from 'projects/admin/src/app/_service/tenant-meta-data.service';
+import { TenantmetaDataService } from 'projects/admin/src/app/_service/tenant-meta-data.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -56,7 +56,7 @@ export class RequestInterceptor implements HttpInterceptor {
                 return () => {
                     return of(this.mockedResources.handleRoute(url, method, request, next) as any);
                 }
-            case url.includes('/monitor'):
+            case url.includes('/monitors'):
                 return () => {
                     return of(this.mockMon.handleRoute(url, method, request, next) as any);
                 }
