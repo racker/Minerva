@@ -178,7 +178,7 @@ export class MonitorService {
   getBoundMonitor(ids:any):Observable<BoundMonitorPaging>{
     // TODO: Add paging mechanism to this service
         let queryParam = Object.keys(ids).map((key) => key + "=" + ids[key]).join('&');
-        return this.http.get<BoundMonitorPaging>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors/bound-monitors?${queryParam}`, httpOptions)
+        return this.http.get<BoundMonitorPaging>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/bound-monitors?${queryParam}`, httpOptions)
         .pipe(
           tap(data => {
             this._boundMonitor = data;
