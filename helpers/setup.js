@@ -7,7 +7,7 @@ void (async function() {
     const Portal = require('./portal');
     const Pilot = require('./pilot');
     const exec = require('child_process').exec;
-
+    const headerObj = {};
 
     let setup = ['Staging', 'Production'];
     let envSetup = readlineSync.keyInSelect(setup, 'Choose Portal Env:');
@@ -29,9 +29,9 @@ void (async function() {
     to get sessions ID: ${portalURL}racker copy cookie value for "__Secure-portal_sessionid"\n`);
     let portalSessionId = readlineSync.question(`Enter ${setup[envSetup]} Portal Session ID [DEFAULTS to last saved session]:`);
     if (!portalSessionId) {
-      portalSessionId = fs.readFileSync('.portal-session').toString();
+      headerObj.portalSessionId = JSON.parse(fs.readFileSync('.portal-session.json'));
     } else {
-      fs.writeFileSync('.portal-session', portalSessionId);
+      headerObj.portalSessionId = portalSessionId;
     }
 
     let username = readlineSync.question('\nUsername: ');
@@ -52,6 +52,8 @@ void (async function() {
         console.log("\n... Attempting login ....");
         const result = await Identity.login(req);
         Portal.createPortal(result.access.user);
+        headerObj.tenantId = result.access.user['RAX-AUTH:domainId'];
+        fs.writeFileSync('.portal-session.json', JSON.stringify(headerObj));
         await Pilot.requestPilot({
             url: pilotURL, tenantId: result.access.user['RAX-AUTH:domainId'],
             token: result.access.token.id
