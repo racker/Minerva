@@ -7,8 +7,8 @@ void (async function() {
     const Portal = require('./portal');
     const Pilot = require('./pilot');
     const exec = require('child_process').exec;
-    const headerObj = {};
-
+    let headerObj = {};
+    let options = ['Password', 'APIKey'];
     let setup = ['Staging', 'Production'];
     let envSetup = readlineSync.keyInSelect(setup, 'Choose Portal Env:');
 
@@ -29,22 +29,29 @@ void (async function() {
     to get sessions ID: ${portalURL}racker copy cookie value for "__Secure-portal_sessionid"\n`);
     let portalSessionId = readlineSync.question(`Enter ${setup[envSetup]} Portal Session ID [DEFAULTS to last saved session]:`);
     if (!portalSessionId) {
-      headerObj.portalSessionId = JSON.parse(fs.readFileSync('.portal-session.json'));
+      try{
+        headerObj = JSON.parse(fs.readFileSync('.portal-session.json'));
+        console.log(headerObj);
+      }catch(err){
+        console.log("Please enter __Secure-portal_sessionid... ");
+        return;
+      }
+      
     } else {
       headerObj.portalSessionId = portalSessionId;
+      headerObj.username = readlineSync.question('\nUsername: ');
+      headerObj.choice = readlineSync.keyInSelect(options, 'Choose login option:');
+      headerObj.secret = readlineSync.question(headerObj.choice === 0 ? "Password: " : "APIKey: ");
     }
 
-    let username = readlineSync.question('\nUsername: ');
-    let options = ['Password', 'APIKey'];
-    let choice = readlineSync.keyInSelect(options, 'Choose login option:');
-    let secret = readlineSync.question(choice === 0 ? "Password: " : "APIKey: ");
+    
 
     let req = {
       url: identityURL,
       args: {
-        username,
-        ...(choice === 0 && { password: secret }),
-        ...(choice === 1 && { apikey: secret })
+        username:headerObj.username,
+        ...(headerObj.choice === 0 && { password: headerObj.secret }),
+        ...(headerObj.choice === 1 && { apikey: headerObj.secret })
       }
     };
 
@@ -52,13 +59,16 @@ void (async function() {
         console.log("\n... Attempting login ....");
         const result = await Identity.login(req);
         Portal.createPortal(result.access.user);
-        headerObj.tenantId = result.access.user['RAX-AUTH:domainId'];
-        fs.writeFileSync('.portal-session.json', JSON.stringify(headerObj));
+        if(!headerObj.tenantId){
+          headerObj.tenantId = result.access.user['RAX-AUTH:domainId'];
+        }
+        
+        
         await Pilot.requestPilot({
             url: pilotURL, tenantId: result.access.user['RAX-AUTH:domainId'],
             token: result.access.token.id
         });
-
+        fs.writeFileSync('.portal-session.json', JSON.stringify(headerObj));
         exec(`ng serve -c ${envSetup === 0 ? 'local-staging' : 'local-prod'} --public-host dev.i.rax.io --base-href /intelligence -o`,
             function (err) {
                 if (err) {
