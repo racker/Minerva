@@ -24,7 +24,7 @@
     "test:e2e": "npm run mocksetup && ng e2e --project=minerva -c=mock",
     "test:e2e-ci": "webdriver-manager update --standalone false --gecko false --versions.chrome 87.0.4280.88 && ng e2e --project=minerva -c=mock",
     "test:admin": "ng test --project=admin -c=mock --watch=false",
-    "test:admin-e2e": "ng e2e --project=admin -c=mock  --watch=false",
+    "test:admin-e2e": "ng e2e --project=admin -c=mock --watch=false",
     "lint": "ng lint",
     "mocksetup": "node ./helpers/createMocks.js",
     "report": "allure generate allure-results --clean -o allure-report || true",
