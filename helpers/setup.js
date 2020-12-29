@@ -36,15 +36,15 @@ void (async function() {
         console.log("Please enter __Secure-portal_sessionid... ");
         return;
       }
-      
+
     } else {
       headerObj.portalSessionId = portalSessionId;
       headerObj.username = readlineSync.question('\nUsername: ');
       headerObj.choice = readlineSync.keyInSelect(options, 'Choose login option:');
-      headerObj.secret = readlineSync.question(headerObj.choice === 0 ? "Password: " : "APIKey: ");
+      headerObj.secret = readlineSync.question(headerObj.choice === 0 ? "Password: " : "APIKey: ", {hideEchoBack: true});
     }
 
-    
+
 
     let req = {
       url: identityURL,
@@ -62,8 +62,8 @@ void (async function() {
         if(!headerObj.tenantId){
           headerObj.tenantId = result.access.user['RAX-AUTH:domainId'];
         }
-        
-        
+
+
         await Pilot.requestPilot({
             url: pilotURL, tenantId: result.access.user['RAX-AUTH:domainId'],
             token: result.access.token.id
