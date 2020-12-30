@@ -112,7 +112,7 @@ afterEach(() => {
       });
     });
 
-    it('should return test monitor results', (done) => {
+    xit('should return test monitor results', (done) => {
       let monitorData: CreateTestMonitor = {
         resourceId: 'testMonitor',
         details: {

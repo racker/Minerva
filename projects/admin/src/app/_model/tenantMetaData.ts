@@ -1,4 +1,6 @@
-export interface TenantMetadata {
+import { Pagination } from "src/app/_models/common";
+
+export interface TenantmetaData {
     id?:string;
     tenantId: string;
     accountType: string;
@@ -7,5 +9,9 @@ export interface TenantMetadata {
     },
     createdTimestamp?:string;
     updatedTimestamp?:string;
+}
+
+export interface TenantmetaDataList extends Pagination{
+content: TenantmetaData[];
 }
 
