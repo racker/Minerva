@@ -12,13 +12,13 @@ describe("hx-Alert testing", () => {
    xit("Should check if testing hx-alert element is present", async () => {
       page.navigateTo();
       browser.sleep(2000); 
-      element(by.xpath("//hx-disclosure[@id='addResButton']")).click();
+      page.baseElement.addResource.click();
       browser.sleep(1000);
-      element(by.xpath("//input[@id='txtResource']")).sendKeys("%%%");
+      page.baseElement.resourceId.sendKeys("%%%");
       browser.sleep(1000);
-      element(by.xpath("//button[@class='hxBtn hxPrimary']")).click();
+      page.baseElement.addResource.click();
       browser.sleep(2000);
-      expect(element(by.tagName("hx-alert")).isPresent()).toBe(true);
+      expect(page.baseElement.eleSubmit.isPresent()).toBe(true);
    });
 
 });

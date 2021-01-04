@@ -36,7 +36,8 @@ export class MonitorsListPage
     valueTimeout                =element(by.xpath("//input[@placeholder='timeout']"))
     valueReadTimeout            =element(by.xpath("//input[@placeholder='readTimeout']"))
     msgTimeout                  =element(by.xpath("//input[@placeholder='timeout']"))
-    msgReadTimeout              =element(by.xpath("//input[@placeholder='readTimeout']"))       
+    msgReadTimeout              =element(by.xpath("//input[@placeholder='readTimeout']"))
+    headerMonitor               =element(by.xpath("//a[text()='Monitoring']"))     
    
     selectFiveMonitors(){
         let count:number;

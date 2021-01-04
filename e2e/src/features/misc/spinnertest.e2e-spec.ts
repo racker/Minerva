@@ -40,7 +40,7 @@ describe("Test page loading/spinner functionality",()=>{
         });
 
         xit("Verify if spinner is present while navigating to monitor list page",async()=>{
-          element(by.xpath("//a[text()='Monitoring']")).click();
+          page1.headerMonitor.click();
           var theLoader = await browser.executeScript("return document.querySelectorAll('.gbl-spinner-show').length"
           );
           expect(theLoader).toEqual(1);
