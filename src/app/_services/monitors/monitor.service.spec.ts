@@ -2,6 +2,7 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { MonitorService } from './monitor.service';
 import { monitorsMock } from '../../_mocks/monitors/monitors.service.mock';
 import { CreateMonitor } from 'src/app/_models/salus.monitor';
+import { Monitor } from 'src/app/_models/monitors';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -104,11 +105,12 @@ afterEach(() => {
         done();
       });
     });
-    it('should update monitors', (done) => {
-      let monid = new monitorsMock().single.id
-      service.updateMonitor(monid,[]).subscribe(data => {
-        expect(data.id).toEqual(monid);
-        done();
+   
+    it('should update monitors', async() => {
+      let monid = new monitorsMock().single.id;
+      let updatedFields = { labelSelector: {'newkey': 'newVal', 'somekey':'someVal'}};
+      await service.updateMonitor(monid, updatedFields).subscribe((data:Monitor) => {
+        expect(data).toEqual(new monitorsMock().single);
       });
     });
 
