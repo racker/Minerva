@@ -19,8 +19,8 @@ steps:
     args: ['run', 'ng', '--', 'build', '--prod']
 
 
-  - name: 'ubuntu'
-    args: ['cp', 'app.staging.yaml', 'dist']
+  - name: 'bash'
+    args: ['cp', 'app-staging.yaml', 'dist']
 
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "--version=$_ENVIRONMENT"] #option for adding
