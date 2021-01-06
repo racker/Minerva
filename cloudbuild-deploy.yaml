@@ -18,8 +18,12 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'ng', '--', 'build', '--prod']
 
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "--version=$_ENVIRONMENT"] #option for adding
+    dir: "dist"
 
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
+  # No longer needed? App Engine creates a storage folder for the app
+  #- name: 'gcr.io/cloud-builders/gsutil'
+  #  args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
 
 timeout: 3600s
