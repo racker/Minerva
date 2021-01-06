@@ -15,3 +15,9 @@
 
 node_modules
 #!include:.gitignore
+src/
+tsconfig.json
+readme.md
+tslint.json
+LICENSE
+.editorconfig

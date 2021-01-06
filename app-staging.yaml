@@ -1,4 +1,6 @@
 runtime: nodejs10
+# maybe we use service name? We just need a way to distinguish whether
+# the instance is for prod or staging
 service: minerva-staging
 
 handlers:
