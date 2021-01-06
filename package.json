@@ -28,7 +28,8 @@
     "lint": "ng lint",
     "mocksetup": "node ./helpers/createMocks.js",
     "report": "allure generate allure-results --clean -o allure-report || true",
-    "docs": "npx compodoc -p tsconfig.json -d docs"
+    "docs": "npx compodoc -p tsconfig.json -d docs",
+    "copy": "cp app-staging.yaml dist"
   },
   "description": "Rackspace NextGen Intelligence",
   "main": "app.js",
