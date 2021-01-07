@@ -19,7 +19,11 @@ steps:
     args: ['run', 'ng', '--', 'build', '--prod']
 
 
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
+ # Deploy to google cloud app egnine
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', '--version=prod']
+
+  # - name: 'gcr.io/cloud-builders/gsutil'
+  #  args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
 
 timeout: 3600s
