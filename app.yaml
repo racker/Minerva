@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs12
 api_version: 1
 threadsafe: yes
 
