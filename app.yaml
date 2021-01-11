@@ -1,7 +1,4 @@
 runtime: nodejs14
-api_version: 1
-threadsafe: yes
-
 
 handlers:
 
