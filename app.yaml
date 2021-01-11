@@ -1,4 +1,4 @@
-runtime: python27
+runtime: nodejs10
 api_version: 1
 threadsafe: yes
 
