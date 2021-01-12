@@ -22,7 +22,7 @@ steps:
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy','--bucket=$_BUCKET_LOCATION','--project=$PROJECT_ID','--version=prod']
-    dir: dist/
+    dir: 'dist'
 
 
    # - name: 'gcr.io/cloud-builders/gsutil'
