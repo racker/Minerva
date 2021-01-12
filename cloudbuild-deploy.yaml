@@ -20,7 +20,7 @@ steps:
     
 
   - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', 'gs://$_BUCKET_LOCATION/app.yaml', 'dist/app.yaml']
+    args: ['cp', '$_BUCKET_LOCATION/app.yaml', 'dist/app.yaml']
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
