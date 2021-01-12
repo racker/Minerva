@@ -17,14 +17,16 @@ steps:
 
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'ng', '--', 'build', '--prod']
-    
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]  
 
   - name: gcr.io/cloud-builders/gsutil
-    args: ['cp', '$_BUCKET_LOCATION/app.yaml', 'dist/app.yaml']
+    args: ['cp', 'app.yaml', '$_BUCKET_LOCATION']
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', 'dist/','--project=$PROJECT_ID','--version=prod']
+    args: ['app', 'deploy','--project=$PROJECT_ID','--version=prod']
 
    # - name: 'gcr.io/cloud-builders/gsutil'
    # args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
