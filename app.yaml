@@ -3,8 +3,8 @@ runtime: nodejs14
 handlers:
 
   - url: /
-    static_files: intelligence/index.html
-    upload: intelligence/index.html
+    static_files: index.html
+    upload: index.html
   - url: /
-    static_dir: intelligence
+    static_dir: /
 
