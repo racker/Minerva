@@ -19,7 +19,7 @@ steps:
     args: ['run', 'ng', '--', 'build', '--prod']
 
   - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]  
+    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION\dist]  
 
   - name: gcr.io/cloud-builders/gsutil
     args: ['cp', 'app.yaml', '$_BUCKET_LOCATION']
