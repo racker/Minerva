@@ -27,7 +27,7 @@ steps:
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy','--project=$PROJECT_ID','--version=prod']
+    args: ['app', 'deploy','--project=$PROJECT_ID']
 
    # - name: 'gcr.io/cloud-builders/gsutil'
    # args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
