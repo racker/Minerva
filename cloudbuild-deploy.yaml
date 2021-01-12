@@ -18,7 +18,7 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'ng', '--', 'build', '--prod']
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'app.yaml','dist/']
  
   # Deploy to google cloud app egnine
