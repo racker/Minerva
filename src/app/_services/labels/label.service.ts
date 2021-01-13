@@ -45,8 +45,7 @@ export class LabelService {
       return of<LabelResources>(this.mockedLabels.resourceLabels);
     }
     else {
-      return this.http.get<LabelResources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /resource-labels`, httpOptions)
+      return this.http.get<LabelResources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resource-labels`, httpOptions)
       .pipe(
         tap(data => {
           this._labels = data;
@@ -66,8 +65,7 @@ export class LabelService {
       return of<LabelMonitors>(this.mockedLabels.monitorLabels);
     }
     else {
-      return this.http.get<LabelMonitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /resource-labels`, httpOptions)
+      return this.http.get<LabelMonitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resource-labels`, httpOptions)
       .pipe(
         tap(data => {
           this._labels = data;
