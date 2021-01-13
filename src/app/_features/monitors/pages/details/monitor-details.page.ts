@@ -221,7 +221,12 @@ export class MonitorDetailsPage implements OnInit {
    * @param updateSection string - section of the monitor being updated
    */
   monitorUpdate(updateBody:any, updateSection: string) {
-    this.monitorService.updateMonitor(this.id, updateBody).subscribe(data =>{
+    let updateFields;
+    if(updateSection === 'label')
+      updateFields = { 'labelSelector': this.updatedLabelFields}
+    else
+    updateFields = updateBody;
+    this.monitorService.updateMonitor(this.id, updateFields).subscribe(data =>{
       this.monitor$ = of<Monitor>(this.monitorService.monitor).pipe(
         tap((data) => {
           this.monDetails = data;

@@ -13,43 +13,43 @@ describe("Breadcrumb testing in resources", () => {
   });
 
 it("Should check breadcrumb is present ",async()=>{
-   element(by.xpath("//tr[1]//td[2]//a[1]")).click();
-    var breadcramb = element(by.xpath("//nav[@class='hxBreadcrumb']"));
-   var Atribute = await breadcramb.getAttribute("className");
+   page.baseElement.firstResource.click();
+   var msg = page.baseElement.breadcrumb;
+   var Atribute = await msg.getAttribute("className");
    expect(Atribute).toEqual("hxBreadcrumb");
 
   });
   
 
 it("Should check breadcrumb link is navigating" ,()=>{
-   element(by.xpath("//tr[1]//td[2]//a[1]")).click();
-   var breadcramb=element(by.xpath("//nav[@class='hxBreadcrumb']"));
-  expect(breadcramb.getText()).toEqual("RESOURCES\ndevelopment:0");
+  page.baseElement.firstResource.click();
+   var path = page.baseElement.breadcrumb;
+  expect(path.getText()).toEqual("RESOURCES\ndevelopment:0");
 });
 
 it("Should check breadcrumb link is navigating and then back to rescources" ,()=>{
-  element(by.xpath("//tr[1]//td[2]//a[1]")).click();
-  element(by.xpath("//a[@class='active']")).click();
- expect(element(by.xpath("//h2[contains(text(),'Resources')]")).isPresent()).toBe(true);
+  page.baseElement.firstResource.click();
+  page.baseElement.resourcesBreadcrumb.click();
+  expect(page.baseElement.headerResource.isPresent()).toBe(true);
 });
 
-it ("Should check if href is present is 1st page" ,async() =>{
-   var path =  element.all(by.xpath("//table[@class='hxTable']//tbody//tr//td[2]"));
+it("Should check if href is present is 1st page" ,async() =>{
+   var path = page.baseElement.listResource;
    var colNum = await path.getAttribute("href");
    expect(colNum.length).toEqual(25);    
 });
 
 it("Should check if href is present is 2nd page" , async() =>{
-  element(by.xpath("//button[@class='hxBtn nextPage']")).click();
-  var path =  element.all(by.xpath("//table[@class='hxTable']//tbody//tr//td[2]"));
+  page.baseElement.nextPageArrow.click();
+  var path = page.baseElement.nextPageResourceRecord;
   var colNum = await path.getAttribute("href");
   expect(colNum.length).toEqual(25);
 });
 
-it ("Should check if href is present is 3rd page" , async() =>{
-  element(by.xpath(" //button[contains(text(),'3')]")).click();
-  var path =  element.all(by.xpath("//table[@class='hxTable']//tbody//tr//td[2]"));
-var colNum = await path.getAttribute("href");
-expect(colNum.length).toEqual(4);
+it("Should check if href is present is 3rd page" , async() =>{
+  page.baseElement.thirdPageArrow.click();
+  var path = page.baseElement.PageResourceRecord;
+  var colNum = await path.getAttribute("href");
+  expect(colNum.length).toEqual(4);
 });
 });
