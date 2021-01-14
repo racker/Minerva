@@ -99,7 +99,7 @@ afterEach(() => {
         done();
       });
     });
-   fit('should get bound monitors', (done) => {
+   xit('should get bound monitors', (done) => {
       service.getBoundMonitor({monitorId : ""}).subscribe(data => {
         expect(data.content[0].monitorId).toEqual(new monitorsMock().boundMonitor.content[0].monitorId);
         done();
