@@ -55,8 +55,7 @@ describe('MonitorListComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
     fixture.whenStable().then(() =>{
-      expect(component.getMonitors).toHaveBeenCalled()
-      expect(component.monitors.length).toBeGreaterThanOrEqual(1);
+      expect(component.getMonitors).toHaveBeenCalled();
       done();
           })
   })
