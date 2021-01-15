@@ -89,8 +89,8 @@
       </td>
       <td><a routerLink="{{isAdminRoute(monitor.id)}}">{{monitor.name || monitorUtil.formatSummaryField(monitor)}}</a></td>
       <td></td>
-      <td></td>
-      <td></td>
+      <td>{{monitor?.details?.type}}</td>
+      <td>{{monitor?.details?.plugin?.type}}</td>
     </tr>
   </tbody>
   </ng-template>

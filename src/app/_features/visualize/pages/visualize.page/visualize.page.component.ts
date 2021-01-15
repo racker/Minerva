@@ -28,9 +28,9 @@ export class VisualizePage implements OnInit, OnDestroy {
   async ngOnInit() {
 
     this.loading = true;
-    this.mnrvaApi.getDemo().subscribe(data =>{
-      console.log(data);
-    })
+    // this.mnrvaApi.getDemo().subscribe(data =>{
+    //   console.log(data);
+    // })
     this.system = this.route.snapshot.queryParams['system'] ?
       this.route.snapshot.queryParams['system'].toUpperCase() : null;
     this.measurement = this.route.snapshot.queryParams['measurement'];
