@@ -64,7 +64,12 @@ export class ResourcesService {
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, { headers: httpOptions.headers, params: {'sort':sorting} } )
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, { headers: httpOptions.headers, 
+      params: {
+        size: `${size}`,
+          page: `${page}`,
+        'sort':sorting
+      } } )
     .pipe(
       tap(data =>
         { this._resources = data;
