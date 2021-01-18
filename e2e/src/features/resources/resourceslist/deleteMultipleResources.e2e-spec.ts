@@ -51,7 +51,7 @@ describe("Delete multiple resources functionality", ()=> {
         let overlay=new DeleteSelectedResourceOverlay();
         overlay.confirmBtn.click();
         overlay.okBtn.click()
-        expect(overlay.confirmMonitorModal.getAttribute('aria-hidden')).toEqual('true');
+        expect(overlay.confirmResourceModal.getAttribute('aria-hidden')).toEqual('true');
     });
 
     it("To verify if no.of.selected resources  is equal to the no.of.resources displayed on pop over",()=>{
