@@ -36,7 +36,6 @@ export class RequestInterceptor implements HttpInterceptor {
         if (!this.env.mock) {
             return next.handle(request);
         }
-
         const { url, method } = request;
 
         this.page = +request.params.get('page');
@@ -54,9 +53,10 @@ export class RequestInterceptor implements HttpInterceptor {
 
             case url.includes('/resources'):
                 return () => {
+                    console.log("Reached at 58");
                     return of(this.mockedResources.handleRoute(url, method, request, next) as any);
                 }
-            case url.includes('/monitors'):
+            case url.includes('/monitors') || url.includes('-monitor'):
                 return () => {
                     return of(this.mockMon.handleRoute(url, method, request, next) as any);
                 }
