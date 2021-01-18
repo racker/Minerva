@@ -33,7 +33,7 @@ export class monitorsMock {
         return new HttpResponse({ status: 200, body: (this.getMonitor() as any) });
       case url.endsWith('/monitors') && method === 'POST':
         return new HttpResponse({ status: 201, body: (this.createMonitor() as any) });
-      case url.match(/\/monitors\/[a-zA-Z0-9-_:]+$/) && method === 'PATCH':
+      case url.match(/\/monitors\/[a-zA-Z0-9-_:]+$/) && method === 'PUT':
         return new HttpResponse({ status: 200, body: (this.updateMonitor() as any) });
       case url.match(/\/monitors\/[a-zA-Z0-9-_:]+$/) && method === 'DELETE':
         return new HttpResponse({ status: 204, body: (this.deleteMonitor() as any) });

@@ -86,7 +86,7 @@ afterEach(() => {
       });
     });
 
-    xit('should delete a Monitor', (done) => {
+    it('should delete a Monitor', (done) => {
       service.deleteMonitor('monitorID87723').subscribe((data) => {
         expect(data.body).toEqual(true);
         done();
@@ -99,22 +99,23 @@ afterEach(() => {
         done();
       });
     });
-    it('should get bound monitors', (done) => {
+   it('should get bound monitors', async(done) => {
       service.getBoundMonitor({monitorId : ""}).subscribe(data => {
         expect(data.content[0].monitorId).toEqual(new monitorsMock().boundMonitor.content[0].monitorId);
         done();
       });
     });
    
-    it('should update monitors', async() => {
+    it('should update monitors', async(done) => {
       let monid = new monitorsMock().single.id;
       let updatedFields = { labelSelector: {'newkey': 'newVal', 'somekey':'someVal'}};
-      await service.updateMonitor(monid, updatedFields).subscribe((data:Monitor) => {
+      service.updateMonitor(monid, updatedFields).subscribe((data:Monitor) => {
         expect(data).toEqual(new monitorsMock().single);
+        done();
       });
     });
 
-    xit('should return test monitor results', (done) => {
+    it('should return test monitor results', (done) => {
       let monitorData: CreateTestMonitor = {
         resourceId: 'testMonitor',
         details: {
