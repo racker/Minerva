@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
+import { tap, delay, catchError } from 'rxjs/operators';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Monitors, Monitor, TestMonitor } from 'src/app/_models/monitors';
@@ -116,10 +116,10 @@ export class MonitorService {
             tap(data => {
               return of<Monitor>(data);
               this.logService.log(`Monitor created: ${data.id}`, LogLevels.info);
-            })
+            }),
+            catchError(this.logService.handleError)
           );
   }
-
 
   /**
    * Update a monitor using patch method

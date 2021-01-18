@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { LocalStorage } from '@ngx-pwa/local-storage';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { SalusError } from 'src/app/_shared/salusApiError';
 
 @Injectable({
   providedIn: 'root'
@@ -96,4 +97,17 @@ export class LoggingService {
       console.log({ level: LogLevels[logLevel], message: message });
     }
   }
+
+  /**
+   * @name handleError
+   * @param error 
+   * @description this function calls when any exception comes from salus api to show the trace id and exception in the logs
+   * 
+   */
+  handleError(error: SalusError){
+    console.log({ level: LogLevels.info, error: error.error });
+    return throwError(error);
+    } 
+
+
 }
