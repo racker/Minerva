@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  AuthGuardService as AuthGuard
-} from '../app/auth/auth-gaurd.service';
+import { AuthGuardService } from './_services/auth/auth.guard';
 import { SchemaResolver } from 'src/app/_features/monitors/monitor.resolve';
 
 const routes: Routes = [
@@ -12,7 +10,7 @@ const routes: Routes = [
     data:{
       breadcrumb: null
     },resolve: {schema: SchemaResolver },
-    canActivate:[AuthGuard],
+    canActivate:[AuthGuardService],
   },
 ];
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { TenantmetaData, TenantmetaDataList } from '../_model/tenantMetaData';
+import { TenantmetaData, TenantmetaDataList } from '../../_model/tenantMetaData';
 import { Observable } from 'rxjs';
 
 

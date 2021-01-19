@@ -1,0 +1,60 @@
+import { Injectable } from "@angular/core";
+import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { LogLevels } from 'src/app/_enums/log-levels.enum';
+import { CanActivate , Router } from "@angular/router";
+import { AdminService } from "../admin/admin.service";
+import * as firebase from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
+
+@Injectable()
+export class AuthGuardService implements CanActivate {
+
+    constructor(private adminService: AdminService, private readonly loggingService: LoggingService,
+        public  afAuth:  AngularFireAuth){
+
+    }
+
+    async canActivate(): Promise<boolean> {
+        let firebaseUser = await this.afAuth.currentUser;
+        let user = this.adminService.user || firebaseUser;
+
+        // is this user already authenticated?
+        if (user) {
+            this.adminService.user = user;
+            return true;
+        }
+
+        const provider = new firebase.default.auth.SAMLAuthProvider('saml.rackspacesso');
+        const q = new Promise<boolean>(async (resolve, reject) => {
+            try {
+                //set auth persistence to none -
+                await firebase.default.auth().setPersistence(firebase.default.auth.Auth.Persistence.NONE)
+                // redirect the user to login page
+                let result = await firebase.default.auth().getRedirectResult();
+                firebase.default.auth().onAuthStateChanged((authUser) => {
+                    if (authUser) {
+                        // Already signed in.
+                        user = {
+                            samAccountName: result.additionalUserInfo.profile["samAccountName"],
+                            CommonName: result.additionalUserInfo.profile["CommonName"],
+                            emailaddress: result.additionalUserInfo.profile["emailaddress"],
+                            authorized: true
+                        };
+                        this.adminService.user = user;
+                        resolve(true)
+                    } else {
+                        // not signed in.
+                        firebase.default.auth().signInWithRedirect(provider);
+                    }
+                }, (e) => {
+                    reject(e);
+                });
+            } catch(e) {
+                this.loggingService.log(e.message, LogLevels.error);
+                reject(e);
+            }
+        });
+
+        return q;
+    }
+}

@@ -23,7 +23,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'ADMIN'
     }, resolve: {schema: SchemaResolver }
-  },  
+  },
   { path: '', redirectTo: '/resources', pathMatch: 'full'},
   { path: '**', redirectTo: '/resources'}
 ];
