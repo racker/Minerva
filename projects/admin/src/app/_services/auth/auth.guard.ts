@@ -25,9 +25,9 @@ export class AuthGuardService implements CanActivate {
         }
 
         const provider = new firebase.default.auth.SAMLAuthProvider('saml.rackspacesso');
-        const q = new Promise<boolean>(async (resolve, reject) => {
+        return new Promise<boolean>(async (resolve, reject) => {
             try {
-                //set auth persistence to none -
+                //set auth persistence to none - https://firebase.google.com/docs/auth/web/auth-state-persistence
                 await firebase.default.auth().setPersistence(firebase.default.auth.Auth.Persistence.NONE)
                 // redirect the user to login page
                 let result = await firebase.default.auth().getRedirectResult();
@@ -54,7 +54,5 @@ export class AuthGuardService implements CanActivate {
                 reject(e);
             }
         });
-
-        return q;
     }
 }
