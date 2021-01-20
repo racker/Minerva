@@ -116,9 +116,7 @@ export class MonitorService {
             tap(data => {
               return of<Monitor>(data);
               this.logService.log(`Monitor created: ${data.id}`, LogLevels.info);
-            }),
-            catchError(this.logService.handleError)
-          );
+            }));
   }
 
   /**

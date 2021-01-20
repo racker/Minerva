@@ -92,7 +92,10 @@ export class LoggingService {
     var level = this.logLevel;
     if (logLevel >= parseInt(level)){
       if(parseInt(level) === LogLevels.error){
-        this.setAlertMsg(message);
+        if(typeof(message) === 'string')
+          this.setAlertMsg(message);
+        else 
+          this.setAlertMsg(message.error.message);
       }
       console.log({ level: LogLevels[logLevel], message: message });
     }
@@ -104,10 +107,10 @@ export class LoggingService {
    * @description this function calls when any exception comes from salus api to show the trace id and exception in the logs
    * 
    */
-  handleError(error: SalusError){
+  /*handleError(error: SalusError){
     console.log({ level: LogLevels.info, error: error.error });
     return throwError(error);
-    } 
+    } */
 
 
 }

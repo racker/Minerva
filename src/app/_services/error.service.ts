@@ -22,7 +22,7 @@ export class ErrorService {
     if(error.status){
       switch (true) {
         case error.status>=400 && error.status<500:
-          return 'The server can not find the requested resource.'
+          return error;
         case error.status>=500 && error.status<600: 
         return 'Internal server error.'   
         default:

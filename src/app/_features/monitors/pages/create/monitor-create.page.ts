@@ -131,7 +131,7 @@ change = false;
 
     // add selector label fields
     if (!this.additionalSettingsForm.value.hasOwnProperty(CntrlAttribute.resourceId)) {
-      this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
+        this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
     }
     else {
       delete this.createMonitorForm.value['labelSelector'];
@@ -155,10 +155,10 @@ change = false;
       this.monitorService.createMonitor(monitorForm).subscribe(data => {
         this.addMonLoading = false;
         this.router.navigate(['/monitors']);
-      }, (error) => {
+      }/*, (error) => {
         this.addMonLoading = false;
         this.logService.log(`Create monitor failed - ${JSON.stringify(error)}`, LogLevels.error)
-      });
+      }*/);
     }
     else {
       this.logService.log(`Monitor data invalid - ${result.errorsText}`, LogLevels.error)
