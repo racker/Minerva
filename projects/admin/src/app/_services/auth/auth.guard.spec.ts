@@ -11,7 +11,12 @@ import { AuthGuardService } from './auth.guard';
 describe('AuthGuardService', () => {
     let service: AuthGuardService;
     let adminService: AdminService;
-
+    const usr= {
+        samAccountName: 'guy',
+        emailaddress: 'guy@rackspace.com',
+        CommonName: 'guy rogers',
+        authorized: true
+    };
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -32,13 +37,7 @@ describe('AuthGuardService', () => {
     });
 
     it('should first look if user is authenticated', async(done) => {
-        adminService.user = {
-            samAccountName: 'guy',
-            emailaddress: 'guy@rackspace.com',
-            CommonName: 'guy rogers',
-            authorized: true
-        };
-
+        adminService.user =usr;
         let spy = spyOnProperty(adminService, 'user', 'set');
         await service.canActivate();
         expect(spy).toHaveBeenCalled();
@@ -46,12 +45,7 @@ describe('AuthGuardService', () => {
     });
 
     it('should authenticate admin', async(done) => {
-        adminService.user = {
-            samAccountName: 'guy',
-            emailaddress: 'guy@rackspace.com',
-            CommonName: 'guy rogers',
-            authorized: true
-        };
+        adminService.user = usr
         let guard = await service.canActivate();
         expect(guard).toEqual(true);
         done();
