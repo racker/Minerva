@@ -1,19 +1,24 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { ErrorService } from './error.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SalusError } from 'src/app/_models/salusError';
 
 describe('ErrorService', () => {
-   let injector: TestBed;
-   let service:ErrorService;
-   beforeEach(() => {
+  let injector: TestBed;
+  let service: ErrorService;
+  beforeEach(() => {
     TestBed.configureTestingModule({});
     injector = getTestBed();
     service = injector.get(ErrorService);
 
   });
 
-  it('should be created', () => {    
+  it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should execute transformSalusErrorHandler', () => {
+    //TODO: Add tests for transformSalusErrorHandler
   });
 
   it('should execute getClientErrorService', () => {
@@ -22,26 +27,29 @@ describe('ErrorService', () => {
   });
 
   it('Should execute getServerErrorMessage with status 500', () => {
-        const error = new HttpErrorResponse({
-        error: 'server Error',
-        status: 500,
-        statusText: 'bad status',
-        url: 'http://wiki.stuff/something'
+    const error = new HttpErrorResponse({
+      error: 'server Error',
+      status: 500,
+      statusText: 'bad status',
+      url: 'http://wiki.stuff/something'
     });
     expect(service.getServerErrorMessage(error)).toEqual(
-        'Internal server error.'
+      'Internal server error.'
     );
   });
-  /*it('should execute getServerErrorMessage with status', () => {
-        const error = new HttpErrorResponse({
-        error: 'server Error',
-        status: 404,
-        statusText: 'bad status',
-        url: 'http://wiki.stuff/something'
-    });
-    expect(service.getServerErrorMessage(error)).toEqual(
-        'The server can not find the requested resource.'
+
+  it('should execute getSalusErrorMessage and return throwerror', () => {
+    const error: SalusError = {
+      timestamp: 'xxx-xx-x-x',
+      app: 'salus.app.k8',
+      host: 'hostname.stuff.url',
+      message: 'it done broke',
+      errors: [],
+      traceId: '8xj89-2km38'
+    };
+    expect(service.getSalusErrorMessage(error)).toEqual(
+      'it done broke'
     );
-  });*/
-  
+  });
+
 });

@@ -5,8 +5,9 @@ import { LogLevels } from 'src/app/_enums/log-levels.enum'
 import { LabelResources, LabelMonitors } from '../../_models/labels';
 import { LabelMock } from '../../_mocks/labels/label.service.mock';
 import { of, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';import { PortalDataService } from '../portal/portal-data.service';
+import { catchError, tap } from 'rxjs/operators';import { PortalDataService } from '../portal/portal-data.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
+import { ErrorService } from 'src/app/_services/error.service';
 ;
 
 const httpOptions = {
@@ -32,7 +33,7 @@ export class LabelService {
 
   private mockedLabels = new LabelMock();
   constructor(private http:HttpClient,
-     private portalService: PortalDataService,
+     private portalService: PortalDataService, private errorService: ErrorService,
     private logService: LoggingService, private env : EnvironmentConfig) { }
 
   /**
@@ -50,8 +51,9 @@ export class LabelService {
         tap(data => {
           this._labels = data;
           this.logService.log(this.labels, LogLevels.info);
-        })
-      )
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
     }
   }
 
@@ -70,8 +72,9 @@ export class LabelService {
         tap(data => {
           this._labels = data;
           this.logService.log(data, LogLevels.info)
-        })
-      )
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
     }
   }
 }

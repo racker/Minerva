@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { catchError, delay, tap } from 'rxjs/operators';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Resource, Resources, CreateResource } from '../../_models/resources';
 import { resourcesMock } from 'src/app/_mocks/resources/resources.service.mock';
 import { PortalDataService } from '../portal/portal-data.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
+import { ErrorService } from 'src/app/_services/error.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Referer': `https://staging.portal.rackspace.com/7799042/intelligence`
+    'Content-Type': 'application/json'
   })
 }
-
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +24,12 @@ export class ResourcesService {
   private _resources: Resources;
   private _resource: Resource;
   private mockedResources = new resourcesMock();
-  constructor(private http:HttpClient, 
+  constructor(private http:HttpClient,
     private portalService: PortalDataService,
-    private logService: LoggingService, private env : EnvironmentConfig) { }
+    private logService: LoggingService,
+    private env : EnvironmentConfig,
+
+    private errorService: ErrorService) { }
 
   get resources(): Resources {
     return this._resources;
@@ -64,7 +64,7 @@ export class ResourcesService {
       return of<Resources>(this.resources).pipe(delay(500));
     }
     else {
-    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, { headers: httpOptions.headers, 
+    return this.http.get<Resources>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources`, { headers: httpOptions.headers,
       params: {
         size: `${size}`,
           page: `${page}`,
@@ -74,7 +74,9 @@ export class ResourcesService {
       tap(data =>
         { this._resources = data;
           this.logService.log(this.resources, LogLevels.info);
-        }));
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
     }
   }
 
@@ -90,8 +92,9 @@ export class ResourcesService {
         tap(data => {
           this._resource = data;
           this.logService.log(`Resource: ${data}`, LogLevels.info);
-        })
-      );
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   /**
@@ -105,7 +108,9 @@ export class ResourcesService {
         tap(data => {
           this._resource = data;
           this.logService.log(data, LogLevels.info);
-        }));
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   /**
@@ -120,8 +125,9 @@ export class ResourcesService {
         tap(data => {
           this._resource = data,
           this.logService.log(`Resource: ${data}`, LogLevels.info);
-        })
-      );
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   /**
@@ -139,8 +145,9 @@ export class ResourcesService {
     .pipe(
       tap(data => {
         this.logService.log(`Search Resources`, LogLevels.info);
-      })
-    );
+      }),
+      catchError(this.errorService.transformSalusErrorHandler)
+      );
   }
 
   /**
@@ -153,6 +160,7 @@ export class ResourcesService {
         tap(data => {
           this.logService.log(`Resource deleted: ${id}`, LogLevels.info);
         })
+        // TODO: Add SalusErrorHandler when accounting for components subscribed
     );
   }
 

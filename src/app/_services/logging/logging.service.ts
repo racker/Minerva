@@ -87,16 +87,13 @@ export class LoggingService {
    * // Sending an object
    * LoggingService.log({ message: 'some message': data: someDataObj }, LogLevels.info);
    */
-  log(message: any, logLevel: LogLevels): void {
+  log(error: any, logLevel: LogLevels): void {
     var level = this.logLevel;
     if (logLevel >= parseInt(level)){
       if(parseInt(level) === LogLevels.error){
-        if(typeof(message) === 'string')
-          this.setAlertMsg(message);
-        else 
-          this.setAlertMsg(message.error.message);
+        this.setAlertMsg(error.message || error);
       }
-      console.log({ level: LogLevels[logLevel], message: message });
+      console.log({ level: LogLevels[logLevel], error });
     }
   }
 }

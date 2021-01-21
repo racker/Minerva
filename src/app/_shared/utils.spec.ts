@@ -57,4 +57,8 @@ describe('transformKeyPairs', () => {
         expect(isAdmin(urlRoute)).toEqual(true);
     })
 
+    it('should implementsObject', () => {
+        // TODO: tests needed for implementsObject
+    })
+
 });
