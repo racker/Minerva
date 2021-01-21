@@ -132,7 +132,7 @@ change = false;
 
     // add selector label fields
     if (!this.additionalSettingsForm.value.hasOwnProperty(CntrlAttribute.resourceId)) {
-        //this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
+        this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
     }
     else {
       delete this.createMonitorForm.value['labelSelector'];
