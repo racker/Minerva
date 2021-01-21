@@ -2,6 +2,8 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { ErrorService } from './error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SalusError } from 'src/app/_models/salusError';
+import { throwError } from 'rxjs';
+
 
 describe('ErrorService', () => {
   let injector: TestBed;
@@ -19,6 +21,14 @@ describe('ErrorService', () => {
 
   it('should execute transformSalusErrorHandler', () => {
     //TODO: Add tests for transformSalusErrorHandler
+
+    const error = new HttpErrorResponse({
+      error       : { code: `some code`, message: `some message.` },
+      status      : 400,
+      statusText  : 'Bad Request'
+    });
+    spyOn(service, 'transformSalusErrorHandler').and.returnValue(throwError(error));
+    expect(error.status).toEqual(400);
   });
 
   it('should execute getClientErrorService', () => {

@@ -1,11 +1,12 @@
 import { async } from '@angular/core/testing';
-import { transformKeyPairs, MarkFormGroupTouched, isAdmin } from './utils'
+import { transformKeyPairs, MarkFormGroupTouched, isAdmin, implementsObject } from './utils'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
 describe('transformKeyPairs', () => {
     let testKeyArray;
+    let objProp;
     let form: FormGroup;
     const formBuilder: FormBuilder = new FormBuilder();
     beforeEach(async(() => {
@@ -14,6 +15,20 @@ describe('transformKeyPairs', () => {
             { key: 'os', value: 'linux' },
             { key: 'prod', value: 'false' }
         ];
+
+
+        objProp = {
+            app: "salus-telemetry-monitor-management",
+            error: "Bad Request", 
+            errors: [], 
+            exception: "org.springframework.web.bind.MethodArgumentNotValidException", 
+            host: "monitor-management-67bc498945-bmp2m", 
+            message: "One or more field validations failed: ", 
+            status: 400, 
+            timestamp: "2021-01-21T14:47:23.237+00:00", 
+            traceId: "b85fb7657ac5bc05"
+        }
+
         form = formBuilder.group({
             name: [''],
             type: [''],
@@ -57,7 +72,13 @@ describe('transformKeyPairs', () => {
         expect(isAdmin(urlRoute)).toEqual(true);
     })
 
-    it('should implementsObject', () => {
+    it('should implementsObject return true', () => {
+        expect(implementsObject(objProp, ['traceId', 'app', 'host'])).toEqual(true);
+        // TODO: tests needed for implementsObject
+    })
+
+    it('should implementsObject return false', () => {
+        expect(implementsObject(objProp, ['param1', 'param2', 'param3'])).toEqual(false);
         // TODO: tests needed for implementsObject
     })
 
