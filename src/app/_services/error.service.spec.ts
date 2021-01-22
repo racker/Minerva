@@ -2,8 +2,6 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { ErrorService } from './error.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SalusError } from 'src/app/_models/salusError';
-import { throwError } from 'rxjs';
-
 
 describe('ErrorService', () => {
   let injector: TestBed;
@@ -19,16 +17,30 @@ describe('ErrorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should execute transformSalusErrorHandler', () => {
+  it('should execute transformSalusErrorHandler', (done) => {
     //TODO: Add tests for transformSalusErrorHandler
+    const salusErr: SalusError = {
+      timestamp: 'xxx-xx-x-x',
+      app: 'salus.app.k8',
+      host: 'hostname.stuff.url',
+      message: 'it done broke',
+      errors: [],
+      traceId: '8xj89-2km38'
+    };
 
-    const error = new HttpErrorResponse({
-      error       : { code: `some code`, message: `some message.` },
-      status      : 400,
-      statusText  : 'Bad Request'
+    const errorReq = new HttpErrorResponse({
+      error: salusErr,
+      status: 400,
+      statusText: "Bad Request",
+      url: "http://wiki.stuff/something",
     });
-    spyOn(service, 'transformSalusErrorHandler').and.returnValue(throwError(error));
-    expect(error.status).toEqual(400);
+
+    service.transformSalusErrorHandler(errorReq)
+      .subscribe((resp:any) => {
+      },(err) => {
+        expect(err.message).toEqual(errorReq.error.message);
+        done();
+      });
   });
 
   it('should execute getClientErrorService', () => {
