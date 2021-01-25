@@ -2,8 +2,6 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
-    
-
   - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
     entrypoint: '/bin/sh'
     args:
@@ -22,6 +20,10 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'app-$_ENV.yaml','dist']
+
+    # temporary setting for syncing bucket
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
