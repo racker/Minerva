@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { CanActivate , Router } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate , Router, RouterStateSnapshot } from "@angular/router";
 import { AdminService } from "../admin/admin.service";
+import { DOCUMENT, Location } from '@angular/common';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 
@@ -10,7 +11,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
 export class AuthGuardService implements CanActivate {
 
     constructor(private adminService: AdminService, private readonly loggingService: LoggingService,
-        public  afAuth:  AngularFireAuth){
+        public  afAuth:  AngularFireAuth, @Inject(DOCUMENT) private document: Document,
+        private location: Location){
 
     }
 
@@ -43,7 +45,7 @@ export class AuthGuardService implements CanActivate {
                         this.adminService.user = user;
                         resolve(true)
                     } else {
-                        // not signed in.
+                        this.location.replaceState('/admin');
                         firebase.default.auth().signInWithRedirect(provider);
                     }
                 }, (e) => {
