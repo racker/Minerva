@@ -28,6 +28,9 @@ export class ResourcesListPage
     enablePresenceMon          =element(by.xpath("//label[contains(text(),'Enable Presence Monitoring')]"))
     textSearch                 =element(by.xpath("//input[@id='txtSearch']"))
     resColPath                 =element.all(by.xpath("//tbody//tr[2]//td"))
+    webtable                   =element(by.tagName('tbody'));
+    noOfRows                   =this.webtable.all(by.tagName('tr'));
+    checkBoxes                 =this.noOfRows.all(by.tagName('hx-checkbox'))
 
     ClickOnAnyResource(resource:string)
     {
@@ -42,6 +45,16 @@ export class ResourcesListPage
         }
         return count
    }
+
+   selectTwentyfiveMonitors(){
+    let count:number;
+    for(let i=0;i<=24;i++){
+       this.checkBoxes.get(i).click();
+       count=i;
+     }
+     count++;
+     return count
+}
 
    selectFifteenResources(){
     let count:number;
