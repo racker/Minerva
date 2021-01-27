@@ -1,7 +1,7 @@
 
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { tap } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { LogLevels } from 'src/app/_enums/log-levels.enum'
 import { LoggingService } from "../logging/logging.service";
 import { of, Observable } from "rxjs";
@@ -9,6 +9,7 @@ import { zoneMocks } from "../../_mocks/zones/zone.service.mock";
 import { Zones } from "src/app/_models/zone";
 import { PortalDataService } from "../portal/portal-data.service";
 import { EnvironmentConfig } from "../config/environmentConfig.service";
+import { ErrorService } from "src/app/_services/error.service";
 
 const httpsoption = {
     headers: new HttpHeaders(
@@ -33,8 +34,8 @@ export class ZoneService {
         this._monZone = data;
     }
 
-    constructor(private http: HttpClient, 
-        private portalService:PortalDataService,
+    constructor(private http: HttpClient,
+        private portalService:PortalDataService, private errorService: ErrorService,
         private logService: LoggingService, private env : EnvironmentConfig) { }
 
     /**
@@ -52,7 +53,8 @@ export class ZoneService {
                 tap(data => {
                     this._monZone = data;
                     this.logService.log(this._monZone, LogLevels.info);
-                })
-            )
+                }),
+                catchError(this.errorService.transformSalusErrorHandler)
+                );
     }
 }

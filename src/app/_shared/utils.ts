@@ -1,6 +1,7 @@
 import { FormGroup, FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 
+
 /**
 * @description Turns the array of key pairs into an object
 * @param keyPairs [{[key: string] : any}]
@@ -45,10 +46,32 @@ const isAdmin = (router: Router | any): boolean => {
     return router.url.includes('/admin');
 }
 
+/**
+ * A TypeGuard to check if an object matches any particular interface
+ * @param obj any
+ * @param keys (keyof T)[]
+ * @returns boolean
+ */
+function implementsObject<T>(obj: any, keys: (keyof T)[]): boolean {
+    let objProperties: Array<string> = [];
+    JSON.parse(JSON.stringify(obj), (key, value) => {
+        objProperties.push(key);
+    });
+    for (const key of keys) {
+        if (!objProperties.includes(key.toString())) {
+            return false;
+        }
+    }
+
+    objProperties = null;
+    return true;
+}
+
 
 export {
     transformKeyPairs,
     MarkFormGroupTouched,
     mergeUniqueObjectsOfArray,
-    isAdmin
- }
+    isAdmin,
+    implementsObject
+}

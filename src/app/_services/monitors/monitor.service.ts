@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tap, delay } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { tap, delay, catchError } from 'rxjs/operators';
 import { LoggingService } from '../../_services/logging/logging.service';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { Monitors, Monitor, TestMonitor } from 'src/app/_models/monitors';
@@ -11,6 +11,7 @@ import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 import { CreateTestMonitor } from 'src/app/_features/monitors/interfaces/testMonitor.interface';
 import { PortalDataService } from '../portal/portal-data.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
+import { ErrorService } from "../error.service"
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,8 +31,9 @@ export class MonitorService {
 
   constructor(private http:HttpClient,
      private portalService: PortalDataService,
-    private logService: LoggingService, 
-    private env: EnvironmentConfig) { }
+    private logService: LoggingService,
+    private env: EnvironmentConfig,
+    private errorService: ErrorService) { }
 
   get monitors(): Monitors {
     return this._monitors;
@@ -86,7 +88,9 @@ export class MonitorService {
           tap(data => {
             this.monitors = data;
             this.logService.log(this.monitors, LogLevels.info);
-          }));  
+          }),
+          catchError(this.errorService.transformSalusErrorHandler)
+          );
     }
 }
 
@@ -101,8 +105,9 @@ export class MonitorService {
         tap(data => {
           this._monitor = data;
           this.logService.log(`Monitor: ${data}`, LogLevels.info);
-        })
-      );
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   /**
@@ -114,11 +119,13 @@ export class MonitorService {
           return this.http.post<Monitor>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`, monitor, httpOptions)
           .pipe(
             tap(data => {
-              return of<Monitor>(data);
               this.logService.log(`Monitor created: ${data.id}`, LogLevels.info);
-            })
-          );
+              return of<Monitor>(data);
+            }),
+            catchError(this.errorService.transformSalusErrorHandler)
+            );
   }
+
 
 
   /**
@@ -133,9 +140,9 @@ export class MonitorService {
         tap((data: Monitor) => {
           this._monitor = data;
           this.logService.log(`Monitor: ${data}`, LogLevels.info)
-        })
-      );
-
+        }),
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   /**
@@ -147,16 +154,14 @@ export class MonitorService {
       .pipe(
         tap(data => {
           this.logService.log(`Monitor deleted: ${id}`, LogLevels.info);
-        })
-      );
+        }));
+        // TODO: Add SalusErrorHandler once accounted for components subscribed to this function
   }
-
 
     /**
    * @description called function to delete multiple monitors using promise.
    * @param id
    */
-
   deleteMonitorPromise(id:string): Promise<any> {
     return this.http
       .delete(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`)
@@ -165,7 +170,10 @@ export class MonitorService {
         (res: Response) => Promise.resolve(res)
       )
       .catch(
-        (err) => Promise.reject(err)
+        (err) =>{
+          this.errorService.transformSalusErrorHandler(err);
+          Promise.reject(err);
+        }
       );
   }
 
@@ -184,8 +192,9 @@ export class MonitorService {
           tap(data => {
             this._boundMonitor = data;
             this.logService.log(`Bound Monitor: ${data}`, LogLevels.info);
-          })
-        );
+          }),
+          catchError(this.errorService.transformSalusErrorHandler)
+          );
   }
 
   searchMonitors(search:string): Observable<Monitors> {
@@ -194,10 +203,8 @@ export class MonitorService {
           q: search
         }
       }).pipe(
-        tap(data => {
-          this.logService.log(`Search Monitors`, LogLevels.info);
-        })
-      )
+        catchError(this.errorService.transformSalusErrorHandler)
+        );
   }
 
   monitorTest(monitorData: CreateTestMonitor): Observable<TestMonitor> {
@@ -205,9 +212,9 @@ export class MonitorService {
       return this.http.post<TestMonitor>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/test-monitor`, data, httpOptions)
         .pipe(
           tap(data => {
-            let stuff = data;
             this.logService.log(`Test Monitor Results: ${data}`, LogLevels.info);
-          })
-        );
+          }),
+          catchError(this.errorService.transformSalusErrorHandler)
+          );
         }
 }
