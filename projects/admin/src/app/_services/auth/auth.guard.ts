@@ -1,11 +1,12 @@
 import { Inject, Injectable } from "@angular/core";
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { ActivatedRouteSnapshot, CanActivate , Router, RouterStateSnapshot } from "@angular/router";
+import { CanActivate } from "@angular/router";
 import { AdminService } from "../admin/admin.service";
 import { DOCUMENT, Location } from '@angular/common';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { environment } from "env/environment";
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -17,6 +18,10 @@ export class AuthGuardService implements CanActivate {
     }
 
     async canActivate(): Promise<boolean> {
+        if (environment.mock) {
+            return true;
+        }
+
         let firebaseUser = await this.afAuth.currentUser;
         let user = this.adminService.user || firebaseUser;
 
