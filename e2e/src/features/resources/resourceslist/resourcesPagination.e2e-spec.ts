@@ -1,7 +1,7 @@
-import { browser, element, by } from "protractor";
-import { AppPage } from "../../pages/app.po";
-
-
+import { AppPage } from "../../../pages/app.po"
+import { navigations } from "../../../commons/navigations";
+import { ResourcesListPage } from "../../../pages/resourcelistpage";;
+import { browser, element, by} from "protractor";
 
 describe("Pagination Test in resources", () => {
         let page: AppPage;
