@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, of, Subject, Subscription } from 'rxjs';
 import { MonitorService } from 'src/app/_services/monitors/monitor.service.js';
 import { LabelService } from 'src/app/_services/labels/label.service';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
-import { FieldConfig, FieldSet } from '../../interfaces/field.interface';
+import { FieldSet } from '../../interfaces/field.interface';
 import { transformKeyPairs } from 'src/app/_shared/utils';
 import { MonitorUtil,CntrlAttribute } from '../../mon.utils';
 import { MarkFormGroupTouched } from "src/app/_shared/utils";
@@ -18,6 +18,7 @@ import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { AddFieldsComponent } from 'src/app/_shared/components/add-fields/add-fields.component';
 import { AdditionalSettingsComponent } from '../../components/additional-settings/additional-settings.component';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -131,7 +132,7 @@ change = false;
 
     // add selector label fields
     if (!this.additionalSettingsForm.value.hasOwnProperty(CntrlAttribute.resourceId)) {
-      this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
+        this.createMonitorForm.value['labelSelector'] = this.updatedLabelFields || {};
     }
     else {
       delete this.createMonitorForm.value['labelSelector'];
@@ -152,12 +153,13 @@ change = false;
     this.parseInISO();
     const result = this.schemaService.validateData(monitorForm);
     if (result.isValid) {
-      this.monitorService.createMonitor(monitorForm).subscribe(data => {
+      this.monitorService.createMonitor(monitorForm).pipe(
+        finalize(() => {
+          this.addMonLoading = false;
+        })
+      ).subscribe(data => {
         this.addMonLoading = false;
         this.router.navigate(['/monitors']);
-      }, (error) => {
-        this.addMonLoading = false;
-        this.logService.log(`Create monitor failed - ${JSON.stringify(error)}`, LogLevels.error)
       });
     }
     else {

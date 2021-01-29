@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LogLevels } from '../../_enums/log-levels.enum';
 import { LocalStorage } from '@ngx-pwa/local-storage';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -87,13 +87,13 @@ export class LoggingService {
    * // Sending an object
    * LoggingService.log({ message: 'some message': data: someDataObj }, LogLevels.info);
    */
-  log(message: any, logLevel: LogLevels): void {
+  log(error: any, logLevel: LogLevels): void {
     var level = this.logLevel;
     if (logLevel >= parseInt(level)){
       if(parseInt(level) === LogLevels.error){
-        this.setAlertMsg(message);
+        this.setAlertMsg(error.message || error);
       }
-      console.log({ level: LogLevels[logLevel], message: message });
+      console.log({ level: LogLevels[logLevel], error });
     }
   }
 }

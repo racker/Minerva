@@ -103,9 +103,6 @@ export class AdditionalSettingsComponent implements OnInit {
     this.resourceService.getResources(this.defaultAmount, this.page, this.sorting).subscribe(
       (data) => {
         this.resources = this.resources.concat(data.content);
-      },
-      (error) => {
-        this.logService.log(error, LogLevels.error);
       });
   }
 

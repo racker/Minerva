@@ -54,8 +54,7 @@ export class EventsService {
       this.events = mocks;
       return of<Events>(this.events).pipe(delay(500));
     } else {
-      return this.http.get<Events>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /event-tasks?size=${size}`, httpOptions)
+      return this.http.get<Events>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/event-tasks?size=${size}`, httpOptions)
         .pipe(
           tap(data => {
             this._events = data;
@@ -74,8 +73,7 @@ export class EventsService {
       this.event = mock;
       return of<Event>(this.event).pipe(delay(500));
     }
-    return this.http.get<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-    /event-tasks/${id}`, httpOptions)
+    return this.http.get<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/event-tasks/${id}`, httpOptions)
       .pipe(
         tap(data => {
           this.setEvent = data;
@@ -92,8 +90,7 @@ export class EventsService {
     if (this.env.mock) {
       return of<boolean>(true);
     } else {
-      return this.http.delete<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}
-      /event-tasks/${id}`, httpOptions)
+      return this.http.delete<Event>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/event-tasks/${id}`, httpOptions)
         .pipe(
           tap(data => {
             this.logService.log(this.event, LogLevels.info);

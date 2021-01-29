@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/co
 import { ResourcesService } from '../../../../_services/resources/resources.service';
 import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs'
 import { Resource, CreateResource, Resources } from 'src/app/_models/resources';
 import { Router } from '@angular/router';
@@ -181,14 +181,14 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
               resourceId: resourceForm.controls['name'].value,
               presenceMonitoringEnabled: resourceForm.controls['enabled'].value ? true : false
             }
-            this.resourceService.createResource(resource).subscribe((result) => {
+            this.resourceService.createResource(resource).pipe(
+              finalize(() => {
+                this.addResLoading = false;
+              })
+            ).subscribe((result) => {
               this.addResLoading = false;
               this.router.navigate(['/resources', result.resourceId]);
-            }, error => {
-              this.addResLoading = false;
-              this.logService.log(JSON.stringify(error), LogLevels.error)
-            }
-            )
+            })
           }
           else {
             this.addResLoading = false;

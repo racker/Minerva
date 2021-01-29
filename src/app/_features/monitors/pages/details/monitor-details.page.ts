@@ -7,7 +7,7 @@ import { Monitor, Label } from 'src/app/_models/monitors';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { MonitorUtil, CntrlAttribute } from '../../mon.utils';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { FieldSet } from '../../interfaces/field.interface';
 import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -225,7 +225,15 @@ export class MonitorDetailsPage implements OnInit {
       updateFields = { 'labelSelector': this.updatedLabelFields}
     else
     updateFields = updateBody;
-    this.monitorService.updateMonitor(this.id, updateFields).subscribe(data =>{
+    this.monitorService.updateMonitor(this.id, updateFields).pipe(
+      finalize(() => {
+        this.monitorUpdateLoad=false;
+        this.updateMonNameLoading = false;
+        this.additionalSettingEdit = false;
+        this.updateAdditionalLoading = false;
+        this.labelsLoading = false;
+      })
+    ).subscribe(data =>{
       this.monitor$ = of<Monitor>(this.monitorService.monitor).pipe(
         tap((data) => {
           this.monDetails = data;
