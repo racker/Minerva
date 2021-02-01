@@ -16,7 +16,6 @@ import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe
 import { transformKeyPairs } from 'src/app/_shared/utils';
 import { LabelService } from 'src/app/_services/labels/label.service';
 import { AddFieldsComponent } from 'src/app/_shared/components/add-fields/add-fields.component';
-import { duration } from 'moment';
 
 
 declare const window: any;

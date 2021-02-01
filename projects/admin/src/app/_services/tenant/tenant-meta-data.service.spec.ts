@@ -2,8 +2,8 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { TenantmetaData, TenantmetaDataList } from '../_model/tenantMetaData';
-import { TenantMock } from '../_mocks/tenants/tenants.service.mock';
+import { TenantmetaData, TenantmetaDataList } from '../../_model/tenantMetaData';
+import { TenantMock } from '../../_mocks/tenants/tenants.service.mock';
 import { TenantmetaDataService } from './tenant-meta-data.service';
 
 describe('TenantMetaDataService', () => {

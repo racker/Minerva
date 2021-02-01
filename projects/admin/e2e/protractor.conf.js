@@ -14,13 +14,15 @@ exports.config = {
   ],
   capabilities: {
     browserName: 'chrome',
+    trustAllSSLCertificates: true,
+    acceptInsecureCerts: true,
+    ACCEPT_SSL_CERTS: true,
     chromeOptions: {
-      args: ["no-sandbox", "--headless", "--disable-gpu", "--disable-web-security"],
-
+      args: ["no-sandbox", "--headless", "--disable-gpu", "--disable-web-security"]
     }
   },
   directConnect: true,
-  baseUrl: 'http://dev.i.rax.io:4200/',
+  baseUrl: 'https://dev.i.rax.io:4200/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,

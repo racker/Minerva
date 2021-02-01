@@ -7,16 +7,18 @@ exports.config = {
   allScriptsTimeout: 11000,
   specs: ["./src/**/*e2e-spec.ts"],
   // specs:[".src/features/monitoring/monitordetails/monitordetailslabelinfodisplay.e2e-spec.ts"],
-  // specs:["e2e/src/features/monitoring/monitorlist/monitorsPagination.e2e-spec.ts"],
-    capabilities: {
+  //specs:["./src/features/monitoring/monitordetails/deleteEvent.e2e-spec.ts"],
+  capabilities: {
     browserName: "chrome",
+    trustAllSSLCertificates: true,
+    acceptInsecureCerts: true,
+    ACCEPT_SSL_CERTS: true,
     chromeOptions: {
-       args: ["no-sandbox","--headless","--disable-gpu","--disable-web-security"],
-
+      args: ["no-sandbox", "--headless", "--disable-gpu", "--disable-web-security"]
     },
   },
   directConnect: true,
-  baseUrl: "http://dev.i.rax.io:4200/",
+  baseUrl: "https://dev.i.rax.io:4200/",
   framework: "jasmine",
   jasmineNodeOpts: {
     showColors: true,

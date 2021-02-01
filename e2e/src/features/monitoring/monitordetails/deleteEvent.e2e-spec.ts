@@ -10,13 +10,13 @@ describe("To test delete event functionality", ()=> {
     let nav  : navigations;
     let page1: MonitorsListPage;
     let page2: MonitorsDetailsPage;
- 
+
     beforeAll(() => {
        page = new AppPage();
        page.navigateTo();
        browser.manage().window().maximize();
     });
- 
+
     beforeEach(() => {
        nav = new navigations();
        nav.navigateToAdmin();
@@ -25,7 +25,7 @@ describe("To test delete event functionality", ()=> {
        page1.monitorName().click();
        browser.sleep(5000);
        page2 = new MonitorsDetailsPage();
- 
+
     });
 
     it("To verify if delete event option is present on monitor details page ",()=>{
@@ -58,7 +58,7 @@ describe("To test delete event functionality", ()=> {
          })
          browser.sleep(3000);
          let overlay=new DeleteEventOverlay();
-         overlay.confirmBtnRemovesPopOver();   
+         overlay.confirmBtnRemovesPopOver();
    });
 
 
