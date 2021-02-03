@@ -9,9 +9,9 @@ import { MinervaApiService } from 'src/app/_services/minervaApi/minerva-api.serv
   templateUrl: './visualize.page.component.html',
   styleUrls: ['./visualize.page.component.scss']
 })
-export class VisualizePage implements OnInit, OnDestroy {
+export class VisualizePage {
 
-  
+
    system: string;
    measurement: string;
    device: string;
@@ -24,8 +24,10 @@ export class VisualizePage implements OnInit, OnDestroy {
 
   constructor(private metricService: MetricsService, private router: Router,
     private route: ActivatedRoute, private mnrvaApi: MinervaApiService) { }
-
+/*
   async ngOnInit() {
+
+
 
     this.loading = true;
     // this.mnrvaApi.getDemo().subscribe(data =>{
@@ -85,7 +87,7 @@ export class VisualizePage implements OnInit, OnDestroy {
   /**
    * @description this function updates the URL query params
    * @return {void}
-   */
+
   private updateQueryParams() {
     const params = {
       ...(this.system  && { system: this.system }),
@@ -100,5 +102,6 @@ export class VisualizePage implements OnInit, OnDestroy {
       queryParams: params,
       queryParamsHandling: 'merge'
     });
-  }
+
+  }*/
 }
