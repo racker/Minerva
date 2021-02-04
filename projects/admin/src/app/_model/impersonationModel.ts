@@ -9,7 +9,7 @@ interface Access {
 }
 
 export interface ImpersonationToken {
-    access: Access;
+    access?: Access;
 }
 
 export interface impUser {

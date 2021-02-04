@@ -107,10 +107,10 @@ export class DetailsComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.imperToken.getImpersonationToken({test:'any'}).subscribe(token =>{
-        console.log(token);
-      });
-      ((token) =>{console.log(token)})
+      // this.imperToken.getImpersonationToken({test:'any'}).subscribe(token =>{
+      //   console.log(token);
+      // });
+      // ((token) =>{console.log(token)})
       this.monitor$ = this.monitorService.getMonitor(this.id).pipe(
         tap((data) => {
           this.monDetails = data;

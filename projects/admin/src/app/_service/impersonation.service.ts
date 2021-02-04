@@ -30,17 +30,13 @@ export class ImpersonationService {
     private errorService: ErrorService, 
     private env: EnvironmentConfig) { }
 
-  getImpersonationToken(data:impUser):Observable<any> {
+  getImpersonationToken(data:impUser):Observable<ImpersonationToken> {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'rackertoken':''
       })
     }
-    return this.http.post<ImpersonationToken>(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions).pipe(
-      tap((data) =>{
-        this._access=data;
-        this.logService.log(data, LogLevels.info);
-      }));
+    return this.http.post<ImpersonationToken>(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions);
   }
 }
