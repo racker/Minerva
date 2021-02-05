@@ -246,9 +246,9 @@ describe('MonitorslistComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should check sorting monitors desc', () => {
+  /*it('should check sorting monitors desc', () => {
     component.sortMonitors('desc', 'id');
     expect(component.sorting).toBe('id,desc');
-  });
+  });*/
 
 });
