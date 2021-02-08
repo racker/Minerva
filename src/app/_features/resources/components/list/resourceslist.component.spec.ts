@@ -357,9 +357,9 @@ it('should destroy subscriptions', (done) => {
     expect(spy).toHaveBeenCalled();
   });
 
-  /*it('should check sorting resources desc', () => {
+  it('should check sorting resources desc', () => {
       component.sortResources('desc', 'resourceId');
       expect(component.sorting).toBe('resourceId,desc');
-  });*/
+  });
 
 });
