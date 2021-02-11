@@ -26,12 +26,15 @@ describe("Monitor List", () => {
     expect(page1.headerCheckBox.isPresent());
   });
 
+  /*
+    TODO: Add again once development on these features are finalized with product leadership
+          src/app/_features/monitors/components/list/monitorslist.component.html
   it("Check if Create Suppression button is enabled" , () => {
     page1.headerCheckBox.click();
     browser.sleep(1000);
     expect(page1.createSuppression.isEnabled()).toBe(true);
   });
-  
+
   it("Check if Create Monitor button is present",() => {
     expect(page1.copyMonitor.isPresent()).toBe(true);
   });
@@ -46,13 +49,14 @@ describe("Monitor List", () => {
     browser.sleep(1000);
     expect(page1.copyMonitor.isEnabled()).toBe(true);
   });
-  
+   */
+
   it("Should have search option",()=> {
     browser.sleep(1000);
     expect(page1.searchTextBox.isEnabled()).toBe(true);
  });
 
-  it("should display 25 rows", async()=> {  
+  it("should display 25 rows", async()=> {
     let overlay=new DeleteSelectedMonitorOverlay();
     var rowsarr = await overlay.rowPath.getAttribute("childElementCount");
     expect(rowsarr.length).toEqual(25);

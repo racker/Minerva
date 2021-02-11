@@ -14,7 +14,7 @@ describe("Resources List", () => {
     page.navigateTo();
     browser.manage().window().maximize();
  });
- 
+
   beforeEach(() => {
     nav = new navigations();
     nav.navigateToResources();
@@ -22,11 +22,20 @@ describe("Resources List", () => {
     page1 = new ResourcesListPage();
   });
 
+  /* TODO: Add again once we have these features turned on
+          src/app/_features/resources/components/list/resourceslist.component.html
   it("check if Create Muiltiple Monitores button is enabled", () => {
     page1.resHeaderCheckbox.click();
     browser.sleep(1000);
     expect(page1.createMultipleMonitors.isEnabled()).toBe(true);
   });
+
+  it("check if Create Supression button is enabled",  () => {
+    page1.resHeaderCheckbox.click();
+    browser.sleep(1000);
+    expect(page1.createSuppression.isEnabled()).toBe(true);
+  });
+ */
 
   it("Check if check box is enabled" , () => {
     expect(page1.resHeaderCheckbox.isPresent());
@@ -36,12 +45,6 @@ describe("Resources List", () => {
     page1.resHeaderCheckbox.click();
     browser.sleep(1000);
     expect(page1.deleteBtn.isEnabled()).toBe(true);
-  });
-
-  it("check if Create Supression button is enabled",  () => {
-    page1.resHeaderCheckbox.click();
-    browser.sleep(1000);
-    expect(page1.createSuppression.isEnabled()).toBe(true);
   });
 
   it("should have Add resources button", () => {
