@@ -135,7 +135,8 @@ export class MonitorService {
    * @returns Observable<Monitor>
    */
   updateMonitor(id: string, details: {[key: string]: any}): Observable<Monitor> {
-      return this.http.put<Monitor>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`, details, httpOptions)
+    httpOptions.headers = httpOptions.headers.set('Content-Type', 'application/json-patch+json');
+      return this.http.patch<Monitor>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors/${id}`, details, httpOptions)
       .pipe(
         tap((data: Monitor) => {
           this._monitor = data;

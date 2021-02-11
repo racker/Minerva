@@ -106,12 +106,11 @@ afterEach(() => {
       });
     });
    
-    it('should update monitors', async(done) => {
+    it('should update monitors', () => {
       let monid = new monitorsMock().single.id;
-      let updatedFields = { labelSelector: {'newkey': 'newVal', 'somekey':'someVal'}};
-      service.updateMonitor(monid, updatedFields).subscribe((data:Monitor) => {
+      let updatedFields = [{op: "replace", path: "/name", value: "Memory"}];
+        service.updateMonitor(monid, updatedFields).subscribe((data:Monitor) => {
         expect(data).toEqual(new monitorsMock().single);
-        done();
       });
     });
 
