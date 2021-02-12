@@ -6,7 +6,8 @@ import { LogLevels } from 'src/app/_enums/log-levels.enum';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 import { ErrorService } from 'src/app/_services/error.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
-import { ImpersonationToken, impUser,  } from '../_model/impersonationModel';
+import { ImpersonationToken, impUser } from '../../_model/impersonationModel';
+
 
 
 @Injectable({
@@ -34,7 +35,7 @@ export class ImpersonationService {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'rackertoken':''
+        'x-auth-token':''
       })
     }
     return this.http.post<ImpersonationToken>(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions);
