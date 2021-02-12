@@ -15,16 +15,18 @@
       <hx-menu id="basicMenuId">
         <section>
           <header>Manage</header>
-          <hx-menuitem (click)="metaPopPencil.nativeElement.click()">Add Metadata</hx-menuitem>
-          <hx-menuitem (click)="labelPopPencil.nativeElement.click()">Add Labels</hx-menuitem>
+          <hx-menuitem (click)="$event.stopPropagation();metaPopPencil.nativeElement.click()">Edit Metadata</hx-menuitem>
+          <hx-menuitem (click)="$event.stopPropagation();labelPopPencil.nativeElement.click()">Edit Labels</hx-menuitem>
           <hx-menuitem><hx-disclosure #delResLink
             aria-controls="delResModal">Delete Resource</hx-disclosure></hx-menuitem>
         </section>
+        <!-- TODO: Product direction needed - should this section be here? and if so
+                  what should it do?
         <section>
           <header>Monitor</header>
           <hx-menuitem>Create Check...</hx-menuitem>
           <hx-menuitem>Create Suppression...</hx-menuitem>
-        </section>
+        </section> -->
       </hx-menu>
   </div>
   </div>

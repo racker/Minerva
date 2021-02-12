@@ -9,6 +9,7 @@
 
   <app-modal [modalType]="modalType" [message]="message" header="Delete selected resource" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm()" ></app-modal>
 
+<!--   TODO: product direction, figure out if buttons are needed here
 <button class="hxBtn" [disabled]="selectedResources.length === 0">
   Create Multiple Monitors
 </button>
@@ -16,6 +17,7 @@
 <button class="hxBtn" [disabled]="selectedResources.length === 0">
   Create Suppression
 </button>
+-->
 
 <hx-disclosure aria-controls="addResPopover" #addResButton id="addResButton" class="hxBtn hxPrimary">
   Add Resource

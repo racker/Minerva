@@ -10,7 +10,6 @@ import { EnvironmentConfig } from "../_services/config/environmentConfig.service
 import { MinervaApiMock } from "../_mocks/minervaApi/minerva-api-service.mock"
 import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
 import { TenantMock } from 'projects/admin/src/app/_mocks/tenants/tenants.service.mock';
-import { TenantmetaDataService } from 'projects/admin/src/app/_service/tenant-meta-data.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {

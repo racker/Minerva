@@ -42,16 +42,12 @@
         <hx-menu id="basicMenuId">
           <section>
             <header>Identity</header>
-            <hx-menuitem>
-              <hx-disclosure aria-controls="editMonPopover">Rename Monitor</hx-disclosure></hx-menuitem>
+            <hx-menuitem (click)="$event.stopPropagation();updateMonNamePencil.nativeElement.click()">Rename Monitor</hx-menuitem>
           </section>
           <section>
             <header>Manage Monitor</header>
-            <hx-menuitem>
-              <hx-disclosure aria-controls="updateMonNamePencil">Modify Labels Selector</hx-disclosure>
-            </hx-menuitem>
+            <hx-menuitem (click)="$event.stopPropagation();labelPopPencil.nativeElement.click()">Modify Labels Selector</hx-menuitem>
             <hx-menuitem (click)="modifySettings()">Modify Settings</hx-menuitem>
-            <hx-menuitem>Modify Options</hx-menuitem>
             <hx-menuitem>
               <hx-disclosure #delMonLink aria-controls="delMonModal">Delete Monitor</hx-disclosure>
             </hx-menuitem>
@@ -229,11 +225,11 @@
         {{monitor.createdTimestamp |  date:'MM/dd/yyyy'}}
       </div>
     </div>
-    
+
     <app-modal modalType="delMonModal" header="Delete {{monitor.name}} monitor" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
-   
+
     <hx-disclosure aria-controls="delErrorModal" #delMonitorFail class="nodisplaClick"></hx-disclosure>
-   
+
     <app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{monitor.name || monitor.details.plugin.type}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
 
   </div>

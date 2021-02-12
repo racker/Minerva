@@ -247,8 +247,8 @@ describe('MonitorslistComponent', () => {
   });
 
   it('should check sorting monitors desc', () => {
-    component.sortMonitors('desc', 'id');
-    expect(component.sorting).toBe('id,desc');
+    component.sortMonitors('desc', 'monitorName');
+    expect(component.sorting).toBe('monitorName,desc');
   });
 
 });
