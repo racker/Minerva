@@ -16,7 +16,6 @@ import { DynamicFormComponent } from 'src/app/_features/monitors/components/dyna
 import { AdditionalSettingsComponent } from 'src/app/_features/monitors/components/additional-settings/additional-settings.component';
 import { MonitorUtil, CntrlAttribute } from 'src/app/_features/monitors/mon.utils';
 import { FieldSet } from 'src/app/_features/monitors/interfaces/field.interface';
-import { ImpersonationService } from 'projects/admin/src/app/_service/impersonation.service';
 
 
 declare const window: any;
@@ -86,7 +85,7 @@ export class DetailsComponent implements OnInit {
   monLabels: Label;
   constructor(private route: ActivatedRoute, private router: Router, private readonly schemaService: SchemaService,
     private fb: FormBuilder, private monitorService: MonitorService, private spnService: SpinnerService,
-    private pipeSeconds: DurationSecondsPipe, private labelService: LabelService, private imperToken: ImpersonationService) {
+    private pipeSeconds: DurationSecondsPipe, private labelService: LabelService) {
       this.spnService.changeLoadingStatus(true);
   }
 
