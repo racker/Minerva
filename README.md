@@ -85,6 +85,11 @@ Run `npm run test:e2e` to execute the end-to-end tests via [Protractor](http://w
 ## Documentation
 We are using [Compodoc](https://compodoc.app) to create app structural documentation. It compiles a set of html files based on the `tsconfig.json` file. To view these run `npm run docs` and the files will populate in a folder labeled `docs`.
 
+Also to view the documentation on the browser, click on below link :-
+
+https://storage.googleapis.com/component_doc/index.html
+
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
