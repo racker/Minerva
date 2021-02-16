@@ -28,7 +28,7 @@ steps:
 
     # moving compodoc build to another bucket location
   - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp', '-r', '-d', 'docs/', $_COMPO_BUCKET_LOCATION]
+    args: ['rsync', '-r', 'docs/', $_COMPO_BUCKET_LOCATION]
 
 
   # Deploy to google cloud app egnine
