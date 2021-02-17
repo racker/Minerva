@@ -10,6 +10,7 @@ steps:
          echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
          npm rebuild node-sass
          npm run mocksetup
+         npm run docs
          npm run test:e2e-ci
          npm run test:unit-ci
          npm run test:admin
@@ -24,6 +25,11 @@ steps:
     # temporary setting for syncing bucket
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
+
+    # moving compodoc build to another bucket location
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['rsync', '-r', 'docs/', $_COMPO_BUCKET_LOCATION]
+
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
