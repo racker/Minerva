@@ -25,7 +25,7 @@ describe('Feature and Environment Config', () => {
 
     it('should Load Feature Flag', (done)=>{
         featConf.loadEnvironment();
-        expect(featConf.featureFlags.adminAccess).toBe(env.featureFlags.adminAccess);
+        expect(featConf.featureFlags.admin).toBe(env.featureFlags.admin);
         done();
     })
 
