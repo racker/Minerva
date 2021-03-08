@@ -28,8 +28,8 @@ const routes: Routes = [
       featureFlag: 'admin'
     }, resolve: {schema: SchemaResolver }
   },
-  { path: '', redirectTo: '/resources', pathMatch: 'full'},
-  { path: '**', redirectTo: '/resources'}
+  { path: '', redirectTo: '/visualize', pathMatch: 'full'},
+  { path: '**', redirectTo: '/visualize'}
 ];
 
 @NgModule({
