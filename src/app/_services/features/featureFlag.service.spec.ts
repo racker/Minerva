@@ -35,7 +35,7 @@ describe('Feature and Environment Config', () => {
 
       it('should return false if feature is off', () => {
         let featureName = 'resources';
-        expect(featFlagService.featureOn(featureName)).toBe(false);
+        expect(featFlagService.featureOn(featureName)).toBe(env.featureFlags[featureName]);
       });
 
 });
