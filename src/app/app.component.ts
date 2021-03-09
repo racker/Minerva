@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { EnvironmentConfig, FeatureFlags } from 'src/app/_services/config/environmentConfig.service';
 import { FeatureFlagService } from 'src/app/_services/features/featureFlag.service';
 import { LoggingService } from './_services/logging/logging.service';
 import { SpinnerService } from './_services/spinner/spinner.service';
@@ -8,6 +7,8 @@ import { SpinnerService } from './_services/spinner/spinner.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [FeatureFlagService]
+
 })
 
 export class AppComponent implements OnInit  {
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit  {
   isLoading: boolean;
   constructor(private lgService:LoggingService,
      private changeDetector: ChangeDetectorRef, private spnService:SpinnerService,
-     private featureFlag: FeatureFlagService){
+     public featureFlag: FeatureFlagService){
 
      }
 
