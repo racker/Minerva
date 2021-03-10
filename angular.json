@@ -269,7 +269,17 @@
             "aot": true,
             "assets": [
               "projects/admin/src/favicon.ico",
-              "projects/admin/src/assets"
+              "projects/admin/src/assets",
+              {
+                "glob": "webcomponents-loader.js",
+                "input": "node_modules/@webcomponents/webcomponentsjs/",
+                "output": "webcomponents/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "projects/admin/src/styles.css"

@@ -1,0 +1,37 @@
+<div>
+  <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
+  <!-- Product Navigation -->
+  <a href="#">API Docs</a>
+  <a href="#">Metrics</a>
+  <a href="#">RBAC Config</a>
+  <!-- end:Product Navigation -->
+  </nav>
+  <div id="stage">
+    <!-- Accessibility: [role="main"] must be present on main#content -->
+    <main style="min-height: 1000px;" role="main" id="content">
+      <hx-panel class="hxSpan-12-xs">
+        <hx-panelbody class="hxBox hxMd">
+            <div class="hxRow">
+                <div class="hxCol hxSpan-5">
+                  <hx-search-control>
+                    <input id="demoSearch" type="search" placeholder="Account Search" />
+                    <button type="button" class="hxClear" aria-label="Clear search" hidden>
+                      <hx-icon type="times"></hx-icon>
+                    </button>
+                    <hx-search></hx-search>
+                  </hx-search-control>
+                </div>
+            </div>
+          <router-outlet></router-outlet>
+        </hx-panelbody>
+      </hx-panel>
+    </main>
+  </div>
+</div>
+<footer id="foot">
+  &copy; 2021 Rackspace US, Inc.
+  <nav>
+    <a href="https://www.rackspace.com/information/legal/websiteterms">Website Terms</a>
+    <a href="https://www.rackspace.com/information/legal/privacystatement">Privacy Policy</a>
+  </nav>
+</footer>
