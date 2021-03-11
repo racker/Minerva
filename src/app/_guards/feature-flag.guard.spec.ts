@@ -1,9 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, ActivatedRoute, Route } from '@angular/router';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { FeatureFlag } from './feature-flag.guard';
-import { AppRoutingModule } from '../app.routing';
 
 class MockActivatedRouteSnapshot {
     private _data: any;
@@ -26,8 +25,7 @@ let mockRouterStateSnapshot : RouterStateSnapshot;
 
 describe('FeatureFlag', () => {
   let featureFlag: FeatureFlag;
-   let router: Router;
-  let authService;
+  let router: Router;
   let mockRouter: any;  
 
   beforeEach(() => {
