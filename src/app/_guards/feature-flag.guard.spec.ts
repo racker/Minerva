@@ -1,7 +1,8 @@
+import {Location} from "@angular/common";
 import { HttpClientModule } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { FeatureFlag } from './feature-flag.guard';
 
 class MockActivatedRouteSnapshot {
@@ -24,7 +25,10 @@ class MockActivatedRouteSnapshot {
 describe('FeatureFlag', () => {
   let featureFlag: FeatureFlag;
   let router: Router;
-  let mockRouter: any;  
+  let mockRouter: any;
+  let location: Location;
+  let injector: TestBed;
+  
 
   beforeEach(() => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
@@ -38,14 +42,21 @@ describe('FeatureFlag', () => {
         FeatureFlag
       ]
     });
-    featureFlag = TestBed.get(FeatureFlag);
-    router = TestBed.get(Router);
+
+    injector = getTestBed();
+    featureFlag = injector.inject(FeatureFlag);
+    router = injector.inject(Router);
+    location = injector.inject(Location);
 
   });
-
 
   it('should be created', () => {
     featureFlag = new FeatureFlag(mockRouter);
     expect(featureFlag).toBeTruthy();
   });
+
+  it('if resource flag is false, user not able to load module', () => {
+    router.navigateByUrl('resources');
+    expect(location.path()).toBe('');
+  }); 
 });
