@@ -21,8 +21,6 @@ class MockActivatedRouteSnapshot {
   }
 ];
 
-let mockRouterStateSnapshot : RouterStateSnapshot;
-
 describe('FeatureFlag', () => {
   let featureFlag: FeatureFlag;
   let router: Router;
