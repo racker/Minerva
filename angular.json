@@ -335,7 +335,7 @@
               "browserTarget": "admin:build:production"
             },
             "mock": {
-              "browserTarget": "minerva:build:mock"
+              "browserTarget": "admin:build:mock"
             }
           }
         },

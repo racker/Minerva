@@ -2,7 +2,7 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/internal/observable/of';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { ImpersonationToken } from '../_model/impersonationModel';
+import { ImpersonationToken } from '../../_model/impersonationModel';
 
 import { ImpersonationService } from './impersonation.service';
 
@@ -37,6 +37,6 @@ describe('ImpersonationService', () => {
       expect(data).toEqual({});
       done();
     });
-    
+
   });
 });
