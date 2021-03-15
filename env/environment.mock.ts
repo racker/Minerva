@@ -27,7 +27,11 @@ export const environment = {
     disallowLabelEdit: 'agent_'
   },
   featureFlags:{
-    adminAccess:false
+    admin:false,
+    adminAccess:false,
+    monitors: false,
+    resources: false,
+    visualize: true,
   }
 };
 
