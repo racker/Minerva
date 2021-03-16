@@ -24,16 +24,8 @@ const routes: Routes = [
       featureFlag: 'visualize'
     }
   },
-  {
-    path:'admin', loadChildren:() => import('projects/admin/src/app/app.module').then(m =>m.AppModule),
-    canLoad : [FeatureFlag],
-    data: {
-      breadcrumb: 'ADMIN',
-      featureFlag: 'admin'
-    }, resolve: {schema: SchemaResolver }
-  },
-  { path: '', redirectTo: '/visualize', pathMatch: 'full'},
-  { path: '**', redirectTo: '/visualize'}
+  { path: '', redirectTo: '/resources', pathMatch: 'full'},
+  { path: '**', redirectTo: '/resources'}
 ];
 
 @NgModule({

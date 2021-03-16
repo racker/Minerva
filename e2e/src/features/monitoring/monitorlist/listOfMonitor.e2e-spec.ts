@@ -68,11 +68,4 @@ it("Should display 5 columns ", async()=> {
   expect(colNum.length).toEqual(5);
 });
 
-it("Check if Copy Monitor button is enabled" , () => {
-  page1.headerCheckBox.click();
-  browser.sleep(1000);
-  expect(page1.copyMonitor.isEnabled()).toBe(true);
-});
-
-
 })

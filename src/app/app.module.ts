@@ -11,7 +11,6 @@ import { SchemaResolver } from './_features/monitors/monitor.resolve';
 import { SchemaService, AJV_INSTANCE } from './_services/monitors/schema.service';
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from './_features/monitors/monitors.module';
 import ajv from 'ajv';
-import { AdminAppModule } from 'projects/admin/src/app/app.module';
 import { envConfig, EnvironmentConfig } from './_services/config/environmentConfig.service';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
   ],
   imports: [
     AppRoutingModule,
-    AdminAppModule.forRoot(),
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     StorageModule.forRoot({

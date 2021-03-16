@@ -37,6 +37,6 @@ describe('ImpersonationService', () => {
       expect(data).toEqual({});
       done();
     });
-    
+
   });
 });

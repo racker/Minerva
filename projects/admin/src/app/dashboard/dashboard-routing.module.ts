@@ -1,20 +1,20 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TabsetComponent } from './tabset.component';
+import { DashboardComponent } from './dashboard.component';
+/*
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { EventDetailsComponent } from "./_features/events/event-details/event-details.component";
 import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
-
+*/
 
 const routes: Routes = [
   {
     path: '',
-    component: TabsetComponent,
-    data: {
-      breadcrumb: ''
-    }
-  },
+    component: DashboardComponent
+  }
+
+  /*,
   {
     path: 'resources/:id',
     component: AdminResourceDetailsPage,
@@ -45,6 +45,7 @@ const routes: Routes = [
       breadcrumb: 'Metadata'
     }
   }
+  */
 ];
 
 @NgModule({
@@ -52,4 +53,4 @@ const routes: Routes = [
   exports: [RouterModule],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
-export class TabRoutingModule { }
+export class DashboardRoutingModule { }

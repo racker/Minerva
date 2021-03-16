@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AdminUser } from 'projects/admin/src/app/_model/user.interface';
+import { AdminUser } from '../../_model/user.interface';
 
 @Injectable({
   providedIn: 'root'
