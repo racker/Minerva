@@ -1,0 +1,26 @@
+steps:
+
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
+  - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
+    entrypoint: '/bin/sh'
+    args:
+       - '-c'
+       - |
+         echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
+         npm run test:admin-e2e
+         npm run test:admin
+
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'ng', '--', 'build', '--prod', '--project=admin']
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: ['cp', 'app-admin-$_ENV.yaml','dist']
+
+  # Deploy to google cloud app egnine
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy','--project=$PROJECT_ID','--appyaml=app-admin-$_ENV.yaml']
+    dir: 'dist'
+
+timeout: 3600s
