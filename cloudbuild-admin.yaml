@@ -9,6 +9,7 @@ steps:
       - |
         echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
         npm rebuild node-sass
+        npm run mocksetup
         npm run test:admin-e2e
         npm run test:admin
 
