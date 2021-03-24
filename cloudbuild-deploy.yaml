@@ -15,19 +15,14 @@ steps:
          npm run test:unit-ci
 
   - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'ng', '--', 'build', '--prod']
+    args: ['run', 'ng', '--', 'build', '--prod', '--project=minerva']
 
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['cp', 'app-$_ENV.yaml','dist']
 
-    # temporary setting for syncing bucket
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['rsync', '-r', '-d', 'dist/intelligence/', $_BUCKET_LOCATION]
-
     # moving compodoc build to another bucket location
   - name: 'gcr.io/cloud-builders/gsutil'
     args: ['rsync', '-r', 'docs/', $_COMPO_BUCKET_LOCATION]
-
 
   # Deploy to google cloud app egnine
   - name: 'gcr.io/cloud-builders/gcloud'
