@@ -16,6 +16,8 @@
     "start:dev": "node ./helpers/setup.js",
     "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
+    "start-admin": "ng serve --project=admin -o",
+    "start-admin:mock": "ng serve --project=admin -c mock -o",
     "build": "make build-frontend",
     "prebuild:mock": "npm run mocksetup",
     "build:mock": "ng build --watch=false -c=mock",
