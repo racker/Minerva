@@ -1,13 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuardService } from './_services/auth/auth.guard';
 import { SharedModule } from 'src/app/_shared/shared.module';
-import { environment } from 'env/environment';
+import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
-const providers = [AuthGuardService];
+import { envAdminConfig, EnvironmentAdminConfig } from '../../../../src/app/_services/config/envrionmentConfigAdmin.service';
+
+const providers = [AuthGuardService, {
+  provide: APP_INITIALIZER,
+  useFactory: envAdminConfig,
+  deps: [ EnvironmentAdminConfig ],
+  multi: true
+}];
 
 /*
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';

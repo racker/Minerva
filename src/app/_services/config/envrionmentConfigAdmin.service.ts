@@ -2,7 +2,7 @@
 //import the core angular services
 import { Injectable } from "@angular/core";
 // importing Environments
-import { environment } from "env/minerva/environment";
+import { environment } from "env/admin/envrionment";
 
 
 
@@ -10,7 +10,7 @@ import { environment } from "env/minerva/environment";
  * factory function
  * @return FeatureConfig instance
  */
-export function envConfig(config: EnvironmentConfig) {
+export function envAdminConfig(config: EnvironmentAdminConfig) {
     return (() => {
         config.loadEnvironment();
     });
@@ -38,7 +38,7 @@ export interface Pagination {
 @Injectable({
 	providedIn: "root"
 })
-export class EnvironmentConfig {
+export class EnvironmentAdminConfig {
 
   production: boolean;
   mock: boolean;

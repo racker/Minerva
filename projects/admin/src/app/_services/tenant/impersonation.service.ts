@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { EnvironmentAdminConfig } from 'src/app/_services/config/envrionmentConfigAdmin.service';
 import { ErrorService } from 'src/app/_services/error.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { ImpersonationToken, impUser } from '../../_model/impersonationModel';
@@ -29,15 +29,15 @@ export class ImpersonationService {
   constructor(private http: HttpClient, 
     private logService: LoggingService,
     private errorService: ErrorService, 
-    private env: EnvironmentConfig) { }
+    private env: EnvironmentAdminConfig) { }
 
-  getImpersonationToken(data:impUser, token):Observable<ImpersonationToken> {
+  getImpersonationToken(data:impUser, token) { // TODO: We need rax-token to be dynamic once we are done with SSO working!
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'rax-token':token
+        'rax-token':token 
       })
     }
-    return this.http.post<ImpersonationToken>(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions);
+    return this.http.post(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions);
   }
 }

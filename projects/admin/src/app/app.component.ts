@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ImpersonationService } from './_services/tenant/impersonation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,13 @@ import { ImpersonationService } from './_services/tenant/impersonation.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private impService : ImpersonationService) {  }
+  constructor(public impService : ImpersonationService, private _router: Router) {  }
   title = 'admin';
-
-  rackerToken : 'AAA1IKRogbrjVG0OpZ-0RKiN9xCuV7gVgawFeQBl0bfOuGjAKxzgSb8xua1yjt092OwYIDs6R7Ggob8RgFrnW7t79i7rc2R1BXmdReGfnTVyjPXHg-OAbqb2LWn3ByycEeIjotLro1Kr7mEvJd_dcTL2fmrRCpsgGNU';
   name: string;
+  xAuthToken : string;
+  raxToken : string;
   myClickFunction(event) {
-    if(typeof event.target.value === 'number') {
-      let tenantId = event.target.value;
-    }
-
+   
     let data = {
       "RAX-AUTH:impersonation" : {
         user : {
@@ -25,12 +23,13 @@ export class AppComponent {
         }
       }
     }
+      // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.
 
-    this.impService.getImpersonationToken(data, this.rackerToken)
+    this.raxToken = 'AAD6zGDyszQ85Ru5wOy4A_sKv0JXLJt010o6q3VHa1lWen8DhbOifWPF94Fyy8de0Mc09KNsXqJP6V9oKU-X8JTIQoCxHn8G4bWljwRDcLocOSlJP0RY5ni5';
+    this.impService.getImpersonationToken(data, this.raxToken)
         .subscribe(data => {
-          console.log("data get impersonation ", data);
+        this.xAuthToken = data['access'].token.id;
         })
-    
   }
 
 }
