@@ -8,14 +8,7 @@ import { TokenService } from './_services/auth/token.service';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
-import { envAdminConfig, EnvironmentAdminConfig } from '../../../../src/app/_services/config/envrionmentConfigAdmin.service';
-
-const providers = [AuthGuardService, TokenService, {
-  provide: APP_INITIALIZER,
-  useFactory: envAdminConfig,
-  deps: [ EnvironmentAdminConfig ],
-  multi: true
-},
+const providers = [AuthGuardService, TokenService,
 { provide: 'Window',  useValue: window }
 
 ];
