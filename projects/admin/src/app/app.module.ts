@@ -1,26 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './_services/auth/token.interceptor';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuardService } from './_services/auth/auth.guard';
+import { TokenService } from './_services/auth/token.service';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { envAdminConfig, EnvironmentAdminConfig } from '../../../../src/app/_services/config/envrionmentConfigAdmin.service';
 
-const providers = [AuthGuardService, {
+const providers = [AuthGuardService, TokenService, {
   provide: APP_INITIALIZER,
   useFactory: envAdminConfig,
   deps: [ EnvironmentAdminConfig ],
   multi: true
-}, {
-  provide: HTTP_INTERCEPTORS,
-  useClass: TokenInterceptor,
-  multi: true
-}];
+},
+{ provide: 'Window',  useValue: window }
+
+];
 
 /*
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';

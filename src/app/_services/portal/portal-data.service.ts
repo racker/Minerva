@@ -10,12 +10,13 @@ export class PortalDataService {
 
   constructor() {
     let portal = window['PORTAL_DATA'];
+    console.log("portal after setting it into component.ts file ", portal);
     this.portalData = {
-      isRacker: portal.isRacker || null,
-      domainId: portal.domainId || null,
-      userId: portal.userId || null,
-      username: portal.username || null,
-      tenants: portal.tenants || null
+      isRacker: portal?.isRacker || null,
+      domainId: portal?.domainId || null,
+      userId: portal?.userId || null,
+      username: portal?.username || null,
+      tenants: portal?.tenants || null
     }
   }
 }
