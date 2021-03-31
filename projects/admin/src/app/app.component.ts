@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ImpersonationService } from './_services/tenant/impersonation.service';
+import { TokenService } from './_services/auth/token.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public impService : ImpersonationService, private _router: Router) {  }
+  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService) {  }
   title = 'admin';
   name: string;
   xAuthToken : string;
@@ -28,7 +29,8 @@ export class AppComponent {
     this.raxToken = 'AAD6zGDyszQ85Ru5wOy4A_sKv0JXLJt010o6q3VHa1lWen8DhbOifWPF94Fyy8de0Mc09KNsXqJP6V9oKU-X8JTIQoCxHn8G4bWljwRDcLocOSlJP0RY5ni5';
     this.impService.getImpersonationToken(data, this.raxToken)
         .subscribe(data => {
-        this.xAuthToken = data['access'].token.id;
+          this.xAuthToken = data['access'].token.id;
+          this.tokenService.setToken(this.xAuthToken);
         })
   }
 

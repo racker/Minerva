@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './_services/auth/token.interceptor';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,10 @@ const providers = [AuthGuardService, {
   provide: APP_INITIALIZER,
   useFactory: envAdminConfig,
   deps: [ EnvironmentAdminConfig ],
+  multi: true
+}, {
+  provide: HTTP_INTERCEPTORS,
+  useClass: TokenInterceptor,
   multi: true
 }];
 
