@@ -4,7 +4,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHeaders
 } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Observable } from 'rxjs';
@@ -12,12 +13,14 @@ import { Observable } from 'rxjs';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public authToken: TokenService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    request = request.clone({
-      setHeaders: {
-        'X-Auth-Token': `${this.authToken.getToken()}`
-      }
-    });
+    let headers;
+    if(this.authToken.getToken !== null) {
+      headers = new HttpHeaders({
+        'X-Auth-Token': this.authToken.getToken,
+      });
+    }
+
+  request = request.clone({headers});
     return next.handle(request);
   }
 }

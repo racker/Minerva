@@ -35,7 +35,7 @@ export class AppComponent {
     this.impService.getImpersonationToken(data, this.raxToken)
         .subscribe(data => {
           this.xAuthToken = data['access'].token.id;
-          this.tokenService.setToken(this.xAuthToken);
+          this.tokenService.setToken = this.xAuthToken;
         })           
   }
 }

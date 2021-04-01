@@ -11,29 +11,6 @@ export const environment = {
     salus: `${absoluteHost}/api/monitoring`,
     metrics: `${absoluteHost}/api/metrics`,
     minerva:`${cloudTriggerUrl}/minerva-api-staging-v1`
-  },
-  firebase: {
-    apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
-    authDomain: 'minerva-281312.firebaseapp.com'
-  },
-  pagination: {
-    pageSize: 25,
-    resources: {
-      pageSize: 25
-    },
-    monitors: {
-      pageSize: 25
-    }
-  },
-  resources: {
-    disallowLabelEdit: 'agent_'
-  },
-  featureFlags:{
-    admin:false,
-    adminAccess:false,
-    monitors: false,
-    resources: false,
-    visualize: true,
   }
 };
 
