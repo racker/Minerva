@@ -10,16 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService, @Inject('Window') private window: Window) {  }
+  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService) {  }
   title = 'admin';
   name: string;
   xAuthToken : string;
   raxToken : string;
-
-  ngOnInit(): void {
-    this.window['PORTAL_DATA'] = {isRacker:false, domainId: '7799042', tenants:['cloud:7799042']}; // TODO : tenantId (7799042) will be from account search input field.
-
-  }
   myClickFunction(event) {
    
     let data = {
