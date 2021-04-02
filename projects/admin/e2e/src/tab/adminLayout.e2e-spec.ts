@@ -26,7 +26,7 @@ describe("Test layout of admin tools", ()=> {
 
     });
 
-    it("To test admin section of Minerva have the general layout of monitoring.rackspace.net",()=>{
+    xit("To test admin section of Minerva have the general layout of monitoring.rackspace.net",()=>{
       let isDisplayed = async function ($element) {
          return (await $element.isPresent()) && (await $element.isDisplayed())
        }

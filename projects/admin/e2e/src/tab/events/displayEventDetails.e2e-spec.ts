@@ -51,7 +51,7 @@ describe("Test display of event details", ()=> {
     
       });
 
-      it("To verify expression section of an event is loaded",()=>{
+      xit("To verify expression section of an event is loaded",()=>{
          page2.eventName('cpu').click();
          let page3=new EventDetailsPage();
 
