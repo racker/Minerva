@@ -32,8 +32,12 @@ describe('ImpersonationService', () => {
         }
       }
     }
+
+    var token = 'AABcX-sOFSVZVN1v2sKUIWbPjpy_DoXSmVn4imLgLYg13T0c_oSSLM7mlV1MrcZU0S6uhzyS8MdYySd5j2xIgT9huFDXcMj-1tyWwNXW8gKGtKyFOowZ_3Zz';
+
+
     spyOn(httpService, 'post').and.returnValue(of<ImpersonationToken>({}));
-    service.getImpersonationToken(data).subscribe(data =>{
+    service.getImpersonationToken(data, token).subscribe(data =>{
       expect(data).toEqual({});
       done();
     });
