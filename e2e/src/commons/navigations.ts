@@ -40,6 +40,9 @@ export class navigations
 
    navigateToAdmin(){
      element(by.xpath("//a[contains(text(),'Admin')]")).click();
+     browser.sleep(5000);
+     expect(element(by.xpath("//a[contains(text(),'Admin')]")).isPresent()).toBe(true);
+
    }
   
   async loadresources()
