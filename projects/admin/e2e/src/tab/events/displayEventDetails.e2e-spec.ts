@@ -30,7 +30,7 @@ describe("Test display of event details", ()=> {
  
      });
 
-     it("To verify details of a selected event",()=>{
+     xit("To verify details of a selected event",()=>{
        
        page2.eventName('cpu').click();
        let page3=new EventDetailsPage();
