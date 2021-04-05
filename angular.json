@@ -50,8 +50,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.prod.ts"
+                  "replace": "env/minerva/environment.ts",
+                  "with": "env/minerva/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -85,8 +85,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.mock.ts"
+                  "replace": "env/minerva/environment.ts",
+                  "with": "env/minerva/environment.mock.ts"
                 }
               ],
               "scripts": [
@@ -148,8 +148,8 @@
             "mock": {
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.mock.ts"
+                  "replace": "env/minerva/environment.ts",
+                  "with": "env/minerva/environment.mock.ts"
                 }
               ],
               "scripts": [
@@ -290,8 +290,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.prod.ts"
+                  "replace": "env/admin/environment.ts",
+                  "with": "env/admin/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -318,8 +318,8 @@
             "mock": {
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.mock.ts"
+                  "replace": "env/admin/environment.ts",
+                  "with": "env/admin/environment.mock.ts"
                 }
               ]
             }
@@ -351,8 +351,8 @@
             "mock": {
               "fileReplacements": [
                 {
-                  "replace": "env/environment.ts",
-                  "with": "env/environment.mock.ts"
+                  "replace": "env/admin/environment.ts",
+                  "with": "env/admin/environment.mock.ts"
                 }
               ],
               "scripts": [

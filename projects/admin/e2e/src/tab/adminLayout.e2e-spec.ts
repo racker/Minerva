@@ -26,10 +26,13 @@ describe("Test layout of admin tools", ()=> {
 
     });
 
-    it("To test admin section of Minerva have the general layout of monitoring.rackspace.net",()=>{
-       expect(page1.accountSearchBox.isDisplayed()).toBe(true);
-       expect(page1.monitorsTab.isDisplayed()).toBe(true);
-       expect(page1.resourcesTab.isDisplayed()).toBe(true);
+    xit("To test admin section of Minerva have the general layout of monitoring.rackspace.net",()=>{
+      let isDisplayed = async function ($element) {
+         return (await $element.isPresent()) && (await $element.isDisplayed())
+       }
+       expect(isDisplayed(page1.accountSearchBox)).toBe(true);
+       expect(isDisplayed(page1.monitorsTab)).toBe(true);
+       expect(isDisplayed(page1.resourcesTab)).toBe(true);
 
 });
 

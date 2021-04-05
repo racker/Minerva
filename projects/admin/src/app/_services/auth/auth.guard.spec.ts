@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from 'env/environment';
+import { environment } from 'env/minerva/environment';
 import { AdminUser } from 'projects/admin/src/app/_model/user.interface';
 import { of } from 'rxjs';
 import { AdminService } from '../admin/admin.service';

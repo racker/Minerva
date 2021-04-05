@@ -1,13 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuardService } from './_services/auth/auth.guard';
+import { ImpersonationService } from './_services/tenant/impersonation.service';
+import { TokenService } from './_services/auth/token.service';
 import { SharedModule } from 'src/app/_shared/shared.module';
-import { environment } from 'env/environment';
+import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
-const providers = [AuthGuardService];
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,
+{ provide: 'Window',  useValue: window }
+
+];
 
 /*
 import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
@@ -37,7 +44,9 @@ import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.c
     BrowserModule,
     CommonModule,
     SharedModule,
-    MonitorsModule
+    MonitorsModule,
+    HttpClientModule,
+    HttpClient
   ],
   providers: providers,
   bootstrap: [AppComponent],
