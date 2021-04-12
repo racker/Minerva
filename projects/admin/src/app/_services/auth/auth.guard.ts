@@ -18,7 +18,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     async canActivate(): Promise<boolean> {
-        //return true;
+        return true;
 
         if (environment.mock) {
             return true;

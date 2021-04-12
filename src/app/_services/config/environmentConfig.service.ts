@@ -3,6 +3,7 @@
 import { Injectable } from "@angular/core";
 // importing Environments
 import { environment } from "env/minerva/environment";
+import { environment as adminEnvironment  } from 'env/admin/environment';
 
 
 
@@ -42,6 +43,7 @@ export class EnvironmentConfig {
 
   production: boolean;
   mock: boolean;
+  isAdmin : boolean;
   featureFlags:FeatureFlags;
   api:{[name: string]:string;}
   pagination:Pagination;
@@ -57,9 +59,12 @@ export class EnvironmentConfig {
      * load feature config Through Envrionment file
      */
 	public loadEnvironment()  {
-        // merging Environment in local instance
+      if(typeof window['PORTAL_DATA'] === 'undefined') {
+        Object.assign( this, adminEnvironment );
+      }  else {
         Object.assign( this, environment );
-        // console.log(this.pagination.pageSize);
+      }
+        // merging Environment in local instance
 	}
 
 }

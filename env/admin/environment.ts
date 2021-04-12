@@ -3,14 +3,25 @@
 // The list of file replacements can be found in `angular.json`.
 let absoluteHost = `${window.location.protocol}//${window.location.hostname}`;
 let cloudTriggerUrl = 'https://us-central1-minerva-281312.cloudfunctions.net';
+let monitoringUrl = 'http://salus-api.staging.monplat.rackspace.net/v1.0';
 
 export const environment = {
   production: false,
-  mock: true,
+  mock: false,
+  isAdmin : true,
   api: {
-    salus: `${absoluteHost}/api/monitoring`,
+    salus: `${monitoringUrl}/tenant`,
     metrics: `${absoluteHost}/api/metrics`,
     minerva:`${cloudTriggerUrl}/minerva-api-staging-v1`
+  },
+  pagination: {
+    pageSize: 25,
+    resources: {
+      pageSize: 25
+    },
+    monitors: {
+      pageSize: 25
+    }
   }
 };
 

@@ -5,6 +5,7 @@ let absoluteHost = `${window.location.protocol}//${window.location.hostname}:${w
 export const environment = {
   production: false,
   mock: false,
+  isAdmin : false,
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
     metrics: `${absoluteHost}/api/metrics`,

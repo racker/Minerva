@@ -10,15 +10,21 @@ import { SharedModule } from 'src/app/_shared/shared.module';
 import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
 
 const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,
-{ provide: 'Window',  useValue: window }
+{ provide: 'Window',  useValue: window },  {
+  provide: APP_INITIALIZER,
+  useFactory: envConfig,
+  deps: [ EnvironmentConfig ],
+  multi: true
+}
 
 ];
 
-/*
-import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
+
+/*import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { EventsModule } from 'src/app/_features/events/events.module';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
@@ -35,18 +41,18 @@ import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.c
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     BrowserModule,
+    ResourcesModule,
     CommonModule,
     SharedModule,
     MonitorsModule,
-    HttpClientModule,
-    HttpClient
+    HttpClientModule
   ],
   providers: providers,
   bootstrap: [AppComponent],
