@@ -7,7 +7,7 @@ let monitoringUrl = 'http://salus-api.staging.monplat.rackspace.net/v1.0';
 
 export const environment = {
   production: false,
-  mock: false,
+  mock: true,
   isAdmin : true,
   api: {
     salus: `${monitoringUrl}/tenant`,
