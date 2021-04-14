@@ -13,7 +13,7 @@ export const environment = {
   },
   firebase: {
     apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
-    authDomain: 'dev.i.rax.io'
+    authDomain: 'minerva-281312.firebaseapp.com'
   },
   pagination: {
     pageSize: 25,

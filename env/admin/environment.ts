@@ -9,6 +9,10 @@ export const environment = {
   production: false,
   mock: true,
   isAdmin : true,
+  firebase: {
+    apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
+    authDomain: 'minerva-281312.firebaseapp.com'
+  },
   api: {
     salus: `${monitoringUrl}/tenant`,
     metrics: `${absoluteHost}/api/metrics`,

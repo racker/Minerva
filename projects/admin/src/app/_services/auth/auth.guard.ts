@@ -18,8 +18,6 @@ export class AuthGuardService implements CanActivate {
     }
 
     async canActivate(): Promise<boolean> {
-        return true;
-
         if (environment.mock) {
             return true;
         }
@@ -52,7 +50,7 @@ export class AuthGuardService implements CanActivate {
                         this.adminService.user = user;
                         resolve(true)
                     } else {
-                        this.location.replaceState('/admin');
+                        this.location.replaceState('');
                         firebase.default.auth().signInWithRedirect(provider);
                     }
                 }, (e) => {
