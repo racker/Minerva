@@ -12,8 +12,7 @@ import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
 
-const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,
-{ provide: 'Window',  useValue: window },  {
+const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,{
   provide: APP_INITIALIZER,
   useFactory: envConfig,
   deps: [ EnvironmentConfig ],

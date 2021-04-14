@@ -2,9 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TokenInterceptor } from '../../projects/admin/src/app/_services/auth/token.interceptor';
 import { LoggingService } from './_services/logging/logging.service';
 import { PortalDataService } from './_services/portal/portal-data.service';
 import { SharedModule } from './_shared/shared.module';
@@ -40,11 +38,6 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
       deps: [AJV_CLASS, AJV_CONFIG]
     },
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    {
       provide: APP_INITIALIZER,
       useFactory: portalData,
       multi: true,
@@ -69,10 +62,9 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
 export class AppModule {}
 
 export function portalData(): any {
-  new PortalDataService();
+  new PortalDataService(new EnvironmentConfig);
   return () => {};
 }
-
 export function logger(): any {
   var logger = new LoggingService();
   // if we don't currently have a log level set

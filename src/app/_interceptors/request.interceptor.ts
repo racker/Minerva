@@ -10,7 +10,7 @@ import { EnvironmentConfig } from "../_services/config/environmentConfig.service
 import { MinervaApiMock } from "../_mocks/minervaApi/minerva-api-service.mock"
 import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
 import { TenantMock } from 'projects/admin/src/app/_mocks/tenants/tenants.service.mock';
-//import { TokenService } from '../../../projects/admin/src/app/_services/auth/token.service';
+import { TokenService } from '../../../projects/admin/src/app/_services/auth/token.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -36,16 +36,17 @@ export class RequestInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
         if (!this.env.mock) {
             // TODO: this condition would be open one you implement the dynamic SSO and once CORS issue will fixed!
-            /*if(this.env.isAdmin === true) {
+            if(this.env.isAdmin === true) {
                 let headers;
-                if(this.authToken.getToken != null || this.authToken.getToken != undefined) {
+                let serv = new TokenService();
+                if(serv.getToken != null || serv.getToken != undefined) {
                   headers = new HttpHeaders({
-                    'X-Auth-Token': this.authToken.getToken,
+                    'X-Auth-Token': serv.getToken,
                   });
                   request = request.clone({headers});
                 }
             
-            }*/
+            }
             return next.handle(request);
                    
         }

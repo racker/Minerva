@@ -22,7 +22,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers:[{provide:PortalDataService}, {provide:TokenService}, { provide: 'Window',  useValue: window }]
+      providers:[{provide:PortalDataService}, {provide:TokenService}]
     }).compileComponents();
     injector = getTestBed();
     const fixture = TestBed.createComponent(AppComponent);

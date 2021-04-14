@@ -11,7 +11,7 @@ import { impUser } from './_model/impersonationModel';
 })
 export class AppComponent {
   @ViewChild(DashboardComponent) child:DashboardComponent;
-  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService, @Inject('Window') private window: Window) {  
+  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService) {  
   }
   title = 'admin';
   _component: any;
@@ -20,10 +20,6 @@ export class AppComponent {
   xAuthToken : string;
   raxToken : string;
   data : impUser;
-
-  ngOnInit(): void {
-    this.window['PORTAL_DATA'] = {isRacker:false, domainId: '7799042', tenants:['cloud:7799042']}; // TODO : tenantId (7799042) will be from account search input field.
-  }
   myClickFunction() {
    
     this.data = {
@@ -35,7 +31,7 @@ export class AppComponent {
     }
       // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.
 
-    this.raxToken = 'AADU-8A-3pi8q4BIWfX2snQdcWEHye--dIEBnMD2MUX4I69hvt0lpx5W1P2E-jqIMtFmqslldMEtsxXUsl3P9pPhbjAohNON4PNQDrYyn7o7cpXIaiFyByEc';
+    this.raxToken = 'AADRqXSYnU2s5vwXPSqRd_gGQOUxKbwIjxQ7Es2qVnUGlp9Ghp7cUPiDH8baVYw_vdOiJsnAndn4lxdm2hsAVnmt-N5DbTPEJB22rI9E5eflZDh7jMmXx7fW';
     this.impService.getImpersonationToken(this.data, this.raxToken)
         .subscribe(data => {
           this.xAuthToken = data['access'].token.id;
