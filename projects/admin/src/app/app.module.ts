@@ -10,9 +10,10 @@ import { SharedModule } from 'src/app/_shared/shared.module';
 import { environment } from 'env/minerva/environment';
 import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { DashboardDirective } from './_services/dashboard.directive';
 import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
 
-const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,{
+const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,DataService, {
   provide: APP_INITIALIZER,
   useFactory: envConfig,
   deps: [ EnvironmentConfig ],
@@ -37,10 +38,12 @@ import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/te
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
+import { DataService } from './_services/data.service';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    DashboardDirective
   ],
   imports: [
     AppRoutingModule,

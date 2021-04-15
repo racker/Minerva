@@ -1,46 +1,49 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ImpersonationService } from './_services/tenant/impersonation.service';
 import { TokenService } from './_services/auth/token.service';
 import { Router } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DataService } from '../app/_services/data.service';
 import { impUser } from './_model/impersonationModel';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   //@ViewChild(DashboardComponent) child:DashboardComponent;
-  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService) {
+  constructor(public impService : ImpersonationService, private _router: Router, private tokenService : TokenService, private dataSer : DataService) {
   }
   title = 'admin';
   _component: any;
   componentsList = [];
   name: string;
+  message : string;
   xAuthToken : string;
   raxToken : string;
   data : impUser;
-  myClickFunction() {
+  ngOnInit() {
+  }
+  searchTenant() {
 
+     this.data = {
+       "RAX-AUTH:impersonation" : {
+         user : {
+           username : 'walterwhite'
+         }
+       }
+     }
+       // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.
 
-
-  //   this.data = {
-  //     "RAX-AUTH:impersonation" : {
-  //       user : {
-  //         username : 'walterwhite'
-  //       }
-  //     }
-  //   }
-  //     // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.
-
-  //   this.raxToken = 'AADRqXSYnU2s5vwXPSqRd_gGQOUxKbwIjxQ7Es2qVnUGlp9Ghp7cUPiDH8baVYw_vdOiJsnAndn4lxdm2hsAVnmt-N5DbTPEJB22rI9E5eflZDh7jMmXx7fW';
-  //   this.impService.getImpersonationToken(this.data, this.raxToken)
-  //       .subscribe(data => {
-  //         this.xAuthToken = data['access'].token.id;
-  //         this.tokenService.setToken = this.xAuthToken;
-  //         //this.child.loadTabComponent('RESOURCES');
-  //       })
-  // }
+     this.raxToken = 'AACjm3w46_ZeoN8hs9ApQKFhUsT3YtF_JDggxWIk2q8C8-z7IiVmkSNGkdttd7ShQFLLyNYrsgVIK3uQcN1tuqtzYbUyy8irxG3WnOa5GbdzR3k6q8DjQxfJ';
+     this.impService.getImpersonationToken(this.data, this.raxToken)
+         .subscribe(data => {
+           this.xAuthToken = data['access'].token.id;
+           this.tokenService.setToken = this.xAuthToken;
+           this.dataSer.changeComponentName("RESOURCES");
+           //this.child.loadTabComponent('RESOURCES');
+         })
+   }
 }
-}
+
 
