@@ -8,7 +8,6 @@ import { ResourceDetailsPage } from './pages/details/resource-details.page';
 import { ValidateResource } from 'src/app/_shared/validators/resourceName.validator';
 import { MonitorListComponent } from './components/monitor_list/monitor-list.component';
 import { SearchComponent } from './components/search/search.component';
-
 const routes: Routes = [
   {
       path: '',
@@ -18,7 +17,7 @@ const routes: Routes = [
       }
   },
   {
-      path: ':id',
+      path:'dashboard/resources/:id',
       component: ResourceDetailsPage,
       data: {
         breadcrumb: 'DETAILS'

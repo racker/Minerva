@@ -26,7 +26,10 @@ export const environment = {
     monitors: {
       pageSize: 25
     }
-  }
+  },
+  resources: {
+    disallowLabelEdit: 'agent_'
+  },
 };
 
 /*
