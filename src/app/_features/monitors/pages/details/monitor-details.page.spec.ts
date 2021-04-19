@@ -4,24 +4,24 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import ajv from 'ajv';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from '../../../../_shared/shared.module';
+import { SharedModule } from '@minerva/_shared/shared.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { MonitorsPage } from '../monitors/monitors.page';
-import { MonitorService } from '../../../../_services/monitors/monitor.service'
+import { MonitorService } from '@minerva/_services/monitors/monitor.service'
 import { MonitorDetailsPage } from './monitor-details.page';
-import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
+import { monitorsMock } from '@minerva/_mocks/monitors/monitors.service.mock';
 import { MonitorslistComponent } from '../../components/list/monitorslist.component';
 import { routes } from '../../monitors.routes';
-import { SchemaService, AJV_INSTANCE } from 'src/app/_services/monitors/schema.service';
+import { SchemaService, AJV_INSTANCE } from '@minerva/_services/monitors/schema.service';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from '../../monitors.module';
 import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { DurationSecondsPipe } from 'src/app/_shared/pipes/duration-seconds.pipe';
+import { DurationSecondsPipe } from '@minerva/_shared/pipes/duration-seconds.pipe';
 import { MonitorUtil } from '../../mon.utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { mockResourcesProvider } from '@minerva/_interceptors/request.interceptor';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 describe('MonitorDetailComponent', () => {
   let injector: TestBed;

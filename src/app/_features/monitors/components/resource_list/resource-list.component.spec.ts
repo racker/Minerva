@@ -1,17 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ResourceListComponent } from './resource-list.component';
-import { ResourcesService } from '../../../../_services/resources/resources.service';
-import { HttpClientModule } from '@angular/common/http';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock';
+import { resourcesMock } from '@minerva/_mocks/resources/resources.service.mock';
 import { of } from 'rxjs';
-import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
+import { PaginationComponent } from '@minerva/_shared/components/pagination/pagination.component';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
-import { Monitor } from 'src/app/_models/monitors';
-import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { monitorsMock } from '@minerva/_mocks/monitors/monitors.service.mock';
+import { Monitor } from '@minerva/_models/monitors';
+import { mockResourcesProvider } from '@minerva/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 describe('ResourceListComponent', () => {
   let component: ResourceListComponent;

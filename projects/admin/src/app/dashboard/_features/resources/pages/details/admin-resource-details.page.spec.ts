@@ -3,15 +3,15 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { ResourcesPage } from '../../../../../../../../../src/app/_features/resources/pages/resources/resources.page';
+import { ResourcesPage } from '@minerva/_features/resources/pages/resources/resources.page';
 
 import { AdminResourceDetailsPage } from './admin-resource-details.page';
-import { ResourcesListComponent } from '../../../../../../../../../src/app/_features/resources/components/list/resourceslist.component';
-import { resourcesMock } from '../../../../../../../../../src/app/_mocks/resources/resources.service.mock';
-import { SharedModule } from '../../../../../../../../../src/app/_shared/shared.module';
-import { ResourcesService } from 'src/app/_services/resources/resources.service';
+import { ResourcesListComponent } from '@minerva/_features/resources/components/list/resourceslist.component';
+import { resourcesMock } from '@minerva/_mocks/resources/resources.service.mock';
+import { SharedModule } from '@minerva/_shared/shared.module';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
 import { of, Observable, throwError, Subscriber } from 'rxjs';
-import { CreateResource, Resource, Resources } from 'src/app/_models/resources';
+import { CreateResource, Resource, Resources } from '@minerva/_models/resources';
 import { delay } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 
