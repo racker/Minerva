@@ -14,7 +14,7 @@ const routes: Routes = [
     canActivate:[AuthGuardService]
   },
   {
-    path: 'resources/:id',
+    path: 'dashboard/resources/:id',
     component: AdminResourceDetailsPage,
     data: {
       breadcrumb: ''

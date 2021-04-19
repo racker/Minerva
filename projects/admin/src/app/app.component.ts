@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
      }
        // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.
 
-     this.raxToken = 'AACjm3w465V4i-agVFwhTLyvK9CJubpB0CfmC0fhQEdt-GpvnD6aubXEj2SzanysDqSYWyvFjscVSrEa6JE-q_poHWMeOpLv0H7jJ8eukzO9PEnpp2_1cc7B';
+     this.raxToken = 'AAAjVpYWTjFSwJGy9uMnXrzKdJ-hIYX7xkD6dkBIjR4_4olUnwumjuQ6nOwTMPLVriqbRDjwALQ7BgMRdMuZ9CeYKbbUrWZSceqhqEaOC82y4Zyq2Rsfm3lV';
      this.impService.getImpersonationToken(this.data, this.raxToken)
          .subscribe(data => {
            this.xAuthToken = data['access'].token.id;

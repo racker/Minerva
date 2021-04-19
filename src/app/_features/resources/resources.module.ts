@@ -17,7 +17,7 @@ const routes: Routes = [
       }
   },
   {
-      path:'dashboard/resources/:id',
+      path:':id',
       component: ResourceDetailsPage,
       data: {
         breadcrumb: 'DETAILS'
