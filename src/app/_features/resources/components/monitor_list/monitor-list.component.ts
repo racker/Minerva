@@ -1,9 +1,9 @@
 
 import { Component, OnInit, ViewContainerRef, Input } from '@angular/core';
-import { MonitorService } from "../../../../_services/monitors/monitor.service";
-import { BoundMonitor } from 'src/app/_models/resources';
+import { MonitorService } from "@minerva/_services/monitors/monitor.service";
+import { BoundMonitor } from '@minerva/_models/resources';
 import { Subscription } from 'rxjs';
-import { Pagination } from 'src/app/_models/common';
+import { Pagination } from '@minerva/_models/common';
 import { MonitorUtil } from '../../../monitors/mon.utils';
 
 @Component({

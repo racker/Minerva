@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BoundMonitor } from 'src/app/_models/resources';
-import { MonitorService } from '../../../../_services/monitors/monitor.service';
+import { MonitorService } from '@minerva/_services/monitors/monitor.service';
 import { Subscription } from 'rxjs';
-import { Pagination } from 'src/app/_models/common';
-import { isAdmin } from 'src/app/_shared/utils';
+import { Pagination } from '@minerva/_models/common';
+import { isAdmin } from '@minerva/_shared/utils';
 import { MonitorUtil } from 'src/app/_features/monitors/mon.utils'
 import { Router } from '@angular/router';
-import { Monitor, TestMonitor } from 'src/app/_models/monitors';
+import { Monitor, TestMonitor } from '@minerva/_models/monitors';
 import { CreateTestMonitor } from '../../interfaces/testMonitor.interface';
 @Component({
   selector: 'app-resource-list',

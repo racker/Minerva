@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { MonitorService } from '../../../../_services/monitors/monitor.service';
-import { Monitor, Monitors } from '../../../../_models/monitors';
+import { MonitorService } from '@minerva/_services/monitors/monitor.service';
+import { Monitor, Monitors } from '@minerva/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
-import { SpinnerService } from '../../../../_services/spinner/spinner.service';
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { Router } from '@angular/router';
 import { isAdmin } from 'src/app/_shared/utils';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';

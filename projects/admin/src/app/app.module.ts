@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { AuthGuardService } from './_services/auth/auth.guard';
 import { ImpersonationService } from './_services/tenant/impersonation.service';
 import { TokenService } from './_services/auth/token.service';
-import { SharedModule } from 'src/app/_shared/shared.module';
-import { environment } from 'env/minerva/environment';
-import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
+import { SharedModule } from '@minerva/_shared/shared.module';
+import { environment } from '@env/minerva/environment';
+import { MonitorsModule } from '@minerva/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,

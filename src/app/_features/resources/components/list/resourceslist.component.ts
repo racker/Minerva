@@ -1,16 +1,16 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ResourcesService } from '../../../../_services/resources/resources.service';
-import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
+import { ValidateResource } from '@minerva/_shared/validators/resourceName.validator';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs'
-import { Resource, CreateResource, Resources } from 'src/app/_models/resources';
+import { Resource, CreateResource, Resources } from '@minerva/_models/resources';
 import { Router } from '@angular/router';
-import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
-import { LoggingService } from 'src/app/_services/logging/logging.service';
-import { LogLevels } from 'src/app/_enums/log-levels.enum';
-import { mergeUniqueObjectsOfArray, isAdmin } from 'src/app/_shared/utils';
-import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
+import { LoggingService } from '@minerva/_services/logging/logging.service';
+import { LogLevels } from '@minerva/_enums/log-levels.enum';
+import { mergeUniqueObjectsOfArray, isAdmin } from '@minerva/_shared/utils';
+import { EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 
 @Component({

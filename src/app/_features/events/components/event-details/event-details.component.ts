@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EventsService } from "../../../../_services/events/events.service";
-import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { EventsService } from "@minerva/_services/events/events.service";
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
