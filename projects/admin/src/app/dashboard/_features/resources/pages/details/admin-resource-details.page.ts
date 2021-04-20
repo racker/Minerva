@@ -25,7 +25,7 @@ export class AdminResourceDetailsPage implements OnInit {
   header:string;
   modalType:string;
 
-  resource$: any;
+  resource$: Observable<Resource>;
   public metaSubmit: Subject<void> = new Subject<void>();
   public labelsSubmit: Subject<void> = new Subject<void>();
   public metaFormSubmit: Subject<boolean> = new Subject<boolean>();
@@ -47,14 +47,11 @@ export class AdminResourceDetailsPage implements OnInit {
   ngOnInit() {
       this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.resourceService.getResource(this.id).subscribe((data) => {
-        this.resource$ = data;
-      })
-      /*.pipe(
+      this.resource$ = this.resourceService.getResource(this.id).pipe(
         tap((data) => {
           this.spnService.changeLoadingStatus(false);
         })
-      );*/
+      );
     });
 
     let metaFormSubscrip = this.metaFormSubmit.subscribe((valid) => {
