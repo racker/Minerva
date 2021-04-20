@@ -48,7 +48,7 @@ describe('AppComponent', () => {
     }
     component.raxToken = 'AADU-8A-3pi8q4BIWfX2snQdcWEHye';
     let spy = spyOn(impersonationService, 'getImpersonationToken').and.returnValue({ subscribe: () => {} })
-    component.myClickFunction();
+    component.searchTenant();
     expect(spy).toHaveBeenCalled();
   })
 });
