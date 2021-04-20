@@ -24,8 +24,8 @@ const providers = [AuthGuardService, TokenService, ImpersonationService, HttpCli
 
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
 
-/*import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
-import { EventsModule } from 'src/app/_features/events/events.module';
+import { AdminResourceDetailsPage } from './dashboard/_features/resources/pages/details/admin-resource-details.page';
+/*import { EventsModule } from 'src/app/_features/events/events.module';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
 import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
@@ -43,7 +43,8 @@ import { DataService } from './_services/data.service';
   declarations: [
     AppComponent,
     DashboardComponent,
-    DashboardDirective
+    DashboardDirective,
+    AdminResourceDetailsPage
   ],
   imports: [
     AppRoutingModule,

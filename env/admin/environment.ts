@@ -14,7 +14,7 @@ export const environment = {
     authDomain: 'minerva-281312.firebaseapp.com'
   },
   api: {
-    salus: `${monitoringUrl}/tenant`,
+    salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
     metrics: `${absoluteHost}/api/metrics`,
     minerva:`${cloudTriggerUrl}/minerva-api-staging-v1`
   },
