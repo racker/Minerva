@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpInterceptor, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { ResourcesService } from '../_services/resources/resources.service';
@@ -10,6 +10,7 @@ import { EnvironmentConfig } from "../_services/config/environmentConfig.service
 import { MinervaApiMock } from "../_mocks/minervaApi/minerva-api-service.mock"
 import { MinervaApiService } from '../_services/minervaApi/minerva-api.service';
 import { TenantMock } from 'projects/admin/src/app/_mocks/tenants/tenants.service.mock';
+import { TokenService } from '../../../projects/admin/src/app/_services/auth/token.service';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -29,11 +30,25 @@ export class RequestInterceptor implements HttpInterceptor {
         this.monitorService = this.inj.get(MonitorService);
         this.env = this.inj.get(EnvironmentConfig);
         this.minervaService = this.inj.get(MinervaApiService);
+        
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
         if (!this.env.mock) {
+            // TODO: this condition would be open one you implement the dynamic SSO and once CORS issue will fixed!
+            if(this.env.isAdmin === true) {
+                let headers;
+                let serv = new TokenService();
+                if(serv.getToken != null || serv.getToken != undefined) {
+                  headers = new HttpHeaders({
+                    'X-Auth-Token': serv.getToken,
+                  });
+                  request = request.clone({headers});
+                }
+            
+            }
             return next.handle(request);
+                   
         }
         const { url, method } = request;
 

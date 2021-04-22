@@ -79,7 +79,7 @@ export class ResourcesListComponent implements OnInit, OnDestroy {
   }
 
   isAdminRoute(recourceId) {
-    return isAdmin(this.router) ? `/admin/resources/${recourceId}`  : `/resources/${recourceId}`
+    return isAdmin(this.router) ? `/admin/resources/${recourceId}`  : `/dashboard/resources/${recourceId}`
   }
 
   /**

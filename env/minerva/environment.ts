@@ -5,6 +5,7 @@ let absoluteHost = `${window.location.protocol}//${window.location.hostname}:${w
 export const environment = {
   production: false,
   mock: false,
+  isAdmin : false,
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
     metrics: `${absoluteHost}/api/metrics`,
@@ -12,7 +13,7 @@ export const environment = {
   },
   firebase: {
     apiKey: 'AIzaSyBsq3WqmOANde5rBKXw5jsaNKFke7CqAjk',
-    authDomain: 'dev.i.rax.io'
+    authDomain: 'minerva-281312.firebaseapp.com'
   },
   pagination: {
     pageSize: 25,

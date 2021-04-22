@@ -64,7 +64,7 @@ import { FeatureFlag } from 'src/app/_guards/feature-flag.guard';
 export class AppModule {}
 
 export function portalData(): any {
-  new PortalDataService();
+  new PortalDataService(new EnvironmentConfig);
   return () => {};
 }
 export function logger(): any {

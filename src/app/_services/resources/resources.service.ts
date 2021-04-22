@@ -86,8 +86,8 @@ export class ResourcesService {
    * @param id
    * @returns Observable<Resource>
    */
-  getResource(id: string): Observable<Resource> {
-    return this.http.get<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`)
+  getResource(id: string): Observable<Resource> {    
+    return this.http.get<Resource>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/resources/${id}`, httpOptions)
       .pipe(
         tap(data => {
           this._resource = data;
