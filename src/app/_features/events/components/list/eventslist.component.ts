@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { EventsService } from '../../../../_services/events/events.service';
-import { Event } from '../../../../_models/events';
+import { EventsService } from '@minerva/_services/events/events.service';
+import { Event } from '@minerva/_models/events';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -33,20 +33,20 @@ export class EventslistComponent implements OnInit {
   }
 
   getEvents() {
-    this.subscriber=this.eventService.getEvents(this.size).subscribe(data =>{     
+    this.subscriber=this.eventService.getEvents(this.size).subscribe(data =>{
       this.events = data.content;
     })
   }
 
   selectEvent(event): void {
     let id = event.target.id.split("event-");
-    if(event.target.checked) 
+    if(event.target.checked)
       this.selectedEvents.push(id[1]);
     else
     this.selectedEvents = this.selectedEvents.filter(item => item !== id[1])
     if(this.selectedEvents.length === 0)
     this.message = "Are you sure you'd like to delete this Event?";
-    else 
+    else
     this.message = "Are you sure you'd like to delete these Events?";
   }
 
@@ -56,7 +56,7 @@ export class EventslistComponent implements OnInit {
   }
 
   triggerConfirm() {
-    this.selectedEvents.map((value) => { 
+    this.selectedEvents.map((value) => {
       this.eventService.deleteEvent(value).subscribe(data => {
           //console.log("data ", data);
           this.deleteLoading = false;

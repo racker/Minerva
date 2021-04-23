@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResourcesService } from '../../../../../../../../../src/app/_services/resources/resources.service';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
+import  { transformKeyPairs } from '@minerva/_shared/utils';
+import { Resource } from '@minerva/_models/resources';
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import  { transformKeyPairs } from '../../../../../../../../../src/app/_shared/utils';
-import { Resource } from '../../../../../../../../../src/app/_models/resources';
 import { tap } from 'rxjs/operators';
-import { SpinnerService } from '../../../../../../../../../src/app/_services/spinner/spinner.service';
 
 
 declare const window: any;
@@ -134,7 +134,7 @@ export class AdminResourceDetailsPage implements OnInit {
       this.delResourcePop?.nativeElement.click();
     });
   }
-  
+
     /**
    * cancel function to close popup using reference of helix modal
    * @param message any

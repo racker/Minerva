@@ -2,20 +2,18 @@ import { async, ComponentFixture, TestBed, getTestBed, inject, ComponentFixtureA
 import {ReactiveFormsModule, FormsModule, FormBuilder, Validators} from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ResourcesListComponent } from './resourceslist.component';
 import { ResourcesPage } from '../../pages/resources/resources.page';
 import { ResourceDetailsPage } from '../../pages/details/resource-details.page';
-import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock'
+import { resourcesMock } from '@minerva/_mocks/resources/resources.service.mock'
 import { Resource } from 'src/app/_models/resources';
-import { default as resourceMockCollection } from 'src/app/_mocks/resources/collection.json';
-import { Resources } from 'src/app/_models/resources.js';
-import { ValidateResource } from '../../../../_shared/validators/resourceName.validator';
+import { ValidateResource } from '@minerva/_shared/validators/resourceName.validator';
 import { ResourcesService } from 'src/app/_services/resources/resources.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
-import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { PaginationComponent } from '@minerva/_shared/components/pagination/pagination.component';
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
