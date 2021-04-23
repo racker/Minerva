@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MetricsService } from '../../../../_services/metrics/metrics.service';
+import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MinervaApiService } from 'src/app/_services/minervaApi/minerva-api.service';
+import { MinervaApiService } from '@minerva/_services/minervaApi/minerva-api.service';
 
 @Component({
   selector: 'app-visualize.page',

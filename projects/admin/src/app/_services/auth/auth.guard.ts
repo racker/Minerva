@@ -1,12 +1,12 @@
 import { Inject, Injectable } from "@angular/core";
-import { LoggingService } from '../../../../../../src/app/_services/logging/logging.service';
-import { LogLevels } from '../../../../../../src/app/_enums/log-levels.enum';
+import { LoggingService } from '@minerva/_services/logging/logging.service';
+import { LogLevels } from '@minerva/_enums/log-levels.enum';
 import { CanActivate } from "@angular/router";
 import { AdminService } from "../admin/admin.service";
 import { DOCUMENT, Location } from '@angular/common';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { environment } from "../../../../../../env/minerva/environment";
+import { environment } from "@env/minerva/environment";
 
 @Injectable()
 export class AuthGuardService implements CanActivate {

@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResourcesService } from '../../../../_services/resources/resources.service';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import  { transformKeyPairs } from '../../../../_shared/utils';
-import { Resource } from 'src/app/_models/resources';
+import  { transformKeyPairs } from '@minerva/_shared/utils';
+import { Resource } from '@minerva/_models/resources';
 import { tap } from 'rxjs/operators';
-import { SpinnerService } from 'src/app/_services/spinner/spinner.service';
+import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 
 declare const window: any;
 @Component({
@@ -125,7 +125,7 @@ export class ResourceDetailsPage implements OnInit {
 
   triggerClose(flag:boolean) {
     if(flag)
-    this.delResource.nativeElement.click();  
+    this.delResource.nativeElement.click();
     else
     this.delResourcePop.nativeElement.click();
   }

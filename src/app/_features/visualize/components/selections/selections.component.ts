@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MetricsService } from '../../../../_services/metrics/metrics.service';
-import { IMeasurement, IMetricField, IDevice } from '../../../../_models/metrics';
+import { MetricsService } from '@minerva/_services/metrics/metrics.service';
+import { IMeasurement, IMetricField, IDevice } from '@minerva/_models/metrics';
 import { Subscription } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 

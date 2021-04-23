@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed, getTestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { EventsMock } from '../../../../_mocks/events/events.service.mock';
-import { EventsService } from '../../../../_services/events/events.service';
+import { EventsMock } from '@minerva/_mocks/events/events.service.mock';
+import { EventsService } from '@minerva/_services/events/events.service';
 import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -49,7 +49,7 @@ describe('EventslistComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should set data to events', async()=> {
     component.ngOnInit();
     fixture.detectChanges();

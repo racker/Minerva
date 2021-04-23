@@ -24,8 +24,8 @@ const routes: Routes = [
       featureFlag: 'visualize'
     }
   },
-  { path: '', redirectTo: '/resources', pathMatch: 'full'},
-  { path: '**', redirectTo: '/resources'}
+  { path: '', redirectTo: '/visualize', pathMatch: 'full'},
+  { path: '**', redirectTo: '/visualize'}
 ];
 
 @NgModule({
