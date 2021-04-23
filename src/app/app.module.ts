@@ -2,9 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TokenInterceptor } from '@minerva-admin/_services/auth/token.interceptor';
 import { LoggingService } from '@minerva/_services/logging/logging.service';
 import { PortalDataService } from '@minerva/_services/portal/portal-data.service';
 import { SharedModule } from './_shared/shared.module';
@@ -13,6 +11,7 @@ import { SchemaService, AJV_INSTANCE } from './_services/monitors/schema.service
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from './_features/monitors/monitors.module';
 import ajv from 'ajv';
 import { envConfig, EnvironmentConfig } from './_services/config/environmentConfig.service';
+import { FeatureFlag } from 'src/app/_guards/feature-flag.guard';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -32,17 +31,13 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
   providers: [
     SchemaResolver,
     SchemaService,
+    FeatureFlag,
     { provide: AJV_CLASS, useValue: ajv },
     { provide: AJV_CONFIG, useValue: { useDefaults: true } },
     {
       provide: AJV_INSTANCE,
       useFactory: createAjvInstance,
       deps: [AJV_CLASS, AJV_CONFIG]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
     },
     {
       provide: APP_INITIALIZER,
@@ -69,10 +64,9 @@ import { envConfig, EnvironmentConfig } from './_services/config/environmentConf
 export class AppModule {}
 
 export function portalData(): any {
-  new PortalDataService();
+  new PortalDataService(new EnvironmentConfig);
   return () => {};
 }
-
 export function logger(): any {
   var logger = new LoggingService();
   // if we don't currently have a log level set

@@ -10,16 +10,22 @@ import { SharedModule } from '@minerva/_shared/shared.module';
 import { environment } from '@env/minerva/environment';
 import { MonitorsModule } from '@minerva/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { DashboardDirective } from './_services/dashboard.directive';
+import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
 
-const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,
-{ provide: 'Window',  useValue: window }
+const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,DataService, {
+  provide: APP_INITIALIZER,
+  useFactory: envConfig,
+  deps: [ EnvironmentConfig ],
+  multi: true
+}
 
 ];
 
-/*
-import { AdminResourceDetailsPage } from './_features/resources/pages/details/admin-resource-details.page';
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
-import { EventsModule } from 'src/app/_features/events/events.module';
+
+import { AdminResourceDetailsPage } from './dashboard/_features/resources/pages/details/admin-resource-details.page';
+/*import { EventsModule } from 'src/app/_features/events/events.module';
 import { DetailsComponent } from './_features/monitors/pages/details/details.component';
 import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
 import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
@@ -32,21 +38,24 @@ import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/te
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
+import { DataService } from './_services/data.service';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardDirective,
+    AdminResourceDetailsPage
   ],
   imports: [
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     BrowserModule,
+    ResourcesModule,
     CommonModule,
     SharedModule,
     MonitorsModule,
-    HttpClientModule,
-    HttpClient
+    HttpClientModule
   ],
   providers: providers,
   bootstrap: [AppComponent],

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPortalData } from '../../_models/portalData';
+import { EnvironmentConfig } from "../../_services/config/environmentConfig.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,16 +8,15 @@ import { IPortalData } from '../../_models/portalData';
 export class PortalDataService {
 
   portalData: IPortalData;
-
-  constructor() {
+  constructor(private env : EnvironmentConfig) {
     let portal = window['PORTAL_DATA'];
-    console.log("portal after setting it into component.ts file ", portal);
     this.portalData = {
       isRacker: portal?.isRacker || null,
-      domainId: portal?.domainId || null,
+      domainId: this.env.isAdmin === true ? '7799042' :  portal?.domainId || null,
       userId: portal?.userId || null,
       username: portal?.username || null,
-      tenants: portal?.tenants || null
+      tenants:  this.env.isAdmin === true ? ['cloud:7799042'] : portal?.tenants || null
     }
+
   }
 }
