@@ -24,8 +24,15 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
-      reports: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true,
+        'report-config': {
+        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/73c25ce79f91010d1ff073aa6ff3fd01114f90db/packages/istanbul-reports/lib/html/index.js#L257-L261
+        html: {
+          // outputs the report in ./coverage/html
+          subdir: 'html'
+        }
+      },
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
