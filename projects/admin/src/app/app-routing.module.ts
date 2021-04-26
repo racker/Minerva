@@ -4,6 +4,7 @@ import { AuthGuardService } from './_services/auth/auth.guard';
 import { SchemaResolver } from 'src/app/_features/monitors/monitor.resolve';
 import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
 import { AdminResourceDetailsPage } from 'projects/admin/src/app/dashboard/_features/resources/pages/details/admin-resource-details.page';
+import { DetailsComponent } from './dashboard/_features/monitors/pages/details/details.component';
 const routes: Routes = [
   {
     path:'', redirectTo: '/dashboard', pathMatch: 'full'
@@ -16,6 +17,13 @@ const routes: Routes = [
   {
     path: 'dashboard/resources/:id',
     component: AdminResourceDetailsPage,
+    data: {
+      breadcrumb: ''
+    }
+  },
+  {
+    path: 'dashboard/monitors/details/:id',
+    component: DetailsComponent,
     data: {
       breadcrumb: ''
     }

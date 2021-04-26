@@ -77,7 +77,8 @@ export class MonitorService {
       return of<Monitors>(this.monitors).pipe(delay(500));
     }
     else {
-      return this.http.get<Monitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`, { headers:httpOptions.headers,
+      return this.http.get<Monitors>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/monitors`,
+       { headers:httpOptions.headers,
         params: {
           size: `${size}`,
           page: `${page}`,

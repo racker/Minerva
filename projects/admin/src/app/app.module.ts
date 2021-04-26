@@ -8,19 +8,11 @@ import { ImpersonationService } from './_services/tenant/impersonation.service';
 import { TokenService } from './_services/auth/token.service';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { environment } from 'env/minerva/environment';
-import { MonitorsModule } from 'src/app/_features/monitors/monitors.module';
+import { AJV_CLASS, AJV_CONFIG, createAjvInstance, MonitorsModule } from 'src/app/_features/monitors/monitors.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { DashboardDirective } from './_services/dashboard.directive';
 import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
 
-const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,DataService, {
-  provide: APP_INITIALIZER,
-  useFactory: envConfig,
-  deps: [ EnvironmentConfig ],
-  multi: true
-}
-
-];
 
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
 
@@ -39,12 +31,41 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
 import { DataService } from './_services/data.service';
+import { AJV_INSTANCE, SchemaService } from 'src/app/_services/monitors/schema.service';
+import ajv from 'ajv';
+import { DetailsComponent } from './dashboard/_features/monitors/pages/details/details.component';
+
+
+const providers = [AuthGuardService, 
+  TokenService,
+   ImpersonationService, 
+   HttpClientModule,
+    HttpClient,
+    SchemaService,
+    DataService, 
+    { provide: AJV_CLASS, useValue: ajv },
+    { provide: AJV_CONFIG, useValue: { useDefaults: true } },
+    {
+      provide: AJV_INSTANCE,
+      useFactory: createAjvInstance,
+      deps: [AJV_CLASS, AJV_CONFIG]
+    },
+    
+    {
+  provide: APP_INITIALIZER,
+  useFactory: envConfig,
+  deps: [ EnvironmentConfig ],
+  multi: true
+}
+
+];
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     DashboardDirective,
-    AdminResourceDetailsPage
+    AdminResourceDetailsPage,
+    DetailsComponent
   ],
   imports: [
     AppRoutingModule,

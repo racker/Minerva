@@ -43,7 +43,7 @@ const mergeUniqueObjectsOfArray = (original, newdata, selector = 'key') => {
  * @param router Router
  */
 const isAdmin = (router: Router | any): boolean => {
-    return router.url.includes('/admin');
+    return router.url.includes('/dashboard');
 }
 
 /**
