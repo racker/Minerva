@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, AfterViewIn
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of, Subject, Subscription } from 'rxjs';
-import { MonitorService } from 'src/app/_services/monitors/monitor.service.js';
+import { MonitorService } from 'src/app/_services/monitors/monitor.service';
 import { LabelService } from 'src/app/_services/labels/label.service';
 import { SchemaService } from 'src/app/_services/monitors/schema.service';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
