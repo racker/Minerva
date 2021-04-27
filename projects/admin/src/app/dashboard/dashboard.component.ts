@@ -1,12 +1,9 @@
-import { Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { DashboardDirective } from '../_services/dashboard.directive';
+import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { DataService } from '../_services/data.service';
-import { Subject } from 'rxjs';
-import { mergeMap, takeUntil } from 'rxjs/operators';
-import HelixUI from 'helix-ui';
 export enum TAB {
   RESOURCES = "RESOURCES",
   MONITORS = "MONITORS",
+  METADATA='METADATA'
 }
 
 @Component({
@@ -15,61 +12,38 @@ export enum TAB {
   styleUrls: ['./dashboard.component.scss']
 })
 //https://www.youtube.com/watch?v=I317BhehZKM
-export class DashboardComponent {
-  @ViewChild(DashboardDirective, { static: true })
-  dashboard: DashboardDirective;
+export class DashboardComponent implements AfterViewInit{
+  @ViewChild('tab1Content', { read: ViewContainerRef }) dynamicTabPlaceholder;
+  @ViewChild('tab2Content', { read: ViewContainerRef }) dynamicTabPlaceholder2;
+  @ViewChild('tab3Content', { read: ViewContainerRef }) dynamicTabPlaceholder3;
+  foucsedViewContainer: ViewContainerRef;
 
+  constructor(private dataSer: DataService) {}
 
-
-  public tabCount=0;
-
-  @ViewChild('tab') el: ElementRef;
-  @ViewChild('tab1Content', {read: ViewContainerRef}) dynamicTabPlaceholder;
-  @ViewChild('tab2Content', {read: ViewContainerRef}) dynamicTabPlaceholder2;
-
-  private destroySubject = new Subject();
-  constructor(private dataSer: DataService) {
+  ngAfterViewInit(){
     this.dataSer.getComponentName().subscribe(messageSource => {
-      if (messageSource != 'default') {
-        // const viewContainerRef = this.dashboard.viewContainerRef;
-        if( messageSource === TAB.RESOURCES)
-        this.dataSer.loadComponent(this.dynamicTabPlaceholder, messageSource).then((data) =>{
-        });
-        if( messageSource === TAB.MONITORS)
-        this.dataSer.loadComponent(this.dynamicTabPlaceholder2, messageSource).then((data) =>{
-        });
-
-        // this.dataSer.messageSource$
-        //   .pipe(
-        //     takeUntil(this.destroySubject),
-        //     mergeMap(messageSource => 
-        //       this.dataSer.loadComponent(viewContainerRef, messageSource)
-        //       )
-        //   )
-        //   .subscribe();
+      if (messageSource) {
+        this.dataSer.loadComponent(this.foucsedViewContainer?this.foucsedViewContainer:this.dynamicTabPlaceholder, messageSource);
       }
     });
   }
 
-  selectedTab() {
-    switch (this.el.nativeElement.currentTab) {
-      case 0:
-        this.tabCount=this.el.nativeElement.currentTab;
+  selectedTab(selectedItem) {
+    switch (selectedItem) {
+      case TAB.RESOURCES:
+        this.foucsedViewContainer = this.dynamicTabPlaceholder;
         this.dataSer.changeComponentName(TAB.RESOURCES);
         break;
-      case 1:
-        this.tabCount=this.el.nativeElement.currentTab;
+      case TAB.MONITORS:
+        this.foucsedViewContainer = this.dynamicTabPlaceholder2;
         this.dataSer.changeComponentName(TAB.MONITORS);
         break;
-      case 2:
-      break;
+        case TAB.METADATA:
+          this.foucsedViewContainer = this.dynamicTabPlaceholder3;
+          this.dataSer.changeComponentName(TAB.MONITORS);
+          break;
       default:
         break;
     }
-    console.log(this.el.nativeElement.currentTab);
   }
-  myfunc() {
-    console.log("inside my func");
-  }
-
 }

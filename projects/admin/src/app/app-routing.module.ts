@@ -22,11 +22,12 @@ const routes: Routes = [
     }
   },
   {
-    path: 'dashboard/monitors/details/:id',
+    path: 'dashboard/monitors/:id',
     component: DetailsComponent,
     data: {
       breadcrumb: ''
-    }
+    },
+    resolve: {schema: SchemaResolver }
   },
 
   /*

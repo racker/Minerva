@@ -14,7 +14,7 @@ export const routes: Routes = [
         }
     },
     {
-        path: 'details/:id',
+        path: ':id',
         component: MonitorDetailsPage,
         data: {
             breadcrumb: 'DETAILS'

@@ -7,7 +7,7 @@ import { MonitorslistComponent } from 'src/app/_features/monitors/components/lis
 @Injectable({ providedIn: 'root' })
 
 export class DataService {
-    private messageSource = new BehaviorSubject<string>("default");
+    private messageSource = new BehaviorSubject<string>(null);
     messageSource$ = this.messageSource.asObservable();
 
   constructor(private cfr: ComponentFactoryResolver) {}
@@ -22,6 +22,9 @@ export class DataService {
     }
 
   async loadComponent(vcr: ViewContainerRef, messageSource: string) {
+    if(!vcr){
+      return;
+    }
       this._component = "";
       if (messageSource == "RESOURCES")
         this._component = ResourcesListComponent;

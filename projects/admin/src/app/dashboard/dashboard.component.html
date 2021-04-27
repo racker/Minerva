@@ -1,21 +1,23 @@
 <div class="hxRow">
   <div class="hxCol">
-    <hx-tabset (click)="selectedTab()" #tab current-tab="0">
+    <hx-tabset  #tab current-tab="0">
       <hx-tablist>
-        <hx-tab id="tab-1"  current="true">Resources</hx-tab>
-        <hx-tab id="tab-2" >Monitors</hx-tab>
-        <hx-tab id="tab-2" >MetaData</hx-tab>
+        <hx-tab id="tab-1" (click)="selectedTab('RESOURCES')"  current="true">Resources</hx-tab>
+        <hx-tab id="tab-2" (click)="selectedTab('MONITORS')" >Monitors</hx-tab>
+        <hx-tab id="tab-2" (click)="selectedTab('METADATA')" >MetaData</hx-tab>
       </hx-tablist>
       <hx-tabcontent>
         <hx-tabpanel id="panel-1" open>
           <ng-template #tab1Content></ng-template>
-         
-          <!-- <app-monitorslist></app-monitorslist> -->
         </hx-tabpanel>
         <hx-tabpanel id="panel-2">
           <ng-template #tab2Content></ng-template>
         </hx-tabpanel>
+        <hx-tabpanel id="panel-3">
+          <ng-template #tab3Content></ng-template>
+        </hx-tabpanel>
       </hx-tabcontent>
     </hx-tabset>
+    
   </div>
 </div>

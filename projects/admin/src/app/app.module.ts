@@ -34,6 +34,8 @@ import { DataService } from './_services/data.service';
 import { AJV_INSTANCE, SchemaService } from 'src/app/_services/monitors/schema.service';
 import ajv from 'ajv';
 import { DetailsComponent } from './dashboard/_features/monitors/pages/details/details.component';
+import { SchemaResolver } from 'src/app/_features/monitors/monitor.resolve';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const providers = [AuthGuardService, 
@@ -41,6 +43,7 @@ const providers = [AuthGuardService,
    ImpersonationService, 
    HttpClientModule,
     HttpClient,
+    SchemaResolver,
     SchemaService,
     DataService, 
     { provide: AJV_CLASS, useValue: ajv },
@@ -71,6 +74,7 @@ const providers = [AuthGuardService,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    BrowserAnimationsModule,
     BrowserModule,
     ResourcesModule,
     CommonModule,
