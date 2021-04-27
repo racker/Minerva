@@ -28,8 +28,8 @@ export class DashboardComponent implements AfterViewInit{
     });
   }
 
-  selectedTab(selectedItem) {
-    switch (selectedItem) {
+  selectedTab(tab:string) {
+    switch (tab) {
       case TAB.RESOURCES:
         this.foucsedViewContainer = this.dynamicTabPlaceholder;
         this.dataSer.changeComponentName(TAB.RESOURCES);
