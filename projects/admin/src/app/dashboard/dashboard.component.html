@@ -2,9 +2,9 @@
   <div class="hxCol">
     <hx-tabset  #tab current-tab="0">
       <hx-tablist>
-        <hx-tab id="tab-1" (click)="selectedTab('RESOURCES')"  current="true">Resources</hx-tab>
-        <hx-tab id="tab-2" (click)="selectedTab('MONITORS')" >Monitors</hx-tab>
-        <hx-tab id="tab-2" (click)="selectedTab('METADATA')" >MetaData</hx-tab>
+        <hx-tab id="tab-1" (click)="selectedTab(tabs.RESOURCES)"  current="true">Resources </hx-tab>
+        <hx-tab id="tab-2" (click)="selectedTab(tabs.MONITORS)" >Monitors</hx-tab>
+        <hx-tab id="tab-2" (click)="selectedTab(tabs.METADATA)" >MetaData</hx-tab>
       </hx-tablist>
       <hx-tabcontent>
         <hx-tabpanel id="panel-1" open>

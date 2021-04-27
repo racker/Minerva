@@ -17,6 +17,7 @@ export class DashboardComponent implements AfterViewInit{
   @ViewChild('tab2Content', { read: ViewContainerRef }) dynamicTabPlaceholder2;
   @ViewChild('tab3Content', { read: ViewContainerRef }) dynamicTabPlaceholder3;
   foucsedViewContainer: ViewContainerRef;
+  tabs=TAB;
 
   constructor(private dataSer: DataService) {}
 
@@ -30,17 +31,17 @@ export class DashboardComponent implements AfterViewInit{
 
   selectedTab(tab:string) {
     switch (tab) {
-      case TAB.RESOURCES:
+      case this.tabs.RESOURCES:
         this.foucsedViewContainer = this.dynamicTabPlaceholder;
-        this.dataSer.changeComponentName(TAB.RESOURCES);
+        this.dataSer.changeComponentName(this.tabs.RESOURCES);
         break;
-      case TAB.MONITORS:
+      case this.tabs.MONITORS:
         this.foucsedViewContainer = this.dynamicTabPlaceholder2;
-        this.dataSer.changeComponentName(TAB.MONITORS);
+        this.dataSer.changeComponentName(this.tabs.MONITORS);
         break;
-        case TAB.METADATA:
+        case this.tabs.METADATA:
           this.foucsedViewContainer = this.dynamicTabPlaceholder3;
-          this.dataSer.changeComponentName(TAB.MONITORS);
+          this.dataSer.changeComponentName(this.tabs.MONITORS);
           break;
       default:
         break;
