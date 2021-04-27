@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { SharedModule } from '../../../../_shared/shared.module';
-import { metricMocks } from '../../../../_mocks/metrics/metrics.service.mock';
+import { SharedModule } from '@minerva/_shared/shared.module';
+import { metricMocks } from '@minerva/_mocks/metrics/metrics.service.mock';
 import { SelectionsComponent } from './selections.component';
-import { IMeasurement, IMetricField } from 'src/app/_models/metrics';
-import { MetricsService } from 'src/app/_services/metrics/metrics.service';
+import { IMeasurement, IMetricField } from '@minerva/_models/metrics';
+import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 describe('SelectionsComponent', () => {
   let component: SelectionsComponent;

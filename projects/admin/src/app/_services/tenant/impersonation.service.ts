@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ErrorService } from 'src/app/_services/error.service';
-import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { ErrorService } from '@minerva/_services/error.service';
+import { LoggingService } from '@minerva/_services/logging/logging.service';
 import { ImpersonationToken, impUser } from '../../_model/impersonationModel';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
@@ -12,18 +12,18 @@ import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.se
 })
 export class ImpersonationService {
   private _access: ImpersonationToken;
-  
+
   public get access() : ImpersonationToken {
     return this._access;
   }
-  
+
   public set access(v : ImpersonationToken) {
     this._access = v;
   }
-  
-  
 
-  constructor(private http: HttpClient, 
+
+
+  constructor(private http: HttpClient,
     private logService: LoggingService,
     private errorService: ErrorService, private env: EnvironmentConfig) { }
 
@@ -31,7 +31,7 @@ export class ImpersonationService {
     let httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'rax-token':token 
+        'rax-token':token
       })
     }
     return this.http.post(`${this.env.api.minerva}/impersonationtoken`,data,httpOptions);

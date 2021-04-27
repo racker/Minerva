@@ -2,16 +2,16 @@ import { async, ComponentFixture, TestBed, ComponentFixtureAutoDetect, getTestBe
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MonitorslistComponent } from './monitorslist.component';
-import { MonitorService } from '../../../../_services/monitors/monitor.service';
+import { MonitorService } from '@minerva/_services/monitors/monitor.service';
 import { MonitorsPage } from '../../pages/monitors/monitors.page';
-import { monitorsMock } from '../../../../_mocks/monitors/monitors.service.mock'
-import { Monitor } from 'src/app/_models/monitors';
+import { monitorsMock } from '@minerva/_mocks/monitors/monitors.service.mock'
+import { Monitor } from '@minerva/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
-import { PaginationComponent } from 'src/app/_shared/components/pagination/pagination.component';
-import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { PaginationComponent } from '@minerva/_shared/components/pagination/pagination.component';
+import { mockResourcesProvider } from '@minerva/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { LoggingService } from 'src/app/_services/logging/logging.service';
+import { LoggingService } from '@minerva/_services/logging/logging.service';
 
 
 var mockMonitor: Monitor = {

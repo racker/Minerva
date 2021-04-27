@@ -5,7 +5,7 @@ import { EventsService } from 'src/app/_services/events/events.service';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import {  EventsMock} from "../../../../_mocks/events/events.service.mock";
+import {  EventsMock} from "@minerva/_mocks/events/events.service.mock";
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { APP_INITIALIZER } from '@angular/core';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
@@ -23,7 +23,7 @@ describe('EventDetailsComponent', () => {
       providers:[EventsService,
         {
           provide: ActivatedRoute,
-          
+
           useValue: {
             params: of({id: "345d678ddopdkdjd67isdjj"}),
           }

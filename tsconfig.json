@@ -21,6 +21,11 @@
       "es2018",
       "esnext",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@env/*": ["./env/*"],
+      "@minerva/*": ["./src/app/*"],
+      "@minerva-admin/*": ["./projects/admin/src/app/*"]
+    }
   }
 }

@@ -6,13 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ResourcesPage } from '../resources/resources.page';
 import { ResourceDetailsPage } from './resource-details.page';
 import { ResourcesListComponent } from '../../components/list/resourceslist.component';
-import { resourcesMock } from '../../../../_mocks/resources/resources.service.mock';
-import { SharedModule } from '../../../../_shared/shared.module';
-import { ResourcesService } from 'src/app/_services/resources/resources.service';
+import { resourcesMock } from '@minerva/_mocks/resources/resources.service.mock';
+import { SharedModule } from '@minerva/_shared/shared.module';
+import { ResourcesService } from '@minerva/_services/resources/resources.service';
 import { of } from 'rxjs';
-import { mockResourcesProvider } from 'src/app/_interceptors/request.interceptor';
+import { mockResourcesProvider } from '@minerva/_interceptors/request.interceptor';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 const routes = [
   {
