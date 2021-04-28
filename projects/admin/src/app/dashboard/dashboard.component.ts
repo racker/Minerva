@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { DataService } from '../_services/data.service';
+import { DynamicComponentService } from '../_services/dynamicComponent.service';
 export enum TAB {
   RESOURCES = "RESOURCES",
   MONITORS = "MONITORS",
@@ -19,7 +19,7 @@ export class DashboardComponent implements AfterViewInit{
   foucsedViewContainer: ViewContainerRef;
   tabs=TAB;
 
-  constructor(private dataSer: DataService) {}
+  constructor(private dataSer: DynamicComponentService) {}
 
   ngAfterViewInit(){
     this.dataSer.getComponentName().subscribe(messageSource => {

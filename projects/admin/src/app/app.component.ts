@@ -3,7 +3,7 @@ import { ImpersonationService } from './_services/tenant/impersonation.service';
 import { TokenService } from './_services/auth/token.service';
 import { Router } from '@angular/router';
 import { DashboardComponent, TAB } from './dashboard/dashboard.component';
-import { DataService } from '../app/_services/data.service';
+import { DynamicComponentService } from './_services/dynamicComponent.service';
 import { impUser } from './_model/impersonationModel';
 const impersonateUser={
   "RAX-AUTH:impersonation" : {
@@ -19,10 +19,10 @@ const impersonateUser={
 })
 export class AppComponent implements OnInit {
   //@ViewChild(DashboardComponent) child:DashboardComponent;
-  constructor(public impService : ImpersonationService, 
-    private _router: Router, 
-    private tokenService : TokenService, 
-    private dataSer : DataService) {
+  constructor(public impService : ImpersonationService,
+    private _router: Router,
+    private tokenService : TokenService,
+    private dataSer : DynamicComponentService) {
   }
   title = 'admin';
   _component: any;
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   data : impUser;
   ngOnInit() {
   }
-  
+
   searchTenant() {
 
        // TODO : After tenant lookup, we got the racker token from an api or service called identity tokens and needs to be set into raxToken property.

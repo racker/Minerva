@@ -1,51 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
+import ajv from 'ajv';
+import { environment } from 'env/minerva/environment';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
+//modules
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { SharedModule } from 'src/app/_shared/shared.module';
+import { ResourcesModule } from 'src/app/_features/resources/resources.module';
+import { AJV_CLASS, AJV_CONFIG, createAjvInstance, MonitorsModule } from 'src/app/_features/monitors/monitors.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//services
 import { AuthGuardService } from './_services/auth/auth.guard';
 import { ImpersonationService } from './_services/tenant/impersonation.service';
 import { TokenService } from './_services/auth/token.service';
-import { SharedModule } from 'src/app/_shared/shared.module';
-import { environment } from 'env/minerva/environment';
-import { AJV_CLASS, AJV_CONFIG, createAjvInstance, MonitorsModule } from 'src/app/_features/monitors/monitors.module';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { DashboardDirective } from './_services/dashboard.directive';
-import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
-
-
-import { ResourcesModule } from 'src/app/_features/resources/resources.module';
-
-import { AdminResourceDetailsPage } from './dashboard/_features/resources/pages/details/admin-resource-details.page';
-/*import { EventsModule } from 'src/app/_features/events/events.module';
-import { DetailsComponent } from './_features/monitors/pages/details/details.component';
-import { EventDetailsComponent } from './_features/events/event-details/event-details.component';
-import { TenantMetadataListComponent } from './_features/tenantMetadata/pages/tenant-metadata-list/tenant-metadata-list.component';
-*/
-
-
-
-
+import { SchemaResolver } from '@minerva/_features/monitors/monitor.resolve';
+import { DynamicComponentService } from './_services/dynamicComponent.service';
+import { AJV_INSTANCE, SchemaService } from '@minerva/_services/monitors/schema.service';
+//components
+import { AppComponent } from './app.component';
+import { AdminResourceDetailsPage } from './dashboard/_features/resources/admin-resource-details.page';
+import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
+import { MonitorDetailsComponent } from './dashboard/_features/monitors/monitorDetails.component';
 // Firebase imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
-import { DataService } from './_services/data.service';
-import { AJV_INSTANCE, SchemaService } from 'src/app/_services/monitors/schema.service';
-import ajv from 'ajv';
-import { DetailsComponent } from './dashboard/_features/monitors/pages/details/details.component';
-import { SchemaResolver } from 'src/app/_features/monitors/monitor.resolve';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-const providers = [AuthGuardService, 
+const providers = [AuthGuardService,
   TokenService,
-   ImpersonationService, 
+   ImpersonationService,
    HttpClientModule,
     HttpClient,
     SchemaResolver,
     SchemaService,
-    DataService, 
+    DynamicComponentService,
     { provide: AJV_CLASS, useValue: ajv },
     { provide: AJV_CONFIG, useValue: { useDefaults: true } },
     {
@@ -53,7 +43,7 @@ const providers = [AuthGuardService,
       useFactory: createAjvInstance,
       deps: [AJV_CLASS, AJV_CONFIG]
     },
-    
+
     {
   provide: APP_INITIALIZER,
   useFactory: envConfig,
@@ -68,7 +58,7 @@ const providers = [AuthGuardService,
     DashboardComponent,
     DashboardDirective,
     AdminResourceDetailsPage,
-    DetailsComponent
+    MonitorDetailsComponent
   ],
   imports: [
     AppRoutingModule,
