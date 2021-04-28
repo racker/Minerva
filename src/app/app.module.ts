@@ -12,6 +12,8 @@ import { AJV_CLASS, AJV_CONFIG, createAjvInstance } from './_features/monitors/m
 import ajv from 'ajv';
 import { envConfig, EnvironmentConfig } from './_services/config/environmentConfig.service';
 import { FeatureFlag } from 'src/app/_guards/feature-flag.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TimeoutInterceptor } from '@minerva/_interceptors/timeout.interceptor';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -32,6 +34,10 @@ import { FeatureFlag } from 'src/app/_guards/feature-flag.guard';
     SchemaResolver,
     SchemaService,
     FeatureFlag,
+    { provide: HTTP_INTERCEPTORS,
+      useClass: TimeoutInterceptor,
+      multi: true
+    },
     { provide: AJV_CLASS, useValue: ajv },
     { provide: AJV_CONFIG, useValue: { useDefaults: true } },
     {
