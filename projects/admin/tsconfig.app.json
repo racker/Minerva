@@ -2,10 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "types": [],
-    "paths": {
-      "@minerva/*": ["../../../src/app/*"]
-    }
+    "types": []
   },
   "files": [
     "src/main.ts",
