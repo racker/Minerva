@@ -9,17 +9,29 @@ import { TokenService } from './_services/auth/token.service';
 import { SharedModule } from '@minerva/_shared/shared.module';
 import { environment } from '@env/minerva/environment';
 import { MonitorsModule } from '@minerva/_features/monitors/monitors.module';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardDirective } from './_services/dashboard.directive';
 import { envConfig, EnvironmentConfig } from '../../../../src/app/_services/config/environmentConfig.service';
+import { TimeoutInterceptor } from '@minerva/_interceptors/timeout.interceptor';
 
-const providers = [AuthGuardService, TokenService, ImpersonationService, HttpClientModule, HttpClient,DataService, {
-  provide: APP_INITIALIZER,
-  useFactory: envConfig,
-  deps: [ EnvironmentConfig ],
-  multi: true
-}
-
+const providers = [
+  AuthGuardService,
+  TokenService,
+  ImpersonationService,
+  HttpClientModule,
+  HttpClient,
+  DataService,
+  {
+    provide: APP_INITIALIZER,
+    useFactory: envConfig,
+    deps: [ EnvironmentConfig ],
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TimeoutInterceptor,
+    multi: true
+  }
 ];
 
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
