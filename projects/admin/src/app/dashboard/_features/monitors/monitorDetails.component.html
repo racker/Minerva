@@ -1,8 +1,4 @@
-<!-- <div class="loader" *ngIf="!isLoaded">
-    <hx-busy></hx-busy>
-</div> -->
 <div *ngIf="monitor$ | async as monitor">
-    <!-- <div *ngIf="isLoaded"> -->
       <div>
 
       <div class="hxRow monitor-header">
@@ -231,13 +227,13 @@
           {{monitor.createdTimestamp |  date:'MM/dd/yyyy'}}
         </div>
       </div>
-      
+
       <app-modal modalType="delMonModal" header="Delete {{monitor.name}} monitor" [message]="message" (triggerClose)="triggerClose($event)" (triggerConfirm)="triggerConfirm(monitor.id)" ></app-modal>
 
       <hx-disclosure aria-controls="delErrorModal" #delMonitorFail class="nodisplaClick"></hx-disclosure>
-      
+
       <app-modal modalType="delErrorModal" error="Please try again" header="Delete for {{monitor.name || monitor.details.plugin.type}} failed" [message]="message" (triggerClose)="triggerClose($event)" ></app-modal>
-  
+
     </div>
 
     <div class="hxRow hxSpan-9">
@@ -265,4 +261,4 @@
     <div class="hxRow hxSpan-9 last-item">
       <app-eventslist></app-eventslist>
     </div>
-</div>    
+</div>

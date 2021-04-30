@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of, Observable } from 'rxjs';
 
 
-import { DetailsComponent } from './details.component';
+import { MonitorDetailsComponent } from './monitorDetails.component';
 import { monitorsMock } from 'src/app/_mocks/monitors/monitors.service.mock';
 
 
@@ -60,7 +60,7 @@ class LabelServiceMock {
 })
 class ShcemaServiceMock {
   private _schema: Schema;
- 
+
   get schema(): Schema {
     return this._schema;
   }
@@ -97,12 +97,12 @@ class MonitorServiceMock {
   }
 }
 
-describe('DetailComponent', () => {
+describe('MonitorDetailsComponent', () => {
   let injector: TestBed;
-  let component: DetailsComponent;
+  let component: MonitorDetailsComponent;
   let monitorService: MonitorService;
   let lbelServiceMock: LabelService;
-  let fixture: ComponentFixture<DetailsComponent>;
+  let fixture: ComponentFixture<MonitorDetailsComponent>;
   let schemaService: SchemaService;
   let definitions = {
     properties: {
@@ -177,7 +177,7 @@ describe('DetailComponent', () => {
       declarations: [
         MonitorsPage,
         MonitorslistComponent,
-        DetailsComponent,
+        MonitorDetailsComponent,
         DynamicFormComponent
       ],
       imports: [
@@ -215,7 +215,7 @@ describe('DetailComponent', () => {
   });
 
   beforeEach(() => {
-    TestBed.overrideComponent(DetailsComponent,
+    TestBed.overrideComponent(MonitorDetailsComponent,
       {
         set: {
           providers: [
@@ -226,7 +226,7 @@ describe('DetailComponent', () => {
         }
       }
     )
-    fixture = TestBed.createComponent(DetailsComponent);
+    fixture = TestBed.createComponent(MonitorDetailsComponent);
     component = fixture.componentInstance;
     component.updateMonNameForm = formBuilder.group({
       name: ['']
@@ -235,7 +235,7 @@ describe('DetailComponent', () => {
     lbelServiceMock = fixture.debugElement.injector.get(LabelService);
     schemaService = fixture.debugElement.injector.get(SchemaService);
     schemaService.loadSchema();
-    
+
     component.monDetails = new monitorsMock().single;
     component.definitions = definitions;
     fixture.detectChanges();
@@ -250,7 +250,7 @@ describe('DetailComponent', () => {
   });
 
   it('should setup defaults', () => {
-    
+
     expect(component.monitor$).toBeDefined();
     expect(component.Object).toEqual(Object);
     expect(component.deleteLoading).toEqual(false);

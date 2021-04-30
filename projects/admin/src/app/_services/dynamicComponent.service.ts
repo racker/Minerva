@@ -6,8 +6,8 @@ import { MonitorslistComponent } from 'src/app/_features/monitors/components/lis
 
 @Injectable({ providedIn: 'root' })
 
-export class DataService {
-    private messageSource = new BehaviorSubject<string>("default");
+export class DynamicComponentService {
+    private messageSource = new BehaviorSubject<string>(null);
     messageSource$ = this.messageSource.asObservable();
 
   constructor(private cfr: ComponentFactoryResolver) {}
@@ -16,18 +16,21 @@ export class DataService {
     changeComponentName(message: string) {
         this.messageSource.next(message);
     }
-    
+
     getComponentName(): Observable<any> {
         return this.messageSource.asObservable();
     }
 
   async loadComponent(vcr: ViewContainerRef, messageSource: string) {
+    if(!vcr){
+      return;
+    }
       this._component = "";
       if (messageSource == "RESOURCES")
         this._component = ResourcesListComponent;
       else if (messageSource == "MONITORS")
         this._component = MonitorslistComponent;
-    vcr.clear();   
+    vcr.clear();
     return vcr.createComponent(
-    this.cfr.resolveComponentFactory(this._component))    
+    this.cfr.resolveComponentFactory(this._component))
 }}

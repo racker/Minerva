@@ -53,7 +53,7 @@ describe('transformKeyPairs', () => {
 
     it('should return whether the app is in admin project or not', () => {
         let urlRoute = {
-            url: '/admin/stuff/whatever/snj787990-0998'
+            url: '/dashboard/stuff/whatever/snj787990-0998'
         }
         expect(isAdmin(urlRoute)).toEqual(true);
     })

@@ -28,13 +28,13 @@ export enum UpdateSection {
 
 @Component({
   selector: 'app-monitor-detail',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss'],
+  templateUrl: './monitorDetails.component.html',
+  styleUrls: ['./monitorDetails.component.scss'],
   animations: [
     Animations.slideUpDownTrigger
   ]
 })
-export class DetailsComponent implements OnInit {
+export class MonitorDetailsComponent implements OnInit {
   id: string;
   modalType:string;
   header:string;

@@ -1,28 +1,32 @@
 <div>
   <nav style="display: flex; width: 100%; padding:0;" id="nav" class="hxNav">
-  <!-- Product Navigation -->
-  <a href="#">API Docs</a>
-  <a href="#">Metrics</a>
-  <a href="#">RBAC Config</a>
-  <!-- end:Product Navigation -->
+    <!-- Product Navigation -->
+    <a href="#">API Docs</a>
+    <a href="#">Metrics</a>
+    <a href="#">RBAC Config</a>
+    <!-- end:Product Navigation -->
   </nav>
   <div id="stage">
     <!-- Accessibility: [role="main"] must be present on main#content -->
     <main style="min-height: 1000px;" role="main" id="content">
       <hx-panel class="hxSpan-12-xs">
         <hx-panelbody class="hxBox hxMd">
-            <div class="hxRow">
-                <div class="hxCol hxSpan-5">
-                  <hx-search-control>
-                    <input id="demoSearch" type="search" (click)="searchTenant()" placeholder="Account Search" />
-                    <button type="button" class="hxClear" aria-label="Clear search" hidden>
-                      <hx-icon type="times"></hx-icon>
-                    </button>
-                    <hx-search></hx-search>
-                  </hx-search-control>
-                </div>
+          <div class="hxRow">
+            <div class="hxCol hxSpan-5">
+              <hx-search-control>
+                <input id="demoSearch" type="search" (click)="searchTenant()" placeholder="Account Search" />
+                <button type="button" class="hxClear" aria-label="Clear search" hidden>
+                  <hx-icon type="times"></hx-icon>
+                </button>
+                <hx-search></hx-search>
+              </hx-search-control>
             </div>
-          <router-outlet></router-outlet>
+          </div>
+          <div class='hxRow'>
+            <div class="hxCol">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
         </hx-panelbody>
       </hx-panel>
     </main>

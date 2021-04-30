@@ -1,5 +1,5 @@
 import { Injectable, Inject, InjectionToken } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Ajv } from 'ajv';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
@@ -9,6 +9,11 @@ import { PortalDataService } from '../portal/portal-data.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
 
 export const AJV_INSTANCE = new InjectionToken<Ajv>('The AJV Class Instance');
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
 
 /**
  * The response of a validation result
@@ -61,7 +66,8 @@ export class SchemaService {
         res(this.schema);
       }
       else {
-        this.http.get<Schema>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/schema/monitors`).subscribe(result => {
+        this.http.get<Schema>(`${this.env.api.salus}/${this.portalService.portalData.domainId}/schema/monitors`, httpOptions)
+        .subscribe(result => {
           result['$id'] = result.$schema;
           delete result.$schema;
           this._schema = result;

@@ -75,7 +75,7 @@ export class MonitorslistComponent implements OnInit {
   }
 
   isAdminRoute(monId) {
-    return isAdmin(this.router) ? `/admin/monitors/details/${monId}`  : `/monitors/details/${monId}`
+    return isAdmin(this.router) ? `/dashboard/monitors/${monId}`  : `/monitors/${monId}`
   }
 
   /**

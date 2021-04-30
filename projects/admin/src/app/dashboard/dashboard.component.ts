@@ -1,10 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { DashboardDirective } from '../_services/dashboard.directive';
-import { DataService } from '../_services/data.service';
-import { Subject } from 'rxjs';
-import { mergeMap, takeUntil } from 'rxjs/operators';
-
-
+import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { DynamicComponentService } from '../_services/dynamicComponent.service';
+export enum TAB {
+  RESOURCES = "RESOURCES",
+  MONITORS = "MONITORS",
+  METADATA='METADATA'
+}
 
 @Component({
   selector: 'admin-dashboard',
@@ -12,26 +12,39 @@ import { mergeMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 //https://www.youtube.com/watch?v=I317BhehZKM
-export class DashboardComponent {
-  @ViewChild(DashboardDirective, { static: true })
-  dashboard: DashboardDirective;
-  private destroySubject = new Subject();
-  constructor(private dataSer:DataService) {
-      this.dataSer.getComponentName().subscribe(messageSource => {
-        if(messageSource != 'default') {
-          const viewContainerRef = this.dashboard.viewContainerRef;
-          this.dataSer.messageSource$
-          .pipe(
-            takeUntil(this.destroySubject),
-            mergeMap(messageSource => this.dataSer.loadComponent(viewContainerRef, messageSource))
-          )
-          .subscribe();  
-        }
+export class DashboardComponent implements AfterViewInit{
+  @ViewChild('tab1Content', { read: ViewContainerRef }) dynamicTabPlaceholder;
+  @ViewChild('tab2Content', { read: ViewContainerRef }) dynamicTabPlaceholder2;
+  @ViewChild('tab3Content', { read: ViewContainerRef }) dynamicTabPlaceholder3;
+  foucsedViewContainer: ViewContainerRef;
+  tabs=TAB;
+
+  constructor(private dataSer: DynamicComponentService) {}
+
+  ngAfterViewInit(){
+    this.dataSer.getComponentName().subscribe(messageSource => {
+      if (messageSource) {
+        this.dataSer.loadComponent(this.foucsedViewContainer?this.foucsedViewContainer:this.dynamicTabPlaceholder, messageSource);
+      }
     });
-   }
-
-   myfunc() {
-     console.log("inside my func");
-   }
-
   }
+
+  selectedTab(tab:string) {
+    switch (tab) {
+      case this.tabs.RESOURCES:
+        this.foucsedViewContainer = this.dynamicTabPlaceholder;
+        this.dataSer.changeComponentName(this.tabs.RESOURCES);
+        break;
+      case this.tabs.MONITORS:
+        this.foucsedViewContainer = this.dynamicTabPlaceholder2;
+        this.dataSer.changeComponentName(this.tabs.MONITORS);
+        break;
+        case this.tabs.METADATA:
+          this.foucsedViewContainer = this.dynamicTabPlaceholder3;
+          this.dataSer.changeComponentName(this.tabs.MONITORS);
+          break;
+      default:
+        break;
+    }
+  }
+}
