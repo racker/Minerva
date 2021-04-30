@@ -4,7 +4,6 @@ import { Monitor, Monitors } from '@minerva/_models/monitors';
 import { MonitorUtil } from '../../mon.utils';
 import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { Router } from '@angular/router';
-import { isAdmin } from 'src/app/_shared/utils';
 import { EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 import { LoggingService } from 'src/app/_services/logging/logging.service';
 import { LogLevels } from 'src/app/_enums/log-levels.enum';
@@ -75,7 +74,7 @@ export class MonitorslistComponent implements OnInit {
   }
 
   isAdminRoute(monId) {
-    return isAdmin(this.router) ? `/dashboard/monitors/${monId}`  : `/monitors/${monId}`
+    return this.env.isAdmin ? `/dashboard/monitors/${monId}`  : `/monitors/${monId}`
   }
 
   /**

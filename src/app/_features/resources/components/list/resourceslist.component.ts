@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from '@minerva/_services/spinner/spinner.service';
 import { LoggingService } from '@minerva/_services/logging/logging.service';
 import { LogLevels } from '@minerva/_enums/log-levels.enum';
-import { mergeUniqueObjectsOfArray, isAdmin } from '@minerva/_shared/utils';
+import { mergeUniqueObjectsOfArray } from '@minerva/_shared/utils';
 import { EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 

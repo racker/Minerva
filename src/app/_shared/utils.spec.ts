@@ -1,5 +1,5 @@
 import { async } from '@angular/core/testing';
-import { transformKeyPairs, MarkFormGroupTouched, isAdmin, implementsObject } from './utils'
+import { transformKeyPairs, MarkFormGroupTouched, implementsObject } from './utils'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SalusError } from 'src/app/_models/salusError';
 
@@ -51,12 +51,6 @@ describe('transformKeyPairs', () => {
         expect(form.controls['enabled'].dirty).toEqual(true);
     });
 
-    it('should return whether the app is in admin project or not', () => {
-        let urlRoute = {
-            url: '/dashboard/stuff/whatever/snj787990-0998'
-        }
-        expect(isAdmin(urlRoute)).toEqual(true);
-    })
 
     it('should implementsObject return true', () => {
         let objProp = {

@@ -18,7 +18,7 @@
           <td>{{resource.zoneName}}</td>
           <td>{{resource.envoyId}}</td>
           <td>
-            <hx-disclosure *ngIf="isAdmin(router)" aria-controls="monitor-modal"
+            <hx-disclosure *ngIf="env.isAdmin" aria-controls="monitor-modal"
             (click)="testMonitor(resource.resourceId)" class="hxBtn">
               Test Monitor
             </hx-disclosure>

@@ -3,11 +3,11 @@ import { BoundMonitor } from 'src/app/_models/resources';
 import { MonitorService } from '@minerva/_services/monitors/monitor.service';
 import { Subscription } from 'rxjs';
 import { Pagination } from '@minerva/_models/common';
-import { isAdmin } from '@minerva/_shared/utils';
 import { MonitorUtil } from 'src/app/_features/monitors/mon.utils'
 import { Router } from '@angular/router';
 import { Monitor, TestMonitor } from '@minerva/_models/monitors';
 import { CreateTestMonitor } from '../../interfaces/testMonitor.interface';
+import { EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 @Component({
   selector: 'app-resource-list',
   templateUrl: './resource-list.component.html',
@@ -20,14 +20,13 @@ export class ResourceListComponent implements OnInit {
   }
   isLoading: boolean = false;
   resources:BoundMonitor[];
-  isAdmin = isAdmin;
   testMonitorResults: TestMonitor;
   monitorUtil = MonitorUtil;
   isTestLoading: boolean = true;
   Object = window.Object;
   @Input() monitor: Monitor;
   subscriber = new Subscription();
-  constructor(private mntor : MonitorService, public router: Router) { }
+  constructor(private mntor : MonitorService, public router: Router, public env: EnvironmentConfig) { }
 
   /**
    * @description Default (ngOnInit) function called when component loads for the first time.

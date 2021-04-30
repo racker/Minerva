@@ -39,14 +39,6 @@ const mergeUniqueObjectsOfArray = (original, newdata, selector = 'key') => {
 }
 
 /**
- * Is the component or element being used in the Admin project?
- * @param router Router
- */
-const isAdmin = (router: Router | any): boolean => {
-    return router.url.includes('/dashboard');
-}
-
-/**
  * A TypeGuard to check if an object matches any particular interface
  * @param obj any
  * @param keys (keyof T)[]
@@ -72,6 +64,5 @@ export {
     transformKeyPairs,
     MarkFormGroupTouched,
     mergeUniqueObjectsOfArray,
-    isAdmin,
     implementsObject
 }
