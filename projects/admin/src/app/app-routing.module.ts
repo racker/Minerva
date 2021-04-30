@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from './_services/auth/auth.guard';
 import { SchemaResolver } from 'src/app/_features/monitors/monitor.resolve';
 import { DashboardComponent } from 'projects/admin/src/app/dashboard/dashboard.component';
-import { AdminResourceDetailsPage } from 'projects/admin/src/app/dashboard/_features/resources/pages/details/admin-resource-details.page';
-import { DetailsComponent } from './dashboard/_features/monitors/pages/details/details.component';
+import { AdminResourceDetailsPage } from './dashboard/_features/resources/admin-resource-details.page';
+import { MonitorDetailsComponent } from './dashboard/_features/monitors/monitorDetails.component';
 const routes: Routes = [
   {
     path:'', redirectTo: '/dashboard', pathMatch: 'full'
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard/monitors/:id',
-    component: DetailsComponent,
+    component: MonitorDetailsComponent,
     data: {
       breadcrumb: ''
     },
