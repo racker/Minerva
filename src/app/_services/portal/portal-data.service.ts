@@ -12,10 +12,10 @@ export class PortalDataService {
     let portal = window['PORTAL_DATA'];
     this.portalData = {
       isRacker: portal?.isRacker || null,
-      domainId: this.env.isAdmin === true ? '7799042' :  portal?.domainId || null,
+      domainId: this.env.isAdmin ? '7799042' :  portal?.domainId || null,
       userId: portal?.userId || null,
       username: portal?.username || null,
-      tenants:  this.env.isAdmin === true ? ['cloud:7799042'] : portal?.tenants || null
+      tenants:  this.env.isAdmin ? ['cloud:7799042'] : portal?.tenants || null
     }
 
   }

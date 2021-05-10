@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import ajv from 'ajv';
+import { BrowserModule } from '@angular/platform-browser';
 import { environment } from 'env/minerva/environment';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 //modules
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
@@ -27,31 +27,38 @@ import { MonitorDetailsComponent } from './dashboard/_features/monitors/monitorD
 // Firebase imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { TimeoutInterceptor } from '@minerva/_interceptors/timeout.interceptor';
 
-const providers = [AuthGuardService,
+const providers = [
+  AuthGuardService,
   TokenService,
-   ImpersonationService,
-   HttpClientModule,
-    HttpClient,
-    SchemaResolver,
-    SchemaService,
-    DynamicComponentService,
-    { provide: AJV_CLASS, useValue: ajv },
-    { provide: AJV_CONFIG, useValue: { useDefaults: true } },
-    {
-      provide: AJV_INSTANCE,
-      useFactory: createAjvInstance,
-      deps: [AJV_CLASS, AJV_CONFIG]
-    },
+  ImpersonationService,
+  HttpClientModule,
+  HttpClient,
+  SchemaResolver,
+  SchemaService,
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TimeoutInterceptor,
+    multi: true
+  },
+  DynamicComponentService,
+  { provide: AJV_CLASS, useValue: ajv },
+  { provide: AJV_CONFIG, useValue: { useDefaults: true } },
+  {
+    provide: AJV_INSTANCE,
+    useFactory: createAjvInstance,
+    deps: [AJV_CLASS, AJV_CONFIG]
+  },
 
-    {
-  provide: APP_INITIALIZER,
-  useFactory: envConfig,
-  deps: [ EnvironmentConfig ],
-  multi: true
-}
-
+  {
+    provide: APP_INITIALIZER,
+    useFactory: envConfig,
+    deps: [EnvironmentConfig],
+    multi: true
+  }
 ];
+
 @NgModule({
   declarations: [
     AppComponent,

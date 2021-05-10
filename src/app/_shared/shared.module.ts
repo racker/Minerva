@@ -15,6 +15,7 @@ import { AddFieldsComponent } from './components/add-fields/add-fields.component
 import { DurationSecondsPipe } from './pipes/duration-seconds.pipe';
 import { mockResourcesProvider } from '../_interceptors/request.interceptor';
 import { ZeroResultsComponent } from './components/zero-results/zero-results.component';
+import { HedwigGraphComponent } from './components/hedwig-graph/hedwig-graph.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -26,7 +27,8 @@ import { ZeroResultsComponent } from './components/zero-results/zero-results.com
     DurationSecondsPipe,
     MeasurementNamePipe,
     AddFieldsComponent,
-    ZeroResultsComponent
+    ZeroResultsComponent,
+    HedwigGraphComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { ZeroResultsComponent } from './components/zero-results/zero-results.com
     MeasurementNamePipe,
     DeviceNamePipe,
     DurationSecondsPipe,
-    ZeroResultsComponent
+    ZeroResultsComponent,
+    HedwigGraphComponent
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
