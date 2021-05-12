@@ -30,6 +30,8 @@ describe('HedwigGraphComponent', () => {
     expect(component.width).toBeUndefined();
     expect(component.type).toBeUndefined();
     expect(component.data).toBeUndefined();
+    expect(component.tags).toBeUndefined();
+    expect(component.count).toBeUndefined();
     expect(component.lineGraph).toEqual(LineGraph);
   });
 

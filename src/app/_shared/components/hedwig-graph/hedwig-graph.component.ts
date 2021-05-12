@@ -21,6 +21,8 @@ export class HedwigGraphComponent implements OnInit {
   @Input() height: number;
   @Input() type: string;
   @Input() data: string;
+  @Input() tags: string;
+  @Input() count:string;
 
   lineGraph: LineGraph = LineGraph;
 

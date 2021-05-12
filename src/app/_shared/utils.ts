@@ -60,9 +60,31 @@ function implementsObject<T>(obj: any, keys: (keyof T)[]): boolean {
 }
 
 
+function formatMultipleData(records) {
+    var arr = [];
+    var groupName;
+    for (let data of records) {
+    var keys = Object.keys(data.values);
+    var values = Object.values(data.values);
+    groupName = data.tags.host + '_' + data.tags.os + '_' + data.tags.deployment;
+      var res = keys.map((v, i) => {
+        return {
+          mean : values[i],
+          time : keys[i],
+          tags : groupName
+        }
+      });
+
+      arr.push(res);
+    }
+      const combinedArray = [].concat(...arr);
+    return combinedArray;
+  }
+
 export {
     transformKeyPairs,
     MarkFormGroupTouched,
     mergeUniqueObjectsOfArray,
-    implementsObject
+    implementsObject,
+    formatMultipleData
 }
