@@ -1,75 +1,49 @@
 [{
-    "mean": 0.9622641509433962,
-    "name": "MAAS_http",
-    "time": 1565279400000
+    "group":"network",
+    "metricName":[
+        "rx_bytes",
+        "rx_dropped",
+        "rx_errors",
+        "rx_packets",
+        "speed",
+        "tx_bytes",
+        "tx_dropped",
+        "tx_error",
+        "tx_packets"
+    ]
+},
+
+{
+    "group":"mysql",
+    "metricName":[
+        "bytes_received",
+        "bytes_sent",
+        "core.aborted_clients",
+        "core.connections",
+        "core.queries",
+        "handler.commit"]
+
 },
 {
-    "mean": 0.9615384615384616,
-    "name": "MAAS_http",
-    "time": 1565279460000
-},
-{
-    "mean": 0.94,
-    "name": "MAAS_http",
-    "time": 1565279520000
-},
-{
-    "mean": 0.9375,
-    "name": "MAAS_http",
-    "time": 1565279580000
-},
-{
-    "mean": 0.9857142857142858,
-    "name": "MAAS_http",
-    "time": 1565279640000
-},
-{
-    "mean": 0.9682539682539683,
-    "name": "MAAS_http",
-    "time": 1565279700000
-},
-{
-    "mean": 0.9375,
-    "name": "MAAS_http",
-    "time": 1565279760000
-},
-{
-    "mean": 0.946236559139785,
-    "name": "MAAS_http",
-    "time": 1565279820000
-},
-{
-    "mean": 0.9397590361445783,
-    "name": "MAAS_http",
-    "time": 1565279880000
-},
-{
-    "mean": 0.9538461538461539,
-    "name": "MAAS_http",
-    "time": 1565279940000
-},
-{
-    "mean": 0.9848484848484849,
-    "name": "MAAS_http",
-    "time": 1565280000000
-},
-{
-    "mean": 0.963855421686747,
-    "name": "MAAS_http",
-    "time": 1565280060000
-},
-{
-    "mean": 0.9841269841269841,
-    "name": "MAAS_http",
-    "time": 1565280120000
-},
-{
-    "mean": 0.9473684210526315,
-    "name": "MAAS_http",
-    "time": 1565280180000
-},
-{
-    "mean": 0.9850746268656716,
-    "name": "MAAS_http",
-    "time": 1565280240000
+    "group":"memory",
+    "metricName":[
+        "actual_free",
+        "actual_used",
+        "free",
+        "ram",
+        "swap_free",
+        "swap_page_in",
+        "swap_page_out",
+        "swap_total"
+    ]
+
+},{
+    
+    "group":"filesystem_state",
+    "metricName":[
+        "total_ro",
+        "total_rw",
+        "devices_ro",
+        "devices_rw"
+    ]
 }]

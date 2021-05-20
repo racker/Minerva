@@ -4,15 +4,25 @@ import { default as metrics } from './metrics.json';
 import { default as metricMeasurements } from './measurements.json';
 
 import {
-    IDevice,
-    IMeasurement,
-    IMetricField,
     IMetric
 } from '../../_models/metrics';
+import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 export class metricMocks {
-    devices: IDevice[] = metricsDevices;
-    fields: IMetricField[] = metricsFields;
+   
     metrics: IMetric[] = metrics;
-    measurements: IMeasurement[] = metricMeasurements;
+   
+
+    handleRoute(url: string, method: string, request: HttpRequest<any>, next: any) {
+        switch (true) {
+            case url.includes('metricNames'):
+                return new HttpResponse({ status: 200, body: ([].concat.apply([], metrics.map(a => a.metricName)) as any) });
+            case url.includes('metricGroup'):
+                return new HttpResponse({ status: 200, body: (metrics.map(a =>a.group) as any) });
+          default:
+            return new HttpResponse({ status: 200, body: ({msg: "Metric api"} as any) });
+              // need to call from the json
+         
+        } 
+        }
 }

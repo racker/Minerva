@@ -5,21 +5,20 @@ import { GraphsComponent } from './components/graphs/graphs.component';
 import { VisualizePage } from './pages/visualize.page/visualize.page.component';
 import { MetricsService } from '../../_services/metrics/metrics.service';
 import { InfluxService } from '../../_services/influx/influx.service';
-import { SelectionsComponent } from './components/selections/selections.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: VisualizePage,
-      data: {
-        breadcrumb: 'GRAPHS'
-      }
+    path: '',
+    component: VisualizePage,
+    data: {
+      breadcrumb: 'GRAPHS'
+    }
   }
 ];
 
 @NgModule({
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  declarations: [GraphsComponent, VisualizePage, SelectionsComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [GraphsComponent, VisualizePage],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
@@ -29,4 +28,13 @@ const routes: Routes = [
     InfluxService
   ]
 })
-export class VisualizeModule { }
+export class VisualizeModule {
+  constructor() {
+
+  }
+
+  ngOnInit() {
+
+  }
+
+}
