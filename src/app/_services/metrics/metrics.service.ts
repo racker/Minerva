@@ -52,9 +52,14 @@ export class MetricsService {
   /**
     * @returns Observable array of available measurements
   */
-  getMetricList() {
+  getMetricList(groupName:string) {
     httpOptions.headers['X-Tenant']=this.portalDataService.portalData.domainId;
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames`, httpOptions)
+    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames?group=${groupName}`,{ headers:httpOptions.headers,
+      params: {
+        group:groupName
+      }
+    }
+    )
     .pipe(
       tap((data:any) => {
         console.log(data);
@@ -68,6 +73,7 @@ export class MetricsService {
 
   getMetricGroupList() {
     httpOptions.headers['X-Tenant']=this.portalDataService.portalData.domainId;
+   
     return this.http.get<[string]>(`${this.metricsURL}/metadata/metricGroup`, httpOptions)
     .pipe(
       tap((data:any) => {
@@ -78,5 +84,6 @@ export class MetricsService {
       catchError(this.errorService.transformSalusErrorHandler)
       ); 
   }
+
 
 }

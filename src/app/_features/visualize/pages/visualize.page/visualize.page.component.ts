@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MinervaApiService } from '@minerva/_services/minervaApi/minerva-api.service';
 
@@ -12,107 +12,94 @@ import { MinervaApiService } from '@minerva/_services/minervaApi/minerva-api.ser
 export class VisualizePage {
 
 
-   system: string;
-   measurement: string;
-   device: string;
-   start: string;
+  system: string;
+  measurement: string;
+  device: string;
+  start: string;
   end: string;
 
   public fields
   loading: boolean;
   subManager = new Subscription();
-  public metrics=[];
-  public metricGrp=[];
+  public metrics = [];
+  public metricGrp = [];
+  public groupSet;
+  public metricSet;
 
-  constructor(private metricService: MetricsService, private router: Router,
-    private route: ActivatedRoute, private mnrvaApi: MinervaApiService, private privatemtrsrvc:MetricsService ) { }
-
-    ngOnInit() {
-      this.privatemtrsrvc.getMetricGroupList().subscribe((d)=>{
-        this.metricGrp= d;
-      })
-      this.privatemtrsrvc.getMetricList().subscribe((d)=>{
-        this.metrics= d;
-      })
-    }
-/*
-  async ngOnInit() {
-
-
-
-    this.loading = true;
-    // this.mnrvaApi.getDemo().subscribe(data =>{
-    //   console.log(data);
-    // })
-    this.system = this.route.snapshot.queryParams['system'] ?
-      this.route.snapshot.queryParams['system'].toUpperCase() : null;
-    this.measurement = this.route.snapshot.queryParams['measurement'];
-    this.device = this.route.snapshot.queryParams['device'];
-    this.start = this.route.snapshot.queryParams['start'];
-    this.end = this.route.snapshot.queryParams['end'];
-
-    // if there are URL parameters for these properties, notify the service
-    this.metricService.changeSelectedSystem(this.system);
-    this.metricService.changeSelectedMeasurement(this.measurement);
-    this.metricService.changeSelectedDevice(this.device);
-    this.metricService.changeSelectedStart(this.start);
-    this.metricService.changeSelectedEnd(this.end);
-
-    // being setup for the default graphs
-    this.metricService.getInitialGraph(this.system).subscribe();
-
-    // susbscribe to the user selected items and update URL accordingly
-    let systemSub = this.metricService.selectedSystem$().subscribe((system) => {
-      if (system) {
-        this.system = system;
-        this.updateQueryParams();
-      }
-    });
-
-    let measurementSub = this.metricService.selectedMeasurement$().subscribe((measurement) =>
-    {
-      if (measurement) {
-        this.measurement = measurement;
-        this.updateQueryParams();
-      }
-    });
-
-    let deviceSub = this.metricService.selectedDevice$().subscribe((device) => {
-      if (device) {
-        this.device = device;
-        this.updateQueryParams();
-      }
-    });
-
-    // add all subscriptions to one manager for cleaner organization
-    this.subManager.add(systemSub);
-    this.subManager.add(measurementSub);
-    this.subManager.add(deviceSub);
+  constructor(private metricService: MetricsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private mnrvaApi: MinervaApiService,
+    private privatemtrsrvc: MetricsService) {
   }
 
-  ngOnDestroy() {
-    // unsubscribe all subscriptions from the manager
-    this.subManager.unsubscribe();
+  ngOnInit() {
+
+    // if url with query parameter or change in query parameter
+    this.route.queryParams.subscribe(params => {
+      params["group"] && this.getlistOfMetric(params["group"]);
+    });
+    this.privatemtrsrvc.getMetricGroupList().subscribe((d) => {
+      this.metricGrp = d;
+
+    });
   }
+
 
   /**
-   * @description this function updates the URL query params
-   * @return {void}
+   * Metric group selection
+   * @param group name of group
+   */
+  public groupSelection(group) {
+    // new Instance while group selection
+    this.groupSet = new Set();
+    this.metricSet = new Set();
+    this.groupSet.add(group);
+    this.getlistOfMetric(group);
+    const queryParams: Params = { group: group };
+    this.changingQueryParams(queryParams, '');
 
-  private updateQueryParams() {
-    const params = {
-      ...(this.system  && { system: this.system }),
-      ...(this.measurement && { measurement : this.measurement }),
-      ...(this.device && {device: this.device}),
-      ...(this.start && { start: this.start }),
-      ...(this.end && {end: this.end })
-    };
+  }
+  /**
+   * Metric Selection
+   * @param metric Name of Metric
+   */
+  public metricSelection(metric) {
+    this.metricSet.add(metric);
+    const queryParams: Params = { metric: [...this.metricSet].join(',') }; // metric name query params  
+    this.changingQueryParams(queryParams, 'merge');
+  }
 
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: params,
-      queryParamsHandling: 'merge'
-    });
+  // Get list of metric on the basis of Group
+  getlistOfMetric(group) {
+    this.privatemtrsrvc.getMetricList(group).subscribe((d) => {
+      this.metrics = d;
+    })
+  }
 
-  }*/
+
+  /**
+   *  add query parameter in route
+   * @param data 
+   * @param qryPrmHndlr 
+   */
+  changingQueryParams(data: Params, qryPrmHndlr: any) {
+
+    this.router.navigate([],
+      {
+        relativeTo: this.route,
+        queryParams: data,
+        queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
+      });
+  }
+
+  //Dismiss of group pills
+  dismissGroup(data) {
+    this.groupSet.delete(data);
+  }
+  //Dismiss of metric pills
+  dismissMetric(data) {
+    this.metricSet.delete(data);
+  }
+
 }

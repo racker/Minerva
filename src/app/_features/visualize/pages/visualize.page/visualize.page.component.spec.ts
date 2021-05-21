@@ -67,9 +67,7 @@ describe('VisualizePage', async() => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+ 
 /*
   it('should set loading to true', () => {
     expect(component.loading).toEqual(true);

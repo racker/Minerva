@@ -16,7 +16,8 @@ export class metricMocks {
     handleRoute(url: string, method: string, request: HttpRequest<any>, next: any) {
         switch (true) {
             case url.includes('metricNames'):
-                return new HttpResponse({ status: 200, body: ([].concat.apply([], metrics.map(a => a.metricName)) as any) });
+                let ggroup= request.params.get("group");
+                return new HttpResponse({ status: 200, body: ([].concat.apply([], metrics.filter(m => m.group===ggroup).map(a => a.metricName)) as any) });
             case url.includes('metricGroup'):
                 return new HttpResponse({ status: 200, body: (metrics.map(a =>a.group) as any) });
           default:
