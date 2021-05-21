@@ -21,20 +21,9 @@ export class VisualizePage {
   public fields
   loading: boolean;
   subManager = new Subscription();
-  public metrics=[];
-  public metricGrp=[];
 
   constructor(private metricService: MetricsService, private router: Router,
-    private route: ActivatedRoute, private mnrvaApi: MinervaApiService, private privatemtrsrvc:MetricsService ) { }
-
-    ngOnInit() {
-      this.privatemtrsrvc.getMetricGroupList().subscribe((d)=>{
-        this.metricGrp= d;
-      })
-      this.privatemtrsrvc.getMetricList().subscribe((d)=>{
-        this.metrics= d;
-      })
-    }
+    private route: ActivatedRoute, private mnrvaApi: MinervaApiService) { }
 /*
   async ngOnInit() {
 

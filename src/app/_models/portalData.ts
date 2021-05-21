@@ -4,5 +4,4 @@ export interface IPortalData {
     userId: number;
     username: string;
     tenants: string[];
-    authToken?:string;
 }
