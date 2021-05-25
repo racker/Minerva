@@ -1,0 +1,72 @@
+<div class="hxRow">
+  <div class="hxCol">
+    <div class="hxSelector hxRadio">
+      <label>
+        <input type="radio" name="presets" [value]="true" [(ngModel)]="date.presets" />
+        <span>PRESETS</span>
+      </label>
+      <label>
+        <input type="radio" name="presets" [value]="false" [(ngModel)]="date.presets" />
+        <span>CUSTOM</span>
+      </label>
+    </div>
+
+  </div>
+  <div class="hxCol" *ngIf="date.presets">
+    <div class="hxSelector hxRadio">
+      <label>
+        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
+        value="1HR" name="dates" />
+        <span>1 HR</span>
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
+        value="8HR" name="dates" />
+        <span>8 HR</span>
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
+        value="24HR" name="dates" checked />
+        <span>DAY</span>
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
+        value="7D" name="dates" />
+        <span>WEEK</span>
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
+        value="1M" name="dates" />
+        <span>MONTH</span>
+      </label>
+    </div>
+  </div>
+  <div class="hxCol dates" *ngIf="!date.presets">
+    <div class="hxCol hxSpan-6">
+    <hx-text-control>
+      <span class="hxPrefix">
+        <hx-icon type="calendar" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1"
+        style="color:#0c7c84"></hx-icon>
+      </span>
+      <input id="txtStart" [(ngModel)]="date.start" type="text"
+      [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" />
+    </hx-text-control>
+    <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt1></owl-date-time>
+</div>
+<div class="hxCol hxSpan-6">
+    to
+    <hx-text-control>
+      <span class="hxPrefix">
+        <hx-icon type="calendar" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+        style="color:#0c7c84"></hx-icon>
+      </span>
+      <input id="txtEnd" type="text" [(ngModel)]="date.end"
+      [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" />
+    </hx-text-control>
+    <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt2></owl-date-time>
+  </div>
+  <button class="hxBtn hxPrimary" [disabled]="!(isValidDate(date.start) && isValidDate(date.end))" (click)="timeRangeUpdate()">
+    Apply
+  </button>
+</div>
+</div>

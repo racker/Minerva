@@ -6,6 +6,9 @@ import { VisualizePage } from './pages/visualize.page/visualize.page.component';
 import { MetricsService } from '../../_services/metrics/metrics.service';
 import { InfluxService } from '../../_services/influx/influx.service';
 import { SelectionsComponent } from './components/selections/selections.component';
+import { TimeRangeComponent } from './components/timerange/timerange.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 const routes: Routes = [
   {
@@ -19,9 +22,16 @@ const routes: Routes = [
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  declarations: [GraphsComponent, VisualizePage, SelectionsComponent],
+  declarations: [
+    GraphsComponent,
+    VisualizePage,
+    SelectionsComponent,
+    TimeRangeComponent
+  ],
   imports: [
     SharedModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     RouterModule.forChild(routes)
   ],
   providers: [

@@ -4,12 +4,11 @@
 </div>
 </div>
 
-<div class="hxRow">
+<div class="hxRow extraPadding">
     <div class="hxCol hxSpan-4">
-      <app-visualize-selections [system]="system" [measurement]="measurement"
-      [field]="fields" [device]="device" [start]="start" [end]="end"></app-visualize-selections>
+      <app-visualize-selections></app-visualize-selections>
     </div>
     <div class="hxCol hxSpan-8">
-      <app-graphs></app-graphs>
+      <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration"></app-graphs>
     </div>
 </div>
