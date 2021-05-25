@@ -24,8 +24,6 @@ export class TimeRangeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log("**Start", this.start);
-    console.log("**End", this.end);
     let start = new Date(this.start);
     let end = new Date(this.end);
     let presets = !(this.isValidDate(start) && this.isValidDate(end));

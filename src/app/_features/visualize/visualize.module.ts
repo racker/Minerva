@@ -4,19 +4,17 @@ import { SharedModule } from '../../_shared/shared.module';
 import { GraphsComponent } from './components/graphs/graphs.component';
 import { VisualizePage } from './pages/visualize.page/visualize.page.component';
 import { MetricsService } from '../../_services/metrics/metrics.service';
-import { InfluxService } from '../../_services/influx/influx.service';
-import { SelectionsComponent } from './components/selections/selections.component';
 import { TimeRangeComponent } from './components/timerange/timerange.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 const routes: Routes = [
   {
-      path: '',
-      component: VisualizePage,
-      data: {
-        breadcrumb: 'GRAPHS'
-      }
+    path: '',
+    component: VisualizePage,
+    data: {
+      breadcrumb: 'GRAPHS'
+    }
   }
 ];
 
@@ -25,7 +23,6 @@ const routes: Routes = [
   declarations: [
     GraphsComponent,
     VisualizePage,
-    SelectionsComponent,
     TimeRangeComponent
   ],
   imports: [
@@ -35,8 +32,16 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    MetricsService,
-    InfluxService
+    MetricsService
   ]
 })
-export class VisualizeModule { }
+export class VisualizeModule {
+  constructor() {
+
+  }
+
+  ngOnInit() {
+
+  }
+
+}
