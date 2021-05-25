@@ -99,7 +99,7 @@ export class VisualizePage {
   addMetricInQuery() {
     if ([...this.metricPillSet].length > 0) {
       const queryParams: Params = { metric: [...this.metricPillSet].join(',') }; // metric name query params  
-      this.changingQueryParams(queryParams, QUERYPARAMS.METRIC);
+      this.changingQueryParams(queryParams, 'merge');
     } else {
       this.addGroupinQuery();
     }
