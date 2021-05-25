@@ -6,7 +6,6 @@ import { VisualizePage } from './visualize.page.component';
 import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { SharedModule } from '../../../../_shared/shared.module';
-import { By } from '@angular/platform-browser';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
 
 const routes = [
