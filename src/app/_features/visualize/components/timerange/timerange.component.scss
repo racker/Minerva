@@ -1,0 +1,48 @@
+@import "~ng-pick-datetime/assets/style/picker.min";
+
+/* -- ng-pick-datetime overrides --*/
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+    background-color: #0c7c84;
+}
+
+.owl-dt-timer-hour12 .owl-dt-timer-hour12-box:hover
+.owl-dt-control-button-content {
+    background: #0c7c84;
+}
+
+.owl-dt-timer-hour12, .owl-dt-container-buttons {
+    color: #0c7c84;
+}
+/* -- end -- */
+
+.hxCol.dates .hxCol {
+    display: inline
+}
+
+.hxCol.dates hx-icon {
+    cursor: pointer;
+}
+
+.hxCol.dates .hxCol.hxSpan-6 {
+    padding-right: 20px;
+}
+
+.hxCol.dates hx-text-control {
+    display: inline;
+}
+
+.hxCol.dates input {
+    padding-left: 30px;
+    display: inline;
+}
+
+.hxCol.dates .hxPrefix {
+    position: relative;
+    left: 30px;
+    display: inline;
+    bottom: 1px;
+}
+
+.hxSelector.hxRadio > label {
+    cursor: pointer;
+}
