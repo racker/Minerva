@@ -19,7 +19,7 @@
       <hx-pill style="margin-top: 1rem;" id="{{groupPill}}" (dismiss)="dismissGroup(groupPill)" *ngFor="let groupPill of groupPillSet">{{groupPill}}</hx-pill>
       </div>
     </div>
-   
+
 <div class="hxRow">
   <div class="hxCol">
     <hx-select-control>
@@ -34,11 +34,11 @@
     <hx-pill style="margin-top: 1rem;" id="{{metricPill}}" (dismiss)="dismissMetric(metricPill)" *ngFor="let metricPill of metricPillSet">{{metricPill}}</hx-pill>
   </div>
 </div>
-   
+
   </div>
-   
-    
+
+
     <div class="hxCol hxSpan-">
-      <app-graphs></app-graphs>
+      <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration"></app-graphs>
     </div>
 </div>

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PortalDataService } from '../portal/portal-data.service';
 import { LoggingService } from '../../_services/logging/logging.service';
-import { metricMocks } from '../../_mocks/metrics/metrics.service.mock';
-import { InfluxService } from '../influx/influx.service';
 import { EnvironmentConfig } from '../config/environmentConfig.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -80,7 +78,7 @@ export class MetricsService {
         this.logService.log(`Metric group List: ${data}`, LogLevels.info);
       }),
       catchError(this.errorService.transformSalusErrorHandler)
-      ); 
+      );
   }
 
 

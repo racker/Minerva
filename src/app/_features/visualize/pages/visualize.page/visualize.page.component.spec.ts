@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { SharedModule } from '../../../../_shared/shared.module';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+import { of } from 'rxjs';
 
 const routes = [
   {
@@ -16,9 +17,7 @@ const routes = [
     }
   }, {
     queryParams: {
-      system: 'ZENOSS',
-      measurement: 'cpu_check',
-      device: '466255362',
+      duration: '12HR',
       start: '328833',
       end: '8829938'
     }
@@ -26,6 +25,7 @@ const routes = [
 ];
 
 describe('VisualizePage', async() => {
+  let injector: TestBed;
   let component: VisualizePage;
   let fixture: ComponentFixture<VisualizePage>;
   let metricService: MetricsService;
@@ -39,11 +39,9 @@ describe('VisualizePage', async() => {
       providers: [{
         provide: ActivatedRoute,
         useValue: {
-          snapshot: {
-            ...routes[1]
-          },
+          queryParams: of(routes[1].queryParams),
           root: {
-            routeConfig: routes[0]
+            routeConfig : routes[0]
           }
         }
       },
@@ -61,61 +59,19 @@ describe('VisualizePage', async() => {
     })
       .compileComponents();
       fixture = TestBed.createComponent(VisualizePage);
+      injector = getTestBed();
     component = fixture.componentInstance;
-    metricService = TestBed.get(MetricsService);
+    metricService = injector.inject(MetricsService);
     fixture.detectChanges();
   }));
 
- 
-/*
-  it('should set loading to true', () => {
-    expect(component.loading).toEqual(true);
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should set system', () => {
-    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-      .componentInstance.system).toBe(routes[1].queryParams.system);
+  it('should set presets of visualize.date', () => {
+    expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
+    expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
+    expect(component.visualize.date.duration.toString()).toEqual(routes[1].queryParams.duration);
   });
-
-  it('should set measurement', () => {
-    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-      .componentInstance.measurement).toBe(routes[1].queryParams.measurement);
-  });
-
-  it('should set device', () => {
-    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-      .componentInstance.device).toBe(routes[1].queryParams.device);
-  });
-
-  it('should set start', () => {
-    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-      .componentInstance.start).toBe(routes[1].queryParams.start);
-  });
-
-  it('should set end date', () => {
-    expect(fixture.debugElement.query(By.css('app-visualize-selections'))
-      .componentInstance.end).toBe(routes[1].queryParams.end);
-  });
-
-  it('should be present', () => {
-    expect(fixture.debugElement.query(By.css('app-graphs'))
-    .componentInstance).not.toBe(null);
-  });
-
-
-  it('should add all subscriptions', async() => {
-    let spy = spyOn(component.subManager, 'add');
-    fixture.ngZone.run(() => {
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(spy).toHaveBeenCalledTimes(3);
-    });
-  });
-
-  it('should destroy subscriptions', () => {
-    spyOn(component.subManager, 'unsubscribe');
-    component.ngOnDestroy();
-    expect(component.subManager.unsubscribe).toHaveBeenCalled();
-  });
-  */
 });

@@ -1,8 +1,17 @@
 import { Component } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { MinervaApiService } from '@minerva/_services/minervaApi/minerva-api.service';
+import { TimeRange } from '@minerva/_models/timerange';
+
+interface Visualize {
+  metricName?: string
+  groupQuery:string[];
+
+  MetricQuery?: string[]; //query
+
+  date: TimeRange
+}
+
 
 enum QUERYPARAMS {
   GROUP='group',
@@ -16,28 +25,19 @@ enum QUERYPARAMS {
 })
 export class VisualizePage {
 
-
-  system: string;
-  measurement: string;
-  device: string;
-  start: string;
-  end: string;
-
   ddMetric
-  public fields
-  loading: boolean;
-  subManager = new Subscription();
   public metrics = [];
   public metricGrp = [];
   public groupPillSet = new Set();
     public metricPillSet = new Set();
-  MetricQuery: [string]; //query
-  groupQuery:[string];
+  visualize: Visualize = {
+    date: {},
+    groupQuery: []
+  };
 
-  constructor(private metricService: MetricsService,
+  constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private mnrvaApi: MinervaApiService,
     private privatemtrsrvc: MetricsService) {
 
   }
@@ -46,16 +46,22 @@ export class VisualizePage {
 
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
+      this.visualize.date = {
+        start: params.start,
+        end: params.end,
+        duration: params.duration
+      };
+
       if(!!params[QUERYPARAMS.GROUP]){
-        this.groupQuery=params[QUERYPARAMS.GROUP].split(",");
+        this.visualize.groupQuery=params[QUERYPARAMS.GROUP].split(",");
         if(this.groupPillSet.size===0){
           this.groupPillSet.add(params[QUERYPARAMS.GROUP])
         }
         this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
       }
-    
+
       if (!!params[QUERYPARAMS.METRIC]) {
-        this.MetricQuery = params[QUERYPARAMS.METRIC].split(",");
+        this.visualize.MetricQuery = params[QUERYPARAMS.METRIC].split(",");
         if(this.metricPillSet.size===0){
         this.metricPillSet= new Set(params[QUERYPARAMS.METRIC].split(","));
         }
@@ -98,7 +104,7 @@ export class VisualizePage {
 
   addMetricInQuery() {
     if ([...this.metricPillSet].length > 0) {
-      const queryParams: Params = { metric: [...this.metricPillSet].join(',') }; // metric name query params  
+      const queryParams: Params = { metric: [...this.metricPillSet].join(',') }; // metric name query params
       this.changingQueryParams(queryParams, 'merge');
     } else {
       this.addGroupinQuery();
@@ -119,8 +125,8 @@ export class VisualizePage {
 
   /**
    *  add query parameter in route
-   * @param data 
-   * @param qryPrmHndlr 
+   * @param data
+   * @param qryPrmHndlr
    */
   changingQueryParams(data: Params, qryPrmHndlr: any) {
 
@@ -147,11 +153,11 @@ export class VisualizePage {
   }
 
   defaultgroup(item) {
-    if ( !!this.groupQuery && item == this.groupQuery[this.groupQuery.length - 1])
+    if ( !!this.visualize.groupQuery && item == this.visualize.groupQuery[this.visualize.groupQuery.length - 1])
       return true;
   }
   defaultMetric(item) {
-    if (!!this.MetricQuery && item == this.MetricQuery[this.MetricQuery.length - 1])
+    if (!!this.visualize.MetricQuery && item == this.visualize.MetricQuery[this.visualize.MetricQuery.length - 1])
       return true;
   }
 
