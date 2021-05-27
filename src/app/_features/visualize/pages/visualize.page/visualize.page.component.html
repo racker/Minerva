@@ -4,11 +4,41 @@
 </div>
 </div>
 
-<div class="hxRow extraPadding">
-    <div class="hxCol hxSpan-4">
-      <app-visualize-selections></app-visualize-selections>
+<div class="hxRow">
+  <div class="hxCol hxSpan-2">
+    <div class="hxRow">
+      <div class="hxCol">
+      <hx-select-control>
+        <select (change)="groupSelection($event.target.value)"
+          id="mtrcGrp">
+          <option value="">Select a Metric Group</option>
+          <option *ngFor="let item of metricGrp" [selected]="defaultgroup(item)">{{item}}</option>
+        </select>
+        <hx-select></hx-select>
+      </hx-select-control>
+      <hx-pill style="margin-top: 1rem;" id="{{groupPill}}" (dismiss)="dismissGroup(groupPill)" *ngFor="let groupPill of groupPillSet">{{groupPill}}</hx-pill>
+      </div>
     </div>
-    <div class="hxCol hxSpan-8">
+
+<div class="hxRow">
+  <div class="hxCol">
+    <hx-select-control>
+      <select  (change)="metricSelection($event.target.value)"
+        id="selDemo">
+        <option value="">Select a Metric</option>
+        <option *ngFor="let item of metrics" [selected]="defaultMetric(item)">{{item}}</option>
+      </select>
+      <hx-select></hx-select>
+    </hx-select-control>
+
+    <hx-pill style="margin-top: 1rem;" id="{{metricPill}}" (dismiss)="dismissMetric(metricPill)" *ngFor="let metricPill of metricPillSet">{{metricPill}}</hx-pill>
+  </div>
+</div>
+
+  </div>
+
+
+    <div class="hxCol hxSpan-">
       <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration"></app-graphs>
     </div>
 </div>
