@@ -7,13 +7,13 @@ interface Visualize {
   metricName?: string
   groupQuery:string[];
 
-  MetricQuery?: string[]; //query
+  metricQuery?: string[]; //query
 
   date: TimeRange
 }
 
 
-enum QUERYPARAMS {
+export enum QUERYPARAMS {
   GROUP='group',
   METRIC='metric'
 }
@@ -37,7 +37,7 @@ export class VisualizePage {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private privatemtrsrvc: MetricsService) {
 
   }
@@ -46,31 +46,39 @@ export class VisualizePage {
 
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
-      this.visualize.date = {
-        start: params.start,
-        end: params.end,
-        duration: params.duration
-      };
-
-      if(!!params[QUERYPARAMS.GROUP]){
-        this.visualize.groupQuery=params[QUERYPARAMS.GROUP].split(",");
-        if(this.groupPillSet.size===0){
-          this.groupPillSet.add(params[QUERYPARAMS.GROUP])
-        }
-        this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
-      }
-
-      if (!!params[QUERYPARAMS.METRIC]) {
-        this.visualize.MetricQuery = params[QUERYPARAMS.METRIC].split(",");
-        if(this.metricPillSet.size===0){
-        this.metricPillSet= new Set(params[QUERYPARAMS.METRIC].split(","));
-        }
-      }
+      this.setQueryParams(params);
     });
     this.privatemtrsrvc.getMetricGroupList().subscribe((d) => {
       this.metricGrp = d;
 
     });
+  }
+
+  /**
+   * After subscribe set visual data from Query params
+   * @param params subscribed queryParams
+   */
+  setQueryParams(params:any){
+    this.visualize.date = {
+      start: params.start,
+      end: params.end,
+      duration: params.duration
+    };
+
+    if(!!params[QUERYPARAMS.GROUP]){
+      this.visualize.groupQuery=params[QUERYPARAMS.GROUP].split(",");
+      if(this.groupPillSet.size===0){
+        this.groupPillSet.add(params[QUERYPARAMS.GROUP])
+      }
+      this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
+    }
+
+    if (!!params[QUERYPARAMS.METRIC]) {
+      this.visualize.metricQuery = params[QUERYPARAMS.METRIC].split(",");
+      if(this.metricPillSet.size===0){
+      this.metricPillSet= new Set(params[QUERYPARAMS.METRIC].split(","));
+      }
+    }
   }
 
 
@@ -98,6 +106,7 @@ export class VisualizePage {
   public metricSelection(metric) {
     if (!!metric) {
       this.metricPillSet.add(metric);
+      console.log("size..",this.metricPillSet.size);
       this.addMetricInQuery();
     }
   }
@@ -129,7 +138,6 @@ export class VisualizePage {
    * @param qryPrmHndlr
    */
   changingQueryParams(data: Params, qryPrmHndlr: any) {
-
     this.router.navigate([],
       {
         relativeTo: this.route,
@@ -157,7 +165,7 @@ export class VisualizePage {
       return true;
   }
   defaultMetric(item) {
-    if (!!this.visualize.MetricQuery && item == this.visualize.MetricQuery[this.visualize.MetricQuery.length - 1])
+    if (!!this.visualize.metricQuery && item == this.visualize.metricQuery[this.visualize.metricQuery.length - 1])
       return true;
   }
 
