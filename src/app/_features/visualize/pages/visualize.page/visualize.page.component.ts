@@ -106,7 +106,6 @@ export class VisualizePage {
   public metricSelection(metric) {
     if (!!metric) {
       this.metricPillSet.add(metric);
-      console.log("size..",this.metricPillSet.size);
       this.addMetricInQuery();
     }
   }
