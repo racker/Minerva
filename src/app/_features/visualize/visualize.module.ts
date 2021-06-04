@@ -6,6 +6,8 @@ import { VisualizePage } from './pages/visualize.page/visualize.page.component';
 import { MetricsService } from '../../_services/metrics/metrics.service';
 import { TimeRangeComponent } from './components/timerange/timerange.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MetricDropdownComponent } from './components/selectNav/metric-group/metric-dropdown.component';
+
 
 
 const routes: Routes = [
@@ -23,7 +25,8 @@ const routes: Routes = [
   declarations: [
     GraphsComponent,
     VisualizePage,
-    TimeRangeComponent
+    TimeRangeComponent,
+    MetricDropdownComponent,
   ],
   imports: [
     SharedModule,

@@ -10,7 +10,22 @@
         "tx_dropped",
         "tx_error",
         "tx_packets"
-    ]
+    ],
+    "tags":[{ "metricGroup": "network",
+        "monitoring_system": "ZENOSS",
+        "resource": "828315",
+        "resource_account_id": "5002011",
+        "resource_cmdb_source": "CORE",
+        "resource_datacenter": "DFW3",
+        "resource_device_id": "828315",
+        "resource_label": "828315-fw8.dfw1.rapid7",
+        "resource_product_description": "Firewall - Cisco ASA Required",
+        "resource_server_name": "828315-fw8.dfw1.rapid7",
+        "resource_status": "Online/Complete",
+        "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468",
+        "system_device": "828315",
+        "system_key": "Devices/828315/os/interfaces/GigabitEthernet0_1",
+        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"}]
 },
 
 {
@@ -21,7 +36,24 @@
         "core.aborted_clients",
         "core.connections",
         "core.queries",
-        "handler.commit"]
+        "handler.commit"],
+    "tags":[{
+        "metricGroup": "network",
+        "monitoring_system": "ZENOSS",
+        "resource": "828315",
+        "resource_account_id": "5002011",
+        "resource_cmdb_source": "CORE",
+        "resource_datacenter": "DFW3",
+        "resource_device_id": "828315",
+        "resource_label": "828315-fw8.dfw1.rapid7",
+       "resource_product_description": "Firewall - Cisco ASA Required",
+        "resource_server_name": "828315-fw8.dfw1.rapid7",
+        "resource_status": "Online/Complete",
+        "system_contextUUID": "9450188f-b611-436c-9175-daa85695e098",
+        "system_device": "828315",
+        "system_key": "Devices/828315/os/interfaces/GVA",
+        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+      }]
 
 },
 {
@@ -35,6 +67,23 @@
         "swap_page_in",
         "swap_page_out",
         "swap_total"
+    ],
+    "tags": [
+        {"metricGroup": "network",
+        "monitoring_system": "ZENOSS",
+        "resource": "828315",
+        "resource_account_id": "5002011",
+        "resource_cmdb_source": "CORE",
+        "resource_datacenter": "DFW3",
+        "resource_device_id": "828315",
+        "resource_label": "828315-fw8.dfw1.rapid7",
+        "resource_product_description": "Firewall - Cisco ASA Required",
+        "resource_server_name": "828315-fw8.dfw1.rapid7",
+        "resource_status": "Online/Complete",
+        "system_contextUUID": "228b2fbb-448c-4020-9634-6ca2f5158406",
+       "system_device": "828315",
+        "system_key": "Devices/828315/os/interfaces/cplane",
+        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"}
     ]
 
 },{
@@ -45,5 +94,21 @@
         "total_rw",
         "devices_ro",
         "devices_rw"
-    ]
+    ],
+    "tags":[{"metricGroup": "network",
+        "monitoring_system": "ZENOSS",
+        "resource": "828315",
+        "resource_account_id": "5002011",
+        "resource_cmdb_source": "CORE",
+        "resource_datacenter": "DFW3",
+        "resource_device_id": "828315",
+        "resource_label": "828315-fw8.dfw1.rapid7",
+        "resource_product_description": "Firewall - Cisco ASA Required",
+        "resource_server_name": "828315-fw8.dfw1.rapid7",
+        "resource_status": "Online/Complete",
+        "system_contextUUID": "d68decc3-f38c-41de-9c0f-30241775d3a5",
+        "system_device": "828315",
+        "system_key": "Devices/828315/os/interfaces/nlp_int_tap",
+        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+      }]
 }]

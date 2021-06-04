@@ -8,6 +8,7 @@ interface Visualize {
   groupQuery:string[];
 
   MetricQuery?: string[]; //query
+  tags?:string[];
 
   date: TimeRange
 }
@@ -15,7 +16,8 @@ interface Visualize {
 
 enum QUERYPARAMS {
   GROUP='group',
-  METRIC='metric'
+  METRIC='metric',
+  TAGS='tags'
 }
 
 @Component({
@@ -24,12 +26,16 @@ enum QUERYPARAMS {
   styleUrls: ['./visualize.page.component.scss']
 })
 export class VisualizePage {
-
-  ddMetric
+  
   public metrics = [];
   public metricGrp = [];
+  public tags=new Set();
   public groupPillSet = new Set();
-    public metricPillSet = new Set();
+  public metricPillSet = new Set();
+  public tagPillSet = new Set();
+  public defaultMetric:string;
+  public defaultGroup:string;
+  public defaultTags:string;
   visualize: Visualize = {
     date: {},
     groupQuery: []
@@ -39,11 +45,13 @@ export class VisualizePage {
     private router: Router,
     private route: ActivatedRoute,
     private privatemtrsrvc: MetricsService) {
-
+      this.ddMetricinit();
+      this.ddGroupInit();
+      this.ddTagInit();
   }
 
   ngOnInit() {
-
+    
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
       this.visualize.date = {
@@ -56,21 +64,45 @@ export class VisualizePage {
         this.visualize.groupQuery=params[QUERYPARAMS.GROUP].split(",");
         if(this.groupPillSet.size===0){
           this.groupPillSet.add(params[QUERYPARAMS.GROUP])
+          this.defaultGroup=params[QUERYPARAMS.GROUP];
         }
         this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
+        this.getListOfTags({group:params[QUERYPARAMS.GROUP]});
       }
 
       if (!!params[QUERYPARAMS.METRIC]) {
         this.visualize.MetricQuery = params[QUERYPARAMS.METRIC].split(",");
         if(this.metricPillSet.size===0){
-        this.metricPillSet= new Set(params[QUERYPARAMS.METRIC].split(","));
+          let mtrcArr = params[QUERYPARAMS.METRIC].split(",");
+        this.metricPillSet= new Set(mtrcArr);
+        this.defaultMetric = mtrcArr[mtrcArr.length - 1];
+        }
+
+        this.getListOfTags({group:params[QUERYPARAMS.METRIC].split(",")});
+      }
+
+      if (!!params[QUERYPARAMS.TAGS]) {
+        this.visualize.tags = params[QUERYPARAMS.TAGS].split(",");
+        if (this.tagPillSet.size === 0) {
+          let tagArr = params[QUERYPARAMS.TAGS].split(",");
+          this.tagPillSet = new Set(tagArr);
+          this.defaultTags = tagArr[tagArr.length - 1];
         }
       }
     });
-    this.privatemtrsrvc.getMetricGroupList().subscribe((d) => {
-      this.metricGrp = d;
+    this.getListOfMetricGroup();
+  }
 
-    });
+  ddMetricinit(){
+    this.metrics = ["Select a Metric"];
+   
+  }
+  ddGroupInit(){
+    this.metricGrp = ["Select a Metric Group"];
+  }
+  ddTagInit(){
+    this.tags = new Set();
+    this.tags.add("Select a Tag");
   }
 
 
@@ -83,7 +115,7 @@ export class VisualizePage {
       // new Instance while group selection
      this.reset();
       this.groupPillSet.add(group);
-      this.addGroupinQuery();
+      //this.addGroupinQuery();
     }
 
   }
@@ -91,37 +123,108 @@ export class VisualizePage {
     this.groupPillSet = new Set();
     this.metricPillSet = new Set();
   }
-  /**
-   * Metric Selection
-   * @param metric Name of Metric
-   */
-  public metricSelection(metric) {
-    if (!!metric) {
-      this.metricPillSet.add(metric);
-      this.addMetricInQuery();
-    }
-  }
+  
+ 
 
   addMetricInQuery() {
+    let queryParams: Params;
     if ([...this.metricPillSet].length > 0) {
-      const queryParams: Params = { metric: [...this.metricPillSet].join(',') }; // metric name query params
-      this.changingQueryParams(queryParams, 'merge');
-    } else {
-      this.addGroupinQuery();
-    }
+      queryParams= { metric: [...this.metricPillSet].join(',') }; // metric name query params
+    } 
+    this.changingQueryParams(queryParams, 'merge');
+  }
+
+  addTagsInQuery() {
+    let queryParams: Params ;
+    if ([...this.tagPillSet].length > 0) {
+      queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
+    } 
+    this.changingQueryParams(queryParams, 'merge');
   }
 
   addGroupinQuery() {
-    const queryParams: Params = { group: [...this.groupPillSet].join(',') };
+    let queryParams: Params;
+    if([...this.groupPillSet].length >0){
+      queryParams = { group: [...this.groupPillSet].join(',') };
+    }
     this.changingQueryParams(queryParams, '');
   }
+
+
+/*===========================================Service Calls===========================*/
+
+   // Get list of Group
+   getListOfMetricGroup(){
+    this.privatemtrsrvc.getMetricGroupList().subscribe((d) => {
+      this.metricGrp= this.metricGrp.concat(d);
+    });
+  }
+
   // Get list of metric on the basis of Group
   getlistOfMetric(group) {
     this.privatemtrsrvc.getMetricList(group).subscribe((d) => {
-      this.metrics = d;
+      this.ddMetricinit();
+      this.metrics= this.metrics.concat(d);
     })
   }
 
+  getListOfTags(para:any){
+    this.privatemtrsrvc.getTagsList(para).subscribe((d) => {
+      d.forEach((it)=>{
+        Object.entries(Object.assign({},...it)).forEach(a =>{
+          this.tags=this.tags.add(a.join("="))
+        });
+       });
+    })
+  }
+/*==============================================================================*/  
+/*===============================DropDown change event========================*/
+
+/**
+ * Metric Group Change
+ * @param changedGroup 
+ */
+  metricGroupChange(changedGroup) {
+    this.groupPillSet.add(changedGroup)
+    this.addGroupinQuery();
+    //this.getlistOfMetric(changedGroup);
+  }
+
+  /**
+   * Metric Name Change
+   * @param metric Name of Metric
+   */
+  metricChange(changedMetric){
+    [changedMetric].forEach(a =>{this.metricPillSet.add(a)});
+    this.addMetricInQuery();
+    this.getListOfTags({metric:changedMetric});
+  }
+  /**
+   * tags Change
+   * @param tag Name of tag
+   */
+   tagChange(tag){
+    [tag].forEach(a => this.tagPillSet.add(a));
+    this.addTagsInQuery();
+  }
+// =================================================================================
+/** ==========================================Dismissed Event Start=======================================*/
+
+disMissedGroup(grp){
+  this.groupPillSet.delete(grp);
+  this.addGroupinQuery();
+  
+}
+disMissedMetric(mtr){
+this.metricPillSet.delete(mtr);
+this.addMetricInQuery();
+}
+disMissedTag(tag){
+this.tagPillSet.delete(tag);
+this.addTagsInQuery();
+}
+
+/** ==========================================Dismissed Event End=======================================*/
 
   /**
    *  add query parameter in route
@@ -129,7 +232,6 @@ export class VisualizePage {
    * @param qryPrmHndlr
    */
   changingQueryParams(data: Params, qryPrmHndlr: any) {
-
     this.router.navigate([],
       {
         relativeTo: this.route,
@@ -137,28 +239,4 @@ export class VisualizePage {
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
       });
   }
-
-  //Dismiss of group pills
-  dismissGroup(data) {
-    this.metrics = [];
-    this.groupPillSet.delete(data);
-    this.metricPillSet = new Set();
-    this.addMetricInQuery();
-
-  }
-  //Dismiss of metric pills
-  dismissMetric(data) {
-    this.metricPillSet.delete(data);
-    this.addMetricInQuery();
-  }
-
-  defaultgroup(item) {
-    if ( !!this.visualize.groupQuery && item == this.visualize.groupQuery[this.visualize.groupQuery.length - 1])
-      return true;
-  }
-  defaultMetric(item) {
-    if (!!this.visualize.MetricQuery && item == this.visualize.MetricQuery[this.visualize.MetricQuery.length - 1])
-      return true;
-  }
-
 }

@@ -1,0 +1,13 @@
+<div class="hxRow">
+    <div class="hxCol">
+    <hx-select-control>
+      <select (change)="ddSelection($event.target.value)"
+        id="mtrcGrp">
+        <option *ngFor="let item of ddlist" [selected]="defaultgroup(item)">{{item}}</option>
+      </select>
+      <hx-select></hx-select>
+    </hx-select-control>
+    <hx-pill style="margin-top: 1rem;" 
+    id="{{pill}}" (dismiss)="pillDismiss(pill)" *ngFor="let pill of pills">{{pill}}</hx-pill>
+    </div>
+  </div>

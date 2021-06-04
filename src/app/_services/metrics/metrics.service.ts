@@ -52,7 +52,7 @@ export class MetricsService {
   */
   getMetricList(groupName:string) {
     httpOptions.headers['X-Tenant']=this.portalDataService.portalData.domainId;
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames?group=${groupName}`,{ headers:httpOptions.headers,
+    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames`,{ headers:httpOptions.headers,
       params: {
         group:groupName
       }
@@ -76,6 +76,21 @@ export class MetricsService {
       tap((data:any) => {
         this.SetmtrcGrp(data);
         this.logService.log(`Metric group List: ${data}`, LogLevels.info);
+      }),
+      catchError(this.errorService.transformSalusErrorHandler)
+      );
+  }
+
+  getTagsList(data:any){
+    httpOptions.headers['X-Tenant']=this.portalDataService.portalData.domainId;
+    return this.http.get<[string]>(`${this.metricsURL}/metadata/tags`,{ headers:httpOptions.headers,
+      params:data
+    }
+    )
+    .pipe(
+      tap((data:any) => {
+        this.SetMtrcNms(data);
+        this.logService.log(`Tags List: ${data}`, LogLevels.info);
       }),
       catchError(this.errorService.transformSalusErrorHandler)
       );
