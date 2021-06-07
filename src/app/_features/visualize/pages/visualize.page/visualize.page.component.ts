@@ -106,22 +106,12 @@ export class VisualizePage {
   }
 
 
-  /**
-   * Metric group selection
-   * @param group name of group
-   */
-  public groupSelection(group) {
-    if (!!group) {
-      // new Instance while group selection
-     this.reset();
-      this.groupPillSet.add(group);
-      //this.addGroupinQuery();
-    }
-
-  }
   public reset(){
     this.groupPillSet = new Set();
     this.metricPillSet = new Set();
+    this.tagPillSet= new Set();
+    this.ddMetricinit();
+    this.ddTagInit();
   }
   
  
@@ -136,9 +126,10 @@ export class VisualizePage {
 
   addTagsInQuery() {
     let queryParams: Params ;
-    if ([...this.tagPillSet].length > 0) {
-      queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
-    } 
+    // if ([...this.tagPillSet].length > 0) {
+    //   queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
+    // } 
+    queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
     this.changingQueryParams(queryParams, 'merge');
   }
 
@@ -185,6 +176,7 @@ export class VisualizePage {
  * @param changedGroup 
  */
   metricGroupChange(changedGroup) {
+    this.reset();
     this.groupPillSet.add(changedGroup)
     this.addGroupinQuery();
     //this.getlistOfMetric(changedGroup);
@@ -211,6 +203,7 @@ export class VisualizePage {
 /** ==========================================Dismissed Event Start=======================================*/
 
 disMissedGroup(grp){
+  this.reset();
   this.groupPillSet.delete(grp);
   this.addGroupinQuery();
   
