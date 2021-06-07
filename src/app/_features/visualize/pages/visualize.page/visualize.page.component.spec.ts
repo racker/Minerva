@@ -5,13 +5,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { VisualizePage } from './visualize.page.component';
 import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
-import { SharedModule } from '../../../../_shared/shared.module';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import {
-  IMetric
-} from '../../../../_models/metrics';
 import { default as metricss } from '../../../../_mocks/metrics/metrics.json';
 import { of } from 'rxjs';
+import { IMetric } from '@minerva/_models/metrics';
+import { SharedModule } from '@minerva/_shared/shared.module';
 
 const routes = [
   {
