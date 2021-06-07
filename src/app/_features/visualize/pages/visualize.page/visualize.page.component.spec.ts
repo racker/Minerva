@@ -21,6 +21,7 @@ const routes = [
     queryParams: {
       metric:"cpu_idle",
       group:"cpu",
+      tags:"CORE",
 
         duration: '12HR',
         start: '328833',
@@ -82,7 +83,6 @@ describe('VisualizePage', async() => {
 
   
   it('should set query parameter', () => {
-   
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
     expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
@@ -90,8 +90,6 @@ describe('VisualizePage', async() => {
     expect(component.visualize.groupQuery).toEqual([routes[1].queryParams.group]);
     expect(component.visualize.metricQuery.join(',')).toEqual(routes[1].queryParams.metric);
   });
-
-
   it("should remove group pills", () =>{
     component.disMissedGroup(routes[1].queryParams.group);
     expect(component.metricPillSet.size).toEqual(0);
@@ -102,4 +100,37 @@ describe('VisualizePage', async() => {
     component.disMissedMetric(routes[1].queryParams.metric);
     expect(component.metricPillSet.size).toEqual(0);
   }) 
+  it("should remove tags pills", () =>{
+    component.disMissedTag(routes[1].queryParams.tags);
+    expect(component.tagPillSet.size).toEqual(0);
+  })
+  
+  it("should change metrics", () =>{
+    let spy = spyOn(component, 'getListOfTags');
+    component.metricChange(routes[1].queryParams.metric);
+    expect(spy).toHaveBeenCalled();
+  })
+  it("should change metrics", () =>{
+    let spy = spyOn(component, 'addTagsInQuery');
+    component.tagChange(routes[1].queryParams.tags);
+    expect(spy).toHaveBeenCalled();
+  })
+  it("should change metrics", () =>{
+    let spy = spyOn(component, 'addGroupinQuery');
+    component.metricGroupChange(routes[1].queryParams.metric);
+    expect(spy).toHaveBeenCalled();
+  })
+  it("should change metrics", () =>{
+    component.tagPillSet.add('cpu_idle');
+    let spy= spyOn(component,"changingQueryParams");
+    component.addTagsInQuery();
+    expect(spy).toHaveBeenCalled();
+  })
+  it("should change metrics", () =>{
+    component.groupPillSet.add('cpu_idle');
+    let spy= spyOn(component,"changingQueryParams");
+    component.addGroupinQuery();
+    expect(spy).toHaveBeenCalled();
+  })
+  
 });

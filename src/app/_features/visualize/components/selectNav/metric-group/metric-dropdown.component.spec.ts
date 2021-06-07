@@ -22,4 +22,24 @@ describe('MetricGroupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should add drown down create', () => {
+    spyOn(component.emitedValue, 'emit')
+    component.ddSelection('item');
+    expect(component.pills.size).toEqual(1);
+    expect(component.emitedValue.emit).toHaveBeenCalled();
+  });
+  it('should add drown down create', () => {
+    spyOn(component.dismissPill, 'emit')
+    component.pillDismiss('item');
+    expect(component.pills.size).toEqual(0);
+    expect(component.dismissPill.emit).toHaveBeenCalled();
+  });
+  it('should add drown down create', () => {
+    component.defalutSelection='test';
+    component.defaultgroup('test');
+    expect( component.defaultgroup('test')).toEqual(true);
+  });
+  
+  
+  
 });

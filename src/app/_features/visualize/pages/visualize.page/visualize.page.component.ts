@@ -65,7 +65,7 @@ export class VisualizePage {
       end: params.end,
       duration: params.duration
     };
-
+ 
     if (!!params[QUERYPARAMS.GROUP]) {
       this.visualize.groupQuery = params[QUERYPARAMS.GROUP].split(",");
       if (this.groupPillSet.size === 0) {
@@ -75,7 +75,7 @@ export class VisualizePage {
       this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
       this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
     }
-
+    
     if (!!params[QUERYPARAMS.METRIC]) {
       this.visualize.metricQuery = params[QUERYPARAMS.METRIC].split(",");
       if (this.metricPillSet.size === 0) {
@@ -83,7 +83,7 @@ export class VisualizePage {
         this.metricPillSet = new Set(mtrcArr);
         this.defaultMetric = mtrcArr[mtrcArr.length - 1];
       }
-
+     
       this.getListOfTags({ group: params[QUERYPARAMS.METRIC].split(",") });
     }
 
@@ -121,20 +121,19 @@ export class VisualizePage {
 
 
   addMetricInQuery() {
-    let queryParams: Params;
+    let queryParams: Params={ metric: undefined };
     if ([...this.metricPillSet].length > 0) {
-      queryParams = { metric: [...this.metricPillSet].join(',') }; // metric name query params
+      queryParams.metric=[...this.metricPillSet].join(',');
     }
     this.changingQueryParams(queryParams, 'merge');
   }
 
   addTagsInQuery() {
-    let queryParams: Params;
-    // if ([...this.tagPillSet].length > 0) {
-    //   queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
-    // } 
-    queryParams = { tags: [...this.tagPillSet].join(',') }; // metric name query params
-    this.changingQueryParams(queryParams, 'merge');
+    let queryParams: Params={ tags:undefined };
+    if ([...this.tagPillSet].length > 0) {
+      queryParams.tags=[...this.tagPillSet].join(',');
+    } 
+     this.changingQueryParams(queryParams, 'merge');
   }
 
   addGroupinQuery() {
@@ -191,7 +190,7 @@ export class VisualizePage {
    * @param metric Name of Metric
    */
   metricChange(changedMetric) {
-    [changedMetric].forEach(a => { this.metricPillSet.add(a) });
+    this.metricPillSet.add(changedMetric);
     this.addMetricInQuery();
     this.getListOfTags({ metric: changedMetric });
   }
@@ -200,7 +199,7 @@ export class VisualizePage {
    * @param tag Name of tag
    */
   tagChange(tag) {
-    [tag].forEach(a => this.tagPillSet.add(a));
+    this.tagPillSet.add(tag)
     this.addTagsInQuery();
   }
   // =================================================================================

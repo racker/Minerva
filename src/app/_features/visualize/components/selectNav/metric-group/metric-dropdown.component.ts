@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit,Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-metric-dd',
@@ -7,9 +7,9 @@ import { Component, EventEmitter, Input, OnInit,Output } from '@angular/core';
 })
 export class MetricDropdownComponent implements OnInit {
 
-  @Input() ddlist:string[];
-  @Input() defalutSelection:string;
-  @Input() pillConcat:boolean;
+  @Input() ddlist: string[];
+  @Input() defalutSelection: string;
+  @Input() pillConcat: boolean;
   @Output() emitedValue: EventEmitter<any> = new EventEmitter();
   @Output() dismissPill: EventEmitter<any> = new EventEmitter();
 
@@ -20,7 +20,7 @@ export class MetricDropdownComponent implements OnInit {
   }
 
   defaultgroup(item) {
-    if ( !!this.defalutSelection && this.defalutSelection ===item)
+    if (!!this.defalutSelection && this.defalutSelection === item)
       return true;
   }
 
@@ -31,7 +31,7 @@ export class MetricDropdownComponent implements OnInit {
   public ddSelection(group) {
     if (!!group) {
       // new Instance while group selection
-      if(!this.pillConcat){
+      if (!this.pillConcat) {
         this.pillsReset();
       }
       this.pills.add(group);
@@ -40,9 +40,8 @@ export class MetricDropdownComponent implements OnInit {
   }
 
 
-  public pillsReset(){
+  public pillsReset() {
     this.pills = new Set();
-    // this.metricPillSet = new Set();
   }
   pillDismiss(data) {
     this.pills.delete(data);
