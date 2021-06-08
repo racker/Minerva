@@ -249,7 +249,7 @@ describe('MonitorDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should setup defaults', () => {
+  xit('should setup defaults', () => {
 
     expect(component.monitor$).toBeDefined();
     expect(component.Object).toEqual(Object);
