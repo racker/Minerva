@@ -182,7 +182,6 @@ export class VisualizePage {
     this.reset();
     this.groupPillSet.add(changedGroup)
     this.addGroupinQuery();
-    //this.getlistOfMetric(changedGroup);
   }
 
   /**

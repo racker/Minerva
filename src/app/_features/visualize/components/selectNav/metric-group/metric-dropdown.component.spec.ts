@@ -28,13 +28,13 @@ describe('MetricGroupComponent', () => {
     expect(component.pills.size).toEqual(1);
     expect(component.emitedValue.emit).toHaveBeenCalled();
   });
-  it('should add drown down create', () => {
+  it('should remove pills item and the same value', () => {
     spyOn(component.dismissPill, 'emit')
     component.pillDismiss('item');
     expect(component.pills.size).toEqual(0);
     expect(component.dismissPill.emit).toHaveBeenCalled();
   });
-  it('should add drown down create', () => {
+  it('should return true if default selection is same as function parameter ', () => {
     component.defalutSelection='test';
     component.defaultgroup('test');
     expect( component.defaultgroup('test')).toEqual(true);

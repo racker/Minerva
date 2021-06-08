@@ -110,23 +110,23 @@ describe('VisualizePage', async() => {
     component.metricChange(routes[1].queryParams.metric);
     expect(spy).toHaveBeenCalled();
   })
-  it("should change metrics", () =>{
+  it("should change tags", () =>{
     let spy = spyOn(component, 'addTagsInQuery');
     component.tagChange(routes[1].queryParams.tags);
     expect(spy).toHaveBeenCalled();
   })
-  it("should change metrics", () =>{
+  it("should change group", () =>{
     let spy = spyOn(component, 'addGroupinQuery');
     component.metricGroupChange(routes[1].queryParams.metric);
     expect(spy).toHaveBeenCalled();
   })
-  it("should change metrics", () =>{
+  it("should call changingQueryParams while change in tags", () =>{
     component.tagPillSet.add('cpu_idle');
     let spy= spyOn(component,"changingQueryParams");
     component.addTagsInQuery();
     expect(spy).toHaveBeenCalled();
   })
-  it("should change metrics", () =>{
+  it("should changingQueryParams after group change", () =>{
     component.groupPillSet.add('cpu_idle');
     let spy= spyOn(component,"changingQueryParams");
     component.addGroupinQuery();
