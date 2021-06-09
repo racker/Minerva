@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class MetricDropdownComponent implements OnInit {
 
   @Input() ddlist: string[];
-  @Input() defalutSelection: string;
+  @Input() defaultSelection: string;
   @Input() pillConcat: boolean;
   @Output() emitedValue: EventEmitter<any> = new EventEmitter();
   @Output() dismissPill: EventEmitter<any> = new EventEmitter();
@@ -20,7 +20,7 @@ export class MetricDropdownComponent implements OnInit {
   }
 
   defaultgroup(item) {
-    if (!!this.defalutSelection && this.defalutSelection === item)
+    if (!!this.defaultSelection && this.defaultSelection === item)
       return true;
   }
 

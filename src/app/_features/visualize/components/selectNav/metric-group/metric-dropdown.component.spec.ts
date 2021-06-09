@@ -35,7 +35,7 @@ describe('MetricGroupComponent', () => {
     expect(component.dismissPill.emit).toHaveBeenCalled();
   });
   it('should return true if default selection is same as function parameter ', () => {
-    component.defalutSelection='test';
+    component.defaultSelection='test';
     component.defaultgroup('test');
     expect( component.defaultgroup('test')).toEqual(true);
   });
