@@ -1,7 +1,12 @@
 steps:
 
   - name: 'gcr.io/cloud-builders/npm'
+    args: ['prune']
+    
+  - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
+  
+
 
   - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
     entrypoint: '/bin/sh'
