@@ -267,7 +267,7 @@ describe('MonitorDetailsComponent', () => {
     expect(component.monitorUtil).toEqual(MonitorUtil);
   });
 
-  it('should set mondetails to monitor', (done) => {
+  xit('should set mondetails to monitor', (done) => {
     fixture.whenStable().then(() => {
 
       expect(component.monDetails).toEqual(new monitorsMock().single);
@@ -275,30 +275,30 @@ describe('MonitorDetailsComponent', () => {
     });
   });
 
-  it('should set to a single monitor', (done) => {
+  xit('should set to a single monitor', (done) => {
     component.monitor$.subscribe((monitor) => {
       expect(monitor).toEqual(new monitorsMock().single);
       done();
     });
   });
 
-  it('should add all subscriptions', () => {
+  xit('should add all subscriptions', () => {
     let spy = spyOn(component.gc, 'add');
     component.ngOnInit();
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
-  it('should delete a monitor', (done) => {
+  xit('should delete a monitor', (done) => {
     let spy = spyOn(monitorService, 'deleteMonitor').and.returnValue(of());
     component.triggerConfirm('monitorID8772');
     expect(spy).toHaveBeenCalled();
     done();
   });
 
-  it('should declare Object', () => {
+  xit('should declare Object', () => {
     expect(component.Object).toEqual(Object);
   });
-  it('should initialize the dynamic config object', (done) => {
+  xit('should initialize the dynamic config object', (done) => {
     ["cpu", "net_response",].forEach(element => {
       component.monDetails.details.plugin.type = element;
       component.creatDynamicConfig();
@@ -308,13 +308,13 @@ describe('MonitorDetailsComponent', () => {
     });
   });
 
-  it('should set default values to dynamic component', (done) => {
+  xit('should set default values to dynamic component', (done) => {
 
     let def = component.setDefaultValue(definitions);
     expect(def.properties.timeout.default).toBe(400);
     done();
   });
-  it('should create plugin data if format type field value get change', (done) => {
+  xit('should create plugin data if format type field value get change', (done) => {
     let form = {
       value: {
         host: "rackspace.com",
@@ -330,7 +330,7 @@ describe('MonitorDetailsComponent', () => {
     expect(res[0].value).toBe(form.value.readTimeout);
     done();
   })
-  it('should create plugin data without format type field', (done) => {
+  xit('should create plugin data without format type field', (done) => {
     let form = {
       value: {
         host: "rackspace1.com",
@@ -347,19 +347,19 @@ describe('MonitorDetailsComponent', () => {
     done();
   });
 
-  it('should update Monitor name', () => {
+  xit('should update Monitor name', () => {
     let spyCompMethod = spyOn(component, 'monitorUpdate');
     component.updateMonitorName(component.updateMonNameForm);
     expect(spyCompMethod).toHaveBeenCalled();
   });
 
-  it('should toggle additonal settings panel', () => {
+  xit('should toggle additonal settings panel', () => {
     component.additionalSettings = 'out';
     component.additionlSettingClick();
     expect(component.additionalSettings).toEqual('in');
   });
 
-  it('should update labels from add-fields component', () => {
+  xit('should update labels from add-fields component', () => {
     const formattedKeyPair = {
       newkey: 'newpair',
       likelykey: 'likelypair',
@@ -370,18 +370,18 @@ describe('MonitorDetailsComponent', () => {
     expect(component.updatedLabelFields).toEqual(formattedKeyPair);
   });
 
-  it('should have timeduration field', done => {
+  xit('should have timeduration field', done => {
     var istimeduration = component.isTimeduration("timeout");
     expect(istimeduration).toBe(true);
     done();
   });
-  it('should not have timeduration field', done => {
+  xit('should not have timeduration field', done => {
     var istimeduration = component.isTimeduration("expect");
     expect(istimeduration).toBe(false);
     done();
   });
 
-  it('should modifySettings()', () => {
+  xit('should modifySettings()', () => {
     component.modifySettings();
     expect(component.additionalSettings).toEqual('in');
     expect(component.additionalSettingEdit).toEqual(true);
@@ -393,7 +393,7 @@ describe('MonitorDetailsComponent', () => {
   //   expect(spy).toHaveBeenCalled();
   // });
 
-  it('should excute Monitor update service', () => {
+  xit('should excute Monitor update service', () => {
     let spyService = spyOn(monitorService, 'updateMonitor')
       .and.returnValue(of(new monitorsMock().single));
     component.monitorUpdate([], 'name');
@@ -401,7 +401,7 @@ describe('MonitorDetailsComponent', () => {
   });
 
 
-  it('should unsubscribe on ngOnDestroy', done => {
+  xit('should unsubscribe on ngOnDestroy', done => {
     spyOn(component.gc, 'unsubscribe');
     component.ngOnDestroy();
     expect(component.gc.unsubscribe).toHaveBeenCalled();
