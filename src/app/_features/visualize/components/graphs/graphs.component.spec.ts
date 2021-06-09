@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TimeRangeComponent } from '@minerva/_features/visualize/components/timerange/timerange.component';
 import { HedwigGraphComponent } from '@minerva/_shared/components/hedwig-graph/hedwig-graph.component';
+
 import { GraphsComponent } from './graphs.component';
 
 const routes = [
@@ -15,7 +16,7 @@ const routes = [
   }
 ];
 
-describe('GraphsComponent', () => {
+describe('GraphingComponent', () => {
   let component: GraphsComponent;
   let fixture: ComponentFixture<GraphsComponent>;
 
@@ -40,19 +41,22 @@ describe('GraphsComponent', () => {
       }]
     })
     .compileComponents();
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(GraphsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 
   it('should set inputs', () => {
     expect(component.start).toBeUndefined();
     expect(component.end).toBeUndefined();
     expect(component.duration).toBeUndefined();
   });
-
 });
