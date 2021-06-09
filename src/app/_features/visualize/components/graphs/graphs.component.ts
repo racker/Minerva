@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FavoritesService } from 'src/app/_services/favorites/favorites.service';
 
 @Component({
   selector: 'app-graphs',
@@ -12,8 +13,9 @@ export class GraphsComponent implements OnInit {
   @Input() duration: string;
 
   data: string;
+  query_string: string;
 
-  constructor() { }
+  constructor(private favService:FavoritesService) { }
 
   ngOnInit() {
     this.data = JSON.stringify([{
@@ -40,6 +42,17 @@ export class GraphsComponent implements OnInit {
       mean: 0.89,
       time: "2018-11-29T02:58:21Z"
   }]);
+  }
+
+  addToFavorite() {
+
+    this.query_string = 'http://localhost:8080/api/query?metricName=ifHCOutUcastPkts_ifHCOutUcastPkts&tag=resource=828315&start=4d-ago';
+
+    this.favService.addToFavorites(this.query_string)
+         .subscribe(data => {
+           console.log("data ", data);
+         })
+
   }
 
 }

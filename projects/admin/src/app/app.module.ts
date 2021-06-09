@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from 'src/app/_shared/shared.module';
 import { ResourcesModule } from 'src/app/_features/resources/resources.module';
 import { AJV_CLASS, AJV_CONFIG, createAjvInstance, MonitorsModule } from 'src/app/_features/monitors/monitors.module';
+import { FavoritesModule } from 'src/app/_features/favorites/favorites.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //services
 import { AuthGuardService } from './_services/auth/auth.guard';
@@ -77,6 +78,7 @@ const providers = [
     CommonModule,
     SharedModule,
     MonitorsModule,
+    FavoritesModule,
     HttpClientModule
   ],
   providers: providers,

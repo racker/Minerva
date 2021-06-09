@@ -35,10 +35,22 @@
   </div>
 </div>
 
+<div class="hxRow">
+  <div class="hxCol">
+    <hx-tab id="fav" (click)="isFavoritesTab(false)">Favorites
+    </hx-tab>
   </div>
 
+</div>
+  </div>
 
-    <div class="hxCol hxSpan-">
+    <div class="hxCol hxSpan-" *ngIf="isFavorite">
       <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration"></app-graphs>
     </div>
+
+    <div class="hxCol hxSpan-" *ngIf="!isFavorite">
+      <app-favorite></app-favorite>
+    </div>
+
+
 </div>

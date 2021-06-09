@@ -6,6 +6,7 @@ import { TimeRange } from '@minerva/_models/timerange';
 interface Visualize {
   metricName?: string
   groupQuery:string[];
+  
 
   metricQuery?: string[]; //query
 
@@ -28,6 +29,8 @@ export class VisualizePage {
   ddMetric
   public metrics = [];
   public metricGrp = [];
+
+  public isFavorite : boolean = true;
   public groupPillSet = new Set();
     public metricPillSet = new Set();
   visualize: Visualize = {
@@ -43,7 +46,6 @@ export class VisualizePage {
   }
 
   ngOnInit() {
-
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
       this.setQueryParams(params);
@@ -166,6 +168,12 @@ export class VisualizePage {
   defaultMetric(item) {
     if (!!this.visualize.metricQuery && item == this.visualize.metricQuery[this.visualize.metricQuery.length - 1])
       return true;
+  }
+
+
+  isFavoritesTab(flag:boolean) {
+      console.log("inside isFavoritesTab ", flag);
+      this.isFavorite = flag;
   }
 
 }
