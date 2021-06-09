@@ -13,7 +13,5 @@ steps:
         npm run mocksetup
         npm run test:e2e-ci
         npm run test:unit-ci
-         npm run test:admin-ci
-         npm run test:admin-e2e
-
+      
 timeout: 3600s
