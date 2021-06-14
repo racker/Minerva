@@ -56,7 +56,7 @@
     "ajv": "6.12.0",
     "core-js": "2.5.4",
     "firebase": "8.1.2",
-    "hedwig-monitoring-library": "https://github.com/racker/Hedwig/archive/refs/tags/0.0.4.tar.gz",
+    "hedwig-monitoring-library": "https://github.com/racker/Hedwig/releases/download/0.0.7/hedwig-monitoring-library.tgz",
     "helix-ui": "1.1.0-rc.0",
     "jasmine-data-provider": "2.2.0",
     "moment": "2.24.0",

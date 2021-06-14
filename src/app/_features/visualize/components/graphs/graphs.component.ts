@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { QueryMetricResponse } from '@minerva/_models/metrics';
+import { MetricsService } from '@minerva/_services/metrics/metrics.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-graphs',
@@ -7,15 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GraphsComponent implements OnInit {
 
-  @Input() start:string;
-  @Input() end:string;
-  @Input() duration: string;
+
+  JSON: JSON = JSON;
+
+  metrics$: Observable<QueryMetricResponse[]>
 
   data: string;
 
-  constructor() { }
+  constructor(private metricService: MetricsService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.metrics$ = this.metricService.getMetrics$();
   }
 
 }

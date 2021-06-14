@@ -1,114 +1,420 @@
-[{
-    "group":"network",
-    "metricName":[
-        "rx_bytes",
-        "rx_dropped",
-        "rx_errors",
-        "rx_packets",
-        "speed",
-        "tx_bytes",
-        "tx_dropped",
-        "tx_error",
-        "tx_packets"
-    ],
-    "tags":[{ "metricGroup": "network",
-        "monitoring_system": "ZENOSS",
-        "resource": "828315",
-        "resource_account_id": "5002011",
-        "resource_cmdb_source": "CORE",
-        "resource_datacenter": "DFW3",
-        "resource_device_id": "828315",
-        "resource_label": "828315-fw8.dfw1.rapid7",
-        "resource_product_description": "Firewall - Cisco ASA Required",
-        "resource_server_name": "828315-fw8.dfw1.rapid7",
-        "resource_status": "Online/Complete",
-        "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468",
-        "system_device": "828315",
-        "system_key": "Devices/828315/os/interfaces/GigabitEthernet0_1",
-        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"}]
-},
-
-{
-    "group":"mysql",
-    "metricName":[
-        "bytes_received",
-        "bytes_sent",
-        "core.aborted_clients",
-        "core.connections",
-        "core.queries",
-        "handler.commit"],
-    "tags":[{
-        "metricGroup": "network",
-        "monitoring_system": "ZENOSS",
-        "resource": "828315",
-        "resource_account_id": "5002011",
-        "resource_cmdb_source": "CORE",
-        "resource_datacenter": "DFW3",
-        "resource_device_id": "828315",
-        "resource_label": "828315-fw8.dfw1.rapid7",
-       "resource_product_description": "Firewall - Cisco ASA Required",
-        "resource_server_name": "828315-fw8.dfw1.rapid7",
-        "resource_status": "Online/Complete",
-        "system_contextUUID": "9450188f-b611-436c-9175-daa85695e098",
-        "system_device": "828315",
-        "system_key": "Devices/828315/os/interfaces/GVA",
-        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
-      }]
-
-},
-{
-    "group":"memory",
-    "metricName":[
-        "actual_free",
-        "actual_used",
-        "free",
-        "ram",
-        "swap_free",
-        "swap_page_in",
-        "swap_page_out",
-        "swap_total"
-    ],
-    "tags": [
-        {"metricGroup": "network",
-        "monitoring_system": "ZENOSS",
-        "resource": "828315",
-        "resource_account_id": "5002011",
-        "resource_cmdb_source": "CORE",
-        "resource_datacenter": "DFW3",
-        "resource_device_id": "828315",
-        "resource_label": "828315-fw8.dfw1.rapid7",
-        "resource_product_description": "Firewall - Cisco ASA Required",
-        "resource_server_name": "828315-fw8.dfw1.rapid7",
-        "resource_status": "Online/Complete",
-        "system_contextUUID": "228b2fbb-448c-4020-9634-6ca2f5158406",
-       "system_device": "828315",
-        "system_key": "Devices/828315/os/interfaces/cplane",
-        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"}
+    [{
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "d62cc6bc-c383-4884-8012-4c19d8e0b19e",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/LANFAIL",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 18.2066707611084,
+            "2021-06-01T00:01:01Z": 521.7666625976562,
+            "2021-06-01T13:26:02Z": 21.365449905395508,
+            "2021-06-01T14:11:01Z": 17.133329391479492,
+            "2021-06-01T17:51:01Z": 1194.234130859375,
+            "2021-06-01T19:01:01Z": 950.7666625976562,
+            "2021-06-01T22:26:01Z": 17.120399475097656,
+            "2021-06-02T03:26:01Z": 269.1933288574219,
+            "2021-06-02T05:26:01Z": 434.9700012207031,
+            "2021-06-02T06:46:01Z": 174.86666870117188,
+            "2021-06-02T12:06:01Z": 19.73332977294922,
+            "2021-06-02T15:11:01Z": 25.916669845581055
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "39335633-0761-4933-8987-c4fec51208e7",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/mgmt_plane_int_tap",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 0.0,
+            "2021-06-01T00:01:01Z": 0.0,
+            "2021-06-01T13:26:02Z": 0.0,
+            "2021-06-01T14:11:01Z": 0.0,
+            "2021-06-01T17:51:01Z": 0.0,
+            "2021-06-01T19:01:01Z": 0.0,
+            "2021-06-01T22:26:01Z": 0.0,
+            "2021-06-02T03:26:01Z": 0.0,
+            "2021-06-02T05:26:01Z": 0.0,
+            "2021-06-02T06:46:01Z": 0.0,
+            "2021-06-02T08:46:01Z": 0.0,
+            "2021-06-02T12:06:01Z": 0.0,
+            "2021-06-02T15:11:01Z": 0.0
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "a36a0cb3-074e-401d-9da4-a4abbb9d4c30",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/FW-BLUE-LEGION",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 33.880001068115234,
+            "2021-06-01T00:01:01Z": 1085.7532958984375,
+            "2021-06-01T13:26:02Z": 21.810630798339844,
+            "2021-06-01T14:11:01Z": 23.75,
+            "2021-06-01T17:51:01Z": 1946.5584716796875,
+            "2021-06-01T19:01:01Z": 1740.873291015625,
+            "2021-06-01T22:26:01Z": 10.053509712219238,
+            "2021-06-02T03:26:01Z": 548.4733276367188,
+            "2021-06-02T05:26:01Z": 903.2766723632812,
+            "2021-06-02T06:46:01Z": 416.0400085449219,
+            "2021-06-02T12:06:01Z": 13.016670227050781,
+            "2021-06-02T15:11:01Z": 18.213329315185547
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "d68decc3-f38c-41de-9c0f-30241775d3a5",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/nlp_int_tap",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 0.0,
+            "2021-06-01T00:01:01Z": 0.0,
+            "2021-06-01T13:26:02Z": 0.0,
+            "2021-06-01T14:11:01Z": 0.0,
+            "2021-06-01T17:51:01Z": 0.0,
+            "2021-06-01T19:01:01Z": 0.0,
+            "2021-06-01T22:26:01Z": 0.0,
+            "2021-06-02T03:26:01Z": 0.0,
+            "2021-06-02T05:26:01Z": 0.0,
+            "2021-06-02T06:46:01Z": 0.0,
+            "2021-06-02T08:46:01Z": 0.0,
+            "2021-06-02T12:06:01Z": 0.0,
+            "2021-06-02T12:56:01Z": 0.0,
+            "2021-06-02T15:11:01Z": 0.0
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "9058e842-8dc0-406d-a0ab-f3f01bc43f9a",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/FW-TWISTLOCK",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-06-01T00:01:01Z": 4645.9033203125,
+            "2021-06-01T11:26:01Z": 2291.163330078125,
+            "2021-06-01T19:01:01Z": 675.8633422851562,
+            "2021-06-01T22:26:01Z": 2.4715700149536133,
+            "2021-06-02T03:26:01Z": 2.4333300590515137,
+            "2021-06-02T05:26:01Z": 2.4600000381469727,
+            "2021-06-02T06:46:01Z": 2.666670083999634,
+            "2021-06-02T08:46:01Z": 2.4866700172424316,
+            "2021-06-02T12:06:01Z": 2.559999942779541
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "2554ea70-4026-4334-99d2-47b751a5c86d",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/RMS-TVA",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 41.91999816894531,
+            "2021-06-01T00:01:01Z": 41.75333023071289,
+            "2021-06-01T13:26:02Z": 41.02989959716797,
+            "2021-06-01T14:11:01Z": 42.47999954223633,
+            "2021-06-01T17:51:01Z": 38.87290954589844,
+            "2021-06-01T19:01:01Z": 41.38999938964844,
+            "2021-06-01T22:26:01Z": 42.66889953613281,
+            "2021-06-02T03:26:01Z": 41.736671447753906,
+            "2021-06-02T04:36:01Z": 41.3266716003418,
+            "2021-06-02T05:26:01Z": 41.413330078125,
+            "2021-06-02T06:46:01Z": 42.78667068481445,
+            "2021-06-02T12:06:01Z": 42.209999084472656,
+            "2021-06-02T12:56:01Z": 41.883331298828125,
+            "2021-06-02T15:11:01Z": 40.94667053222656
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "228b2fbb-448c-4020-9634-6ca2f5158406",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/cplane",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 1.0499999523162842,
+            "2021-06-01T00:01:01Z": 1.0499999523162842,
+            "2021-06-01T10:56:01Z": 1.0499999523162842,
+            "2021-06-01T13:26:02Z": 1.0465099811553955,
+            "2021-06-01T14:11:01Z": 1.0499999523162842,
+            "2021-06-01T17:51:01Z": 1.0535099506378174,
+            "2021-06-01T19:01:01Z": 1.0499999523162842,
+            "2021-06-01T22:26:01Z": 1.0535099506378174,
+            "2021-06-02T03:26:01Z": 1.0499999523162842,
+            "2021-06-02T05:26:01Z": 1.0499999523162842,
+            "2021-06-02T06:46:01Z": 1.0499999523162842,
+            "2021-06-02T08:46:01Z": 1.0499999523162842,
+            "2021-06-02T12:06:01Z": 1.0499999523162842,
+            "2021-06-02T15:11:01Z": 1.0466699600219727
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "04aa160c-81da-4fbc-a11c-5609df44f861",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/outside",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-06-01T04:46:01Z": 1432.2432861328125,
+            "2021-06-01T11:26:01Z": 599.8033447265625,
+            "2021-06-01T22:26:01Z": 340.49163818359375,
+            "2021-06-01T23:21:02Z": 1890.1329345703125,
+            "2021-06-02T03:26:01Z": 881.2733154296875,
+            "2021-06-02T05:26:01Z": 1270.3499755859375,
+            "2021-06-02T06:46:01Z": 789.6966552734375,
+            "2021-06-02T09:31:01Z": 502.0,
+            "2021-06-02T12:06:01Z": 3096.736572265625
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "9450188f-b611-436c-9175-daa85695e098",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/GVA",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-05-31T18:11:01Z": 178.16000366210938,
+            "2021-06-01T00:01:01Z": 182.6233367919922,
+            "2021-06-01T13:26:02Z": 270.8571472167969,
+            "2021-06-01T14:11:01Z": 171.80999755859375,
+            "2021-06-01T17:51:01Z": 407.8060302734375,
+            "2021-06-01T19:01:01Z": 487.5133361816406,
+            "2021-06-01T22:26:01Z": 179.82273864746094,
+            "2021-06-02T03:26:01Z": 173.8800048828125,
+            "2021-06-02T05:26:01Z": 177.80999755859375,
+            "2021-06-02T06:46:01Z": 188.1233367919922,
+            "2021-06-02T12:06:01Z": 199.30999755859375,
+            "2021-06-02T12:56:01Z": 171.94667053222656,
+            "2021-06-02T15:11:01Z": 242.02667236328125
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    },
+    {
+        "data": {
+        "tenant": "hybrid:8775331",
+        "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",
+        "tags": {
+            "metricGroup": "network",
+            "monitoring_system": "ZENOSS",
+            "resource": "63555",
+            "resource_account_id": "8775331",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "DFW3",
+            "resource_device_id": "63555",
+            "resource_label": "63555-fw8.dfw1.rapid7",
+            "resource_product_description": "Firewall - Cisco ASA Required",
+            "resource_server_name": "63555-fw8.dfw1.rapid7",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468",
+            "system_device": "63555",
+            "system_key": "Devices/63555/os/interfaces/GigabitEthernet0_1",
+            "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
+        },
+        "values": {
+            "2021-06-01T04:46:01Z": 5555.05322265625,
+            "2021-06-01T11:26:01Z": 2593.1533203125,
+            "2021-06-01T22:26:01Z": 235.0133819580078,
+            "2021-06-01T23:21:02Z": 1745.2657470703125,
+            "2021-06-02T03:26:01Z": 766.5133056640625,
+            "2021-06-02T05:26:01Z": 1124.9932861328125,
+            "2021-06-02T06:46:01Z": 649.0466918945312,
+            "2021-06-02T09:31:01Z": 260.7033386230469,
+            "2021-06-02T12:06:01Z": 257.086669921875
+        }
+        },
+        "metadata": {
+        "aggregator": "raw",
+        "startTime": "2021-05-29T16:33:19.048068Z",
+        "endTime": "2021-06-02T16:33:19.048077Z"
+        }
+    }
     ]
-
-},{
-    
-    "group":"filesystem_state",
-    "metricName":[
-        "total_ro",
-        "total_rw",
-        "devices_ro",
-        "devices_rw"
-    ],
-    "tags":[{"metricGroup": "network",
-        "monitoring_system": "ZENOSS",
-        "resource": "828315",
-        "resource_account_id": "5002011",
-        "resource_cmdb_source": "CORE",
-        "resource_datacenter": "DFW3",
-        "resource_device_id": "828315",
-        "resource_label": "828315-fw8.dfw1.rapid7",
-        "resource_product_description": "Firewall - Cisco ASA Required",
-        "resource_server_name": "828315-fw8.dfw1.rapid7",
-        "resource_status": "Online/Complete",
-        "system_contextUUID": "d68decc3-f38c-41de-9c0f-30241775d3a5",
-        "system_device": "828315",
-        "system_key": "Devices/828315/os/interfaces/nlp_int_tap",
-        "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
-      }]
-}]

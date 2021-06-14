@@ -1,0 +1,17 @@
+[
+    { "metricGroup": "network" },
+    { "monitoring_system": "ZENOSS" },
+    { "resource": "828315" },
+    { "resource_account_id": "5002011" },
+    { "resource_cmdb_source": "CORE" },
+    { "resource_datacenter": "DFW3" },
+    { "resource_device_id": "828315" },
+    { "resource_label": "828315-fw8.dfw1.rapid7" },
+    { "resource_product_description": "Firewall - Cisco ASA Required" },
+    { "resource_server_name": "828315-fw8.dfw1.rapid7" },
+    { "resource_status": "Online/Complete" },
+    { "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468" },
+    { "system_device": "828315" },
+    { "system_key": "Devices/828315/os/interfaces/GigabitEthernet0_1" },
+    { "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003" }
+]
