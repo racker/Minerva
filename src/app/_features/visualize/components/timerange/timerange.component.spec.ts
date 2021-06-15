@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TimeRangeComponent } from './timerange.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { isValidDate } from '@minerva/_shared/utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 
 const routes = [
   {
@@ -35,7 +36,14 @@ describe('TimerangeComponent', () => {
             routeConfig : routes[0]
           }
         },
-      }],
+      },
+      {
+        provide: APP_INITIALIZER,
+        useFactory: envConfig,
+        deps: [ EnvironmentConfig ],
+        multi: true
+      }
+    ],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule
@@ -54,40 +62,31 @@ describe('TimerangeComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
-  xit('should set date.start to input', () => {
+  it('should set date.start to input', () => {
     expect(component.date.start).toEqual(component.start);
   });
-  xit('should set date.end to input', () => {
+  it('should set date.end to input', () => {
     expect(component.date.end).toEqual(component.end);
   });
 
-  xit('should import and assign isValidDate()', () => {
+  it('should import and assign isValidDate()', () => {
     expect(component.isValidDate).toEqual(isValidDate);
   });
 
-  xit('should set metric service start & end date', () => {
-
-  })
-
-  xit('should set MetricService start & end date on ngOnInit()', () => {
-    expect(metricService.start).toBe('2021-05-05T00:42:10.000Z');
-    expect(metricService.end).toBe('2021-05-21T00:42:15.000Z');
-  });
-
-  xit('should set date.presets to false', () => {
+  it('should set date.presets to false', () => {
     expect(component.date.presets).toEqual(false);
   });
 
-  xit('should update duration onDurationChange()', () => {
+  it('should update duration onDurationChange()', () => {
     let spy = spyOn(component, 'updateNavigation');
     component.onDurationChange({value: 'stuffyea'});
     expect(spy).toHaveBeenCalled();
   });
 
-  xit('should update query params on updateNavigation()', () => {
+  it('should update query params on updateNavigation()', () => {
     let spy = spyOn(router, 'navigate');
     component.onDurationChange({value: 'stuffyea'})
     expect(spy).toHaveBeenCalled();

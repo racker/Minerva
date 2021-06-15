@@ -29,21 +29,23 @@ export class TimeRangeComponent implements OnInit {
   }
   ngOnInit(): void {
     // if no start date default to 24hr ago
-    let start = this.start.toString() == '24HR' ? new Date(Date.now() - 86400 * 1000):
+    let strt = this.start.toString() == '24HR' ? new Date(Date.now() - 86400 * 1000):
     new Date(this.start);
+    console.log('start', strt);
     let end = new Date(this.end);
-    let presets = !(this.isValidDate(start) && this.isValidDate(end));
+    console.log('end', end)
+    let presets = !(this.isValidDate(strt) && this.isValidDate(end));
 
     this.date = {
       presets,
       duration: !(presets && this.duration)
       ? '24HR' : this.duration,
-      start,
+      start: strt,
       end,
     };
 
-    this.metricService.start = this.date.start.toString();
-    this.metricService.end = this.date.end.toString();
+    this.metricService.start = this.date?.start?.toString();
+    this.metricService.end = this.date?.end?.toString();
   }
 
 
