@@ -111,7 +111,7 @@ export class MetricsService {
   private queryParams = (): {[x:string]: any} => {
     return {
       start: this.start,
-      ...(isValidDate(this.end) && {end: this.end }),
+      ...(isValidDate(new Date(this.end)) && {end: this.end }),
       ...(!!this.selectedTags && { tag: this.selectedTags }),
       ...(!!this.selectedName && { metricName: this.selectedName }),
       ...(!!this.selectedGroup && { metricGroup: this.selectedGroup })
@@ -137,8 +137,7 @@ export class MetricsService {
       params: {
         group:groupName
       }
-    }
-    )
+    })
     .pipe(
       tap((data:any) => {
         this.SetMtrcNms(data);

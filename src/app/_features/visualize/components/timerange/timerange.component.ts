@@ -31,9 +31,7 @@ export class TimeRangeComponent implements OnInit {
     // if no start date default to 24hr ago
     let strt = this.start.toString() == '24HR' ? new Date(Date.now() - 86400 * 1000):
     new Date(this.start);
-    console.log('start', strt);
     let end = new Date(this.end);
-    console.log('end', end)
     let presets = !(this.isValidDate(strt) && this.isValidDate(end));
 
     this.date = {

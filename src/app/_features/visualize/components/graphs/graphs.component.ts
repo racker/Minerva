@@ -9,14 +9,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./graphs.component.scss']
 })
 export class GraphsComponent implements OnInit {
-
-  @Input() start:string;
-  @Input() end:string;
-  @Input() duration: string;
   JSON: JSON = JSON;
 
   metrics$: Observable<QueryMetricResponse[]>
-  data: string;
 
   constructor(private metricService: MetricsService) { }
 

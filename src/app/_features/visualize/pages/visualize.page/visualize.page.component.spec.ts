@@ -6,6 +6,7 @@ import { VisualizePage } from './visualize.page.component';
 import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
+
 import { of } from 'rxjs';
 import { SharedModule } from '@minerva/_shared/shared.module';
 
