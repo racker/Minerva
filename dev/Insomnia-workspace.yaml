@@ -1,0 +1,192 @@
+_type: export
+__export_format: 4
+__export_date: 2021-06-16T18:18:21.170Z
+__export_source: insomnia.desktop.app:v2021.3.0
+resources:
+  - _id: req_a3a04a45c9484115b92f7c0f13a6587a
+    parentId: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    modified: 1623867269270
+    created: 1623780250161
+    url: "{{local_url}}/api/query?metricGroup=disc&tag=os=linux&start={{start_time}\
+      }"
+    name: 1. Metric Group
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-Tenant
+        value: "{{zenoss_account}}"
+        description: ""
+        id: pair_4e8ace2b76e54ecebbcff7014e124137
+    authentication: {}
+    metaSortKey: -1623687931891.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    parentId: wrk_7c32dab68d62460ea2d85bf766ec9dd7
+    modified: 1623774750472
+    created: 1623774750472
+    name: Query Flow
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1623774750472
+    _type: request_group
+  - _id: wrk_7c32dab68d62460ea2d85bf766ec9dd7
+    parentId: null
+    modified: 1623428944768
+    created: 1609321492302
+    name: Query Flow
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_8a31a98179934269992bafdf9c2d380a
+    parentId: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    modified: 1623866957327
+    created: 1623774770852
+    url: "{{local_url}}/api/metadata/metricNames"
+    name: 2. Metric Names
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-Tenant
+        value: hybrid:5734784
+        description: ""
+        id: pair_4e8ace2b76e54ecebbcff7014e124137
+    authentication: {}
+    metaSortKey: -1623687931841.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_073f6bdc8d4b41c999c6a1f54ff715da
+    parentId: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    modified: 1623866965397
+    created: 1623781521767
+    url: "{{local_url}}/api/metadata/tagKeys?metricName=memory_perc_usage"
+    name: 3. Tag Keys
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-Tenant
+        value: hybrid:5734784
+        description: ""
+        id: pair_8dad335ec9354dd3a3af3abc6d3cbb7a
+    authentication: {}
+    metaSortKey: -1623687931791.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_55ed6fad90224718aad46807901f8890
+    parentId: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    modified: 1623866977646
+    created: 1623781612421
+    url: "{{local_url}}/api/metadata/tagValues?metricName=memory_perc_usage&tagKey=\
+      monitoring_system"
+    name: 4. Tag Values
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-Tenant
+        value: hybrid:5734784
+        description: ""
+        id: pair_9d7a8f071b9d49ff9d68fe9d5ea8f024
+    authentication: {}
+    metaSortKey: -1623687931741.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_4675527d95c643d09a93c8af44f51cb1
+    parentId: fld_c8c12c5d11324cd69bd2da02ce19eba6
+    modified: 1623867414256
+    created: 1623782209024
+    url: "{{ local_url_with_endpoint
+      }}temperature_celsius&tag=resource=802835&start={{start_time}}"
+    name: 5. Query Api
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: X-Tenant
+        value: "{{zenoss_account}}"
+        description: ""
+        id: pair_78c89262a4734bd7a53a04f22a724ae7
+    authentication: {}
+    metaSortKey: -1623687931691.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_9c7ccfaa7c0697d005420a1f049fce9833f1f324
+    parentId: wrk_7c32dab68d62460ea2d85bf766ec9dd7
+    modified: 1623867396630
+    created: 1609321492544
+    name: Base Environment
+    data:
+      local_url: http://localhost:8080
+      local_url_with_endpoint: http://localhost:8080/api/query?metricName=
+      zenoss_account: hybrid:4876373
+      uim_account: hybrid:909314
+      uim2_account: hybrid:1072339
+      scom_account: hybrid:819081
+      start_time: 15d-ago
+    dataPropertyOrder:
+      "&":
+        - local_url
+        - local_url_with_endpoint
+        - zenoss_account
+        - uim_account
+        - uim2_account
+        - scom_account
+        - start_time
+    color: null
+    isPrivate: false
+    metaSortKey: 1609321492544
+    _type: environment
+  - _id: jar_9c7ccfaa7c0697d005420a1f049fce9833f1f324
+    parentId: wrk_7c32dab68d62460ea2d85bf766ec9dd7
+    modified: 1609321492561
+    created: 1609321492561
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_e141211fb23b44259b5f9c87953889b4
+    parentId: wrk_7c32dab68d62460ea2d85bf766ec9dd7
+    modified: 1609321492305
+    created: 1609321492305
+    fileName: new workspace
+    contents: ""
+    contentType: yaml
+    _type: api_spec
