@@ -3,10 +3,6 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
 
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install -f protractor']
-  
-
 
   - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
     entrypoint: '/bin/sh'
@@ -14,6 +10,7 @@ steps:
       - '-c'
       - |
         echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
+        npm install -f protractor
         npm rebuild node-sass
         npm run mocksetup
         npm run test:e2e-ci
