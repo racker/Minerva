@@ -30,6 +30,7 @@
     </div>
   </div>
   <div class="hxCol hxSpan-10">
+    <app-visualize-timerange [duration]="visualize.date.duration" [start]="visualize.date.start" [end]="visualize.date.end" (timeRangeEmitter)="timeRangeChange($event)"></app-visualize-timerange>
     <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration">
     </app-graphs>
   </div>

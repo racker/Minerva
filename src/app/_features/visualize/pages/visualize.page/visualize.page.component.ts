@@ -35,7 +35,7 @@ export class VisualizePage {
   public defaultMetric: string;
   public defaultGroup: string;
   public defaultTags: string;
-  visualize: Visualize = {
+  public visualize: Visualize = {
     date: {},
     groupQuery: []
   };
@@ -144,6 +144,10 @@ export class VisualizePage {
     this.changingQueryParams(queryParams, '');
   }
 
+  addTimeRangeinQuery(data){
+    this.changingQueryParams(data,'merge');
+  }
+
 
   /*===========================================Service Calls===========================*/
 
@@ -200,6 +204,10 @@ export class VisualizePage {
   tagChange(tag) {
     this.tagPillSet.add(tag)
     this.addTagsInQuery();
+  }
+
+  timeRangeChange(data){
+   this.addTimeRangeinQuery(data);
   }
   // =================================================================================
   /** ==========================================Dismissed Event Start=======================================*/

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeRange } from '@minerva/_models/timerange';
 
@@ -15,7 +15,7 @@ export class TimeRangeComponent implements OnInit {
 
   @Input() duration: any;
   @Input() start: Date ;
-
+  @Output() timeRangeEmitter: EventEmitter<any> = new EventEmitter();
   @Input() end: Date;
 
   date: TimeRange;
@@ -44,14 +44,16 @@ export class TimeRangeComponent implements OnInit {
    * @return void
    */
   onDurationChange(duration:{}) {
-    this.updateNavigation({duration});
+    //this.updateNavigation({start:`${duration}-ago`});
+    this.timeRangeEmitter.emit({start:`${duration}-ago`});
   }
 
 
   timeRangeUpdate() {
-    let start = this.date.start.toISOString();
-    let end = this.date.end.toISOString();
-    this.updateNavigation({start, end})
+    let start = new Date((this.date.start).setSeconds(0)).toISOString();
+    let end = new Date((this.date.end).setSeconds(0)).toISOString();
+    this.timeRangeEmitter.emit({start, end});
+    //this.updateNavigation({start, end})
   }
 
 
