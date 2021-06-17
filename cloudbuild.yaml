@@ -10,7 +10,6 @@ steps:
       - '-c'
       - |
         echo "0.0.0.0    dev.i.rax.io" >> /etc/hosts
-        npm install -f protractor
         npm rebuild node-sass
         npm run mocksetup
         npm run test:e2e-ci
