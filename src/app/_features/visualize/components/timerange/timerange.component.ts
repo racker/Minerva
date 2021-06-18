@@ -17,6 +17,13 @@ export class TimeRangeComponent implements OnInit {
   @Input() start: Date ;
   @Output() timeRangeEmitter: EventEmitter<any> = new EventEmitter();
   @Input() end: Date;
+  @Input() presetData: { key: string, value: string }[] = [
+    { value: '1h', key: '1 HR' },
+    { value: '8h', key: '8 HR' },
+    { value: '24h', key: 'DAY' },
+    { value: '7d', key: 'WEEK' },
+    { value: '1n', key: 'MONTH' },
+  ];
 
   date: TimeRange;
 
@@ -30,8 +37,8 @@ export class TimeRangeComponent implements OnInit {
 
     this.date = {
       presets,
-      duration: presets
-      ? '24HR' : this.duration,
+      duration: this.duration
+      ? this.duration:'24hr' ,
       start,
       end,
     };
@@ -39,21 +46,23 @@ export class TimeRangeComponent implements OnInit {
 
 
   /**
-   * On radio button change update navigation
+   * On radio button change update navigation  ([0-9]+)(ms|s|m|h|d|w|n|y)-ago 
+   * millis(ms), seconds(s), mins(m), hours(h), days(d), weeks(w), month(n),year(y)
    * @param duration Object
    * @return void
    */
   onDurationChange(duration:{}) {
-    //this.updateNavigation({start:`${duration}-ago`});
-    this.timeRangeEmitter.emit({start:`${duration}-ago`});
+    this.timeRangeEmitter.emit({start:`${duration}`});
+    this.date.start=null;
+    this.date.end = null;
   }
 
 
   timeRangeUpdate() {
     let start = new Date((this.date.start).setSeconds(0)).toISOString();
     let end = new Date((this.date.end).setSeconds(0)).toISOString();
+    this.date.duration= null;
     this.timeRangeEmitter.emit({start, end});
-    //this.updateNavigation({start, end})
   }
 
 

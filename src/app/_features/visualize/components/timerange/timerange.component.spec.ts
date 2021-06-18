@@ -60,13 +60,16 @@ describe('TimerangeComponent', () => {
   });
 
   it('should update duration onDurationChange()', () => {
-    let spy = spyOn(component, 'updateNavigation');
+    let spy=spyOn(component.timeRangeEmitter, 'emit')
     component.onDurationChange({value: 'stuffyea'});
+    expect(component.date.start).toBe(null);
+    expect(component.date.end).toBe(null);
     expect(spy).toHaveBeenCalled();
+
   });
 
   it('should update query params on updateNavigation()', () => {
-    let spy = spyOn(router, 'navigate');
+    let spy=spyOn(component.timeRangeEmitter, 'emit')
     component.onDurationChange({value: 'stuffyea'})
     expect(spy).toHaveBeenCalled();
   });

@@ -14,30 +14,10 @@
   </div>
   <div class="hxCol" *ngIf="date.presets">
     <div class="hxSelector hxRadio">
-      <label>
-        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
-        value="1HR" name="dates" />
-        <span>1 HR</span>
-      </label>
-      <label>
-        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
-        value="8HR" name="dates" />
-        <span>8 HR</span>
-      </label>
-      <label>
-        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
-        value="24HR" name="dates" checked />
-        <span>DAY</span>
-      </label>
-      <label>
-        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
-        value="7D" name="dates" />
-        <span>WEEK</span>
-      </label>
-      <label>
-        <input type="radio" [(ngModel)]="date.duration" (change)="onDurationChange($event.target.value)"
-        value="1M" name="dates" />
-        <span>MONTH</span>
+      <label *ngFor="let item of presetData">
+        <input  type="radio" [(ngModel)]="date.duration" (change)="onDurationChange(item.value)"
+        value="{{item.value}}" name="dates" />
+        <span>{{item.key}}</span>
       </label>
     </div>
   </div>

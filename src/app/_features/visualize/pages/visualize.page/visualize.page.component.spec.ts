@@ -19,14 +19,12 @@ const routes = [
     }
   }, {
     queryParams: {
-      metric:"cpu_idle",
-      group:"cpu",
-      tags:"CORE",
-
-        duration: '12HR',
-        start: '328833',
-        end: '8829938'
-      
+      metric: "cpu_idle",
+      group: "cpu",
+      tags: "CORE",
+      duration: '12HR',
+      start: '328833',
+      end: '8829938'
     }
   }
 ];
@@ -86,7 +84,6 @@ describe('VisualizePage', async() => {
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
     expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
-    expect(component.visualize.date.duration.toString()).toEqual(routes[1].queryParams.duration);
     expect(component.visualize.groupQuery).toEqual([routes[1].queryParams.group]);
     expect(component.visualize.metricQuery.join(',')).toEqual(routes[1].queryParams.metric);
   });

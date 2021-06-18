@@ -35,6 +35,14 @@ export class VisualizePage {
   public defaultMetric: string;
   public defaultGroup: string;
   public defaultTags: string;
+ public presetData: { key: string, value: string }[] = [
+    { value: '1h', key: '1 HR' },
+    { value: '8h', key: '8 HR' },
+    { value: '24h', key: 'DAY' },
+    { value: '7d', key: 'WEEK' },
+    { value: '1n', key: 'MONTH' },
+    { value: '1y', key: 'YEAR' },
+  ];
   public visualize: Visualize = {
     date: {},
     groupQuery: []
@@ -63,7 +71,7 @@ export class VisualizePage {
     this.visualize.date = {
       start: params.start,
       end: params.end,
-      duration: params.duration
+      duration: params.start
     };
  
     if (!!params[QUERYPARAMS.GROUP]) {
@@ -207,7 +215,12 @@ export class VisualizePage {
   }
 
   timeRangeChange(data){
-   this.addTimeRangeinQuery(data);
+    if(!isNaN(Date.parse(data.start)))
+       {
+         this.addTimeRangeinQuery(data);
+       }else{
+         this.addTimeRangeinQuery({start:data.start,end:undefined});
+       }
   }
   // =================================================================================
   /** ==========================================Dismissed Event Start=======================================*/
