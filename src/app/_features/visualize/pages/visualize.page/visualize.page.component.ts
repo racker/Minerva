@@ -42,17 +42,11 @@ export class VisualizePage {
   ngOnInit() {
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
+      console.log("**ParamStart: ", params);
       this.setQueryParams(params);
     });
 
     this.getListOfMetricGroup.then(async() => {
-        this.privatemtrsrvc.selectedGroup = !!this.defaultGroup ?
-        { group: this.defaultGroup } : undefined
-        this.privatemtrsrvc.selectedName = !!this.defaultMetric ?
-        { metricName: this.defaultMetric } : undefined
-        this.privatemtrsrvc.selectedTags = !!this.defaultTags ?
-        { tag: this.defaultTags } : undefined;
-
         if (this.privatemtrsrvc.selectedName && this.privatemtrsrvc.selectedTags) {
           await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
         }
@@ -71,6 +65,7 @@ export class VisualizePage {
       if (this.groupPillSet.size === 0) {
         this.groupPillSet.add(params[QUERYPARAMS.GROUP])
         this.defaultGroup = params[QUERYPARAMS.GROUP];
+        this.privatemtrsrvc.selectedGroup = { group: this.defaultGroup }
       }
       this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
       this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
@@ -82,6 +77,7 @@ export class VisualizePage {
         let mtrcArr = this.visualize.metrics;
         this.metricPillSet = new Set(mtrcArr);
         this.defaultMetric = mtrcArr[mtrcArr.length - 1];
+        this.privatemtrsrvc.selectedName = { metricName: this.defaultMetric }
       }
 
       this.getListOfTags({ group: this.visualize.metrics });
@@ -93,6 +89,7 @@ export class VisualizePage {
         let tagArr = this.visualize.tags;
         this.tagPillSet = new Set(tagArr);
         this.defaultTags = tagArr[tagArr.length - 1];
+        this.privatemtrsrvc.selectedTags = { tag: this.defaultTags }
       }
     }
   }

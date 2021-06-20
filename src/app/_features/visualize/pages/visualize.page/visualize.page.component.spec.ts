@@ -21,7 +21,6 @@ const routes = [
       metric:"cpu_idle",
       group:"cpu",
       tags:"CORE",
-
         duration: '12HR',
         start: '328833',
         end: '8829938'
@@ -86,22 +85,20 @@ describe('VisualizePage', async() => {
     expect(component.visualize.metrics.join(',')).toEqual(routes[1].queryParams.metric);
   });
 
-  it('shoud set metricServic selected group', () => {
-
+  it('should set metricService selected group', () => {
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedGroup).toEqual({group: "cpu"});
   });
 
 
-  it('shoud set metricServic selected metric', () => {
-
+  it('should set metricServic selected metric', () => {
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedName).toEqual({metricName: "cpu_idle"});
   });
 
   it('shoud set metricServic selected tags', () => {
-
-  });
-
-  it('should make getMetricsDataPoints() requests when metric & tags \
-  query param present', () => {
-
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedTags).toEqual({tag: "CORE"});
   });
 
   it("should remove group pills", () =>{
@@ -153,12 +150,12 @@ describe('VisualizePage', async() => {
   });
 
   it("should reset all pill sets and reset default dropdowns", () => {
-
-  })
-
-  it("should only call getMetricsDataPoints() if \
-  no group param & tags + metric is selected", () => {
-
+    component.reset();
+    expect(component.groupPillSet.size).toEqual(0);
+    expect(component.metricPillSet.size).toEqual(0);
+    expect(component.tagPillSet.size).toEqual(0);
+    expect(component.visualize.metrics.length).toEqual(1);
+    expect(component.visualize.group.length).toEqual(5);
   });
 
 });
