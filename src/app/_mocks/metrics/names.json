@@ -1,0 +1,11 @@
+[
+    "rx_bytes",
+    "rx_dropped",
+    "rx_errors",
+    "rx_packets",
+    "speed",
+    "tx_bytes",
+    "tx_dropped",
+    "tx_error",
+    "tx_packets"
+]
