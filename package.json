@@ -24,7 +24,7 @@
     "test:unit": "npm run mocksetup && ng test --code-coverage --project=minerva -c=mock --watch=false",
     "test:unit-ci": "ng test --project=minerva -c=mock --watch=false",
     "test:e2e": "npm run mocksetup && ng e2e --project=minerva -c=mock",
-    "test:e2e-ci": "webdriver-manager update --versions.chrome 89.0.4389.82 --gecko false --standalone false  && ng e2e --webdriverUpdate=false --project=minerva -c=mock",
+    "test:e2e-ci": "webdriver-manager update --versions.chrome 91.0.4472.19 --gecko false --standalone false  && ng e2e --webdriverUpdate=false --project=minerva -c=mock",
     "test:admin": "ng test --code-coverage --project=admin -c=mock --watch=false",
     "test:admin-ci": "ng test --project=admin -c=mock --watch=false",
     "test:admin-e2e": "ng e2e --project=admin -c=mock",
