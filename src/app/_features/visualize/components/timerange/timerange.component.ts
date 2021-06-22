@@ -38,7 +38,7 @@ export class TimeRangeComponent implements OnInit {
     this.date = {
       presets,
       duration: this.duration
-      ? this.duration:'24hr' ,
+      ? this.duration:'24h' ,
       start,
       end,
     };
