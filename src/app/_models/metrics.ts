@@ -1,19 +1,22 @@
-export interface IMetric {
-    group:string,
-    metricName:string[]
+import { TimeRange } from "@minerva/_models/timerange";
+
+export interface Visualize {
+    group: string[];
+    metrics: string[];
+    tags?: string[];
+    date: TimeRange//,
+    //values?: any
 }
 
-
-
-interface QueryMetricResponse {
+export interface QueryMetricResponse {
     data?: Metric,
     metadata?: MetaData
 }
 
 interface MetaData {
     aggregator?: string,
-    startTime?: Date,
-    endTime?: Date
+    startTime?: string,
+    endTime?: string
 }
 interface Metric {
     tenant?: string,

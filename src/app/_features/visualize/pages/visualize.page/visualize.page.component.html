@@ -4,26 +4,25 @@
   </div>
 </div>
 
-
-<div class="hxRow">
+<div class="hxRow topshot">
   <div class="hxCol hxSpan-2">
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]=metricGrp [pillConcat]="false" [defaultSelection]="defaultGroup" [pills]=groupPillSet (dismissPill)="disMissedGroup($event)"
+        <app-metric-dd [ddlist]="visualize.group" [pillConcat]="false" [defaultSelection]="defaultGroup" [pills]=groupPillSet (dismissPill)="disMissedGroup($event)"
           (emitedValue)="metricGroupChange($event)"></app-metric-dd>
 
       </div>
     </div>
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]=metrics [pillConcat]="true" [defaultSelection]="defaultMetric" [pills]=metricPillSet (dismissPill)="disMissedMetric($event)"
+        <app-metric-dd [ddlist]="visualize.metrics" [pillConcat]="true" [defaultSelection]="defaultMetric" [pills]=metricPillSet (dismissPill)="disMissedMetric($event)"
           (emitedValue)="metricChange($event)"></app-metric-dd>
       </div>
 
     </div>
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]=tags [pillConcat]="true" [defaultSelection]="defaultTags" [pills]=tagPillSet (dismissPill)="disMissedTag($event)"
+        <app-metric-dd [ddlist]="visualize.tags" [pillConcat]="true" [defaultSelection]="defaultTags" [pills]=tagPillSet (dismissPill)="disMissedTag($event)"
           (emitedValue)="tagChange($event)"></app-metric-dd>
       </div>
 

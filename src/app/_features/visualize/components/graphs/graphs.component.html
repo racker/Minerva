@@ -1,5 +1,4 @@
-
-<div class="hxRow">
-<app-hedwig-graph fieldName="usage_average" width="300" height="600"
-type="MAAS_cpu" [data]="data" ></app-hedwig-graph>
+<div *ngIf="metrics$ | async as metrics">
+<app-hedwig-graph fieldName="usage_average" width="800" height="1600"
+type="MAAS_cpu" [data]="JSON.stringify(metrics)" ></app-hedwig-graph>
 </div>

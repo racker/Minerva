@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TimeRange } from '@minerva/_models/timerange';
+import { MetricsService } from '@minerva/_services/metrics/metrics.service';
+import { isValidDate } from '@minerva/_shared/utils';
 
 
 @Component({
@@ -27,13 +29,17 @@ export class TimeRangeComponent implements OnInit {
 
   date: TimeRange;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  datevalidate=isValidDate;
+  constructor(private route: ActivatedRoute, private router: Router,
+    private metricService: MetricsService) {
 
   }
   ngOnInit(): void {
-    let start = new Date(this.start);
+    // if no start date default to 24hr ago
+    let start = this.start.toString() == '24h' ? new Date(Date.now() - 86400 * 1000):
+    new Date(this.start);
     let end = new Date(this.end);
-    let presets = !(this.isValidDate(start) && this.isValidDate(end));
+    let presets = !(isValidDate(start) && isValidDate(end));
 
     this.date = {
       presets,
@@ -42,6 +48,9 @@ export class TimeRangeComponent implements OnInit {
       start,
       end,
     };
+
+    this.metricService.start = this.date?.start?.toString();
+    this.metricService.end = this.date?.end?.toString();
   }
 
 
@@ -78,20 +87,4 @@ export class TimeRangeComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-
-  /**
-   * Used to valid if a date is valid
-   * @param d string
-   * @returns boolean
-   */
-  isValidDate(d) {
-    try {
-      d.toISOString();
-      return true;
-    }
-    catch(ex) {
-      return false
-    }
-  }
-
 }

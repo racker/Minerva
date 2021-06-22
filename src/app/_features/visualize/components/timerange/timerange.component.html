@@ -45,7 +45,7 @@
     </hx-text-control>
     <owl-date-time [pickerType]="'both'" [hour12Timer]="true" #dt2></owl-date-time>
   </div>
-  <button class="hxBtn hxPrimary" [disabled]="!(isValidDate(date.start) && isValidDate(date.end))" (click)="timeRangeUpdate()">
+  <button class="hxBtn hxPrimary" [disabled]="!(datevalidate(date.start) && datevalidate(date.end))" (click)="timeRangeUpdate()">
     Apply
   </button>
 </div>
