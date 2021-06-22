@@ -42,7 +42,6 @@ export class VisualizePage {
   ngOnInit() {
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
-      console.log("**ParamStart: ", params);
       this.setQueryParams(params);
     });
 
