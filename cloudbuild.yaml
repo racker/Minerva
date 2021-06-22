@@ -3,7 +3,7 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['install']
   
-  - name: 'gcr.io/$PROJECT_ID/minerva-angular:webdriver'
+  - name: 'gcr.io/$PROJECT_ID/minerva-angular:latest'
     entrypoint: '/bin/sh'
     args:
       - '-c'
