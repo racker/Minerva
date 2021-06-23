@@ -93,7 +93,7 @@
     "karma-coverage-istanbul-reporter": "2.0.1",
     "karma-jasmine": "3.0.1",
     "karma-jasmine-html-reporter": "1.4.2",
-    "protractor": "7.0.0",
+    "protractor": "^7.0.0",
     "puppeteer": "1.15.0",
     "readline-sync": "1.4.10",
     "ts-node": "7.0.0",

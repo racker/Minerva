@@ -80,7 +80,6 @@ describe('VisualizePage', async() => {
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
     expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
-    expect(component.visualize.date.duration.toString()).toEqual(routes[1].queryParams.duration);
     expect(component.visualize.group).toEqual([routes[1].queryParams.group]);
     expect(component.visualize.metrics.join(',')).toEqual(routes[1].queryParams.metric);
   });

@@ -23,8 +23,15 @@ export class VisualizePage {
   public defaultMetric: string;
   public defaultGroup: string;
   public defaultTags: string;
-
-  visualize: Visualize = {
+ public presetData: { key: string, value: string }[] = [
+    { value: '1h', key: '1 HR' },
+    { value: '8h', key: '8 HR' },
+    { value: '24h', key: 'DAY' },
+    { value: '7d', key: 'WEEK' },
+    { value: '1n', key: 'MONTH' },
+    { value: '1y', key: 'YEAR' },
+  ];
+  public visualize: Visualize = {
     date: {},
     group: [],
     metrics: []
@@ -56,7 +63,7 @@ export class VisualizePage {
     this.visualize.date = {
       start: !!params.start ? params.start: '24HR',
       end: params.end,
-      duration: params.duration
+      duration: params.start
     };
 
     if (!!params[QUERYPARAMS.GROUP]) {
@@ -141,7 +148,11 @@ export class VisualizePage {
     this.changingQueryParams(queryParams, '');
   }
 
-  /*==============================================================================*/
+  addTimeRangeinQuery(data){
+    this.changingQueryParams(data,'merge');
+  }
+
+
   /*===========================================Service Calls===========================*/
 
   // Get list of Group
@@ -201,6 +212,15 @@ export class VisualizePage {
   tagChange(tag) {
     this.tagPillSet.add(tag)
     this.addTagsInQuery();
+  }
+
+  timeRangeChange(data){
+    if(!isNaN(Date.parse(data.start)))
+       {
+         this.addTimeRangeinQuery(data);
+       }else{
+         this.addTimeRangeinQuery({start:data.start,end:undefined});
+       }
   }
   // =================================================================================
   /** ==========================================Dismissed Event Start=======================================*/

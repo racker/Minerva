@@ -72,34 +72,31 @@ describe('TimerangeComponent', () => {
     expect(component.date.end).toEqual(component.end);
   });
 
-  it('should import and assign isValidDate()', () => {
-    expect(component.isValidDate).toEqual(isValidDate);
-  });
-
   it('should set date.presets to false', () => {
     expect(component.date.presets).toEqual(false);
   });
 
   it('should update duration onDurationChange()', () => {
-    let spy = spyOn(component, 'updateNavigation');
+    let spy=spyOn(component.timeRangeEmitter, 'emit')
     component.onDurationChange({value: 'stuffyea'});
+    expect(component.date.start).toBe(null);
+    expect(component.date.end).toBe(null);
     expect(spy).toHaveBeenCalled();
+
   });
 
   it('should update query params on updateNavigation()', () => {
-    let spy = spyOn(router, 'navigate');
+    let spy=spyOn(component.timeRangeEmitter, 'emit')
     component.onDurationChange({value: 'stuffyea'})
     expect(spy).toHaveBeenCalled();
   });
 
-  xit('should update time range timeRangeUpdate', () => {
-    let spyUpdate = spyOn(component, 'updateNavigation');
-    let spyNav = spyOn(router, 'navigate');
+  it('should update time range timeRangeUpdate', () => {
+    let spy=spyOn(component.timeRangeEmitter, 'emit')
     component.date.start = new Date('2021-06-06T00:42:10.000Z');
     component.date.end = new Date('2021-07-07T00:42:10.000Z');
     component.timeRangeUpdate();
-    expect(spyUpdate).toHaveBeenCalled();
-    expect(spyNav).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
 

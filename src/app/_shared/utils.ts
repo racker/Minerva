@@ -1,6 +1,4 @@
 import { FormGroup, FormControl } from "@angular/forms";
-import { Router } from "@angular/router";
-
 
 /**
 * @description Turns the array of key pairs into an object
