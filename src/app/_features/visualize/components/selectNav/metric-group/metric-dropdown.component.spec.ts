@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetricDropdownComponent } from './metric-dropdown.component';
@@ -8,6 +9,7 @@ describe('MetricGroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       declarations: [ MetricDropdownComponent ]
     })
     .compileComponents();
@@ -39,7 +41,7 @@ describe('MetricGroupComponent', () => {
     component.defaultgroup('test');
     expect( component.defaultgroup('test')).toEqual(true);
   });
-  
-  
-  
+
+
+
 });

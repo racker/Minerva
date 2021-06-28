@@ -1,5 +1,9 @@
 import { async } from '@angular/core/testing';
-import { transformKeyPairs, MarkFormGroupTouched, implementsObject } from './utils'
+import {
+    transformKeyPairs,
+    MarkFormGroupTouched,
+    implementsObject,
+    isValidDate } from './utils'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SalusError } from 'src/app/_models/salusError';
 
@@ -80,6 +84,13 @@ describe('transformKeyPairs', () => {
             notTraceId: "b85fb7657ac5bc05"
         }
         expect(implementsObject<SalusError>(objProp, ['traceId', 'app', 'host'])).toEqual(false);
-    })
+    });
 
+    it('should check if isValidDate() returns true', () => {
+        expect(isValidDate(new Date('2021-05-05T00:42:10.000Z'))).toEqual(true);
+    });
+
+    it('should check if isValidDate() returns false', () => {
+        expect(isValidDate('56')).toEqual(false);
+    });
 });

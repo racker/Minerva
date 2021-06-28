@@ -118,10 +118,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "minerva:build",
-            "host": "dev.i.rax.io",
-            "ssl": true,
-            "sslCert": "./certs/dev.i.rax.io.crt",
-            "sslKey": "./certs/dev.i.rax.io.key"
+            "host": "dev.i.rax.io"
           },
           "configurations": {
             "production": {
@@ -334,7 +331,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "admin:build"
+            "browserTarget": "admin:build",
+            "ssl": true,
+            "sslCert": "./certs/dev.i.rax.io.crt",
+            "sslKey": "./certs/dev.i.rax.io.key"
           },
           "configurations": {
             "production": {

@@ -1,16 +1,7 @@
 import { Component } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { TimeRange } from '@minerva/_models/timerange';
-
-interface Visualize {
-  metricName?: string
-  groupQuery: string[];
-
-  metricQuery?: string[]; //query
-  tags?: string[];
-  date: TimeRange
-}
+import { Visualize } from '@minerva/_models/metrics'
 
 
 export enum QUERYPARAMS {
@@ -26,18 +17,24 @@ export enum QUERYPARAMS {
 })
 export class VisualizePage {
 
-  public metrics = [];
-  public metricGrp = [];
-  public tags = new Set();
   public groupPillSet = new Set();
   public metricPillSet = new Set();
   public tagPillSet = new Set();
   public defaultMetric: string;
   public defaultGroup: string;
   public defaultTags: string;
-  visualize: Visualize = {
+ public presetData: { key: string, value: string }[] = [
+    { value: '1h', key: '1 HR' },
+    { value: '8h', key: '8 HR' },
+    { value: '24h', key: 'DAY' },
+    { value: '7d', key: 'WEEK' },
+    { value: '1n', key: 'MONTH' },
+    { value: '1y', key: 'YEAR' },
+  ];
+  public visualize: Visualize = {
     date: {},
-    groupQuery: []
+    group: [],
+    metrics: []
   };
 
   constructor(
@@ -50,63 +47,68 @@ export class VisualizePage {
   }
 
   ngOnInit() {
-
     // if url with query parameter or change in query parameter
     this.route.queryParams.subscribe(params => {
       this.setQueryParams(params);
-
     });
-    this.getListOfMetricGroup();
+
+    this.getListOfMetricGroup.then(async() => {
+        if (this.privatemtrsrvc.selectedName && this.privatemtrsrvc.selectedTags) {
+          await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
+        }
+    });
   }
 
   setQueryParams(params) {
     this.visualize.date = {
-      start: params.start,
+      start: !!params.start ? params.start: '24HR',
       end: params.end,
-      duration: params.duration
+      duration: params.start
     };
- 
+
     if (!!params[QUERYPARAMS.GROUP]) {
-      this.visualize.groupQuery = params[QUERYPARAMS.GROUP].split(",");
+      this.visualize.group = params[QUERYPARAMS.GROUP].split(",");
       if (this.groupPillSet.size === 0) {
         this.groupPillSet.add(params[QUERYPARAMS.GROUP])
         this.defaultGroup = params[QUERYPARAMS.GROUP];
+        this.privatemtrsrvc.selectedGroup = { group: this.defaultGroup }
       }
       this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
       this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
     }
-    
+
     if (!!params[QUERYPARAMS.METRIC]) {
-      this.visualize.metricQuery = params[QUERYPARAMS.METRIC].split(",");
+      this.visualize.metrics = params[QUERYPARAMS.METRIC].split(",");
       if (this.metricPillSet.size === 0) {
-        let mtrcArr = params[QUERYPARAMS.METRIC].split(",");
+        let mtrcArr = this.visualize.metrics;
         this.metricPillSet = new Set(mtrcArr);
         this.defaultMetric = mtrcArr[mtrcArr.length - 1];
+        this.privatemtrsrvc.selectedName = { metricName: this.defaultMetric }
       }
-     
-      this.getListOfTags({ group: params[QUERYPARAMS.METRIC].split(",") });
+
+      this.getListOfTags({ group: this.visualize.metrics });
     }
 
     if (!!params[QUERYPARAMS.TAGS]) {
       this.visualize.tags = params[QUERYPARAMS.TAGS].split(",");
       if (this.tagPillSet.size === 0) {
-        let tagArr = params[QUERYPARAMS.TAGS].split(",");
+        let tagArr = this.visualize.tags;
         this.tagPillSet = new Set(tagArr);
         this.defaultTags = tagArr[tagArr.length - 1];
+        this.privatemtrsrvc.selectedTags = { tag: this.defaultTags }
       }
     }
   }
 
   ddMetricinit() {
-    this.metrics = ["Select a Metric"];
-
+    this.visualize.metrics = ["Select a Metric"];
   }
+
   ddGroupInit() {
-    this.metricGrp = ["Select a Metric Group"];
+    this.visualize.group = ["Select a Metric Group"];
   }
   ddTagInit() {
-    this.tags = new Set();
-    this.tags.add("Select a Tag");
+    this.visualize.tags = ["Select a Tag"];
   }
 
 
@@ -118,13 +120,13 @@ export class VisualizePage {
     this.ddTagInit();
   }
 
-
-
+  /*=============================== Add params ========================*/
   addMetricInQuery() {
     let queryParams: Params={ metric: undefined };
     if ([...this.metricPillSet].length > 0) {
       queryParams.metric=[...this.metricPillSet].join(',');
     }
+    this.privatemtrsrvc.selectedName = queryParams;
     this.changingQueryParams(queryParams, 'merge');
   }
 
@@ -132,8 +134,9 @@ export class VisualizePage {
     let queryParams: Params={ tags:undefined };
     if ([...this.tagPillSet].length > 0) {
       queryParams.tags=[...this.tagPillSet].join(',');
-    } 
-     this.changingQueryParams(queryParams, 'merge');
+    }
+    this.privatemtrsrvc.selectedTags = queryParams;
+    this.changingQueryParams(queryParams, 'merge');
   }
 
   addGroupinQuery() {
@@ -141,42 +144,50 @@ export class VisualizePage {
     if ([...this.groupPillSet].length > 0) {
       queryParams = { group: [...this.groupPillSet].join(',') };
     }
+    this.privatemtrsrvc.selectedGroup = queryParams;
     this.changingQueryParams(queryParams, '');
+  }
+
+  addTimeRangeinQuery(data){
+    this.changingQueryParams(data,'merge');
   }
 
 
   /*===========================================Service Calls===========================*/
 
   // Get list of Group
-  getListOfMetricGroup() {
+  getListOfMetricGroup = new Promise((resolve, reject) => {
     this.privatemtrsrvc.getMetricGroupList().subscribe((d) => {
-      this.metricGrp = this.metricGrp.concat(d);
-    });
-  }
+      this.visualize.group = this.visualize.group.concat(d);
+      resolve(null);
+    }, (error) => reject(error));
+  });
 
   // Get list of metric on the basis of Group
   getlistOfMetric(group) {
     this.privatemtrsrvc.getMetricList(group).subscribe((d) => {
       this.ddMetricinit();
-      this.metrics = this.metrics.concat(d);
-    })
+      this.visualize.metrics = this.visualize.metrics.concat(d);
+    });
   }
 
+  // Get list of groups for tenant
   getListOfTags(para: any) {
     this.privatemtrsrvc.getTagsList(para).subscribe((d) => {
-      d.forEach((it) => {
-        Object.entries(Object.assign({}, ...it)).forEach(a => {
-          this.tags = this.tags.add(a.join("="))
-        });
+      d.forEach((item) => {
+        for (const [key, value] of Object.entries(item)) {
+          this.visualize.tags.push(`${key}=${value}`);
+        }
       });
-    })
+    });
   }
+
   /*==============================================================================*/
   /*===============================DropDown change event========================*/
 
   /**
    * Metric Group Change
-   * @param changedGroup 
+   * @param changedGroup
    */
   metricGroupChange(changedGroup) {
     this.reset();
@@ -193,6 +204,7 @@ export class VisualizePage {
     this.addMetricInQuery();
     this.getListOfTags({ metric: changedMetric });
   }
+
   /**
    * tags Change
    * @param tag Name of tag
@@ -200,6 +212,15 @@ export class VisualizePage {
   tagChange(tag) {
     this.tagPillSet.add(tag)
     this.addTagsInQuery();
+  }
+
+  timeRangeChange(data){
+    if(!isNaN(Date.parse(data.start)))
+       {
+         this.addTimeRangeinQuery(data);
+       }else{
+         this.addTimeRangeinQuery({start:data.start,end:undefined});
+       }
   }
   // =================================================================================
   /** ==========================================Dismissed Event Start=======================================*/
@@ -220,11 +241,10 @@ export class VisualizePage {
   }
 
   /** ==========================================Dismissed Event End=======================================*/
-
   /**
    *  add query parameter in route
-   * @param data
-   * @param qryPrmHndlr
+   * @param data any
+   * @param qryPrmHndlr Params
    */
   changingQueryParams(data: Params, qryPrmHndlr: any) {
     this.router.navigate([],
@@ -232,6 +252,11 @@ export class VisualizePage {
         relativeTo: this.route,
         queryParams: data,
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
+      }).then(async() => {
+        if (!data.hasOwnProperty(QUERYPARAMS.GROUP) && (!!this.privatemtrsrvc.selectedGroup ||
+          !!this.privatemtrsrvc.selectedTags)) {
+            await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
+          }
       });
   }
 }

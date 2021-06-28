@@ -1,6 +1,4 @@
 import { FormGroup, FormControl } from "@angular/forms";
-import { Router } from "@angular/router";
-
 
 /**
 * @description Turns the array of key pairs into an object
@@ -59,10 +57,26 @@ function implementsObject<T>(obj: any, keys: (keyof T)[]): boolean {
     return true;
 }
 
+/**
+   * Used to valid if a date is valid
+   * @param d string
+   * @returns boolean
+   */
+ function isValidDate(d) {
+    try {
+      d.toISOString();
+      return true;
+    }
+    catch(ex) {
+      return false
+    }
+  }
+
 
 export {
     transformKeyPairs,
     MarkFormGroupTouched,
     mergeUniqueObjectsOfArray,
-    implementsObject
+    implementsObject,
+    isValidDate
 }

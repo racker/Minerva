@@ -6,9 +6,8 @@ import { VisualizePage } from './visualize.page.component';
 import { ActivatedRoute } from '@angular/router';
 import { MetricsService } from 'src/app/_services/metrics/metrics.service';
 import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environmentConfig.service';
-import { default as metricss } from '../../../../_mocks/metrics/metrics.json';
+
 import { of } from 'rxjs';
-import { IMetric } from '@minerva/_models/metrics';
 import { SharedModule } from '@minerva/_shared/shared.module';
 
 const routes = [
@@ -22,19 +21,14 @@ const routes = [
       metric:"cpu_idle",
       group:"cpu",
       tags:"CORE",
-
         duration: '12HR',
         start: '328833',
         end: '8829938'
-      
+
     }
   }
 ];
 
-
-const metrics: IMetric[] = metricss;
-const metricDD=([].concat.apply([], metrics.filter(m => m.group==="network").map(a => a.metricName)) as any);
-const groupDD=metrics.map(a =>a.group);
 
 describe('VisualizePage', async() => {
   let injector: TestBed;
@@ -81,56 +75,86 @@ describe('VisualizePage', async() => {
     expect(component).toBeTruthy();
   });
 
-  
+
   it('should set query parameter', () => {
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
     expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
-    expect(component.visualize.date.duration.toString()).toEqual(routes[1].queryParams.duration);
-    expect(component.visualize.groupQuery).toEqual([routes[1].queryParams.group]);
-    expect(component.visualize.metricQuery.join(',')).toEqual(routes[1].queryParams.metric);
+    expect(component.visualize.group).toEqual([routes[1].queryParams.group]);
+    expect(component.visualize.metrics.join(',')).toEqual(routes[1].queryParams.metric);
   });
+
+  it('should set metricService selected group', () => {
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedGroup).toEqual({group: "cpu"});
+  });
+
+
+  it('should set metricServic selected metric', () => {
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedName).toEqual({metricName: "cpu_idle"});
+  });
+
+  it('shoud set metricServic selected tags', () => {
+    component.setQueryParams(routes[1].queryParams);
+    expect(metricService.selectedTags).toEqual({tag: "CORE"});
+  });
+
   it("should remove group pills", () =>{
     component.disMissedGroup(routes[1].queryParams.group);
     expect(component.metricPillSet.size).toEqual(0);
     expect(component.groupPillSet.size).toEqual(0);
-   
   });
+
   it("should remove metric pills", () =>{
     component.disMissedMetric(routes[1].queryParams.metric);
     expect(component.metricPillSet.size).toEqual(0);
-  }) 
+  });
+
   it("should remove tags pills", () =>{
     component.disMissedTag(routes[1].queryParams.tags);
     expect(component.tagPillSet.size).toEqual(0);
-  })
-  
+  });
+
   it("should change metrics", () =>{
     let spy = spyOn(component, 'getListOfTags');
     component.metricChange(routes[1].queryParams.metric);
     expect(spy).toHaveBeenCalled();
-  })
+  });
+
   it("should change tags", () =>{
     let spy = spyOn(component, 'addTagsInQuery');
     component.tagChange(routes[1].queryParams.tags);
     expect(spy).toHaveBeenCalled();
-  })
+  });
+
   it("should change group", () =>{
     let spy = spyOn(component, 'addGroupinQuery');
     component.metricGroupChange(routes[1].queryParams.metric);
     expect(spy).toHaveBeenCalled();
-  })
+  });
+
   it("should call changingQueryParams while change in tags", () =>{
     component.tagPillSet.add('cpu_idle');
     let spy= spyOn(component,"changingQueryParams");
     component.addTagsInQuery();
     expect(spy).toHaveBeenCalled();
-  })
+  });
+
   it("should changingQueryParams after group change", () =>{
     component.groupPillSet.add('cpu_idle');
     let spy= spyOn(component,"changingQueryParams");
     component.addGroupinQuery();
     expect(spy).toHaveBeenCalled();
-  })
-  
+  });
+
+  it("should reset all pill sets and reset default dropdowns", () => {
+    component.reset();
+    expect(component.groupPillSet.size).toEqual(0);
+    expect(component.metricPillSet.size).toEqual(0);
+    expect(component.tagPillSet.size).toEqual(0);
+    expect(component.visualize.metrics.length).toEqual(1);
+    expect(component.visualize.group.length).toEqual(5);
+  });
+
 });
