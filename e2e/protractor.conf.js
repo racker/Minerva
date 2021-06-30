@@ -6,7 +6,7 @@ const { SpecReporter } = require("jasmine-spec-reporter");
 exports.config = {
   allScriptsTimeout: 11000,
   specs: ["./src/**/*e2e-spec.ts"],
-  // specs:[".src/features/monitoring/monitordetails/monitordetailslabelinfodisplay.e2e-spec.ts"],
+  specs:["./src/features/visualize/visualizeview/*e2e-spec.ts"],
   //specs:["./src/features/monitoring/monitordetails/deleteEvent.e2e-spec.ts"],
   capabilities: {
     browserName: "chrome",
@@ -14,7 +14,7 @@ exports.config = {
     acceptInsecureCerts: true,
     ACCEPT_SSL_CERTS: true,
     chromeOptions: {
-      args: ["no-sandbox", "--headless", "--disable-gpu", "--disable-web-security"]
+      args: ["no-sandbox", "--disable-gpu", "--disable-web-security"]
     },
   },
   directConnect: true,
