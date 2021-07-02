@@ -184,7 +184,7 @@ export class MetricsService {
    * @returns Observable<QueryMetricResponse>
    */
   getMetricsDataPoints(): Observable<QueryMetricResponse[]> {
-    return this.http.get<QueryMetricResponse[]>(`${this.metricsURL}/metric`, {...this.xTenantHeader(),
+    return this.http.get<QueryMetricResponse[]>(`${this.env.api.minerva}/metric`, {...this.xTenantHeader(),
       params: this.queryParams()
     }).pipe(
       tap((data:QueryMetricResponse[]) => {

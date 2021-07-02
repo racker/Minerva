@@ -74,7 +74,7 @@ describe('MetricsService', () => {
   it('should return header object', () => {
     let header = service['xTenantHeader']();
     expect(header.headers.get('Content-Type').toString()).toEqual('application/json');
-    expect(header.headers.get('X-Tenant')).toEqual('833544');
+    expect(header.headers.get('X-Tenant')).toEqual('hybrid:5734784');
   });
 
   it('should compose query params for requests', () => {
