@@ -73,9 +73,9 @@ export class VisualizePage {
         this.defaultGroup = params[QUERYPARAMS.GROUP];
         this.privatemtrsrvc.selectedGroup = { group: this.defaultGroup }
       }
-      this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
       this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
     }
+    this.getlistOfMetric();
 
     if (!!params[QUERYPARAMS.METRIC]) {
       this.visualize.metrics = params[QUERYPARAMS.METRIC].split(",");
@@ -101,10 +101,13 @@ export class VisualizePage {
   }
 
   ddMetricinit() {
+    console.log("ddMetricinit ");
     this.visualize.metrics = ["Select a Metric"];
   }
 
   ddGroupInit() {
+    console.log("ddGroupInit ");
+
     this.visualize.group = ["Select a Metric Group"];
   }
   ddTagInit() {
@@ -164,8 +167,9 @@ export class VisualizePage {
   });
 
   // Get list of metric on the basis of Group
-  getlistOfMetric(group) {
-    this.privatemtrsrvc.getMetricList(group).subscribe((d) => {
+  getlistOfMetric() {
+    console.log("call getlistOfMetric ");
+    this.privatemtrsrvc.getMetricList().subscribe((d) => {
       this.ddMetricinit();
       this.visualize.metrics = this.visualize.metrics.concat(d);
     });
@@ -247,6 +251,9 @@ export class VisualizePage {
    * @param qryPrmHndlr Params
    */
   changingQueryParams(data: Params, qryPrmHndlr: any) {
+    console.log("data ", data);
+    console.log("qryPrmHndlr ", qryPrmHndlr);
+    
     this.router.navigate([],
       {
         relativeTo: this.route,

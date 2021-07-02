@@ -99,7 +99,7 @@ export class MetricsService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Tenant': this.portalDataService.portalData.domainId
+        'X-Tenant': 'hybrid:5734784'
       })
     };
   };
@@ -132,14 +132,12 @@ export class MetricsService {
    * @param groupName string
     * @returns Observable array of available measurements
   */
-  getMetricList(groupName:string) {
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames?group=${groupName}`,{ ...this.xTenantHeader(),
-      params: {
-        group:groupName
-      }
+  getMetricList() {
+    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames`,{ ...this.xTenantHeader()
     })
     .pipe(
       tap((data:any) => {
+        console.log("data getMetricList ", data);
         this.SetMtrcNms(data);
         this.logService.log(`Metric List: ${data}`, LogLevels.info);
       }),
@@ -186,10 +184,11 @@ export class MetricsService {
    * @returns Observable<QueryMetricResponse>
    */
   getMetricsDataPoints(): Observable<QueryMetricResponse[]> {
-    return this.http.get<QueryMetricResponse[]>(`${this.metricsURL}/query`, {...this.xTenantHeader(),
+    return this.http.get<QueryMetricResponse[]>(`${this.metricsURL}/metric`, {...this.xTenantHeader(),
       params: this.queryParams()
     }).pipe(
       tap((data:QueryMetricResponse[]) => {
+        console.log("data getMetricsDataPoints ", data);
         this.setMetrics(data)
       })
     )
