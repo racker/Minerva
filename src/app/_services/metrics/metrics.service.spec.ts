@@ -80,7 +80,7 @@ describe('MetricsService', () => {
   it('should compose query params for requests', () => {
     service.start = 'xiisusiis';
     expect(service['queryParams']()).toEqual({
-      start: 'xiisusiis'
+      start: 'xiisusiis-ago'
     });
   });
 

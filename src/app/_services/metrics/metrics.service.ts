@@ -110,7 +110,7 @@ export class MetricsService {
    */
   private queryParams = (): {[x:string]: any} => {
     return {
-      start: this.start,
+      start: isValidDate(this.start)?this.start : `${this.start}-ago`,
       ...(isValidDate(new Date(this.end)) && {end: this.end }),
       ...(!!this.selectedTags && { tag: this.selectedTags }),
       ...(!!this.selectedName && { metricName: this.selectedName }),

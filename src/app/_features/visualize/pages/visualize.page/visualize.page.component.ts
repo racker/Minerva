@@ -60,12 +60,15 @@ export class VisualizePage {
   }
 
   setQueryParams(params) {
+    
     this.visualize.date = {
-      start: !!params.start ? params.start: '24HR',
+      start: !!params.start ? params.start: '24h',
       end: params.end,
       duration: params.start
     };
 
+    this.privatemtrsrvc.start = this.visualize.date.start.toString();
+    this.privatemtrsrvc.end = params.end;
     if (!!params[QUERYPARAMS.GROUP]) {
       this.visualize.group = params[QUERYPARAMS.GROUP].split(",");
       if (this.groupPillSet.size === 0) {
@@ -149,6 +152,7 @@ export class VisualizePage {
   }
 
   addTimeRangeinQuery(data){
+    
     this.changingQueryParams(data,'merge');
   }
 
