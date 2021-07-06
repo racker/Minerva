@@ -8,7 +8,7 @@ export const environment = {
   isAdmin : false,
   api: {
     salus: `${absoluteHost}/api/monitoring/v1.0/tenant`,
-    metrics: `http://localhost:8080/api`,
+    metrics: `http://localhost:8086/api`,
     minerva:`${absoluteHost}/api/intelligence/minerva-api-staging-v1`
   },
   firebase: {
