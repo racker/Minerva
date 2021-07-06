@@ -13,7 +13,7 @@
   "homepage": "https://github.com/racker/Minerva#readme",
   "scripts": {
     "ng": "ng",
-    "start:dev": "node ./helpers/setup.js",
+    "start:dev": "npm run port-forward && node ./helpers/setup.js",
     "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
     "start-admin": "ng serve --project=admin -o",
@@ -102,10 +102,5 @@
     "typescript": "3.8.3",
     "webpack": "4.44.2",
     "webpack-merge": "5.2.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test:unit"
-    }
   }
 }
