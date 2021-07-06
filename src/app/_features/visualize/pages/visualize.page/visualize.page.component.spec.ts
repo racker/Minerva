@@ -82,7 +82,7 @@ describe('VisualizePage', async() => {
     expect(component.visualize.metrics.join(',')).toEqual(routes[1].queryParams.metric);
   });
 
-  xit('should set metricService cselected group', () => {
+  it('should set metricService cselected group', () => {
     component.setQueryParams(routes[1].queryParams);
     expect(metricService.selectedGroup).toEqual({metricGroup: "cpu"});
   });

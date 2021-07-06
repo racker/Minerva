@@ -94,7 +94,7 @@ export class MetricsService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Tenant': 'hybrid:5734784' // set this static to test metricnames, tags and query api with different params
+        'X-Tenant': this.portalDataService.portalData.domainId // set this static to test metricnames, tags and query api with different params
       })
     };
   };
@@ -117,6 +117,8 @@ export class MetricsService {
   constructor(private http: HttpClient,
     private logService: LoggingService,
     private errorService: ErrorService,
+    private portalDataService: PortalDataService,
+
     private env: EnvironmentConfig) {
     this.metricsURL = this.env.api.metrics;
   }
@@ -159,12 +161,12 @@ export class MetricsService {
    * @param data Params
    * @returns Observable<[string]>
    */
-  getTagsList(data:Params): Observable<Tags> {
+  getTagsList(data:Params): Observable<any> {
     return this.http.get<Tags>(`${this.env.api.metrics}/metadata/tags`, { ...this.xTenantHeader(),
       params:data
     })
     .pipe(
-      tap((data:Tags) => {
+      tap((data:any) => {
         //this.SetMtrcNms(data);
         this.logService.log(`Tags List: ${data}`, LogLevels.info);
       }),
