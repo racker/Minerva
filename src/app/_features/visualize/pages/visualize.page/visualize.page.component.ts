@@ -36,7 +36,7 @@ export class VisualizePage {
   };
 
   constructor(
-    private router: Router,
+    public router: Router,
     public route: ActivatedRoute,
     private privatemtrsrvc: MetricsService) {
     this.ddMetricinit();
@@ -71,9 +71,9 @@ export class VisualizePage {
       if (this.groupPillSet.size === 0) {
         this.groupPillSet.add(params[QUERYPARAMS.GROUP])
         this.defaultGroup = params[QUERYPARAMS.GROUP];
-        this.privatemtrsrvc.selectedGroup = { group: this.defaultGroup }
+        this.privatemtrsrvc.selectedGroup = { metricGroup: this.defaultGroup }
       }
-      this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
+      this.getListOfTags({ metricGroup: params[QUERYPARAMS.GROUP] });
     }
     this.getlistOfMetric();
 
@@ -85,7 +85,7 @@ export class VisualizePage {
         this.defaultMetric = mtrcArr[mtrcArr.length - 1];
         this.privatemtrsrvc.selectedName = { metricName: this.defaultMetric }
       }
-      this.getListOfTags({ group: this.visualize.metrics });
+      this.getListOfTags({ metricName: this.visualize.metrics });
     }
 
     if (!!params[QUERYPARAMS.TAGS]) {
