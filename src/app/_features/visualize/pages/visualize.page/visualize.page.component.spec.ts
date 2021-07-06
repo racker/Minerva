@@ -75,7 +75,6 @@ describe('VisualizePage', async() => {
     expect(component).toBeTruthy();
   });
 
-
   it('should set query parameter', () => {
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
