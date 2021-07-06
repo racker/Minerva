@@ -1,4 +1,415 @@
-    [{
+    [ {
+        "data": {
+          "tenant": "hybrid:4988563",
+          "metricName": "connLimitExceeded_connLimitExceeded",
+          "tags": {
+            "accountType": "MANAGED_HOSTING",
+            "metricGroup": "misc",
+            "monitoring_system": "ZENOSS",
+            "resource": "953728",
+            "resource_account_id": "4988563",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "ORD1",
+            "resource_device_id": "953728",
+            "resource_label": "953728-lbal7.connectfss.com",
+            "resource_product_description": "Load-Balancer Required",
+            "resource_server_name": "953728-lbal7.connectfss.com",
+            "resource_status": "Migration Server",
+            "system_contextUUID": "78158112-fc45-4c68-983b-4f845ff67183",
+            "system_device": "953728",
+            "system_key": "Devices/953728",
+            "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
+            "unit": "none"
+          },
+          "values": {
+            "2021-06-29T18:30:04Z": 0.0,
+            "2021-06-29T18:40:04Z": 0.0,
+            "2021-06-29T21:05:04Z": 0.0,
+            "2021-06-29T22:40:04Z": 0.0,
+            "2021-06-30T14:20:04Z": 0.0,
+            "2021-06-30T15:05:04Z": 0.0,
+            "2021-06-30T19:25:04Z": 0.0,
+            "2021-06-30T21:20:04Z": 0.0,
+            "2021-06-30T22:25:04Z": 0.0,
+            "2021-06-30T23:15:04Z": 0.0,
+            "2021-07-01T04:00:04Z": 0.0,
+            "2021-07-01T08:20:04Z": 0.0
+          }
+        },
+        "metadata": {
+          "aggregator": "raw",
+          "startTime": "2021-06-16T12:01:40.741054Z",
+          "endTime": "2021-07-01T12:01:40.741061Z"
+        }
+      },
+      {
+        "data": {
+          "tenant": "hybrid:4988563",
+          "metricName": "connLimitExceeded_connLimitExceeded",
+          "tags": {
+            "accountType": "MANAGED_HOSTING",
+            "metricGroup": "misc",
+            "monitoring_system": "ZENOSS",
+            "resource": "953729",
+            "resource_account_id": "4988563",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "ORD1",
+            "resource_device_id": "953729",
+            "resource_label": "953729-lbal8.connectfss.com",
+            "resource_product_description": "Load-Balancer Required",
+            "resource_server_name": "953729-lbal8.connectfss.com",
+            "resource_status": "Migration Server",
+            "system_contextUUID": "218da342-9ae6-4bc1-889a-19c01c5b8cc4",
+            "system_device": "953729",
+            "system_key": "Devices/953729",
+            "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
+            "unit": "none"
+          },
+          "values": {
+            "2021-06-29T14:36:42Z": 0.0,
+            "2021-06-29T14:56:42Z": 0.0,
+            "2021-06-29T16:06:42Z": 0.0,
+            "2021-06-29T19:11:42Z": 0.0,
+            "2021-06-29T19:56:42Z": 0.0,
+            "2021-06-29T21:11:42Z": 0.0,
+            "2021-06-29T23:21:42Z": 0.0,
+            "2021-06-30T01:11:43Z": 0.0,
+            "2021-06-30T02:11:43Z": 0.0,
+            "2021-06-30T05:31:42Z": 0.0,
+            "2021-06-30T06:36:42Z": 0.0,
+            "2021-06-30T10:16:43Z": 0.0,
+            "2021-06-30T13:31:42Z": 0.0,
+            "2021-06-30T15:11:42Z": 0.0,
+            "2021-06-30T15:51:42Z": 0.0,
+            "2021-06-30T23:21:42Z": 0.0,
+            "2021-06-30T23:46:42Z": 0.0,
+            "2021-07-01T00:51:42Z": 0.0,
+            "2021-07-01T04:31:42Z": 0.0,
+            "2021-07-01T04:56:42Z": 0.0,
+            "2021-07-01T10:46:42Z": 0.0
+          }
+        },
+        "metadata": {
+          "aggregator": "raw",
+          "startTime": "2021-06-16T12:01:40.741054Z",
+          "endTime": "2021-07-01T12:01:40.741061Z"
+        }
+      },
+      {
+        "data": {
+          "tenant": "hybrid:4988563",
+          "metricName": "connLimitExceeded_connLimitExceeded",
+          "tags": {
+            "accountType": "MANAGED_HOSTING",
+            "metricGroup": "misc",
+            "monitoring_system": "ZENOSS",
+            "resource": "953729",
+            "resource_account_id": "4988563",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "ORD1",
+            "resource_device_id": "953729",
+            "resource_label": "953729-lbal8.connectfss.com",
+            "resource_product_description": "Load-Balancer Required",
+            "resource_server_name": "953729-lbal8.connectfss.com",
+            "resource_status": "Migration Server",
+            "system_contextUUID": "28d30731-4665-4bdf-814e-0a4a92c308ff",
+            "system_device": "953729",
+            "system_key": "Devices/953729",
+            "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
+            "unit": "none"
+          },
+          "values": {
+            "2021-06-29T16:29:22Z": 0.0,
+            "2021-06-29T19:19:22Z": 0.0,
+            "2021-06-29T20:24:22Z": 0.0,
+            "2021-06-30T00:59:22Z": 0.0,
+            "2021-06-30T02:59:22Z": 0.0,
+            "2021-06-30T03:39:22Z": 0.0,
+            "2021-06-30T07:19:22Z": 0.0,
+            "2021-06-30T09:34:22Z": 0.0,
+            "2021-06-30T09:54:22Z": 0.0,
+            "2021-06-30T11:04:22Z": 0.0,
+            "2021-06-30T11:14:22Z": 0.0,
+            "2021-06-30T12:39:22Z": 0.0,
+            "2021-06-30T15:24:22Z": 0.0,
+            "2021-06-30T19:49:22Z": 0.0,
+            "2021-06-30T20:04:22Z": 0.0,
+            "2021-06-30T23:09:22Z": 0.0,
+            "2021-07-01T09:34:22Z": 0.0
+          }
+        },
+        "metadata": {
+          "aggregator": "raw",
+          "startTime": "2021-06-16T12:01:40.741054Z",
+          "endTime": "2021-07-01T12:01:40.741061Z"
+        }
+      },
+      {
+        "data": {
+          "tenant": "hybrid:4988563",
+          "metricName": "connLimitExceeded_connLimitExceeded",
+          "tags": {
+            "accountType": "MANAGED_HOSTING",
+            "metricGroup": "misc",
+            "monitoring_system": "ZENOSS",
+            "resource": "953904",
+            "resource_account_id": "4988563",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "IAD3",
+            "resource_device_id": "953904",
+            "resource_label": "953904-lbal9.connectfss.com",
+            "resource_product_description": "Load-Balancer Required",
+            "resource_server_name": "953904-lbal9.connectfss.com",
+            "resource_status": "Online/Complete",
+            "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
+            "system_device": "953904",
+            "system_key": "Devices/953904",
+            "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
+            "unit": "none"
+          },
+          "values": {
+            "2021-06-29T13:30:56Z": 0.0,
+            "2021-06-29T14:25:56Z": 0.0,
+            "2021-06-29T15:45:56Z": 0.0,
+            "2021-06-29T19:15:56Z": 0.0,
+            "2021-06-29T21:50:56Z": 0.0,
+            "2021-06-29T22:10:56Z": 0.0,
+            "2021-06-29T22:30:56Z": 0.0,
+            "2021-06-30T01:25:56Z": 0.0,
+            "2021-06-30T02:15:56Z": 0.0,
+            "2021-06-30T06:30:56Z": 0.0,
+            "2021-06-30T09:20:56Z": 0.0,
+            "2021-06-30T10:05:56Z": 0.0,
+            "2021-06-30T13:35:56Z": 0.0,
+            "2021-06-30T14:20:56Z": 0.0,
+            "2021-06-30T16:50:56Z": 0.0,
+            "2021-06-30T19:20:56Z": 0.0,
+            "2021-06-30T21:15:56Z": 0.0,
+            "2021-07-01T01:10:56Z": 0.0,
+            "2021-07-01T01:20:56Z": 0.0,
+            "2021-07-01T04:30:56Z": 0.0,
+            "2021-07-01T09:05:56Z": 0.0,
+            "2021-07-01T10:30:56Z": 0.0
+          }
+        },
+        "metadata": {
+          "aggregator": "raw",
+          "startTime": "2021-06-16T12:01:40.741054Z",
+          "endTime": "2021-07-01T12:01:40.741061Z"
+        }
+      },
+      {
+        "data": {
+          "tenant": "hybrid:4988563",
+          "metricName": "connLimitExceeded_connLimitExceeded",
+          "tags": {
+            "accountType": "MANAGED_HOSTING",
+            "metricGroup": "misc",
+            "monitoring_system": "ZENOSS",
+            "resource": "953728",
+            "resource_account_id": "4988563",
+            "resource_cmdb_source": "CORE",
+            "resource_datacenter": "ORD1",
+            "resource_device_id": "953728",
+            "resource_label": "953728-lbal7.connectfss.com",
+            "resource_product_description": "Load-Balancer Required",
+            "resource_server_name": "953728-lbal7.connectfss.com",
+            "resource_status": "Migration Server",
+            "system_contextUUID": "17fd6eb9-9872-4d44-8fca-eac281a5f4f4",
+            "system_device": "953728",
+            "system_key": "Devices/953728",
+            "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
+            "unit": "none"
+          },
+          "values": {
+            "2021-06-29T12:47:29Z": 0.0,
+            "2021-06-29T13:27:29Z": 0.0,
+            "2021-06-29T14:02:29Z": 0.0,
+            "2021-06-30T01:27:29Z": 0.0,
+            "2021-06-30T02:22:29Z": 0.0,
+            "2021-06-30T09:47:29Z": 0.0,
+            "2021-07-01T00:22:29Z": 0.0
+          }
+        },
+        "metadata": {
+          "aggregator": "raw",
+          "startTime": "2021-06-16T12:01:40.741054Z",
+          "endTime": "2021-07-01T12:01:40.741061Z"
+        }
+      },
+        {
+            "data": {
+              "tenant": "hybrid:4988563",
+              "metricName": "CPU_totalPercent_CPU_totalPercent",
+              "tags": {
+                "accountType": "MANAGED_HOSTING",
+                "metricGroup": "cpu",
+                "monitoring_system": "ZENOSS",
+                "resource": "953904",
+                "resource_account_id": "4988563",
+                "resource_cmdb_source": "CORE",
+                "resource_datacenter": "IAD3",
+                "resource_device_id": "953904",
+                "resource_label": "953904-lbal9.connectfss.com",
+                "resource_product_description": "Load-Balancer Required",
+                "resource_server_name": "953904-lbal9.connectfss.com",
+                "resource_status": "Online/Complete",
+                "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
+                "system_device": "953904",
+                "system_key": "Devices/953904",
+                "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
+                "unit": "percent"
+              },
+              "values": {
+                "2021-06-30T20:16:32Z": 50.518760681152344,
+                "2021-07-01T00:16:32Z": 50.518768310546875,
+                "2021-07-01T01:21:32Z": 50.518768310546875,
+                "2021-07-01T04:21:32Z": 50.518768310546875,
+                "2021-07-01T06:36:32Z": 50.518768310546875
+              }
+            },
+            "metadata": {
+              "aggregator": "raw",
+              "startTime": "2021-06-27T11:56:15.349494Z",
+              "endTime": "2021-07-01T11:56:15.349654Z"
+            }
+          },
+          {
+            "data": {
+              "tenant": "hybrid:4988563",
+              "metricName": "CPU_totalPercent_CPU_totalPercent",
+              "tags": {
+                "accountType": "MANAGED_HOSTING",
+                "metricGroup": "misc",
+                "monitoring_system": "ZENOSS",
+                "resource": "953904",
+                "resource_account_id": "4988563",
+                "resource_cmdb_source": "CORE",
+                "resource_datacenter": "IAD3",
+                "resource_device_id": "953904",
+                "resource_label": "953904-lbal9.connectfss.com",
+                "resource_product_description": "Load-Balancer Required",
+                "resource_server_name": "953904-lbal9.connectfss.com",
+                "resource_status": "Online/Complete",
+                "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
+                "system_device": "953904",
+                "system_key": "Devices/953904",
+                "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
+                "unit": "none"
+              },
+              "values": {
+                "2021-06-29T14:56:32Z": 50.518741607666016,
+                "2021-06-29T17:36:32Z": 50.518741607666016,
+                "2021-06-29T22:56:32Z": 50.51874923706055,
+                "2021-06-30T00:11:32Z": 50.51874923706055,
+                "2021-06-30T01:16:32Z": 50.51874923706055,
+                "2021-06-30T03:46:32Z": 50.51874923706055,
+                "2021-06-30T06:01:32Z": 50.51874923706055,
+                "2021-06-30T10:56:32Z": 50.518760681152344,
+                "2021-06-30T15:16:32Z": 50.518760681152344
+              }
+            },
+            "metadata": {
+              "aggregator": "raw",
+              "startTime": "2021-06-27T11:56:15.349494Z",
+              "endTime": "2021-07-01T11:56:15.349654Z"
+            }
+          },
+        {
+            "data": {
+              "tenant": "hybrid:3150285",
+              "metricName": "cpmCPUTotal5minRev_cpmCPUTotal5minRev",
+              "tags": {
+                "metricGroup": "misc",
+                "monitoring_system": "ZENOSS",
+                "resource": "1059405",
+                "resource_account_id": "3150285",
+                "resource_cmdb_source": "CORE",
+                "resource_datacenter": "LON5",
+                "resource_device_id": "1059405",
+                "resource_label": "1059405-fw1.frontpage.co.uk",
+                "resource_product_description": "Firewall - Cisco ASA Required",
+                "resource_server_name": "1059405-fw1.frontpage.co.uk",
+                "resource_status": "Online/Complete",
+                "system_contextUUID": "b73175d8-5669-4891-b5ee-7487733b30b3",
+                "system_device": "1059405",
+                "system_key": "Devices/1059405",
+                "system_zenoss_tenant_id": "2e7407a0-ab20-11e8-8ddd-0242ac110004"
+              },
+              "values": {
+                "2021-06-14T15:41:12Z": 3.0,
+                "2021-06-14T18:56:12Z": 3.0,
+                "2021-06-14T21:26:12Z": 4.0,
+                "2021-06-14T21:46:12Z": 4.0,
+                "2021-06-15T02:41:12Z": 2.0,
+                "2021-06-15T06:56:12Z": 1.0,
+                "2021-06-15T14:51:12Z": 4.0,
+                "2021-06-15T18:11:12Z": 2.0,
+                "2021-06-15T19:21:12Z": 5.0,
+                "2021-06-15T19:26:12Z": 3.0,
+                "2021-06-15T20:21:12Z": 3.0,
+                "2021-06-16T00:56:12Z": 2.0,
+                "2021-06-16T02:11:12Z": 1.0,
+                "2021-06-16T04:41:12Z": 2.0,
+                "2021-06-16T08:11:12Z": 1.0,
+                "2021-06-16T09:11:12Z": 1.0
+              }
+            },
+            "metadata": {
+              "aggregator": "raw",
+              "startTime": "2021-06-12T14:16:35.844681Z",
+              "endTime": "2021-06-16T14:16:35.844691Z"
+            }
+          },
+          {
+            "data": {
+              "tenant": "hybrid:3150285",
+              "metricName": "cpmCPUTotal5minRev_cpmCPUTotal5minRev",
+              "tags": {
+                "metricGroup": "misc",
+                "monitoring_system": "ZENOSS",
+                "resource": "1059405",
+                "resource_account_id": "3150285",
+                "resource_cmdb_source": "CORE",
+                "resource_datacenter": "LON5",
+                "resource_device_id": "1059405",
+                "resource_label": "1059405-fw1.frontpage.co.uk",
+                "resource_product_description": "Firewall - Cisco ASA Required",
+                "resource_server_name": "1059405-fw1.frontpage.co.uk",
+                "resource_status": "Online/Complete",
+                "system_contextUUID": "80fb984b-fedd-4737-94b9-2d1798d16898",
+                "system_device": "1059405",
+                "system_key": "Devices/1059405",
+                "system_zenoss_tenant_id": "2e7407a0-ab20-11e8-8ddd-0242ac110004"
+              },
+              "values": {
+                "2021-06-14T17:10:11Z": 3.0,
+                "2021-06-14T18:15:11Z": 4.0,
+                "2021-06-14T21:30:11Z": 4.0,
+                "2021-06-14T22:05:11Z": 3.0,
+                "2021-06-14T22:55:11Z": 2.0,
+                "2021-06-14T23:30:11Z": 2.0,
+                "2021-06-14T23:50:11Z": 2.0,
+                "2021-06-15T05:45:11Z": 1.0,
+                "2021-06-15T07:15:11Z": 1.0,
+                "2021-06-15T10:15:11Z": 1.0,
+                "2021-06-15T10:50:11Z": 2.0,
+                "2021-06-15T21:15:11Z": 3.0,
+                "2021-06-16T04:50:11Z": 2.0,
+                "2021-06-16T05:10:11Z": 1.0,
+                "2021-06-16T06:00:11Z": 1.0,
+                "2021-06-16T06:10:11Z": 1.0,
+                "2021-06-16T07:55:11Z": 1.0,
+                "2021-06-16T12:20:11Z": 1.0
+              }
+            },
+            "metadata": {
+              "aggregator": "raw",
+              "startTime": "2021-06-12T14:16:35.844681Z",
+              "endTime": "2021-06-16T14:16:35.844691Z"
+            }
+          }
+        ,{
         "data": {
         "tenant": "hybrid:8775331",
         "metricName": "ifHCOutUcastPkts_ifHCOutUcastPkts",

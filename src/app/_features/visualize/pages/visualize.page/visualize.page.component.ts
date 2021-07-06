@@ -17,6 +17,8 @@ export enum QUERYPARAMS {
 })
 export class VisualizePage {
 
+  graphMetric: any[];
+  JSON: JSON = JSON;
   public groupPillSet = new Set();
   public metricPillSet = new Set();
   public tagPillSet = new Set();
@@ -101,6 +103,11 @@ export class VisualizePage {
         this.privatemtrsrvc.selectedTags = { tag: this.defaultTags }
       }
     }
+    if (params[QUERYPARAMS.TAGS] && (params[QUERYPARAMS.TAGS] || params[QUERYPARAMS.METRIC])) {
+        this.privatemtrsrvc.getMetricsDataPoints().subscribe((data) =>{
+          this.filteredMetric(data);
+        })
+      }
   }
 
   ddMetricinit() {
@@ -256,11 +263,14 @@ export class VisualizePage {
         relativeTo: this.route,
         queryParams: data,
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
-      }).then(async() => {
-        if (!data.hasOwnProperty(QUERYPARAMS.GROUP) && (!!this.privatemtrsrvc.selectedGroup ||
-          !!this.privatemtrsrvc.selectedTags)) {
-            await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
-          }
       });
+  }
+
+  filteredMetric(data){
+    let distinctMetricName=[... new Set(data.map(a => a.data.metricName))];
+    this.graphMetric =[];
+    distinctMetricName.forEach(element => {
+      this.graphMetric.push({graph:data.filter(a => a.data.metricName === element)});
+    });
   }
 }
