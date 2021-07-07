@@ -249,8 +249,10 @@ export class VisualizePage {
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
       }).then(async() => {
         // only start and tag is required param.
-        if(this.route.snapshot.queryParams['start'] && this.route.snapshot.queryParams['tags']) 
-          await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
+        if (!data.hasOwnProperty(QUERYPARAMS.GROUP) && (!!this.privatemtrsrvc.selectedGroup ||
+          !!this.privatemtrsrvc.selectedTags)) {
+            await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
+          }
       });
   }
 }
