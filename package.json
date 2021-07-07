@@ -13,7 +13,8 @@
   "homepage": "https://github.com/racker/Minerva#readme",
   "scripts": {
     "ng": "ng",
-    "start:dev": "npm run port-forward && node ./helpers/setup.js",
+    "start-dev": "node ./helpers/setup.js",
+    "dev": "concurrently --kill-others \"npm run start-dev\" \"npm run port-forward\"",
     "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
     "start-admin": "ng serve --project=admin -o",
@@ -81,6 +82,7 @@
     "chromedriver": "2.45.0",
     "clean-webpack-plugin": "3.0.0",
     "codelyzer": "5.1.2",
+    "concurrently": "^6.2.0",
     "express": "4.17.1",
     "handlebars": "4.5.0",
     "html-webpack-plugin": "4.5.0",
