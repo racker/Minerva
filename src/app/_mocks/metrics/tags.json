@@ -1,17 +1,25 @@
-[
-    { "metricGroup": "network" },
-    { "monitoring_system": "ZENOSS" },
-    { "resource": "828315" },
-    { "resource_account_id": "5002011" },
-    { "resource_cmdb_source": "CORE" },
-    { "resource_datacenter": "DFW3" },
-    { "resource_device_id": "828315" },
-    { "resource_label": "828315-fw8.dfw1.rapid7" },
-    { "resource_product_description": "Firewall - Cisco ASA Required" },
-    { "resource_server_name": "828315-fw8.dfw1.rapid7" },
-    { "resource_status": "Online/Complete" },
-    { "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468" },
-    { "system_device": "828315" },
-    { "system_key": "Devices/828315/os/interfaces/GigabitEthernet0_1" },
-    { "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003" }
-]
+{
+    "tags": {
+        "metricGroup": "misc",
+        "monitoring_system": "UIM",
+        "resource": "953019",
+        "resource_account_id": "4988563",
+        "resource_cmdb_source": "CORE",
+        "resource_datacenter": "ORD1",
+        "resource_device_id": "953019",
+        "resource_ip_address": "161.47.99.17,172.24.32.17",
+        "resource_label": "953019-mail00.connectfss.com",
+        "resource_server_name": "953019-mail00.connectfss.com",
+        "resource_status": "Online/Complete",
+        "system_device_id": "DA412E1F34F7BF33392EFC8F9E9BB0271",
+        "system_domain": "Rackspace",
+        "system_metric_id": "MFEAA44B8F7BF1722FD86D146E59AD714",
+        "system_probe": "cdm",
+        "system_qos": "QOS_DISK_USAGE_PERC",
+        "system_source_ip_address": "161.47.99.17",
+        "system_source_timezone_offset": "18000",
+        "system_target": "/boot/efi"
+      }
+    }
+
+

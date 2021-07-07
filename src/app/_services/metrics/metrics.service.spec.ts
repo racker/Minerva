@@ -91,7 +91,7 @@ describe('MetricsService', () => {
   });
 
   it('should return list of metrics names getMetricList()', () => {
-    service.getMetricList('stuff').subscribe((data) => {
+    service.getMetricList().subscribe((data) => {
       expect(data).toEqual(names);
     });
   });

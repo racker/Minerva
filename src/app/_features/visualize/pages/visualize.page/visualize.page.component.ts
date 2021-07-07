@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Visualize } from '@minerva/_models/metrics'
-
-
 export enum QUERYPARAMS {
   GROUP = 'group',
   METRIC = 'metric',
@@ -40,7 +38,7 @@ export class VisualizePage {
   };
 
   constructor(
-    private router: Router,
+    public router: Router,
     public route: ActivatedRoute,
     private privatemtrsrvc: MetricsService) {
     this.ddMetricinit();
@@ -62,7 +60,6 @@ export class VisualizePage {
   }
 
   setQueryParams(params) {
-    
     this.visualize.date = {
       start: !!params.start ? params.start: '24h',
       end: params.end,
@@ -76,11 +73,11 @@ export class VisualizePage {
       if (this.groupPillSet.size === 0) {
         this.groupPillSet.add(params[QUERYPARAMS.GROUP])
         this.defaultGroup = params[QUERYPARAMS.GROUP];
-        this.privatemtrsrvc.selectedGroup = { group: this.defaultGroup }
+        this.privatemtrsrvc.selectedGroup = { metricGroup: this.defaultGroup }
       }
-      this.getlistOfMetric(params[QUERYPARAMS.GROUP]);
-      this.getListOfTags({ group: params[QUERYPARAMS.GROUP] });
+      this.getListOfTags({ metricGroup: params[QUERYPARAMS.GROUP] });
     }
+    this.getlistOfMetric();
 
     if (!!params[QUERYPARAMS.METRIC]) {
       this.visualize.metrics = params[QUERYPARAMS.METRIC].split(",");
@@ -90,8 +87,7 @@ export class VisualizePage {
         this.defaultMetric = mtrcArr[mtrcArr.length - 1];
         this.privatemtrsrvc.selectedName = { metricName: this.defaultMetric }
       }
-
-      this.getListOfTags({ group: this.visualize.metrics });
+      this.getListOfTags({ metricName: this.visualize.metrics });
     }
 
     if (!!params[QUERYPARAMS.TAGS]) {
@@ -120,8 +116,6 @@ export class VisualizePage {
   ddTagInit() {
     this.visualize.tags = ["Select a Tag"];
   }
-
-
   public reset() {
     this.groupPillSet = new Set();
     this.metricPillSet = new Set();
@@ -154,15 +148,15 @@ export class VisualizePage {
     if ([...this.groupPillSet].length > 0) {
       queryParams = { group: [...this.groupPillSet].join(',') };
     }
-    this.privatemtrsrvc.selectedGroup = queryParams;
     this.changingQueryParams(queryParams, '');
   }
-
   addTimeRangeinQuery(data){
+    this.privatemtrsrvc.start = data.start;
+    
+    this.privatemtrsrvc.end = data.end;
     
     this.changingQueryParams(data,'merge');
   }
-
 
   /*===========================================Service Calls===========================*/
 
@@ -175,8 +169,8 @@ export class VisualizePage {
   });
 
   // Get list of metric on the basis of Group
-  getlistOfMetric(group) {
-    this.privatemtrsrvc.getMetricList(group).subscribe((d) => {
+  getlistOfMetric() {
+    this.privatemtrsrvc.getMetricList().subscribe((d) => {
       this.ddMetricinit();
       this.visualize.metrics = this.visualize.metrics.concat(d);
     });
@@ -185,11 +179,9 @@ export class VisualizePage {
   // Get list of groups for tenant
   getListOfTags(para: any) {
     this.privatemtrsrvc.getTagsList(para).subscribe((d) => {
-      d.forEach((item) => {
-        for (const [key, value] of Object.entries(item)) {
-          this.visualize.tags.push(`${key}=${value}`);
-        }
-      });
+      for (const [key, value] of Object.entries(d.tags)) {
+        this.visualize.tags.push(`${key}=${value}`);
+      }
     });
   }
 
@@ -224,7 +216,6 @@ export class VisualizePage {
     this.tagPillSet.add(tag)
     this.addTagsInQuery();
   }
-
   timeRangeChange(data){
     if(!isNaN(Date.parse(data.start)))
        {
@@ -257,12 +248,18 @@ export class VisualizePage {
    * @param data any
    * @param qryPrmHndlr Params
    */
-  changingQueryParams(data: Params, qryPrmHndlr: any) {
+  changingQueryParams(data: Params, qryPrmHndlr: any) {    
     this.router.navigate([],
       {
         relativeTo: this.route,
         queryParams: data,
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
+      }).then(async() => {
+        // only start and tag is required param.
+        if (!data.hasOwnProperty(QUERYPARAMS.GROUP) && (!!this.privatemtrsrvc.selectedGroup ||
+          !!this.privatemtrsrvc.selectedTags)) {
+            await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
+          }
       });
   }
 

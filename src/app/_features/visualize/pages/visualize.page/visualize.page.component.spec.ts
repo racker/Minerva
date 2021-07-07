@@ -78,18 +78,16 @@ describe('VisualizePage', async() => {
     expect(component).toBeTruthy();
   });
 
-
   it('should set query parameter', () => {
     component.setQueryParams(routes[1].queryParams);
     expect(component.visualize.date.start.toString()).toEqual(routes[1].queryParams.start);
     expect(component.visualize.date.end.toString()).toEqual(routes[1].queryParams.end);
-    expect(component.visualize.group).toEqual([routes[1].queryParams.group]);
     expect(component.visualize.metrics.join(',')).toEqual(routes[1].queryParams.metric);
   });
 
-  it('should set metricService selected group', () => {
+  it('should set metricService cselected group', () => {
     component.setQueryParams(routes[1].queryParams);
-    expect(metricService.selectedGroup).toEqual({group: "cpu"});
+    expect(metricService.selectedGroup).toEqual({metricGroup: "cpu"});
   });
 
 

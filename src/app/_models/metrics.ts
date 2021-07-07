@@ -26,3 +26,11 @@ interface Metric {
     },
     values?:any
 }
+
+export interface Tags {
+    tenantId?: string,
+    metric?: string,
+    tags?: {
+        [key: string]: string
+    }
+}

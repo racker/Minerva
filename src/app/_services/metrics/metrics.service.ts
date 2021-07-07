@@ -8,26 +8,21 @@ import { catchError, tap } from 'rxjs/operators';
 import { ErrorService } from '../error.service';
 import { LogLevels } from '@minerva/_enums/log-levels.enum';
 import { QueryMetricResponse } from '@minerva/_models/metrics';
+import { Tags } from '@minerva/_models/metrics';
 import { Params } from '@angular/router';
 import { isValidDate } from '@minerva/_shared/utils';
-
 @Injectable({
   providedIn: 'root'
 })
 export class MetricsService {
-
   private metricGroup = new BehaviorSubject<[string] | null>(null);
   private metricNames = new BehaviorSubject<any | null>(null);
-
   private metrics = new BehaviorSubject<QueryMetricResponse[]>(null);
-
   private _selectedName: Params;
   private _selectedGroup: Params;
-
   private _selectedTags: Params;
   private _start: string;
   private _end: string;
-
   GetmtrcGrp$(): Observable<any> {
     return this.metricGroup.asObservable();
   }
@@ -99,7 +94,7 @@ export class MetricsService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Tenant': this.portalDataService.portalData.domainId
+        'X-Tenant': this.portalDataService.portalData.domainId // set this static to test metricnames, tags and query api with different params
       })
     };
   };
@@ -112,8 +107,8 @@ export class MetricsService {
     return {
       start: isValidDate(this.start)?this.start : `${this.start}-ago`,
       ...(isValidDate(new Date(this.end)) && {end: this.end }),
-      ...(!!this.selectedTags && { tag: this.selectedTags }),
-      ...(!!this.selectedName && { metricName: this.selectedName }),
+      ...(!!this.selectedTags && { tag: this.selectedTags.tags }),
+      ...(!!this.selectedName && { metricName: this.selectedName.metric }),
       ...(!!this.selectedGroup && { metricGroup: this.selectedGroup })
     }
   }
@@ -121,8 +116,9 @@ export class MetricsService {
   private readonly metricsURL: string;
   constructor(private http: HttpClient,
     private logService: LoggingService,
-    private portalDataService: PortalDataService,
     private errorService: ErrorService,
+    private portalDataService: PortalDataService,
+
     private env: EnvironmentConfig) {
     this.metricsURL = this.env.api.metrics;
   }
@@ -132,11 +128,8 @@ export class MetricsService {
    * @param groupName string
     * @returns Observable array of available measurements
   */
-  getMetricList(groupName:string) {
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricNames?group=${groupName}`,{ ...this.xTenantHeader(),
-      params: {
-        group:groupName
-      }
+  getMetricList() {
+    return this.http.get<[string]>(`${this.env.api.metrics}/metadata/metricNames`,{ ...this.xTenantHeader()
     })
     .pipe(
       tap((data:any) => {
@@ -153,7 +146,7 @@ export class MetricsService {
    * @returns Observable<[string]>
    */
   getMetricGroupList(): Observable<[string]> {
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/metricGroup`, this.xTenantHeader())
+    return this.http.get<[string]>(`${this.env.api.metrics}/metadata/metricGroup`, this.xTenantHeader())
     .pipe(
       tap((data:any) => {
         this.SetmtrcGrp(data);
@@ -168,8 +161,8 @@ export class MetricsService {
    * @param data Params
    * @returns Observable<[string]>
    */
-  getTagsList(data:Params): Observable<[string]> {
-    return this.http.get<[string]>(`${this.metricsURL}/metadata/tags`, { ...this.xTenantHeader(),
+  getTagsList(data:Params): Observable<any> {
+    return this.http.get<Tags>(`${this.env.api.metrics}/metadata/tags`, { ...this.xTenantHeader(),
       params:data
     })
     .pipe(
@@ -186,7 +179,7 @@ export class MetricsService {
    * @returns Observable<QueryMetricResponse>
    */
   getMetricsDataPoints(): Observable<QueryMetricResponse[]> {
-    return this.http.get<QueryMetricResponse[]>(`${this.metricsURL}/query`, {...this.xTenantHeader(),
+    return this.http.get<QueryMetricResponse[]>(`${this.env.api.metrics}/query`, {...this.xTenantHeader(),
       params: this.queryParams()
     }).pipe(
       tap((data:QueryMetricResponse[]) => {
