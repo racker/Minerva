@@ -8,34 +8,40 @@
   <div class="hxCol hxSpan-2">
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]="visualize.group" [pillConcat]="false" [defaultSelection]="defaultGroup" [pills]=groupPillSet (dismissPill)="disMissedGroup($event)"
-          (emitedValue)="metricGroupChange($event)"></app-metric-dd>
+        <app-metric-dd [ddlist]="visualize.group" [pillConcat]="false" [defaultSelection]="defaultGroup"
+          [pills]=groupPillSet (dismissPill)="disMissedGroup($event)" (emitedValue)="metricGroupChange($event)">
+        </app-metric-dd>
 
       </div>
     </div>
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]="visualize.metrics" [pillConcat]="true" [defaultSelection]="defaultMetric" [pills]=metricPillSet (dismissPill)="disMissedMetric($event)"
-          (emitedValue)="metricChange($event)"></app-metric-dd>
+        <app-metric-dd [ddlist]="visualize.metrics" [pillConcat]="true" [defaultSelection]="defaultMetric"
+          [pills]=metricPillSet (dismissPill)="disMissedMetric($event)" (emitedValue)="metricChange($event)">
+        </app-metric-dd>
       </div>
 
     </div>
     <div class="hxRow">
       <div class="hxCol">
-        <app-metric-dd [ddlist]="visualize.tags" [pillConcat]="true" [defaultSelection]="defaultTags" [pills]=tagPillSet (dismissPill)="disMissedTag($event)"
-          (emitedValue)="tagChange($event)"></app-metric-dd>
+        <app-metric-dd [ddlist]="visualize.tags" [pillConcat]="true" [defaultSelection]="defaultTags" [pills]=tagPillSet
+          (dismissPill)="disMissedTag($event)" (emitedValue)="tagChange($event)"></app-metric-dd>
       </div>
 
     </div>
   </div>
   <div class="hxCol hxSpan-10">
-    <app-visualize-timerange 
-    [duration]="visualize.date.duration" 
-    [start]="visualize.date.start" 
-    [end]="visualize.date.end" 
-    [presetData]="presetData"
-    (timeRangeEmitter)="timeRangeChange($event)"></app-visualize-timerange>
-    <app-graphs [start]="visualize.date.start" [end]="visualize.date.end" [duration]="visualize.date.duration">
-    </app-graphs>
+    <div class="hxRow">
+      <app-visualize-timerange [duration]="visualize.date.duration" [start]="visualize.date.start"
+        [end]="visualize.date.end" [presetData]="presetData" (timeRangeEmitter)="timeRangeChange($event)">
+      </app-visualize-timerange>
+    </div>
+
+    <div>
+      <app-hedwig-graph *ngFor="let grph of graphMetric" fieldName="usage_average" [data.width]="1000"
+        [data.height]="1600" type="MAAS_cpu" [data]="JSON.stringify(grph.graph)"></app-hedwig-graph>
+    </div>
+
+
   </div>
 </div>

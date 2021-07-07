@@ -9,6 +9,8 @@ import { envConfig, EnvironmentConfig } from 'src/app/_services/config/environme
 
 import { of } from 'rxjs';
 import { SharedModule } from '@minerva/_shared/shared.module';
+import { metricMocks } from '@minerva/_mocks/metrics/metrics.service.mock';
+import { default as metrics } from '@minerva/_mocks/metrics/metrics.json';
 
 const routes = [
   {
@@ -35,6 +37,7 @@ describe('VisualizePage', async() => {
   let component: VisualizePage;
   let fixture: ComponentFixture<VisualizePage>;
   let metricService: MetricsService;
+  let metricMoc: metricMocks;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -153,6 +156,11 @@ describe('VisualizePage', async() => {
     expect(component.tagPillSet.size).toEqual(0);
     expect(component.visualize.metrics.length).toEqual(1);
     expect(component.visualize.group.length).toEqual(5);
+  });
+  it("should reset all pill sets and reset default dropdowns", () => {
+    expect(component.graphMetric).toBeUndefined;
+    component.filteredMetric(metrics);
+    expect(component.graphMetric.length).toBeGreaterThan(1);
   });
 
 });

@@ -9,11 +9,13 @@ import {
 import { HttpRequest, HttpResponse } from '@angular/common/http';
 
 export class metricMocks {
-    metrics: QueryMetricResponse[] = metrics;
     handleRoute(url: string, method: string, request: HttpRequest<any>, next: any) {
         switch (true) {
             case url.includes('metricNames'):
-                return new HttpResponse({ status: 200, body: (names) });
+                return new HttpResponse({ 
+                    status: 200,
+                     body: (names)
+                    });
             case url.includes('metricGroup'):
                 return new HttpResponse({ status: 200, body: (groups) });
             case url.includes('tags'):
