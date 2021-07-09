@@ -104,5 +104,10 @@
     "typescript": "3.8.3",
     "webpack": "4.44.2",
     "webpack-merge": "5.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:unit"
+    }
   }
 }
