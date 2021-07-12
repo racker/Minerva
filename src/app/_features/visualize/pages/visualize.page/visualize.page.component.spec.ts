@@ -163,12 +163,14 @@ describe('VisualizePage', async() => {
     expect(component.graphMetric.length).toBeGreaterThan(1);
   });
   it("should change table view to grid view", () => {
+    component.filteredMetric(metrics);
     component.chartInfo.isGridView= false;
     component.changeSize();
     expect(component.chartInfo.isGridView).toBe(true);
   });
   
   it("should change grid view to table view", () => {
+    component.filteredMetric(metrics);
     component.chartInfo.isGridView= true;
     component.changeSize();
     expect(component.chartInfo.isGridView).toBe(false);

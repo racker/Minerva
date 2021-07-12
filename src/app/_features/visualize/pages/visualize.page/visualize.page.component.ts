@@ -23,7 +23,7 @@ export class VisualizePage {
     isGridView:false
   }
 
-  graphMetric: any[];
+  graphMetric=[];
   JSON: JSON = JSON;
   public groupPillSet = new Set();
   public metricPillSet = new Set();
@@ -246,15 +246,19 @@ export class VisualizePage {
 
 
   // Resizing Graph
-  changeSize(){
-    if(!this.chartInfo.isGridView){
-      this.chartInfo.height=this.chartInfo.height/1.5;
-      this.chartInfo.width=this.chartInfo.width/3;
+  changeSize() {
+    if (this.graphMetric.length > 1) {
+      if (!this.chartInfo.isGridView) {
+        this.chartInfo.height = this.chartInfo.height / 1.5;
+        this.chartInfo.width = this.chartInfo.width / 3;
+      } else {
+        this.chartInfo.height = this.chartInfo.height * 1.5;
+        this.chartInfo.width = this.chartInfo.width * 3;
+      }
+      this.chartInfo.isGridView = !this.chartInfo.isGridView;
     }else{
-      this.chartInfo.height=this.chartInfo.height*1.5;
-      this.chartInfo.width=this.chartInfo.width*3;
+      this.chartInfo.isGridView=false;
     }
-    this.chartInfo.isGridView=!this.chartInfo.isGridView; 
   }
 
   /** ==========================================Dismissed Event End=======================================*/
