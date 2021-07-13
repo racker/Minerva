@@ -157,10 +157,23 @@ describe('VisualizePage', async() => {
     expect(component.visualize.metrics.length).toEqual(1);
     expect(component.visualize.group.length).toEqual(5);
   });
-  it("should reset all pill sets and reset default dropdowns", () => {
+  it("should Filter the Metric on the basis of Metirc name ", () => {
     expect(component.graphMetric).toBeUndefined;
     component.filteredMetric(metrics);
     expect(component.graphMetric.length).toBeGreaterThan(1);
+  });
+  it("should change table view to grid view", () => {
+    component.filteredMetric(metrics);
+    component.chartInfo.isGridView= false;
+    component.changeSize();
+    expect(component.chartInfo.isGridView).toBe(true);
+  });
+  
+  it("should change grid view to table view", () => {
+    component.filteredMetric(metrics);
+    component.chartInfo.isGridView= true;
+    component.changeSize();
+    expect(component.chartInfo.isGridView).toBe(false);
   });
 
 });

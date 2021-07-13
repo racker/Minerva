@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Visualize } from '@minerva/_models/metrics'
+
+
 export enum QUERYPARAMS {
   GROUP = 'group',
   METRIC = 'metric',
@@ -15,7 +17,13 @@ export enum QUERYPARAMS {
 })
 export class VisualizePage {
 
-  graphMetric: any[];
+  chartInfo = {
+    height: 250,
+    width: 1000,
+    isGridView:false
+  }
+
+  graphMetric=[];
   JSON: JSON = JSON;
   public groupPillSet = new Set();
   public metricPillSet = new Set();
@@ -51,12 +59,6 @@ export class VisualizePage {
     this.route.queryParams.subscribe(params => {
       this.setQueryParams(params);
     });
-
-    // this.getListOfMetricGroup.then(async() => {
-    //     if (this.privatemtrsrvc.selectedName && this.privatemtrsrvc.selectedTags) {
-    //       await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
-    //     }
-    // });
   }
 
   setQueryParams(params) {
@@ -107,7 +109,7 @@ export class VisualizePage {
   }
 
   ddMetricinit() {
-    this.visualize.metrics = ["Select a Metric"];
+    this.visualize.metrics = ["Select a Metric Name"];
   }
 
   ddGroupInit() {
@@ -242,6 +244,23 @@ export class VisualizePage {
     this.addTagsInQuery();
   }
 
+
+  // Resizing Graph
+  changeSize() {
+    if (this.graphMetric.length > 1) {
+      if (!this.chartInfo.isGridView) {
+        this.chartInfo.height = this.chartInfo.height / 1.5;
+        this.chartInfo.width = this.chartInfo.width / 3;
+      } else {
+        this.chartInfo.height = this.chartInfo.height * 1.5;
+        this.chartInfo.width = this.chartInfo.width * 3;
+      }
+      this.chartInfo.isGridView = !this.chartInfo.isGridView;
+    }else{
+      this.chartInfo.isGridView=false;
+    }
+  }
+
   /** ==========================================Dismissed Event End=======================================*/
   /**
    *  add query parameter in route
@@ -254,12 +273,6 @@ export class VisualizePage {
         relativeTo: this.route,
         queryParams: data,
         queryParamsHandling: qryPrmHndlr, // remove to replace all query params by provided
-      }).then(async() => {
-        // only start and tag is required param.
-        if (!data.hasOwnProperty(QUERYPARAMS.GROUP) && (!!this.privatemtrsrvc.selectedGroup ||
-          !!this.privatemtrsrvc.selectedTags)) {
-            await this.privatemtrsrvc.getMetricsDataPoints().toPromise();
-          }
       });
   }
 
@@ -270,4 +283,5 @@ export class VisualizePage {
       this.graphMetric.push({graph:data.filter(a => a.data.metricName === element)});
     });
   }
+
 }

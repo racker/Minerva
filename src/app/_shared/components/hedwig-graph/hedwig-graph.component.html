@@ -1,4 +1,18 @@
-<hedwig-graph [attr.data-type]="type" [attr.data-field]="fieldName"
-[attr.data-height]=height [attr.data-width]=width
-[attr.data-graph]='data'>
-</hedwig-graph>
+
+<div class="hxRow">
+    <div *ngIf="data"  class="hxCol hxSpan-6 metricNamendGrp leftAlign">
+        METRIC NAME : {{JSON.parse(data)[0].data.metricName}}
+    </div>
+    <div *ngIf="data" class="hxCol hxSpan-6 metricNamendGrp leftAlign">
+        GROUP : {{JSON.parse(data)[0].data.tags.metricGroup}}
+    </div>
+</div>
+
+<div class="hxRow">
+   
+  <div class="hxCol hxSpan-12">
+    <hedwig-graph [attr.data-type]="type" [attr.data-group]="group" [attr.data-field]="fieldName"
+      [attr.data-height]=height [attr.data-width]=width [attr.data-graph]='data'>
+    </hedwig-graph>
+  </div>
+</div>
