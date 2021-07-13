@@ -13,8 +13,7 @@
   "homepage": "https://github.com/racker/Minerva#readme",
   "scripts": {
     "ng": "ng",
-    "start-dev": "node ./helpers/setup.js",
-    "dev": "concurrently --kill-others \"npm run start-dev\" \"npm run port-forward\"",
+    "start:dev": "node ./helpers/setup.js",
     "prestart:mock": "npm run mocksetup",
     "start:mock": "ng serve -c mock --baseHref=/intelligence --public-host dev.i.rax.io -o",
     "start-admin": "ng serve --project=admin -o",
@@ -29,7 +28,6 @@
     "test:admin": "ng test --code-coverage --project=admin -c=mock --watch=false",
     "test:admin-ci": "ng test --project=admin -c=mock --watch=false",
     "test:admin-e2e": "ng e2e --project=admin -c=mock",
-    "port-forward": "kubectl port-forward pods/ceres-0 8080:8080 7777:7777 7091:7091 -n default",
     "lint": "ng lint",
     "mocksetup": "node ./helpers/createMocks.js",
     "report": "allure generate allure-results --clean -o allure-report || true",
@@ -82,7 +80,6 @@
     "chromedriver": "2.45.0",
     "clean-webpack-plugin": "3.0.0",
     "codelyzer": "5.1.2",
-    "concurrently": "^6.2.0",
     "express": "4.17.1",
     "handlebars": "4.5.0",
     "html-webpack-plugin": "4.5.0",
@@ -104,5 +101,10 @@
     "typescript": "3.8.3",
     "webpack": "4.44.2",
     "webpack-merge": "5.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:unit"
+    }
   }
 }

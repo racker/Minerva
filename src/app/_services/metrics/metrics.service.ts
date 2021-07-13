@@ -10,7 +10,8 @@ import { LogLevels } from '@minerva/_enums/log-levels.enum';
 import { QueryMetricResponse } from '@minerva/_models/metrics';
 import { Tags } from '@minerva/_models/metrics';
 import { Params } from '@angular/router';
-import { isValidDate } from '@minerva/_shared/utils';
+import moment from "moment";
+import { presetDates } from '@minerva/_features/visualize/components/timerange/timerange.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -100,13 +101,64 @@ export class MetricsService {
   };
 
   /**
+   *
+   * @param start string
+   * @returns  {[x:string]: any}
+   */
+  private granularity = (start:string): {[x:string]: any} => {
+    let granularity;
+    let aggregator;
+    let end;
+
+    // if start is in preset array & under 2 days return with no extra params
+    let duration = presetDates.find(({ value }) => value === start)?.value;
+    if (duration === presetDates[0].value ||duration === presetDates[1].value ||
+      duration === presetDates[2].value ) {
+        return {
+          start
+        };
+    }
+
+    // if start is in preset array & over 2 days set pertaining params
+    if (duration === presetDates[3].value || duration === presetDates[4].value) {
+      granularity = 'pt1h';
+      aggregator = 'avg';
+    }
+
+    let startDate = moment(start);
+    let endDate = moment(this.end);
+
+    // if startDate & endDate is valid & more than 2 days set param values with end date
+    if (startDate.isValid() && endDate.isValid()) {
+      let difference = moment.duration(endDate.diff(startDate));
+      let addGranularity = difference.asDays() >= 2;
+
+      granularity = addGranularity ? 'pt1h' : null;
+      aggregator = addGranularity ? 'avg' : null;
+      end = endDate.toISOString();
+    }
+
+    return {
+      start,
+      end,
+      granularity,
+      aggregator
+    }
+  }
+
+
+  /**
    * Compose query params for metrics requests
    * @returns {[x:string]: any}
    */
   private queryParams = (): {[x:string]: any} => {
+    let { start, end, granularity, aggregator} = this.granularity(this.start);
+
     return {
-      start: isValidDate(this.start)?this.start : `${this.start}-ago`,
-      ...(isValidDate(new Date(this.end)) && {end: this.end }),
+      start,
+      ...(granularity && { granularity }),
+      ...(aggregator && { aggregator }),
+      ...(end && { end }),
       ...(!!this.selectedTags && { tag: this.selectedTags.tags }),
       ...(!!this.selectedName && { metricName: this.selectedName.metric }),
       ...(!!this.selectedGroup && { metricGroup: this.selectedGroup })
