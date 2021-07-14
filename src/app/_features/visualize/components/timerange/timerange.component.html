@@ -15,7 +15,7 @@
   <div class="hxCol" *ngIf="date.presets">
     <div class="hxSelector hxRadio">
       <label *ngFor="let item of presetData">
-        <input  type="radio" [(ngModel)]="date.duration" (change)="onDurationChange(item.value)"
+        <input  type="radio" [(ngModel)]="defaultSelection" (change)="onDurationChange(item.value)"
         value="{{item.value}}" name="dates" />
         <span>{{item.key}}</span>
       </label>

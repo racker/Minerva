@@ -2,7 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Visualize } from '@minerva/_models/metrics'
-
+import { presetDates } from '@minerva/_features/visualize/components/timerange/timerange.component';
+import moment from 'moment';
 
 export enum QUERYPARAMS {
   GROUP = 'group',
@@ -31,14 +32,7 @@ export class VisualizePage {
   public defaultMetric: string;
   public defaultGroup: string;
   public defaultTags: string;
- public presetData: { key: string, value: string }[] = [
-    { value: '1h', key: '1 HR' },
-    { value: '8h', key: '8 HR' },
-    { value: '24h', key: 'DAY' },
-    { value: '7d', key: 'WEEK' },
-    { value: '1n', key: 'MONTH' },
-    { value: '1y', key: 'YEAR' },
-  ];
+
   public visualize: Visualize = {
     date: {},
     group: [],
@@ -63,9 +57,8 @@ export class VisualizePage {
 
   setQueryParams(params) {
     this.visualize.date = {
-      start: !!params.start ? params.start: '24h',
-      end: params.end,
-      duration: params.start
+      start: !!params.start ? params.start: presetDates[2].value,
+      end: params.end
     };
 
     this.privatemtrsrvc.start = this.visualize.date.start.toString();
@@ -150,13 +143,13 @@ export class VisualizePage {
     if ([...this.groupPillSet].length > 0) {
       queryParams = { group: [...this.groupPillSet].join(',') };
     }
-    this.changingQueryParams(queryParams, '');
+    this.changingQueryParams(queryParams, 'merge');
   }
   addTimeRangeinQuery(data){
     this.privatemtrsrvc.start = data.start;
-    
+
     this.privatemtrsrvc.end = data.end;
-    
+
     this.changingQueryParams(data,'merge');
   }
 
@@ -218,14 +211,15 @@ export class VisualizePage {
     this.tagPillSet.add(tag)
     this.addTagsInQuery();
   }
-  timeRangeChange(data){
-    if(!isNaN(Date.parse(data.start)))
-       {
-         this.addTimeRangeinQuery(data);
-       }else{
-         this.addTimeRangeinQuery({start:data.start,end:undefined});
-       }
+
+  timeRangeChange(data) {
+    if (moment(data.start).isValid()) {
+      this.addTimeRangeinQuery(data);
+    } else {
+      this.addTimeRangeinQuery({ start: data.start, end: undefined });
+    }
   }
+
   // =================================================================================
   /** ==========================================Dismissed Event Start=======================================*/
 
@@ -267,7 +261,7 @@ export class VisualizePage {
    * @param data any
    * @param qryPrmHndlr Params
    */
-  changingQueryParams(data: Params, qryPrmHndlr: any) {    
+  changingQueryParams(data: Params, qryPrmHndlr: any) {
     this.router.navigate([],
       {
         relativeTo: this.route,

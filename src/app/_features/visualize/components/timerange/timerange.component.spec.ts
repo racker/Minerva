@@ -4,7 +4,6 @@ import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TimeRangeComponent } from './timerange.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MetricsService } from '@minerva/_services/metrics/metrics.service';
-import { isValidDate } from '@minerva/_shared/utils';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { envConfig, EnvironmentConfig } from '@minerva/_services/config/environmentConfig.service';
 

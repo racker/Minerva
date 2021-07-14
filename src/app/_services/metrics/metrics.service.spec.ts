@@ -7,6 +7,7 @@ import { default as names } from '@minerva/_mocks/metrics/names.json'
 import { default as groups } from '@minerva/_mocks/metrics/groups.json'
 import { default as tags } from '@minerva/_mocks/metrics/tags.json'
 import { default as metrics } from '@minerva/_mocks/metrics/metrics.json'
+import { presetDates } from '@minerva/_features/visualize/components/timerange/timerange.component';
 
 describe('MetricsService', () => {
   let injector: TestBed;
@@ -80,7 +81,7 @@ describe('MetricsService', () => {
   it('should compose query params for requests', () => {
     service.start = 'xiisusiis';
     expect(service['queryParams']()).toEqual({
-      start: 'xiisusiis-ago'
+      start: 'xiisusiis'
     });
   });
 
@@ -111,6 +112,43 @@ describe('MetricsService', () => {
   it('should return metrics datapoints getMetricsDataPoints()', () => {
     service.getMetricsDataPoints().subscribe((data) => {
       expect(data).toEqual(metrics);
+    });
+  });
+
+  it('should return object with only start property in granularity()', () => {
+    expect(service['granularity'](presetDates[0].value))
+    .toEqual({start: presetDates[0].value});
+  });
+
+  it('should return object with only granularity & aggregator in granularity()', () => {
+    expect(service['granularity'](presetDates[3].value))
+    .toEqual({
+      start: presetDates[3].value,
+      end: undefined,
+      granularity: 'pt1h',
+      aggregator: 'avg'
+    });
+  });
+
+  it('should return object with only start & end in granularity()', () => {
+    service.end = '2021-07-02T15:14:00.000Z';
+    expect(service['granularity']('2021-07-02T01:14:00.000Z'))
+    .toEqual({
+      start: '2021-07-02T01:14:00.000Z',
+      end: '2021-07-02T15:14:00.000Z',
+      granularity: null,
+      aggregator: null
+    });
+  });
+
+  it('should return object with start, end, granularity & aggregate in granularity()', () => {
+    service.end = '2021-07-14T15:14:00.000Z';
+    expect(service['granularity']('2021-07-02T01:14:00.000Z'))
+    .toEqual({
+      start: '2021-07-02T01:14:00.000Z',
+      end: '2021-07-14T15:14:00.000Z',
+      granularity: 'pt1h',
+      aggregator: 'avg'
     });
   });
 });

@@ -30,11 +30,11 @@
 
     </div>
   </div>
-  
+
   <div class="hxCol hxSpan-8 border marge-left">
     <div class="hxRow TopPadWith">
       <div class="hxCol hxSpan-9 grid-containerC1 ">
-        <app-visualize-timerange [duration]="visualize.date.duration" [start]="visualize.date.start"
+        <app-visualize-timerange [start]="visualize.date.start"
         [end]="visualize.date.end" [presetData]="presetData" (timeRangeEmitter)="timeRangeChange($event)">
       </app-visualize-timerange>
       </div>
@@ -42,7 +42,7 @@
         <hx-icon class="icon" type="grid" *ngIf="chartInfo.isGridView" (click)="changeSize()" ></hx-icon>
         <hx-icon  class="icon" type="list" *ngIf="!chartInfo.isGridView" (click)="changeSize()"></hx-icon>
         </div>
-      
+
     </div>
 
     <div class="hxRow">
@@ -50,7 +50,7 @@
         <app-hedwig-graph class="graph" #graph *ngFor="let grph of graphMetric" group="tags.system_key" fieldName="system_key" [width]="chartInfo.width"
           [height]="chartInfo.height" type="MAAS_cpu" [data]="JSON.stringify(grph.graph)"></app-hedwig-graph>
       </div>
-      
+
 
     </div>
   </div>
