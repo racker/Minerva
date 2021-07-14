@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HedwigGraphComponent } from './hedwig-graph.component';
 import { LineGraph } from 'hedwig-monitoring-library';
+import { default as metrics } from '@minerva/_mocks/metrics/metrics.json';
 
 describe('HedwigGraphComponent', () => {
   let component: HedwigGraphComponent;
@@ -18,6 +19,7 @@ describe('HedwigGraphComponent', () => {
     fixture = TestBed.createComponent(HedwigGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
   });
 
   it('should create', () => {

@@ -17,7 +17,7 @@
             "resource_status": "Migration Server",
             "system_contextUUID": "78158112-fc45-4c68-983b-4f845ff67183",
             "system_device": "953728",
-            "system_key": "Devices/953728",
+            "system_key": "Devices953728",
             "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
             "unit": "none"
           },
@@ -61,7 +61,7 @@
             "resource_status": "Migration Server",
             "system_contextUUID": "218da342-9ae6-4bc1-889a-19c01c5b8cc4",
             "system_device": "953729",
-            "system_key": "Devices/953729",
+            "system_key": "Devices953729",
             "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
             "unit": "none"
           },
@@ -114,7 +114,7 @@
             "resource_status": "Migration Server",
             "system_contextUUID": "28d30731-4665-4bdf-814e-0a4a92c308ff",
             "system_device": "953729",
-            "system_key": "Devices/953729",
+            "system_key": "Devices953729",
             "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
             "unit": "none"
           },
@@ -160,10 +160,10 @@
             "resource_label": "953904-lbal9.connectfss.com",
             "resource_product_description": "Load-Balancer Required",
             "resource_server_name": "953904-lbal9.connectfss.com",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
             "system_device": "953904",
-            "system_key": "Devices/953904",
+            "system_key": "Devices953904",
             "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
             "unit": "none"
           },
@@ -217,7 +217,7 @@
             "resource_status": "Migration Server",
             "system_contextUUID": "17fd6eb9-9872-4d44-8fca-eac281a5f4f4",
             "system_device": "953728",
-            "system_key": "Devices/953728",
+            "system_key": "Devices953728",
             "system_zenoss_tenant_id": "ccbd8770-a48f-11e8-a206-0242ac110002",
             "unit": "none"
           },
@@ -253,10 +253,10 @@
                 "resource_label": "953904-lbal9.connectfss.com",
                 "resource_product_description": "Load-Balancer Required",
                 "resource_server_name": "953904-lbal9.connectfss.com",
-                "resource_status": "Online/Complete",
+                "resource_status": "OnlineComplete",
                 "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
                 "system_device": "953904",
-                "system_key": "Devices/953904",
+                "system_key": "Devices953904",
                 "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
                 "unit": "percent"
               },
@@ -290,10 +290,10 @@
                 "resource_label": "953904-lbal9.connectfss.com",
                 "resource_product_description": "Load-Balancer Required",
                 "resource_server_name": "953904-lbal9.connectfss.com",
-                "resource_status": "Online/Complete",
+                "resource_status": "OnlineComplete",
                 "system_contextUUID": "cf3a7407-9c91-4b27-9881-fd353896bb99",
                 "system_device": "953904",
-                "system_key": "Devices/953904",
+                "system_key": "Devices953904",
                 "system_zenoss_tenant_id": "f75280ec-aa18-11e8-9cad-0242ac110011",
                 "unit": "none"
               },
@@ -330,10 +330,10 @@
                 "resource_label": "1059405-fw1.frontpage.co.uk",
                 "resource_product_description": "Firewall - Cisco ASA Required",
                 "resource_server_name": "1059405-fw1.frontpage.co.uk",
-                "resource_status": "Online/Complete",
+                "resource_status": "OnlineComplete",
                 "system_contextUUID": "b73175d8-5669-4891-b5ee-7487733b30b3",
                 "system_device": "1059405",
-                "system_key": "Devices/1059405",
+                "system_key": "Devices1059405",
                 "system_zenoss_tenant_id": "2e7407a0-ab20-11e8-8ddd-0242ac110004"
               },
               "values": {
@@ -376,10 +376,10 @@
                 "resource_label": "1059405-fw1.frontpage.co.uk",
                 "resource_product_description": "Firewall - Cisco ASA Required",
                 "resource_server_name": "1059405-fw1.frontpage.co.uk",
-                "resource_status": "Online/Complete",
+                "resource_status": "OnlineComplete",
                 "system_contextUUID": "80fb984b-fedd-4737-94b9-2d1798d16898",
                 "system_device": "1059405",
-                "system_key": "Devices/1059405",
+                "system_key": "Devices1059405",
                 "system_zenoss_tenant_id": "2e7407a0-ab20-11e8-8ddd-0242ac110004"
               },
               "values": {
@@ -424,10 +424,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "d62cc6bc-c383-4884-8012-4c19d8e0b19e",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/LANFAIL",
+            "system_key": "LANFAIL",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -466,10 +466,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "39335633-0761-4933-8987-c4fec51208e7",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/mgmt_plane_int_tap",
+            "system_key": "smgmt_plane_int_tap",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -509,10 +509,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "a36a0cb3-074e-401d-9da4-a4abbb9d4c30",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/FW-BLUE-LEGION",
+            "system_key": "FW-BLUE-LEGION",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -551,10 +551,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "d68decc3-f38c-41de-9c0f-30241775d3a5",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/nlp_int_tap",
+            "system_key": "nlp_int_tap",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -595,10 +595,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "9058e842-8dc0-406d-a0ab-f3f01bc43f9a",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/FW-TWISTLOCK",
+            "system_key": "FW-TWISTLOCK",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -634,10 +634,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "2554ea70-4026-4334-99d2-47b751a5c86d",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/RMS-TVA",
+            "system_key": "RMS-TVA",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -678,10 +678,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "228b2fbb-448c-4020-9634-6ca2f5158406",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/cplane",
+            "system_key": "cplane",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -722,10 +722,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "04aa160c-81da-4fbc-a11c-5609df44f861",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/outside",
+            "system_key": "outside",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -761,10 +761,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "9450188f-b611-436c-9175-daa85695e098",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/GVA",
+            "system_key": "GVA",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {
@@ -804,10 +804,10 @@
             "resource_label": "63555-fw8.dfw1.rapid7",
             "resource_product_description": "Firewall - Cisco ASA Required",
             "resource_server_name": "63555-fw8.dfw1.rapid7",
-            "resource_status": "Online/Complete",
+            "resource_status": "OnlineComplete",
             "system_contextUUID": "aab3947c-d42b-4455-a9ac-4e45958d2468",
             "system_device": "63555",
-            "system_key": "Devices/63555/os/interfaces/GigabitEthernet0_1",
+            "system_key": "GigabitEthernet0_1",
             "system_zenoss_tenant_id": "c7a948b4-a651-11e8-bfb0-0242ac110003"
         },
         "values": {

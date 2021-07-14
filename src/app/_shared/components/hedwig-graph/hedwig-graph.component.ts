@@ -15,18 +15,20 @@ type="MAAS_cpu" [data]="data"></app-hedwig-graph>
 })
 export class HedwigGraphComponent implements OnInit {
 
-
+  JSON: JSON = JSON;
   @Input() fieldName: string;
   @Input() width: number;
   @Input() height: number;
   @Input() type: string;
   @Input() data: string;
+  @Input() group: string;
+  
 
   lineGraph: LineGraph = LineGraph;
 
   constructor() {  }
 
   ngOnInit(): void {
-    new this.lineGraph();
+ 
   }
 }

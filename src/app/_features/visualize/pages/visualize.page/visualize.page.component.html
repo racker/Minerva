@@ -4,9 +4,9 @@
   </div>
 </div>
 
-<div class="hxRow topshot">
-  <div class="hxCol hxSpan-2">
-    <div class="hxRow">
+<div class="hxRow MarginTop">
+  <div class="hxCol hxSpan-3 border marge-left">
+    <div class="hxRow TopPadWith">
       <div class="hxCol">
         <app-metric-dd [ddlist]="visualize.group" [pillConcat]="false" [defaultSelection]="defaultGroup"
           [pills]=groupPillSet (dismissPill)="disMissedGroup($event)" (emitedValue)="metricGroupChange($event)">
@@ -30,18 +30,28 @@
 
     </div>
   </div>
-  <div class="hxCol hxSpan-10">
-    <div class="hxRow">
-      <app-visualize-timerange [start]="visualize.date.start"
-        [end]="visualize.date.end" (timeRangeEmitter)="timeRangeChange($event)">
+
+  <div class="hxCol hxSpan-8 border marge-left">
+    <div class="hxRow TopPadWith">
+      <div class="hxCol hxSpan-9 grid-containerC1 ">
+        <app-visualize-timerange [start]="visualize.date.start"
+        [end]="visualize.date.end" [presetData]="presetData" (timeRangeEmitter)="timeRangeChange($event)">
       </app-visualize-timerange>
+      </div>
+      <div class="hxCol hxSpan-3">
+        <hx-icon class="icon" type="grid" *ngIf="chartInfo.isGridView" (click)="changeSize()" ></hx-icon>
+        <hx-icon  class="icon" type="list" *ngIf="!chartInfo.isGridView" (click)="changeSize()"></hx-icon>
+        </div>
+
     </div>
 
-    <div>
-      <app-hedwig-graph *ngFor="let grph of graphMetric" fieldName="usage_average" [data.width]="1000"
-        [data.height]="1600" type="MAAS_cpu" [data]="JSON.stringify(grph.graph)"></app-hedwig-graph>
+    <div class="hxRow">
+      <div class="hxCol hxSpan-12 TopPadWith" [ngClass]="chartInfo.isGridView?'grid-containerC2':'grid-containerC1'">
+        <app-hedwig-graph class="graph" #graph *ngFor="let grph of graphMetric" group="tags.system_key" fieldName="system_key" [width]="chartInfo.width"
+          [height]="chartInfo.height" type="MAAS_cpu" [data]="JSON.stringify(grph.graph)"></app-hedwig-graph>
+      </div>
+
+
     </div>
-
-
   </div>
 </div>
